@@ -1,0 +1,11 @@
+<div class="sidebar">
+    <div class="logo-container">
+        <h1>Admin Panel</h1>
+    </div>
+    <mat-nav-list>
+        <app-sidebar-menu-item
+            *ngFor="let item of navItems"
+            [item]="item">
+        </app-sidebar-menu-item>
+    </mat-nav-list>
+</div>
