@@ -1,11 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer mode="side" opened class="sidenav">
-      <app-sidebar></app-sidebar>
+        <app-sidebar></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content>
-      <app-header (toggleSidenav)="drawer.toggle()"></app-header>
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div>
+        <app-header (toggleSidenav)="drawer.toggle()"></app-header>
+        <div class="content">
+            <router-outlet></router-outlet>
+
+        </div>
+        <app-footer></app-footer>
     </mat-sidenav-content>
-  </mat-sidenav-container>
+
+</mat-sidenav-container>

@@ -1,10 +1,43 @@
 .logo-container {
-    padding: 16px;
-    text-align: center;
-    background: #3f51b5;
-    color: white;
+  padding: 1px;
+  text-align: center;
+  background: hsl(210.94deg 48.48% 25.88%);
+  color: white;
+  height: 7.3%;
+  line-height: 21px;
+}
+.sidebar {
+  height: 100%;
+  background-color: #214162;
+  color: #fff;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  background-color: #214162 !important;
+}
+
+::ng-deep .mat-expansion-panel .mat-expansion-indicator::after {
+  color: #fff !important; /* Ensure this rule is applied */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .logo-container {
+    height: 50px; /* Adjust height for smaller screens */
   }
+
   .sidebar {
-    height: 100%;
-    background: #fff;
+    width: 200px; /* Reduce width for smaller screens */
   }
+}
+
+@media (max-width: 480px) {
+  .logo-container {
+    height: 40px; /* Further adjust height for very small screens */
+  }
+
+  .sidebar {
+    width: 100%; /* Minimize width for mobile devices */
+    padding: 10px; /* Adjust padding */
+  }
+}

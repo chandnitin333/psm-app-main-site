@@ -19,5 +19,49 @@ body {
   max-width: none !important;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .matrix-menu {
+    min-width: 200px !important; /* Adjust menu width for smaller screens */
+  }
+
+  .mat-mdc-menu-panel.matrix-menu {
+    max-width: 200px !important; /* Ensure the menu does not exceed the viewport */
+  }
+
+  .mat-drawer-container {
+    padding: 10px; /* Add some padding on smaller screens */
+  }
+
+  body {
+    padding: 0 10px; /* Add padding to avoid content touching the edges */
+  }
+}
+
+@media (max-width: 480px) {
+  .matrix-menu {
+    min-width: 150px !important; /* Further adjust menu width for mobile devices */
+  }
+
+  .mat-mdc-menu-panel.matrix-menu {
+    max-width: 150px !important; /* Ensure the menu fits within the viewport */
+  }
+
+  .mat-drawer-container {
+    padding: 5px; /* Further reduce padding for very small screens */
+  }
+
+  body {
+    padding: 0 5px; /* Further adjust padding */
+  }
+}

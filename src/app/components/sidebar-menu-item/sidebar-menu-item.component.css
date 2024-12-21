@@ -1,20 +1,79 @@
+/* General Styles */
 .menu-label {
-    margin-left: 8px;
+  margin-left: 8px;
+  color: #fff;
+}
+
+:host {
+  display: block;
+}
+
+.active {
+  background: rgba(63, 81, 181, 0.1);
+}
+
+mat-expansion-panel {
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 16px;
+  background-color: #214162 !important;
+}
+
+mat-panel-title {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+span.mat-mdc-list-item-title.mdc-list-item__primary-text {
+  color: #fff !important;
+}
+
+.mat-icon.mat-icon.notranslate.mat-mdc-list-item-icon.material-icons.mat-ligature-font.mat-icon-no-color.mdc-list-item__start {
+  color: #fff !important;
+}
+/* Media Queries */
+@media (max-width: 768px) {
+  .menu-label {
+    margin-left: 4px; /* Reduce margin for smaller screens */
   }
-  :host {
-    display: block;
-  }
-  .active {
-    background: rgba(63, 81, 181, 0.1);
-  }
-  mat-expansion-panel {
-    border-radius: 0 !important;
-    box-shadow: none;
-  }
+
   .mat-expansion-panel-header {
-    padding: 0 16px;
+    padding: 0 8px; /* Reduce padding for smaller screens */
   }
+
+  .active {
+    background: rgba(
+      63,
+      81,
+      181,
+      0.2
+    ); /* Slightly more visible background on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-label {
+    margin-left: 2px; /* Further reduce margin for very small screens */
+  }
+
+  .mat-expansion-panel-header {
+    padding: 0 4px; /* Further reduce padding for very small screens */
+  }
+
+  .active {
+    background: rgba(
+      63,
+      81,
+      181,
+      0.3
+    ); /* Slightly more visible background on very small screens */
+  }
+
   mat-panel-title {
-    display: flex;
-    align-items: center;
+    font-size: 0.9em; /* Adjust font size for very small screens */
   }
+}
