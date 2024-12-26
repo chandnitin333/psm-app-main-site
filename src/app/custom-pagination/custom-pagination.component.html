@@ -1,0 +1,13 @@
+
+
+<mat-paginator
+      #paginator
+      class="custom-paginator"
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      [showFirstLastButtons]="true"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>

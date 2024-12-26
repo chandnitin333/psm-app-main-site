@@ -1,1 +1,11 @@
-<p>users works!</p>
+<app-mat-data-table
+    [displayedColumns]="['id', 'name', 'age']"
+    [dataSource]="pagedDataSource"
+    [totalItems]="dataSource.data.length"
+    [itemsPerPage]="itemsPerPage">
+</app-mat-data-table>
+
+<app-custom-pagination [length]="dataSource.data.length"
+    [pageSize]="itemsPerPage"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"> </app-custom-pagination>
