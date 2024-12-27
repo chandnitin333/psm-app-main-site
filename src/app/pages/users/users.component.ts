@@ -3,11 +3,12 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomPaginationComponent } from '../../custom-pagination/custom-pagination.component';
 import { MatDataTableComponent } from '../../mat-data-table/mat-data-table.component';
+import { DialogCommonComponent } from '../../dialog-common/dialog-common.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [MatDataTableComponent, CustomPaginationComponent],
+  imports: [MatDataTableComponent, CustomPaginationComponent, DialogCommonComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
