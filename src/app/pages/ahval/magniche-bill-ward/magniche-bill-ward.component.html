@@ -1,0 +1,101 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">
+        <span class="title-text">मागणीचे बिल</span>
+        <!-- <a mat-stroked-button class="title-button" routerLink="/customer-vasuli">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+        </a> -->
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select [(value)]="fromYearSelected">
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select [(value)]="toYearSelected">
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">देयक दिनांक.</mat-label>
+                <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">अंतिम तारीख.</mat-label>
+                <input matInput [matDatepicker]="picker1" appDateFormat placeholder="dd/MM/yyyy" />
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Start Number</mat-label>
+                <input matInput type="number" min="0" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Ending Number</mat-label>
+                <input matInput type="number" min="0" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Bharna</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+        <div class="submit-row">
+            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+        </div>
+    </form>
+
+
+
+    <div class="row mt-5">
+        <mat-card class="example-card">
+            <table mat-table [dataSource]="[
+            {  ward_kramank: 1, one_29_1: 'H', one_29_2: 'H' },
+            {  ward_kramank: 10, one_29_1: 'He', one_29_2: 'H' }
+          ]">
+
+                <ng-container matColumnDef="ward_kramank">
+                    <th mat-header-cell *matHeaderCellDef> <b>वार्ड क्रं.</b> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ward_kramank}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="one_29_1">
+                    <th mat-header-cell *matHeaderCellDef><b> १२९(१)</b> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <section class="example-section">
+                            <button mat-flat-button color="primary">१२९(१)</button>
+                        </section>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="one_29_2">
+                    <th mat-header-cell *matHeaderCellDef><b> १२९(२) </b></th>
+                    <td mat-cell *matCellDef="let element">
+                        <section class="example-section">
+                            <button mat-flat-button color="primary">१२९(२)</button>
+                        </section>
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="[ 'ward_kramank',  'one_29_1','one_29_2']"></tr>
+                <tr mat-row *matRowDef="let row; columns: [ 'ward_kramank', 'one_29_1','one_29_2'];">
+                </tr>
+            </table>
+        </mat-card>
+
+    </div>
+</mat-card>
+<br><br>

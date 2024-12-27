@@ -1,0 +1,69 @@
+.form-panel {
+  padding: 20px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+.title {
+  font-size: 20px;
+  color: white;
+  background-color: #214162;
+  padding: 10px;
+  text-align: center;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  max-height: 100vh;
+   overflow-y: hidden;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-field {
+  flex: 1 1 calc(15.99% - 10px); /* 5 columns */
+  min-width: 100px;
+}
+
+
+.submit-row { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px 0;  
+    flex-shrink: 0; 
+}
+.submit-btn { 
+    margin-right: 10px;  
+    width: 150px;
+}
+
+@media (max-width: 768px) {
+  .form-field {
+    flex: 1 1 100%; 
+  }
+}
+
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 20px;
+}
+.star_equal{
+    margin-top: 15px;
+}
+
+.expansion-header{
+  background-color: #214162 !important;
+  color: #fff;
+}
+.expansion-text{
+  color: #fff;
+}
+

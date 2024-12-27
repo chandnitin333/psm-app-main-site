@@ -1,0 +1,145 @@
+<mat-card class="form-panel">
+    <form class="row">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)"
+                class="expansion-header">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="expansion-text" style="font-size:18px; "> परित्यक्त्या प्रमाणपत्र
+                        (Certificate Of Deserted)
+                    </mat-panel-title>
+                    <mat-panel-description class="expansion-text">
+                        परित्यक्त्या प्रमाणपत्र फॉर्म {{panelOpenState() ? 'बंद करण्यासाठी इथे क्लिक करा' : 'भरण्यासाठी
+                        इथे
+                        क्लिक करा'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div style="background-color: #fff; padding: 10px;">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">दाखला क्र ./ Certificate No</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">दिनांक / Date</mat-label>
+                            <input matInput [matDatepicker]="picker3" appDateFormat placeholder="dd/MM/yyyy" />
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जिल्हा / District</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">तालुका / Taluka</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">सरपंच ग्रामसेवक ग्रामविकास अधिकारी / Sarpanch Gramsevak Village
+                                Development Officer.</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">यांचंकडून दाखला देण्यात येतो की , श्री / श्रीमती / is issuing
+                                the certifiacte to Mr./ Mrs.</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">आधार कार्ड नंबर /Adher Card Number</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">ग्रामपंचायत / Grampanchyat</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जिल्हा / District.</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">तालुका / Taluka</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">ठिकाण/ Place :</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    </div>
+                    <div class="submit-row">
+                        <button mat-raised-button class="submit-btn">Reset</button>&nbsp;
+                        <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>
+    <div class="row mt-5">
+        <mat-card class="example-card">
+            <table mat-table [dataSource]="[
+            { sr_no: 1, Grampanchyat: 'Dighori', taluka: 'Nagpur', district: 'Nagpur', mr_mrs: 'Mr. Ramesh Sodi, Mrs Sunidhi Ramesh Sodi',preview:'',action:'' },
+          ]">
+
+                <ng-container matColumnDef="sr_no">
+                    <th mat-header-cell *matHeaderCellDef><b> SRNO</b> </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Grampanchyat">
+                    <th mat-header-cell *matHeaderCellDef> <b>Grampanchyat</b> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Grampanchyat}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="taluka">
+                    <th mat-header-cell *matHeaderCellDef><b> TALUKA </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.taluka}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="district">
+                    <th mat-header-cell *matHeaderCellDef><b>DISTRICT</b> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="mr_mrs">
+                    <th mat-header-cell *matHeaderCellDef><b> Mr./ Mrs. </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.mr_mrs}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="preview">
+                    <th mat-header-cell *matHeaderCellDef><b> PREVIEW </b></th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <span title="Preview"><mat-icon>visibility</mat-icon> </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef><b> ACTION </b></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div style="display: inline-flex; align-items: center; ">
+                            <mat-icon color="primary" title="Print">print</mat-icon>
+                            <mat-icon color="warn" title="Delete">delete</mat-icon>
+                            <mat-icon color="primary" title="Edit">edit</mat-icon>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Header and Row Declarations -->
+                <tr mat-header-row
+                    *matHeaderRowDef="['sr_no', 'Grampanchyat', 'taluka', 'district','mr_mrs','preview','action']">
+                </tr>
+                <tr mat-row
+                    *matRowDef="let row; columns: ['sr_no', 'Grampanchyat', 'taluka', 'district','mr_mrs','preview','action'];">
+                </tr>
+            </table>
+        </mat-card>
+
+    </div>
+</mat-card>
+<br><br>

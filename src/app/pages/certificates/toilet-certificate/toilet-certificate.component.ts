@@ -1,0 +1,20 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { LayoutModule } from '../../../components/layout/layout.module';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DateFormatDirective } from '../../../directive/date-format.directive';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-toilet-certificate',
+  standalone: true,
+  imports: [LayoutModule,ReactiveFormsModule,CommonModule,RouterLink,DateFormatDirective],
+  templateUrl: './toilet-certificate.component.html',
+  styleUrl: './toilet-certificate.component.css',
+  providers: [provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ToiletCertificateComponent {
+readonly panelOpenState = signal(false);
+}
