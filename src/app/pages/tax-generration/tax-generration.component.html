@@ -1,0 +1,146 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">कर आकारणी (Tax Generation)</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">वार्ड नं</mat-label>
+                <mat-select>
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="10">10</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select [(value)]="fromYearSelected">
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select [(value)]="toYearSelected" disabled>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="submit-btn">कर आकारणी</button>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="from_year">
+                <th mat-header-cell *matHeaderCellDef> From Year </th>
+                <td mat-cell *matCellDef="let element"> {{element.from_year}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="to_year">
+                <th mat-header-cell *matHeaderCellDef> To Year </th>
+                <td mat-cell *matCellDef="let element"> {{element.to_year}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="khatedharak_name">
+                <th mat-header-cell *matHeaderCellDef> खातेधारकाचे नाव </th>
+                <td mat-cell *matCellDef="let element"> {{element.khatedharak_name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="gruhkar_bhumikar">
+                <th mat-header-cell *matHeaderCellDef> गृहकर व भूमीकर </th>
+                <td mat-cell *matCellDef="let element"> {{element.gruhkar_bhumikar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vij_divabatti_kar">
+                <th mat-header-cell *matHeaderCellDef> विज /दिवाबत्ती कर </th>
+                <td mat-cell *matCellDef="let element"> {{element.vij_divabatti_kar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="aarogya_rakshan_kar">
+                <th mat-header-cell *matHeaderCellDef> आरोग्य रक्षण कर </th>
+                <td mat-cell *matCellDef="let element"> {{element.aarogya_rakshan_kar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="safae_kar">
+                <th mat-header-cell *matHeaderCellDef> सफाई कर </th>
+                <td mat-cell *matCellDef="let element"> {{element.safae_kar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="samanya_pani_kar">
+                <th mat-header-cell *matHeaderCellDef> सामान्य पानी क़र </th>
+                <td mat-cell *matCellDef="let element"> {{element.samanya_pani_kar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vises_pani_kar">
+                <th mat-header-cell *matHeaderCellDef> विशेष पाणी कर </th>
+                <td mat-cell *matCellDef="let element"> {{element.vises_pani_kar}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> एकूण </th>
+                <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+    <div class="row mt-4">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण खातेदार:</mat-label>
+                <input matInput type="text" value="18" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण मागील बाकी :</mat-label>
+                <input matInput type="text" value="50542.42" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण इमारत कर :</mat-label>
+                <input matInput type="text" value="19432.8" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण विज /दिवाबत्ती कर :</mat-label>
+                <input matInput type="text" value="1700" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण जमीन कर :</mat-label>
+                <input matInput type="text" value="5983.62" readonly />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण सफाई कर :</mat-label>
+                <input matInput type="text" value="0" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण आरोग्य रक्षण कर. :</mat-label>
+                <input matInput type="text" value="1700" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण विशेष पाणी कर :</mat-label>
+                <input matInput type="text" value="10500" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण सामान्य पानी क़र :</mat-label>
+                <input matInput type="text" value="1600" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण कर :</mat-label>
+                <input matInput type="text" value="91458.84" readonly />
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div>
+
+    </div>
+</mat-card>

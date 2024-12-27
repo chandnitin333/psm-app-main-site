@@ -1,0 +1,142 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">
+        <span class="title-text">वसुली धारकाची यादी (Customer List)</span>
+        <a mat-stroked-button class="title-button" routerLink="/customer-vasuli">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+        </a>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select [(value)]="fromYearSelected">
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select [(value)]="toYearSelected" disabled>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">अनु. क्रमांक</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">प्लॉट क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खसरा क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सर्वे क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="row">
+        <mat-card class="example-card">
+            <mat-card-title class="text-center"><strong>डेली कर वसुली यादी</strong></mat-card-title>
+            <mat-divider></mat-divider>
+            <table mat-table [dataSource]="[
+            { label: 'खातेधारकाचे नाव' },
+            { label: 'भोगवटदाराचे नाव' },
+            { label: 'पत्ता' },
+            ]">
+                <ng-container matColumnDef="label">
+                    <td mat-cell *matCellDef="let element" style="width: 15%;"> {{element.label}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <td mat-cell *matCellDef="let element"> <input matInput type="text"
+                            style="width: 100%; height: 40px;" /> </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let row; columns: ['label', 'name'];"></tr>
+            </table>
+        </mat-card>
+    </div>
+    <div class="row mt-5">
+        <mat-card class="example-card">
+            <table mat-table [dataSource]="[
+            { label: 'गृहकर व भूमीकर'},
+            { label: 'वीज दिवाबत्ती कर'},
+            { label: 'आरोग्य रक्षण कर'},
+            { label: 'सफाई कर'},
+            { label: 'गृहकर व भूमीकर पावती क्रमांक व दिनांक', col1:'date'},
+            { label: 'सामान्य पाणी कर'},
+            { label: 'विशेष पाणी कर'},
+            { label: 'पाणी कर पावती क्रमांक व दिनांक', col1:'date'},
+            { label: 'नोटीस फी'},
+            { label: 'इतर फी'},
+            { label: 'एकूण'}
+            ]">
+                <ng-container matColumnDef="label">
+                    <th mat-header-cell *matHeaderCellDef><strong> कर </strong> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+                </ng-container>
+                <ng-container matColumnDef="col1">
+                    <th mat-header-cell *matHeaderCellDef> <strong>मागील कर </strong></th>
+                    <td mat-cell *matCellDef="let element" >
+                        <ng-container *ngIf="element.col1 === 'date'; else otherInput">
+                            <mat-form-field appearance="fill" style=" width: 100%;">
+                                <input matInput [matDatepicker]="picker" appDateFormat placeholder="DD/MM/YYYY"/>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </ng-container>
+                        <ng-template #otherInput>
+                            <input matInput type="text" style="height: 40px; width: 100%;" />
+                        </ng-template>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="col2">
+                    <th mat-header-cell *matHeaderCellDef> <strong>चालू कर</strong> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.col1 !== 'date'"> <input matInput type="text"
+                                style="width: 100%; height: 40px;" />
+                        </ng-container>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="col3">
+                    <th mat-header-cell *matHeaderCellDef> <strong>जमा केलेली रक्कम</strong> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.col1 !== 'date'"> <input matInput type="text"
+                                style="width: 100%; height: 40px;" />
+                        </ng-container>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="col4">
+                    <th mat-header-cell *matHeaderCellDef><strong> शिल्लक रक्कम </strong></th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.col1 !== 'date'"> <input matInput type="text"
+                                style="width: 100%; height: 40px;" />
+                        </ng-container>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['label', 'col1', 'col2', 'col3', 'col4']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['label', 'col1', 'col2', 'col3', 'col4'];"></tr>
+            </table>
+        </mat-card>
+    </div>
+    <div class="submit-row">
+        <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+    </div>
+</mat-card>
+<br><br>

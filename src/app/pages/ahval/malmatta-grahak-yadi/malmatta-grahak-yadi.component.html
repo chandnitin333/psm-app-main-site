@@ -1,0 +1,54 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">मालमत्ता ग्रहक यादी</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Yadi</mat-label>
+                <mat-select>
+                    <mat-option value="yadi">मालमत्ता धारकाची याद</mat-option>
+                    <mat-option value="khula">(खुला भूखंड)</mat-option>
+                    <mat-option value="ghar">(घर कर लावायचा आहे)</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वार्ड नं. (Ward No)</mat-label>
+                <mat-select>
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="10">10</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Start</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">End</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+        </div>
+        <div class="submit-row">
+            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+        </div>
+    </form>
+</mat-card>

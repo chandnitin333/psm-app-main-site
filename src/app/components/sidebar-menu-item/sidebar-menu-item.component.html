@@ -1,23 +1,21 @@
 <ng-container *ngIf="item.children && item.children.length > 0; else singleItem">
-    <mat-expansion-panel class="mat-elevation-z0">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon  *ngIf="item.icon">{{item.icon}}</mat-icon>
-          <span class="menu-label">{{item.label}}</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-nav-list dense>
-        <app-sidebar-menu-item
-          *ngFor="let child of item.children"
-          [item]="child">
-        </app-sidebar-menu-item>
-      </mat-nav-list>
-    </mat-expansion-panel>
-  </ng-container>
+  <mat-expansion-panel class="mat-elevation-z0" >
+    <mat-expansion-panel-header>
+      <mat-panel-title style="font-size: 16px !important;">
+        <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+        <span class="menu-label" style="margin-left: 30px;">{{item.label}}</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list dense >
+      <app-sidebar-menu-item *ngFor="let child of item.children" [item]="child" title="{{child.label}}" >
+      </app-sidebar-menu-item>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</ng-container>
 
-  <ng-template #singleItem>
-    <a mat-list-item [routerLink]="item.route" routerLinkActive="active">
-      <mat-icon matListItemIcon *ngIf="item.icon">{{item.icon}}</mat-icon>
-      <span matListItemTitle>{{item.label}}</span>
-    </a>
-  </ng-template>
+<ng-template #singleItem>
+  <a mat-list-item [routerLink]="item.route" routerLinkActive="active">
+    <mat-icon matListItemIcon *ngIf="item.icon">{{item.icon}}</mat-icon>
+    <span matListItemTitle>{{item.label}}</span>
+  </a>
+</ng-template>
