@@ -1,0 +1,199 @@
+<mat-card class="form-panel">
+    <!-- <mat-card-title class="title">
+        <span class="title-text">जन्म प्रमाणपत्र (Birth Certificate)</span>
+    </mat-card-title>
+    <mat-divider></mat-divider> -->
+    <form class="row">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)"
+                class="expansion-header">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="expansion-text" style="font-size:18px;"> जन्म प्रमाणपत्र (Birth Certificate) </mat-panel-title>
+                    <mat-panel-description class="expansion-text">
+                    जन्म प्रमाणपत्र फॉर्म  {{panelOpenState() ? 'बंद करण्यासाठी इथे क्लिक करा' : 'भरण्यासाठी इथे क्लिक करा'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div style="background-color: #fff; padding: 10px;">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">स्थानीय क्षेत्र / local area</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">तालुका / Taluka</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जिल्हा / District</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">आधारकार्ड नंबर /Adhar card</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="text-bold">लिंग /Sex</mat-label>
+                            <mat-select>
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जन्म तारीख / Date of Birth</mat-label>
+                            <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy" />
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जन्म ठिकाण / Place of Birth</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">नोंदणी क्रमांक /Registration No.</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">नोंदणी दिनांक / Registration Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" appDateFormat placeholder="dd/MM/yyyy" />
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold"
+                                title="प्रमाणपत्र निर्गमित करणाऱ्या स्थानिक क्षेत्राचे नाव / Name of the local body issuing certificate.">प्रमाणपत्र
+                                निर्गमित करणाऱ्या स्थानिक क्षेत्राचे नाव / Name of the local body issuing certificate.</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">बाळाचे पूर्ण नाव / Name of Child</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">वडिलांचे पूर्ण नाव / Full name of Father</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">आईचे पूर्ण नाव / Full name of Mother</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold"
+                                title="बाळाचे जन्माच्या वेळी आई / Address of the parents at the time of the child birth">बाळाचे
+                                जन्माच्या वेळी आई / Address of the parents at the time of the child birth</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold" title="आई वडिलांचा कायमचा पत्ता /Permanant address of the parent">आई
+                                वडिलांचा कायमचा पत्ता /Permanant address of the parent</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">प्रमाणपत्र दिल्याचा दिनांक /Certificate Issued Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" appDateFormat placeholder="dd/MM/yyyy" />
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">शेरा /Remark (if any)</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">तालुका / Taluka</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label class="text-bold">जिल्हा / District</mat-label>
+                            <input matInput type="text" />
+                        </mat-form-field>
+                    
+                    </div>
+                    <div class="submit-row">
+                        <button mat-raised-button class="submit-btn">Reset</button>&nbsp;
+                        <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>
+    <div class="row mt-5">
+        <mat-card class="example-card">
+            <table mat-table [dataSource]="[
+            { sr_no: 1, local_area: 'Plot no 343/A, Laxmi Nagar Dighori', taluka: 'Nagpur', district: 'Nagpur', date_of_birth: '01/10/2021',child:3,father:'Ramesh Sudesh Sodi',mother:'Mrs Vinita Ramesh Sodhi',preview:'',action:'' },
+          ]">
+
+                <ng-container matColumnDef="sr_no">
+                    <th mat-header-cell *matHeaderCellDef><b> SRNO</b> </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="local_area">
+                    <th mat-header-cell *matHeaderCellDef> <b>LOCALAREA</b> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.local_area}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="taluka">
+                    <th mat-header-cell *matHeaderCellDef><b> TALUKA </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.taluka}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="district">
+                    <th mat-header-cell *matHeaderCellDef><b>DISTRICT</b> </th>
+                    <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date_of_birth">
+                    <th mat-header-cell *matHeaderCellDef><b> DATE OF BIRTH </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.date_of_birth}} </td>
+                </ng-container>
+                <ng-container matColumnDef="child">
+                    <th mat-header-cell *matHeaderCellDef><b> CHILD </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.child}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="father">
+                    <th mat-header-cell *matHeaderCellDef><b> FATHER </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.father}} </td>
+                </ng-container>
+                <ng-container matColumnDef="mother">
+                    <th mat-header-cell *matHeaderCellDef><b> MOTHER </b></th>
+                    <td mat-cell *matCellDef="let element"> {{element.mother}} </td>
+                </ng-container>
+                <ng-container matColumnDef="preview">
+                    <th mat-header-cell *matHeaderCellDef><b> PREVIEW </b></th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <span title="Preview"><mat-icon>visibility</mat-icon> </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef><b> ACTION </b></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div style="display: inline-flex; align-items: center; ">
+                            <mat-icon color="primary" title="Print">print</mat-icon>
+                            <mat-icon color="warn" title="Delete">delete</mat-icon>
+                            <mat-icon color="primary" title="Edit">edit</mat-icon>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Header and Row Declarations -->
+                <tr mat-header-row
+                    *matHeaderRowDef="['sr_no', 'local_area', 'taluka', 'district','date_of_birth','child','father','mother','preview','action']">
+                </tr>
+                <tr mat-row
+                    *matRowDef="let row; columns: ['sr_no', 'local_area', 'taluka', 'district','date_of_birth','child','father','mother','preview','action'];">
+                </tr>
+            </table>
+        </mat-card>
+
+    </div>
+</mat-card>
+<br><br>

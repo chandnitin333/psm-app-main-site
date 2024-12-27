@@ -7,3 +7,30 @@
   height: auto;
   margin: 20px;
 }
+
+.matrix-link{
+  text-decoration: none;
+  color: #000000;
+}
+
+.matrix-menu {
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 4px;
+  }
+
+  .mat-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .submenu-arrow {
+      margin-left: auto;
+    }
+  }
+
+  .mat-icon {
+    margin-right: 8px;
+  }
+}
