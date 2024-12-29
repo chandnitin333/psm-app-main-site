@@ -11,6 +11,7 @@
   align-items: center;
   padding: 0 20px;
   box-sizing: border-box;
+  z-index: 3;
 }
 
 @media (max-width: 768px) {

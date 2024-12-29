@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -16,6 +17,15 @@ import { LayoutModule } from '../layout/layout.module';
   styleUrl: './matrix-menu.component.css'
 })
 export class MatrixMenuComponent {
+  userName:string = "";
+  constructor(private api: ApiService) { }
+
+  ngOnInit() {
+
+    let user = this.api.getDecodedToken();
+    this.userName = `${user?.NAME} ${user?.SURNAME}`;
+   
+  }
   menuItems: MenuItem[] = [
     { label: 'नोंदणी फॉर्म', icon: 'assignment',  url:"/nodni-form", subItems:[ ] },
     { label: 'मालमत्ता नोंदणी', icon: 'people', url:"/customer", subItems:[] },

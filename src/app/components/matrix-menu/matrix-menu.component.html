@@ -1,9 +1,16 @@
-<button mat-button [matMenuTriggerFor]="user_menu" style="margin-bottom: 15px;">
-  <mat-icon>person</mat-icon>  <mat-icon>arrow_drop_down</mat-icon>
+<button mat-button [matMenuTriggerFor]="userMenu" style="margin-bottom: 15px;">
+  <span>
+    <mat-icon
+      style="margin-top: 5px; height: 17px; font-size: 20px; width: 25px;">person</mat-icon>{{userName|titlecase}}
+    <mat-icon style="height:18px">arrow_drop_down</mat-icon>
+  </span>
 </button>
-<mat-menu #user_menu="matMenu">
-  <a mat-menu-item routerLink="/dashboard" ><mat-icon>person</mat-icon> <b>Kundan Kotangale</b></a>
-  <a mat-menu-item routerLink="/dashboard"><mat-icon>logout</mat-icon> Logout</a>
+
+<mat-menu #userMenu="matMenu">
+  <a mat-menu-item routerLink="/dashboard"><mat-icon>settings</mat-icon>
+    Profile Setting</a>
+  <a mat-menu-item routerLink="/dashboard"><mat-icon>logout</mat-icon>
+    Logout</a>
 </mat-menu>
 
 <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -15,20 +22,23 @@
   <div class="menu-grid">
     <ng-container *ngFor="let item of menuItems">
       <!-- Item with submenu -->
-      <button mat-menu-item [matMenuTriggerFor]="subMenu" *ngIf="item.subItems?.length">
+      <button mat-menu-item [matMenuTriggerFor]="subMenu"
+        *ngIf="item.subItems?.length">
         <mat-icon>{{item.icon}}</mat-icon>
         <span>{{item.label}}</span>
       </button>
       <!-- Submenu -->
       <mat-menu #subMenu="matMenu">
-        <button mat-menu-item *ngFor="let subItem of item.subItems" [routerLink]="subItem.url">
+        <button mat-menu-item *ngFor="let subItem of item.subItems"
+          [routerLink]="subItem.url">
           <mat-icon *ngIf="subItem.icon">{{subItem.icon}}</mat-icon>
           <span>{{subItem.label}}</span>
         </button>
       </mat-menu>
 
       <!-- Regular item without submenu -->
-      <button mat-menu-item *ngIf="!item.subItems?.length" [routerLink]="item.url">
+      <button mat-menu-item *ngIf="!item.subItems?.length"
+        [routerLink]="item.url">
         <mat-icon>{{item.icon}}</mat-icon>
         <span>{{item.label}}</span>
       </button>
