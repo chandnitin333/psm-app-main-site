@@ -1,0 +1,31 @@
+<div class="dialog-container">
+    <h2 mat-dialog-title class="flex items-center gap-2">
+        <mat-icon [class]="getIconClass()">{{ getIcon() }}</mat-icon>
+        {{ data.title }}
+    </h2>
+
+    <mat-dialog-content>
+        <p>{{ data.message }}</p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <ng-container [ngSwitch]="data.type">
+            <ng-container *ngSwitchCase="'confirm'">
+                <button mat-button (click)="onCancel()">
+                    {{ data.cancelText || 'Cancel' }}
+                </button>
+                <button mat-raised-button color="primary" (click)="onConfirm()">
+                    {{ data.confirmText || 'Confirm' }}
+                </button>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+                <button mat-raised-button mat-raised-button class="button"
+                    [ngClass]="{'mat-primary': data.type === 'success', 'mat-warn': data.type === 'warning', 'mat-accent': data.type === 'error' || (data.type !== 'success' && data.type !== 'warning')}"
+                    (click)="onCancel()">
+                    OK
+                </button>
+            </ng-container>
+        </ng-container>
+    </mat-dialog-actions>
+</div>

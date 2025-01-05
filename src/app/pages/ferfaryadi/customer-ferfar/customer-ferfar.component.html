@@ -1,0 +1,126 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">
+        <span class="title-text">कस्टमर फेरफार (Customer Ferfar)</span>
+        
+        <a mat-stroked-button class="title-button" routerLink="/ferfar-yadi"><mat-icon>arrow_back</mat-icon>
+            Back</a>
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">फेरफार नमुना यादी</mat-label>
+                <mat-select>
+                    <mat-option value="2021">फेरफार नमुना यादी</mat-option>
+                    <mat-option value="2022">फेरफार नमुना यादी</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ग्रामपंचायत</mat-label>
+                <mat-select>
+                    <mat-option value="2021">ग्रामपंचायत 1</mat-option>
+                    <mat-option value="2022">ग्रामपंचायत 2</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select [(value)]="fromYearSelected">
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select [(value)]="toYearSelected" disabled>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">अनु. क्रमांक</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">प्लॉट क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खसरा क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सर्वे क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मासिक सभा क्रमांक</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ठराव क्रमांक</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">दिनांक.</mat-label>
+                <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">घरमालकाची नाव लिहून देणार</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">नाव लिहून घेणारा</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सचिव</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सरपंच</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">उपसरपंच</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">शेरा/ टीप </mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+
+
+        <div class="submit-row">
+            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+        </div>
+    </form>
+    <div>
+
+    </div>
+</mat-card>

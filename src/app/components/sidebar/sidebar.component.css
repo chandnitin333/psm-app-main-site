@@ -41,3 +41,7 @@
     padding: 10px; /* Adjust padding */
   }
 }
+.sidebar-logo{
+    height: 50px;
+    margin-top: 5px;
+}

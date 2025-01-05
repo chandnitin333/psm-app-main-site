@@ -1,0 +1,17 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin: 0 5px;
+}
+
+button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+span {
+  margin: 0 10px;
+}

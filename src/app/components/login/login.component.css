@@ -1,0 +1,63 @@
+.login-container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .login-card {
+      max-width: 70%;
+      width: 100%;
+      padding: 24px;
+    }
+
+    mat-card-header {
+      margin-bottom: 24px;
+    }
+
+    mat-card-title {
+      font-size: 24px;
+      margin-bottom: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      margin-top: 8px;
+      height: 48px;
+      font-size: 16px;
+    }
+
+    @media (max-width: 599px) {
+      .login-card {
+        padding: 16px;
+      }
+    }
+
+
+.district-selects {
+    display: flex;
+    justify-content: space-between; /* Distribute space evenly between the select boxes */
+    gap: 16px; /* Space between each select */
+}
+
+mat-form-field {
+    flex: 1; /* Make each mat-form-field take equal space */
+    min-width: 120px; /* Optional: Ensures the dropdowns don't shrink too small */
+}
+
+
+.forgot-link{
+  text-decoration: none !important;
+}
+
+

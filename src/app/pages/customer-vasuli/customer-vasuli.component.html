@@ -1,0 +1,69 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">मालमत्ता धारकाची यादी (Customer List)</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select [(value)]="fromYearSelected">
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <mat-select [(value)]="toYearSelected" disabled>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">अनु. क्रमांक</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">प्लॉट क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खसरा क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सर्वे क्र.</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खातेदाराचे नाव</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+
+
+        <div class="submit-row">
+            <button mat-raised-button color="primary" class="submit-btn">Submit</button> &nbsp;
+            <a mat-raised-button color="primary" routerLink="/vasuli" class="submit-btn">Add Vasuli</a>
+        </div>
+    </form>
+    <div>
+
+    </div>
+</mat-card>
