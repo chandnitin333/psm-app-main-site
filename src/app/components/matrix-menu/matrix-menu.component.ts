@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class MatrixMenuComponent {
   userName:string = "";
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private auth:AuthService) { }
 
   ngOnInit() {
 
@@ -62,4 +63,8 @@ export class MatrixMenuComponent {
     //   { label: 'दारिद्र्य रेषेखालील कुटुंबाचा दाखला', icon: 'military_tech',  url:'/below-poverty-certificate' },
     // ] },
   ];
+
+  logout(){
+    this.auth.logout();
+  }
 }

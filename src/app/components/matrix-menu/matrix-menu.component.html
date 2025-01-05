@@ -9,7 +9,7 @@
 <mat-menu #userMenu="matMenu">
   <a mat-menu-item routerLink="/dashboard"><mat-icon>settings</mat-icon>
     Profile Setting</a>
-  <a mat-menu-item routerLink="/dashboard"><mat-icon>logout</mat-icon>
+  <a mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>
     Logout</a>
 </mat-menu>
 
