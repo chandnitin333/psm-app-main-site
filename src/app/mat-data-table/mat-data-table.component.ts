@@ -31,9 +31,17 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 })
 export class MatDataTableComponent {
 
-  @Input() displayedColumns: string[] = []; @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  @Input() displayedColumns: { key: string, value: string }[] = [];
+  @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort!: MatSort;
   @Input() totalItems!: number; 
   @Input() itemsPerPage = 10;
-  ngOnInit(): void { this.dataSource.sort = this.sort; }
+  columnKeys: string[] = [];
+  ngOnInit(): void { 
+    console.log('dataSource :', this.dataSource.data);
+    console.log('Displayed Columns:', this.displayedColumns);
+    this.dataSource.sort = this.sort;
+    this.columnKeys = this.displayedColumns.map(c => c.key);
+
+   }
 }
