@@ -1,0 +1,88 @@
+td{
+  border: 1px solid gray !important;
+}
+table{
+  border: 1px solid gray !important;
+}
+th{
+  border: 1px solid gray !important;
+}
+.right{
+	float:right;
+}
+
+/* .heading{
+    text-align: center;
+    padding-top: 50px;
+    font-size: 22px;
+} */
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	vertical-align: middle !important;
+}
+.table-bordered,
+.table-bordered>thead>tr>th, 
+.table-bordered>tbody>tr>td,
+.table-bordered > tbody > tr > th{
+    border: 1px solid #000  !important;
+	text-align: center !important;
+    padding: 10px 3px !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 50px;
+    font-size: 22px;
+}
+.font15{
+	font-size:15px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    /* font-size: 15px;
+    font-weight: bold; */
+    padding: 3px 25px;
+    /* background-color: #0bca11; */
+}
+
+@media only screen and (max-width: 600px) {
+    .padding20{
+		padding:15px;
+	}
+	.left{
+		float:initial;
+	}
+	.center{
+		text-align:initial;
+	}
+	.right{
+		float:initial;
+	}
+}
+.san{
+	text-align: center;
+    font-size: 15px;
+}
+
+.padding20{
+	padding:20px;
+}
+
+.font15 , .san, .padding20{
+	font-size: larger;
+	font-weight: bold;
+}
