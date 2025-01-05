@@ -3,7 +3,7 @@
   max-width: 100%;
   margin: 0 auto;
   font-family: "Roboto", sans-serif;
-
+  margin-top: 0px;
   z-index: 1 !important;
 }
 
@@ -239,4 +239,8 @@
 }
 .content h2 {
   font-size: 20px;
+}
+
+::ng-deep .mat-grid-list {
+  margin: -20px;
 }

@@ -1,5 +1,5 @@
-<div class="profile-container mb-3">
-    <mat-grid-list cols="5" rowHeight="2:1">
+<div class="profile-container mb-1">
+    <mat-grid-list cols="5" rowHeight="2:1" style="padding: 0px;">
         <mat-grid-tile>
 
             <a href="javascript:void(0)" class="dashboard-links">
@@ -55,7 +55,7 @@
     </mat-grid-list>
 
     <!-- Profile Section -->
-    <div class="profile-header " style="margin-bottom: 50px;">
+    <div class="profile-header " style="margin-bottom: 10px; margin-top: 20px;">
         <div class="profile-image">
             <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" alt="Profile Picture" />
             <button mat-stroked-button class="change-photo-btn">Change
@@ -70,42 +70,62 @@
         </div>
     </div>
 
-    <!-- Details Section -->
-    <mat-tab-group style="margin-bottom: 50px;">
-        <mat-tab label="महाराष्ट्र ग्रामपंचायत">
-            <div class="additional-info">
-                <div class="wrapper">
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <mat-icon
-                                style="  margin-top: -5px; height:80px; width:70px; font-size: 70px ;">location_city</mat-icon>
+    <section *ngIf="isLoad">
+        <!-- Table Section -->
+        <!-- <app-mat-data-table
+            [displayedColumns]="displayedColumns"
+            [dataSource]="pagedDataSource"
+            [totalItems]="dataSource.data.length"
+            [itemsPerPage]="itemsPerPage">
+        </app-mat-data-table>  -->
 
+        <!-- <app-custom-pagination [length]="dataSource.data.length"
+            [pageSize]="itemsPerPage"
+            [currentPage]="currentPage"
+            (pageChange)="onPageChange($event)">
+        </app-custom-pagination> -->
+
+    </section>
+    <!-- Details Section -->
+        <mat-tab-group style="margin-bottom: 10px;">
+            <mat-tab label="महाराष्ट्र ग्रामपंचायत">
+                <div class="additional-info">
+                    <div class="wrapper">
+                        <div class="box box2">
+                            <div class="logo-container">
+                                <mat-icon
+                                    style="  margin-top: -5px; height:80px; width:70px; font-size: 70px ;">location_city</mat-icon>
+
+                            </div>
+                            <div class="content">
+                                <h4>जिल्हा</h4>
+                                <h2>{{users.DISTRICT_NAME}}</h2>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h4>जिल्हा</h4>
-                            <h2>{{users.DISTRICT_NAME}}</h2>
+                        <div class="box box2">
+                            <div class="logo-container">
+                                <img
+                                    src="../assets/pngegg.png"
+                                    alt="Logo" class="logo">
+                            </div>
+                            <div class="content">
+                                <h4>तालुका</h4>
+                                <h2>{{users.TALUKA_NAME}}</h2>
+                            </div>
+                        </div>
+                        <div class="box box2">
+                            <div class="logo-container">
+                                <img
+                                    src="../assets/panchayat.png"
+                                    alt="Logo" class="logo">
+                            </div>
+                            <div class="content">
+                                <h4>पंचायत</h4>
+                                <h2>{{users.PANCHAYAT_NAME}}</h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <img src="../assets/pngegg.png" alt="Logo" class="logo">
-                        </div>
-                        <div class="content">
-                            <h4>तालुका</h4>
-                            <h2>{{users.TALUKA_NAME}}</h2>
-                        </div>
-                    </div>
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <img src="../assets/panchayat.png" alt="Logo" class="logo">
-                        </div>
-                        <div class="content">
-                            <h4>पंचायत</h4>
-                            <h2>{{users.PANCHAYAT_NAME}}</h2>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="work-links">
+                    <!-- <div class="work-links">
                     <mat-card>
                         <div class="logo-container">
                             <img
@@ -144,7 +164,7 @@
                         </mat-card-content>
                     </mat-card>
                 </div> -->
-                <!-- <div class="skills ">
+                    <!-- <div class="skills ">
                     <ul class="example-button-row">
                         <li><a mat-flat-button class="button-color-dashboard" href="https://www.google.com/"
                                 target="_blank">चालू खातेदार : 18</a></li>
@@ -160,13 +180,13 @@
 
                     </ul>
                 </div> -->
-            </div>
-        </mat-tab>
-        <mat-tab label="नकाशा (Map)">
-            <div class="timeline-section">
-                <p>Map content goes here...</p>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
+                </div>
+            </mat-tab>
+            <mat-tab label="नकाशा (Map)">
+                <div class="timeline-section">
+                    <p>Map content goes here...</p>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
 
-</div>
+    </div>

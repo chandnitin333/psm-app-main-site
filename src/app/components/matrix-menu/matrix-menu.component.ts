@@ -19,7 +19,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class MatrixMenuComponent {
   userName:string = "";
-  constructor(private api: ApiService, private auth:AuthService) { }
+  constructor(private api: ApiService, public auth:AuthService) { }
 
   ngOnInit() {
 
