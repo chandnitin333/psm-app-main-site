@@ -1,0 +1,204 @@
+.dialog-container {
+  min-width: 300px;
+  max-width: 500px;
+}
+
+mat-dialog-content {
+  margin: 16px 0;
+}
+
+mat-dialog-actions {
+  padding: 8px 0;
+  button {
+    margin-left: 8px;
+  }
+}
+
+.text-green-500 {
+  color: #22c55e;
+}
+.text-amber-500 {
+  color: #f59e0b;
+}
+.text-red-500 {
+  color: #ef4444;
+}
+.text-blue-500 {
+  color: #3b82f6;
+}
+
+/* General styles for the dialog */
+.mat-dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 16px;
+}
+
+.mat-dialog-content {
+  padding: 16px;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+/* Specific styles for different types of dialogs */
+.mat-primary {
+  color: green;
+}
+
+.mat-warn {
+  color: orange;
+}
+
+.mat-accent {
+  color: rgb(240, 240, 241);
+}
+
+/* General button styles */
+button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Success button */
+button.mat-primary {
+  background-color: #005cbb; /* Green */
+  color: white;
+}
+
+button.mat-primary:hover {
+  background-color: #005cbb;
+}
+
+/* Warning button */
+button.mat-warn {
+  background-color: #ff0004; /* Orange */
+  color: white;
+}
+
+button.mat-warn:hover {
+  background-color: #fb8c00;
+}
+
+/* Error button */
+::ng-deep button.mat-accent {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+::ng-deep button.mat-accent:hover {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+/* Info button */
+::ng-deep button.mat-info {
+  background-color: #2196f3; /* Blue */
+  color: white;
+}
+
+::ng-deep button.mat-info:hover {
+  background-color: #1e88e5;
+}
+
+/* Confirm button */
+::ng-deep button.mat-confirm {
+  background-color: #9c27b0; /* Purple */
+  color: white;
+}
+
+::ng-deep button.mat-confirm:hover {
+  background-color: #8e24aa;
+}
+/* Use ::ng-deep to target nested components */
+::ng-deep .mat-dialog-container {
+  padding: 0;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+::ng-deep .mat-dialog-title {
+  background-color: #3f51b5; /* Default Primary color */
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 16px 24px;
+  margin: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+::ng-deep .mat-dialog-content {
+  padding: 24px;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+::ng-deep .mat-dialog-actions {
+  padding: 8px 24px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #e0e0e0; /* Subtle top border */
+}
+
+/* Specific styles for different types of dialogs */
+::ng-deep .mat-primary .mat-dialog-title {
+  background-color: #4caf50; /* Success: Green */
+}
+
+::ng-deep .mat-warn .mat-dialog-title {
+  background-color: #ff0000; /* Warning: Orange */
+}
+
+::ng-deep .mat-accent .mat-dialog-title {
+  background-color: #f44336; /* Error: Red */
+}
+
+::ng-deep .mat-info .mat-dialog-title {
+  background-color: #2196f3; /* Info: Blue */
+}
+
+::ng-deep .mat-confirm .mat-dialog-title {
+  background-color: #9c27b0; /* Confirm: Purple */
+}
+
+/* Button styling */
+button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button.mat-primary {
+  background-color: #4caf50; /* Green */
+}
+
+button.mat-warn {
+  background-color: #ff4800; /* Orange */
+  color: #fff !important;
+}
+
+button.mat-accent {
+  background-color: #f44336; /* Red */
+}
+
+button.mat-info {
+  background-color: #2196f3; /* Blue */
+}
+
+button.mat-confirm {
+  background-color: #9c27b0; /* Purple */
+}
