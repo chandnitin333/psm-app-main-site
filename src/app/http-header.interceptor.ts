@@ -15,14 +15,13 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
         'Authorization': `Bearer ${token}`
       }
     });
-
+    console.log('modifiedReq', modifiedReq);
     // Handle errors
     return next.handle(modifiedReq).pipe(
       catchError((error: HttpErrorResponse) => {
-       
+
         let customResponse: HttpResponse<any>;
         switch (error.status) {
-        
           case 400:
             // Handle 400 - Bad Request
             customResponse = new HttpResponse({
@@ -47,14 +46,16 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
           default:
             // Handle other errors if needed
             customResponse = new HttpResponse({
-              body: { message: error?.error?.message || 'Unknown Error', errorCode: error.status },
+              body: { message: error?.error?.message, errorCode: error.status },
               status: 200,
             });
         }
 
         // Return the custom response as a successful response
+
         return of(customResponse);
       })
     );
+
   }
 }

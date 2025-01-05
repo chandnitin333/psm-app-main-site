@@ -16,4 +16,13 @@ import { MatrixMenuComponent } from '../matrix-menu/matrix-menu.component';
 })
 export class HeaderComponent {
   @Output() toggleSidenav = new EventEmitter<void>();
+
+  constructor() { }
+  ngOnInit() {
+    this.onToggleSidenav();
+  }
+
+  onToggleSidenav() {
+    this.toggleSidenav.emit();
+  }
 }

@@ -9,7 +9,9 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class ApiService {
 
   private baseUrl: string = 'http://localhost:4444/api';
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    console.log('ApiService');
+  }
 
   get<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`);

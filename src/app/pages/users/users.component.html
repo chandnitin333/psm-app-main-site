@@ -1,8 +1,7 @@
 
 
-
 <app-mat-data-table
-    [displayedColumns]="['id', 'name', 'age']"
+    [displayedColumns]="[{ key: 'id', value: 'ID' }, { key: 'name', value: 'Name' }, { key: 'age', value: 'Age' }]"
     [dataSource]="pagedDataSource"
     [totalItems]="dataSource.data.length"
     [itemsPerPage]="itemsPerPage">
