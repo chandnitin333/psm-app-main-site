@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 import { API_URL, ITEM_PER_PAGE, TRANSLATE_API_URL } from '../../constant/admin.constant';
 import { CommonDialogComponent } from '../common-dialog/common-dialog.component';
 import { ApiService } from '../services/api.service';
-import { Observable } from 'rxjs';
 import { TranslateService } from '../services/translate.service';
-import Swal from 'sweetalert2';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +19,7 @@ export class Util {
     // constructor(private http: HttpClient, private api: ApiService, private dialog: MatDialog) {
 
     // }
-     constructor(private translate: TranslateService, private http: HttpClient, private api: ApiService) {
+    constructor(private translate: TranslateService, private http: HttpClient, private api: ApiService) {
 
     }
 
@@ -76,7 +76,7 @@ export class Util {
                 this.debounceTimeout = setTimeout(() => {
                     this.translate.translate(text).subscribe({
                         next: (res: any) => {
-                            console.log("res", res)
+                            console.log("res===", res)
                             if (res && res.data && res.data.translations && res.data.translations.length > 0) {
                                 translatedText = res.data.translations[0].translatedText;
                                 this.updateText1(translatedText, control);
@@ -209,9 +209,9 @@ export class Util {
         return result.isConfirmed;
     }
 
-    openDialog(title: string, message: string, type: string): void { 
+    openDialog(title: string, message: string, type: string): void {
         this.dialog.open(CommonDialogComponent, { data: { title, message, type } });
-     }
+    }
 }
 
 
