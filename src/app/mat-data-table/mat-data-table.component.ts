@@ -38,8 +38,8 @@ export class MatDataTableComponent {
   @Input() itemsPerPage = 10;
   columnKeys: string[] = [];
   ngOnInit(): void { 
-    console.log('dataSource :', this.dataSource.data);
-    console.log('Displayed Columns:', this.displayedColumns);
+    // console.log('dataSource :', this.dataSource.data);
+    // console.log('Displayed Columns:', this.displayedColumns);
     this.dataSource.sort = this.sort;
     this.columnKeys = this.displayedColumns.map(c => c.key);
 

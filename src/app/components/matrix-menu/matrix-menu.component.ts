@@ -24,6 +24,7 @@ export class MatrixMenuComponent {
   ngOnInit() {
 
     let user = this.api.getDecodedToken();
+    // console.log(user)
     this.userName = `${user?.NAME} ${user?.SURNAME}`;
    
   }
