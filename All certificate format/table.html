@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Aadharcard </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://www.gramwikas.in/dashboard/tablecss.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        @media only screen and (max-width: 600px) {
+            .heading {
+                margin-left: 0px;
+            }
+        }
+    </style>
+
+
+    <style>
+        /* style sheet for "A4" printing */
+        @media print {
+            .hidden-print {
+                display: none !important;
+            }
+        }
+
+        @media print {
+
+            .footer,
+            #non-printable {
+                display: none !important;
+            }
+
+            #printable {
+                display: block;
+            }
+        }
+
+
+
+        /* A4 Landscape*/
+        @page {
+            size: A3 landscape;
+        }
+
+
+        .heading:first-child {
+            page-break-after: avoid;
+        }
+
+        .heading {
+            page-break-before: always;
+            page-break-after: avoid;
+        }
+
+        table,
+        figure {
+            page-break-inside: avoid;
+        }
+
+        .bhagedar {
+            min-width: 220px;
+        }
+
+        .font15,
+        .padding20 {
+            font-weight: bold;
+        }
+
+        @media print {
+            @page {
+                size: auto;
+                margin: 20mm 0 10mm 0;
+            }
+
+            .heading {
+                padding-top: 120px;
+            }
+
+            .table-bordered>thead>tr>th,
+            .font15 {
+                font-size: 10pt;
+            }
+
+            .table-bordered>tbody>tr>td {
+                font-size: 10pt;
+                padding: 7px 3px !important;
+            }
+
+            /*Type the value that you want*/
+
+            .table {
+                page-break-after: always;
+                page-break-inside: auto;
+            }
+
+            .table-content {
+                margin-top: 120px;
+            }
+
+            .heading {
+                margin-bottom: -120px;
+            }
+
+            .font15,
+            .padding20 {
+                font-weight: bold;
+                font-size: medium;
+            }
+
+            .center.tahsil {
+                text-align: unset;
+                margin-left: 43.5% !important;
+            }
+
+            .font15.right,
+            .table {
+                margin-top: -17pt !important;
+            }
+
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script>
+
+        function myFunction() {
+            window.print();
+
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <button onclick="myFunction()" class="buttonPdf hidden-print" value="PDF">PDF</button>
+        <div class="row">
+
+            <p class="namna heading">
+
+                <b> आधार कार्ड व वोटर कार्ड यादी </b>
+                <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->
+            </p>
+
+        </div>
+
+
+
+
+        <div class="col-md-12 table-content">
+
+            <div class="row">
+
+                <span class="padding20">वार्ड नं :- 1 </span>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <span class="font15 left">ग्रामपंचायत :- न्यू डेमो </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15">तहसील :- नागपूर ग्रामीण </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right"> जिल्हा :- नागपूर </span>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead class="borderDouble">
+                    <tr>
+                        <th>अ.क्र</th>
+                        <th>मालमत्ता क्र. </th>
+                        <th>खातेधारकाचे नाव </th>
+                        <th class="bhagedar">भोगवटदाराचे नाव </th>
+                        <th>आधार कार्ड </th>
+                        <th>वोटर कार्ड </th>
+                        <th>पान नं. </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1 </td>
+                        <td>1</td>
+                        <td>गजानन रामभाऊ केदार </td>
+                        <td></td>
+                        <td>895456354212</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>2 </td>
+                        <td>2</td>
+                        <td>मनोज रामभाऊ खोडे , वंदना मनोज खोडे </td>
+                        <td></td>
+                        <td>305648696546</td>
+                        <td></td>
+                        <td>2</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>3 </td>
+                        <td>3</td>
+                        <td>राजाभाई जमालभाई शेख , नूरबेगम राजाभाई शेख </td>
+                        <td></td>
+                        <td>256489630213</td>
+                        <td></td>
+                        <td>3</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6 </td>
+                        <td>6</td>
+                        <td>राकेश मनोहर वाघमारे </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>4</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>7 </td>
+                        <td>7</td>
+                        <td>पंकज भीमराव कस्तुरे </td>
+                        <td></td>
+                        <td>123456789987</td>
+                        <td>ghh2555d55</td>
+                        <td>5</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>8 </td>
+                        <td>8</td>
+                        <td>शाळा जिल्हा परिषद </td>
+                        <td></td>
+                        <td>587469521554</td>
+                        <td>dddd1551d25</td>
+                        <td>6</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>11 </td>
+                        <td>11</td>
+                        <td>अजय रामभाऊ कांबळे </td>
+                        <td></td>
+                        <td>023554666544</td>
+                        <td></td>
+                        <td>7</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>12 </td>
+                        <td>12</td>
+                        <td>विनोद रामभाऊ काळे </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>8</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>13 </td>
+                        <td>13</td>
+                        <td>पंकज बव्बेन्म </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>9</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>14 </td>
+                        <td>14</td>
+                        <td>कमलेश राणे </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>10</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>16 </td>
+                        <td>65156</td>
+                        <td>65</td>
+                        <td>1</td>
+                        <td>651</td>
+                        <td>651</td>
+                        <td>11</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>17 </td>
+                        <td>6565</td>
+                        <td>6156</td>
+                        <td>65</td>
+                        <td>16</td>
+                        <td>165</td>
+                        <td>12</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>18 </td>
+                        <td>161</td>
+                        <td>321</td>
+                        <td>32</td>
+                        <td>1</td>
+                        <td>132</td>
+                        <td>13</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>19 </td>
+                        <td>651615</td>
+                        <td>165</td>
+                        <td>1</td>
+                        <td>165</td>
+                        <td>65165</td>
+                        <td>14</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>22 </td>
+                        <td>231</td>
+                        <td>31</td>
+                        <td>32123</td>
+                        <td>1</td>
+                        <td>313</td>
+                        <td>15</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

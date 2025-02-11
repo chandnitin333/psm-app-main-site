@@ -23,3 +23,7 @@
 .mat-sort-header-arrow {
   color: #757575;
 }
+
+.text-bold{
+  font-weight: bold !important;
+}

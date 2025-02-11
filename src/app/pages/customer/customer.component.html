@@ -2,50 +2,61 @@
     <mat-card-title class="title">मालमत्ता धारकाची यादी (Customer List)</mat-card-title>
     <mat-divider></mat-divider>
 
-    <form class="form-grid">
+    <form class="form-grid" [formGroup]="customerForm">
         <div class="form-row">
+            <input type="hidden" formControlName="user_id" name="user_id" />
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="annu_kramank" [readonly]="isReadonly"
+                    title="when enter ward numberr anukaramnk added dyanmically" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="malmatta_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="number" formControlName="ward_no" min="0" (input)="getAnuKramank($event)" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="plot_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खसरा क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="khasara_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="survey_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खातेदाराचे नाव</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="khate_dharkache_name"
+                    (keypress)="keyDownText($event,'khate_dharkache_name')" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="bhogvat_dharak_name"
+                    (keypress)="keyDownText($event,'bhogvat_dharak_name')" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">पत्ता</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="address" (keypress)="keyDownText($event,'address')" />
             </mat-form-field>
         </div>
 
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+            <button mat-raised-button color="primary" class="submit-btn" (click)="submitCustomer()">Submit</button>
+            <button mat-raised-button color="primary" class="submit-btn" (click)="verifyUser()">edit test</button>
         </div>
     </form>
+    <div class="table-responsive mt-4">
+
+        <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"></app-mat-data-table>
+        <app-custom-pagination [length]="dataSource.data.length" [pageSize]="itemsPerPage" [currentPage]="currentPage"
+            (pageChange)="onPageChange($event)"> </app-custom-pagination>
+    </div>
     <div>
 
     </div>

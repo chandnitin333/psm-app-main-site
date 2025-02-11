@@ -41,4 +41,5 @@ export const routes: Routes = [
     { path: 'toilet-certificate', loadComponent: () => import('./pages/certificates/toilet-certificate/toilet-certificate.component').then(m => m.ToiletCertificateComponent) },
     { path: 'below-poverty-certificate', loadComponent: () => import('./pages/certificates/below-poverty-certificate/below-poverty-certificate.component').then(m => m.BelowPovertyCertificateComponent) },
 
+    { path: 'table-with-pdf', loadComponent: () => import('./pages/table-with-pdf/table-with-pdf.component').then(m => m.TableWithPdfComponent) },
 ];

@@ -77,6 +77,21 @@ export class SidebarComponent {
         { label: 'इमला कर New',  icon: 'monetization_on', route: '/imla-kar-form-new' },
       ]
     },
-
+    // { label: 'Certificates',icon: 'bar_chart',  children: [
+    //     { label: 'जन्म प्रमाणपत्र', icon: 'military_tech',  route:'/birth-certificate' },
+    //   { label: 'परित्यक्त्या प्रमाणपत्र', icon: 'military_tech',  route:'/certificate-of-deserted' },
+    //   { label: 'निराधार असल्याचा दाखिला', icon: 'military_tech',  route:'/certificate-of-niradhar' },
+    //   { label: 'हयातीचा दाखला', icon: 'military_tech',  route:'/living-certificate' },
+    //   { label: 'रहिवासी दाखला', icon: 'military_tech',  route:'/residence-certificate' },
+    //   { label: 'थकबाकी नसल्याचे प्रमाणपत्र', icon: 'military_tech',  route:'/no-dues-certificate' },
+    //   { label: 'विभक्त कुटुंब प्रमाणपत्र', icon: 'military_tech',  route:'/nucler-family-certificate' },
+    //   { label: 'मृत्यू प्रमाणपत्र', icon: 'military_tech',  route:'/death-certificate' },
+    //   { label: 'विवाह नोंदणीचे प्रमाणपत्र', icon: 'military_tech',  route:'/marriage-certificate' },
+    //   { label: 'दाखल्याबद्दल पावती', icon: 'military_tech',  route:'/receipt-of-certificate' },
+    //   { label: 'विधवा असल्यचा दाखला', icon: 'military_tech',  route:'/widow-certificate' },
+    //   { label: 'शौचालय दाखला', icon: 'military_tech',  route:'/toilet-certificate' },
+    //   { label: 'दारिद्र्य रेषेखालील कुटुंबाचा दाखला', icon: 'military_tech',  route:'/below-poverty-certificate' },
+    //   ]
+    // },
   ];
 }

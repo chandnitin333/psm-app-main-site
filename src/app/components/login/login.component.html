@@ -51,13 +51,13 @@
                 </div>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label>Username</mat-label>
                     <input matInput type="text" formControlName="username"
                         placeholder="Enter your username">
-                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-icon matSuffix>Username</mat-icon>
                     <mat-error
                         *ngIf="loginForm.get('username')?.hasError('required')">
-                        Email is required
+                        Username is required
                     </mat-error>
                     <!-- <mat-error
                         *ngIf="loginForm.get('username')?.hasError('username')">
