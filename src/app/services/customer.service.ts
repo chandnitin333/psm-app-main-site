@@ -20,6 +20,10 @@ export class CustomerService {
     return this.api.post(`get-annu-kramank-in-malmatta-nodni`, params);
   }
 
+  verifyUserLogin(params: any) {
+    return this.api.post(`verify-user-for-permission`, params);
+  }
+
 
 
 
