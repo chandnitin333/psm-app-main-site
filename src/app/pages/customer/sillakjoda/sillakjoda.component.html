@@ -1,0 +1,208 @@
+<!-- 
+<mat-dialog-content>
+    <form [formGroup]="previousTaxForm">
+        <div class="form-container">
+            <mat-form-field appearance="outline">
+                <mat-label>वर्ष (Year)</mat-label>
+                <mat-select formControlName="year">
+                    <mat-option value="year">2025</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>ते (To)</mat-label>
+                <mat-select formControlName="to">
+                    <mat-option value="option">2026</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>खातेधारकाचे नाव</mat-label>
+                <input matInput formControlName="accountHolderName" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>भोगवटदाराचे नाव</mat-label>
+                <input matInput formControlName="landHolderName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>गृहकर व भूमीकर</mat-label>
+                <input matInput type="number" formControlName="propertyTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>विज /दिवाबत्ती कर</mat-label>
+                <input matInput type="number" formControlName="electricityTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>आरोग्य रक्षण कर</mat-label>
+                <input matInput type="number" formControlName="healthTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>सफाई कर</mat-label>
+                <input matInput type="number" formControlName="cleaningTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>सामान्य पानी क़र</mat-label>
+                <input matInput type="number" formControlName="generalWaterTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>विशेष पाणी कर</mat-label>
+                <input matInput type="number" formControlName="specialWaterTax" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>इतर फी</mat-label>
+                <input matInput type="number" formControlName="otherFees" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>नोटीस फी</mat-label>
+                <input matInput type="number" formControlName="noticeFees" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>५% सूट (-)</mat-label>
+                <input matInput type="number" formControlName="discount5" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>५% वाढ (+)</mat-label>
+                <input matInput type="number" formControlName="increase5" value="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>एकूण</mat-label>
+                <input matInput type="number" formControlName="total" value="0">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<div class="dialog-actions">
+    <button mat-button>Cancel</button>
+    <button mat-raised-button color="primary">Save</button>
+</div> -->
+
+<form [formGroup]="previousTaxForm">
+    <h2 mat-dialog-title class="text-center text-bold bg-color">शिल्लक जोडा</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="form-row mt-4">
+
+            <input type="hidden" id="newuserr_id" formControlName="newuserr_id" />
+            <input type="hidden" id="userr_id" formControlName="userr_id" />
+            <input type="hidden" id="RNO" formControlName="RNO" />
+            <input type="hidden" id="annu_kramank" formControlName="annu_kramank" />
+            <input type="hidden" id="vard_numbers" formControlName="vard_numbers" />
+            <!-- <input type="hidden" id="getyear" />
+            
+            <input type="hidden" id="ooo" /> -->
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select name="from_year" formControlName="year">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
+
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <!-- <input matInput type="text" value="2026" formControlName="to" readonly /> -->
+                <mat-select name="to_year" formControlName="to" disable>
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खातेधारकाचे नाव</mat-label>
+                <input matInput type="text" formControlName="accountHolderName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
+                <input matInput type="text" formControlName="landHolderName" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="gruhBhumukar"
+                    (focus)="selectInputValue($event)" formControlName="propertyTax" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">विज /दिवाबत्ती कर</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="vijDivabattiKar"
+                    (focus)="selectInputValue($event)" formControlName="electricityTax" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आरोग्य रक्षण कर</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="arogyaRakshanKar"
+                    (focus)="selectInputValue($event)" formControlName="healthTax" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सफाई कर</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="safaiKar"
+                    (focus)="selectInputValue($event)" formControlName="cleaningTax" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सामान्य पानी क़र</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="samanyaPaniKar"
+                    (focus)="selectInputValue($event)" formControlName="generalWaterTax" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">विशेष पाणी कर</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="vishesPaniKar"
+                    (focus)="selectInputValue($event)" formControlName="specialWaterTax" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">इतर फी</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="itarFee"
+                    (focus)="selectInputValue($event)" formControlName="otherFees" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">नोटीस फी</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="noticeFee"
+                    (focus)="selectInputValue($event)" formControlName="noticeFees" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">५% सूट (-)</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="fivPercentSut"
+                    (focus)="selectInputValue($event)" formControlName="discount5" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">५% वाढ (+)</mat-label>
+                <input matInput type="number" (input)="updateTotal()" [(ngModel)]="fivPercentWad"
+                    (focus)="selectInputValue($event)" formControlName="increase5" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण</mat-label>
+                <input matInput type="number" value="{{ totalAmount }}" formControlName="total" />
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button mat-dialog-close class="custom-red">Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  (click)="save_magil_kar()">Save</button>
+    </mat-dialog-actions>
+
+</form>

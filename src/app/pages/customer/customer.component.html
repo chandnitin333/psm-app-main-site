@@ -8,8 +8,7 @@
             <input type="hidden" formControlName="user_id" name="user_id" />
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank"
-                    [readonly]="isReadonly"
+                <input matInput type="text" formControlName="annu_kramank" [readonly]="isReadonly"
                     title="when enter ward numberr anukaramnk added dyanmically" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
@@ -18,8 +17,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="number" formControlName="ward_no" min="0"
-                    (input)="getAnuKramank($event)" />
+                <input matInput type="number" formControlName="ward_no" min="0" (input)="getAnuKramank($event)" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
@@ -35,55 +33,41 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खातेदाराचे नाव</mat-label>
-                <input matInput type="text"
-                    formControlName="khate_dharkache_name"
+                <input matInput type="text" formControlName="khate_dharkache_name"
                     (keypress)="keyDownText($event,'khate_dharkache_name')" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
-                <input matInput type="text"
-                    formControlName="bhogvat_dharak_name"
+                <input matInput type="text" formControlName="bhogvat_dharak_name"
                     (keypress)="keyDownText($event,'bhogvat_dharak_name')" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">पत्ता</mat-label>
-                <input matInput type="text" formControlName="address"
-                    (keypress)="keyDownText($event,'address')" />
+                <input matInput type="text" formControlName="address" (keypress)="keyDownText($event,'address')" />
             </mat-form-field>
         </div>
 
         <div class="submit-row">
             <button mat-raised-button color="primary" class="submit-btn"
-                (click)="submitCustomer()">Submit</button>
-            <button mat-raised-button color="primary" class="submit-btn"
-                (click)="verifyUser()">edit test</button>
+                (click)="(!isEdit)  ? submitCustomer() : updateCustomer()">{{(isEdit)
+                ? "Update" : "Submit"}}</button>
         </div>
     </form>
     <div class="table-responsive mt-4">
 
-        <app-mat-data-table
-            [displayedColumns]="displayedColumns"
-            [dataSource]="pagedDataSource"
-            [currentPage]="currentPage"
-            [isEdit]="false"
-            [isDelete]="true"
-            [isView]="true"
-            [isPrint]="true"
-            [isDownload]="false"
-            [isPreview]="false"
-            [isKar]="false"
-            (editEvent)="onEdit($event)"
-            (deleteEvent)="onDelete($event)"
-            (viewEvent)="onView($event)"
-            (printEvent)="onPrint($event)"
-            (downloadEvent)="onDownload($event)"
-            (previewEvent)="onPreview($event)"
+        <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
+            [currentPage]="currentPage" [isEdit]="true" [isDelete]="true" [isView]="false" [isPrint]="true"
+            [isDownload]="false" [isPreview]="false" [isKar]="true" (editEvent)="onEdit($event)"
+            (deleteEvent)="onDelete($event)" (viewEvent)="onView($event)" (printEvent)="onPrint($event)"
+            (downloadEvent)="onDownload($event)" (previewEvent)="onPreview($event)"
             (prevTaxEvent)="onPrevTax($event)"></app-mat-data-table>
-        <app-custom-pagination [length]="totalItems" [pageSize]="itemsPerPage"
-            [currentPage]="currentPage"
+        <app-custom-pagination [length]="totalItems" [pageSize]="itemsPerPage" [currentPage]="currentPage"
             (pageChange)="onPageChange($event)"> </app-custom-pagination>
     </div>
     <div>
 
     </div>
 </mat-card>
+
+
+
