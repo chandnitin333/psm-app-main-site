@@ -40,6 +40,15 @@ export class CustomerService {
   deleteCustomerFromNodani(id: number) {
     return this.api.delete(`delete-malmatta-nodni-info/${id}`);
   }
+  getNamuna_8_1_data(new_user_id: number) {
+    return this.api.get(`get-namuna-8-1/${new_user_id}`);
+  }
+  getNamuna_9_1_data(new_user_id: number, vard_numbers: number) {
+    return this.api.get(`get-namuna-9-1/${new_user_id}/${vard_numbers}`); // Corrected URL
+  }
+   getNamuna_8_sarkari_data(new_user_id: number) {
+    return this.api.get(`get-namuna-8-sarkari/${new_user_id}`);
+  }
 
 
 

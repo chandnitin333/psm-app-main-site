@@ -1,0 +1,17 @@
+<h2 mat-dialog-title class="text-center text-bold bg-color">Print</h2>
+<mat-dialog-content class="mat-typography mt-3">
+    <mat-form-field style="width: 100% !important;">
+        <mat-label>नमुना निवडा </mat-label>
+        <mat-select (selectionChange)="onSelect($event)">
+            <mat-option value="नमुना ८">नमुना ८</mat-option>
+            <mat-option value="नमुना ९">नमुना ९</mat-option>
+            <mat-option value="नमुना 8 सरकारी">नमुना 8 सरकारी</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close class="custom-red">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,171 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div *ngFor="let item of namuna_8_sarkar_data?.newUserDataDBrs14">
+        <div class="col-md-12">
+            <div class="row">
+                <p class="namna heading">
+                    <b> नमुना ८ </b>
+                </p>
+                <!-- </div>
+            <div class="row"> -->
+                <span class="font15">ग्रामपंचायत कार्यालय : - {{
+                    namuna_8_sarkar_data?.entriesDetailsRs66[0]?.GATGRAMPANCHAYAT_NAME}} </span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr class="font15">
+                        <td rowspan="2">अनु क्रं.</td>
+                        <td rowspan="2">रस्त्याचे नाव </td>
+                        <td rowspan="2">सिटी सर्वे नं.</td>
+                        <td rowspan="2">मालमत्ता क्र</td>
+                        <td rowspan="2" colspan="3">घर मालकाचे नाव</td>
+                        <td rowspan="2" colspan="2">भोगवटदाराचे नाव</td>
+                        <td rowspan="2">मालमत्तेचे वर्णन </td>
+                        <td rowspan="2">बांधकामाचे वय / वर्ष </td>
+                        <td rowspan="2">क्षेत्रफळ ( चौ . फु .)</td>
+                        <td colspan="3">रेडीरेकनर दरानुसार प्रति चौरस मीटर रुपये </td>
+                    </tr>
+                    <tr class="font15">
+                        <td>जमीन </td>
+                        <td>इमारत </td>
+                        <td>बांधकाम</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.ANNU_KRAMANK}}</td>
+                        <td rowspan="5"></td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SURVEY_KRAMANK}}</td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.MALMATTA_NUMBER}}</td>
+                        <td colspan="3" rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.HOMEUSER_NAME}} </td>
+                        <td colspan="2" rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.BHOGATWARGARACHE_NAME}}
+                        </td>
+                        <td>{{ namuna_8_sarkar_data?.taxandMilkatDetailsRs10[0]?.MILKAT_VAPAR_NAME}} </td>
+                        <td></td>
+                        <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.TOTALAREA}}<br><br>
+                            {{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.TOTALAREA1}}
+                        </td>
+                        <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.ANNUALVALUE}}</td>
+                        <td></td>
+                        <td></td>
+                    <tr *ngFor="let item of namuna_8_sarkar_data?.getConstructionForsarkari8Rs7">
+                        <td>{{ item.DESCRIPTION_NAME }} </td>
+                        <td>{{ item.LIFESPAN }}<br>
+                            {{ item.CONSTRUCTING }}
+                        </td>
+                        <td>{{ item.TOTALAREA }}<br>
+                            {{ item.TOTALAREA1 }}
+                        </td>
+                        <td></td>
+                        <td>{{ item.ANNUALCOST }}</td>
+                        <td>{{ item.FLOOR_NAME }} </td>
+                    </tr>
+                    <tr *ngFor="let item of namuna_8_sarkar_data?.taxPayerDetailsRs6">
+                        <td>
+                            {{ item.DESCRIPTION_NAME }}
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            {{ item.TOTALAREA }}<br>
+                            {{ item.TOTALAREA1 }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            {{ item.MANORAMASTER_NAME }}
+                        </td>
+                    </tr>
+                    <tr class="font15">
+                        <td rowspan="2">घसारा </td>
+                        <td rowspan="2">भारांक</td>
+                        <td rowspan="2">भांडवली मूल्य </td>
+                        <td>कराचा दार </td>
+                        <td colspan="5">कराची रक्कम</td>
+                        <td colspan="5">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार ( रुपये )</td>
+                        <td rowspan="2">नंनंतर वळ किंवा घाट बदलचा शेर </td>
+                    </tr>
+                    <tr class="font15">
+                        <td>रुपये </td>
+                        <td>गृह व भूमीकर </td>
+                        <td>वीज कर </td>
+                        <td>आरक्षण </td>
+                        <td>पाणीपट्टी कर</td>
+                        <td> एकूण</td>
+                        <td>गृह व भूमीकर</td>
+                        <td>वीज कर </td>
+                        <td>आरक्षण </td>
+                        <td>पाणीपट्टी कर</td>
+                        <td> एकूण</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.capital}}</td>
+                        <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.LEVYRATE}}
+                            <br>
+                            <br>
+                        </td>
+                        <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.taxation}}</td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.VIZ_DIVVABATTIKAR}}</td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.AAROGYA_RAKSHAN_KAR}}</td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SAMANYA_PANI_KAR}}
+                            <br>
+                            <br>
+                            {{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.VISHESH_PANI_KAR}}
+                        </td>
+                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.EEKUN_KAR_BHARNA}}</td>
+                        <td rowspan="5">&nbsp;</td>
+                        <td rowspan="5">&nbsp;</td>
+                        <td rowspan="5">&nbsp;</td>
+                        <td rowspan="5">&nbsp;</td>
+                        <td rowspan="5">&nbsp;</td>
+                        <td rowspan="5">&nbsp;</td>
+                    </tr>
+                    <tr *ngFor="let item of namuna_8_sarkar_data?.getConstructionForsarkari8Rs7">
+                        <td>{{ item.DEPRECIATION }}</td>
+                        <td>{{ item.WEIGHTTAGE }}</td>
+                        <td>{{ item.ONE }}</td>
+                        <td>{{ item.LEVYRATE }}</td>
+                        <td>{{ item.TWO }} </td>
+                    </tr>
+
+                    <tr *ngFor="let item of namuna_8_sarkar_data?.taxPayerDetailsRs6">
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>{{ item.capital }}</td>
+                        <td>{{ item.taxation }} </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>0.8</td>
+                        <td>1</td>
+                        <td>431650.56</td>
+                        <td>1.2
+                        </td>
+                        <td> 517.98 </td>
+                    </tr>
+                    <tr>
+                        <td>0.75</td>
+                        <td>1</td>
+                        <td>161868.96</td>
+                        <td>0.6
+                        </td>
+                        <td> 97.12 </td>
+                    </tr>
+                    <tr>
+                        <td>0.75</td>
+                        <td>1</td>
+                        <td>118054.86</td>
+                        <td>0.3
+                        </td>
+                        <td> 35.42 </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 5%;"></div>

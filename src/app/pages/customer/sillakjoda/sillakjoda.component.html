@@ -114,12 +114,13 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">ते (To)</mat-label>
-                <!-- <input matInput type="text" value="2026" formControlName="to" readonly /> -->
-                <mat-select name="to_year" formControlName="to" disable>
+                <input type="hidden" formControlName="to" readonly />
+                <input matInput type="text" formControlName="to1" readonly />
+                <!-- <mat-select name="to_year" formControlName="to" >
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>
-                </mat-select>
+                </mat-select> -->
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खातेधारकाचे नाव</mat-label>
@@ -202,7 +203,8 @@
     </mat-dialog-content>
     <mat-dialog-actions align="center">
         <button mat-button mat-dialog-close class="custom-red">Cancel</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  (click)="save_magil_kar()">Save</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
+            (click)="save_magil_kar()">Save</button>
     </mat-dialog-actions>
 
 </form>

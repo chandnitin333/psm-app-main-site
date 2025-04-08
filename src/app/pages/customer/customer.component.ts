@@ -18,9 +18,8 @@ import { MatDataTableComponent } from '../../mat-data-table/mat-data-table.compo
 import { ApiService } from '../../services/api.service';
 import { CustomerService } from '../../services/customer.service';
 import Util from '../../utils/utils';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NamunaprintComponent } from './namunaprint/namunaprint.component';
 import { SillakjodaComponent } from './sillakjoda/sillakjoda.component';
-import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-customer',
@@ -368,7 +367,8 @@ export class CustomerComponent {
   }
 
   onPrint(element: any) {
-    console.log('Print:', element);
+    // console.log('Print:', element);
+    this.openPrintModal(element);
   }
 
   onDownload(element: any) {
@@ -380,13 +380,25 @@ export class CustomerComponent {
   }
 
   onPrevTax(element: any) {
-    console.log('Previous Tax:', element);
+    // console.log('Previous Tax:', element);
     this.openModal(element);
   }
 
   openModal(element:any): void {
     const dialogRef = this.dialog.open(SillakjodaComponent, {
       width: '1000px', // Adjust size
+      data: element,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Modal Data:', result);
+      }
+    });
+  }
+  openPrintModal(element:any): void {
+    const dialogRef = this.dialog.open(NamunaprintComponent, {
+      width: '400px', // Adjust size
       data: element,
     });
 

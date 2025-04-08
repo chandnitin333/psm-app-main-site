@@ -42,4 +42,7 @@ export const routes: Routes = [
     { path: 'below-poverty-certificate', loadComponent: () => import('./pages/certificates/below-poverty-certificate/below-poverty-certificate.component').then(m => m.BelowPovertyCertificateComponent) },
 
     { path: 'table-with-pdf', loadComponent: () => import('./pages/table-with-pdf/table-with-pdf.component').then(m => m.TableWithPdfComponent) },
+    {path: 'namuna-8-1', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component)},
+    {path: 'namuna-9-1', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component)},
+    {path: 'namuna-8-sarkari', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent)},
 ];

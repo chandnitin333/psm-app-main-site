@@ -127,7 +127,7 @@ table, th, td {
 	padding:20px;
 }
 .font15, .san, .right{
-	font-weight: bold !important;
+	font-weight: bold;
 }
 
 
@@ -162,8 +162,3 @@ table, th, td {
 		padding: 0px !important;
 	}
  }
-
-
-
-
- 

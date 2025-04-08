@@ -24,6 +24,7 @@ export class SillakjodaComponent {
   previousTaxForm = new FormGroup({
     year: new FormControl<string | null>(null),
     to: new FormControl<string | null>(null),
+    to1: new FormControl<string | null>(null),
     accountHolderName: new FormControl(undefined),
     landHolderName: new FormControl(undefined),
     propertyTax: new FormControl(undefined),
@@ -65,7 +66,7 @@ export class SillakjodaComponent {
     private customerService: CustomerService,
     private toastr: ToastrService,
   ) {
-    console.log('Received data in SillakjodaComponent:', this.data);
+    // console.log('Received data in SillakjodaComponent:', this.data);
   }
 
   ngOnInit(): void {
@@ -175,12 +176,14 @@ export class SillakjodaComponent {
     if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
       const nextYear = this.yearOptions[selectedIndex + 1];
       this.previousTaxForm.get('to')?.setValue(nextYear.YEAR_ID); // No error now
+      this.previousTaxForm.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
     } else {
       this.previousTaxForm.get('to')?.setValue(null); // Handle no next year gracefully
+      this.previousTaxForm.get('to1')?.setValue(null); // Handle no next year gracefully
     }
   }
   
-   save_magil_kar() {
+  save_magil_kar() {
     if (!this.previousTaxForm.invalid) {
       let params = {
         "user_id": this.userDetails.userId,

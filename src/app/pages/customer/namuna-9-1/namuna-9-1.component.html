@@ -1,0 +1,240 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="row">
+                <p class="heading">
+                    <b>नमुना ९</b>
+
+
+                </p>
+
+                <p class="san">
+                    सन {{ namuna_9_1_data?.years[0]?.currentYear }} - {{ namuna_9_1_data?.years[0]?.nextYear }} या
+                    वर्षाची आकारणी केलेल्या कराची
+                    मागणी नोंदवही
+                </p>
+
+            </div>
+
+            <div class="row">
+                <span class="font15">वार्ड नं :- {{ receivedData.VARD_NUMBER }} </span>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <span class="font15 left">जिल्हा :- {{ namuna_9_1_data?.entriesDetailsDBrs2[0].DISTRICT_NAME }}
+                    </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15 ">तालुका :- {{ namuna_9_1_data?.entriesDetailsDBrs2[0].TALUKA_NAME }} </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right">ग्रामपंचायत :- {{ namuna_9_1_data?.entriesDetailsDBrs2[0].PANCHAYAT_NAME
+                        }} </span>
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="table-responsive">
+                <table class="table ">
+
+
+
+                    <tbody *ngFor="let item of namuna_9_1_data?.newUserDataDBrs3">
+                        <tr>
+                            <th rowspan="2">अ.क्र.</th>
+                            <th rowspan="2">खातेधारकाचे नाव</th>
+                            <th rowspan="2">मालमत्ता क्र.</th>
+                            <th rowspan="2">खासरा क्र.</th>
+                            <th rowspan="2">सर्वे क्र.</th>
+                            <th rowspan="2">प्लॉट क्र.</th>
+                            <th rowspan="2" class="width77">करांचे नाव</th>
+                            <th colspan="2">मागणी</th>
+                            <th rowspan="2">एकूण</th>
+                            <th rowspan="2">पावती क्र.</th>
+                            <th rowspan="2" class="width77">करांचे नाव</th>
+                            <th colspan="2">वसुली</th>
+                            <th rowspan="2">एकूण</th>
+                            <th rowspan="2">बाकी</th>
+                        </tr>
+                        <tr>
+                            <td>मागील</td>
+                            <td>चालू</td>
+                            <td>मागील</td>
+                            <td>चालू</td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <td rowspan="12">{{ item.ANNU_KRAMANK }}</td>
+                            <td rowspan="6">{{ item.HOMEUSER_NAME }}</td>
+                            <td>{{item.MALMATTA_NUMBER }}</td>
+                            <td>{{ item.KHASARA_KRAMANK }}</td>
+                            <td>{{ item.SURVEY_KRAMANK }}</td>
+                            <td>{{ item.PLOT_NO }}</td>
+
+                            <td>गृहकर व भूमीकर</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.bhumi }}</td>
+                            <td>{{ Math.round(item.BHUMIKAR) }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.b }}</td>
+
+                            <td rowspan="7">&nbsp;</td>
+                            <td>गृहकर व भूमीकर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5" colspan="4">{{ item.ADDRESS_NAGAR_SOCIETY
+                                }}</td>
+                            <td>दिवाबत्ती/वीज कर</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva }}</td>
+                            <td>{{ item.VIZ_DIVVABATTIKAR }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.d }}</td>
+                            <td> दिवाबत्ती/वीज कर </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                            <td>आरोग्य रक्षण कर </td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya }}</td>
+                            <td>{{ item.AAROGYA_RAKSHAN_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.e }}</td>
+                            <td>आरोग्य रक्षण कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+
+
+                            <td>सफाई कर</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.safai }}</td>
+                            <td>{{ item.SAFAI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.f }}</td>
+                            <td>सफाई कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                            <td>५% सूट (-) </td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.less }}</td>
+                            <td>0</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.ls }}</td>
+                            <td>५% सूट (-)</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>५% दंड (+)</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.magilnewpl }}</td>
+                            <td>0</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.totalnewpl }}</td>
+                            <td>५% दंड (+)</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1" colspan="1">भोगवटदाराचे नाव</td>
+                            <td rowspan="1" colspan="4">मिलकत प्रकार</td>
+                            <td><b>एकूण </b></td>
+                            <td><b>{{ namuna_9_1_data?.alphabets?.s }}</b></td>
+                            <td><b>{{ namuna_9_1_data?.alphabets?.a }}</b></td>
+                            <td><b>{{ namuna_9_1_data?.alphabets?.j }}</b></td>
+                            <td><b>एकूण </b></td>
+                            <td><b>&nbsp;</b></td>
+                            <td><b>&nbsp;</b></td>
+                            <td><b>&nbsp;</b></td>
+                            <td><b>&nbsp;</b></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5" colspan="1">{{ item.BHOGATWARGARACHE_NAME
+                                }}</td>
+                            <td rowspan="5" colspan="4">{{ item.MILKAR_PRAKAR }}</td>
+                            <td>सामान्य पाणी कर</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.samanya }}</td>
+                            <td>{{ item.SAMANYA_PANI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.g }}</td>
+                            <td rowspan="5">&nbsp;</td>
+                            <td>सामान्य पाणी कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>विशेष पाणी कर</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.vishesh }}</td>
+                            <td>{{ item.VISHESH_PANI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.h }}</td>
+                            <td>विशेष पाणी कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>इत्तर फी</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.etar }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.etar }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.n }}</td>
+                            <td>इत्तर फी</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>नोटीस फी</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.notice }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.notice }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.o }}</td>
+                            <td>नोटीस फी</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        <tr style="font-weight:bold;">
+                            <td>एकूण मागणी </td>
+                            <td>{{ namuna_9_1_data?.alphabets?.k }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.l }}</td>
+                            <td>{{ namuna_9_1_data?.alphabets?.m }}</td>
+                            <td>एकूण मागणी </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 5%;"></div>
