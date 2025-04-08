@@ -35,14 +35,19 @@
                         <td>बांधकाम</td>
                     </tr>
                     <tr>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.ANNU_KRAMANK}}</td>
-                        <td rowspan="5"></td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SURVEY_KRAMANK}}</td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.MALMATTA_NUMBER}}</td>
-                        <td colspan="3" rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.HOMEUSER_NAME}} </td>
-                        <td colspan="2" rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.BHOGATWARGARACHE_NAME}}
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{
+                            namuna_8_sarkar_data?.newUserDataDBRs3[0]?.ANNU_KRAMANK}}</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a"></td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{
+                            namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SURVEY_KRAMANK}}</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{
+                            namuna_8_sarkar_data?.newUserDataDBRs3[0]?.MALMATTA_NUMBER}}</td>
+                        <td colspan="3" [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{
+                            namuna_8_sarkar_data?.newUserDataDBRs3[0]?.HOMEUSER_NAME}} </td>
+                        <td colspan="2" [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{
+                            namuna_8_sarkar_data?.newUserDataDBRs3[0]?.BHOGATWARGARACHE_NAME}}
                         </td>
-                        <td>{{ namuna_8_sarkar_data?.taxandMilkatDetailsRs10[0]?.MILKAT_VAPAR_NAME}} </td>
+                        <td>{{ MILKAT_VAPAR_NAME }} </td>
                         <td></td>
                         <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.TOTALAREA}}<br><br>
                             {{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.TOTALAREA1}}
@@ -109,20 +114,20 @@
                             <br>
                         </td>
                         <td>{{ namuna_8_sarkar_data?.taxationLandDetailsDbRs4[0]?.taxation}}</td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.VIZ_DIVVABATTIKAR}}</td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.AAROGYA_RAKSHAN_KAR}}</td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SAMANYA_PANI_KAR}}
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.VIZ_DIVVABATTIKAR}}</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.AAROGYA_RAKSHAN_KAR}}</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.SAMANYA_PANI_KAR}}
                             <br>
                             <br>
                             {{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.VISHESH_PANI_KAR}}
                         </td>
-                        <td rowspan="5">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.EEKUN_KAR_BHARNA}}</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5">&nbsp;</td>
-                        <td rowspan="5">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">{{ namuna_8_sarkar_data?.newUserDataDBRs3[0]?.EEKUN_KAR_BHARNA}}</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
+                        <td [attr.rowspan]="namuna_8_sarkar_data?.all_counts?.a">&nbsp;</td>
                     </tr>
                     <tr *ngFor="let item of namuna_8_sarkar_data?.getConstructionForsarkari8Rs7">
                         <td>{{ item.DEPRECIATION }}</td>

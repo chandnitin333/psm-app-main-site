@@ -12,8 +12,9 @@ import html2pdf from 'html2pdf.js';
   styleUrl: './namuna-8-sarkari.component.css'
 })
 export class Namuna8SarkariComponent {
- receivedData: any;
+  receivedData: any;
   namuna_8_sarkar_data: any;
+  MILKAT_VAPAR_NAME: string = '';
 
   constructor(private router: Router, private customerService: CustomerService,) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
@@ -27,7 +28,9 @@ get_namuna_8_Sarkari_data(){
   this.customerService.getNamuna_8_sarkari_data(this.receivedData.value).subscribe({
     next: (res: any) => {
       this.namuna_8_sarkar_data = res.data;
-      console.log('Namuna 8 Sarkari Data:', this.namuna_8_sarkar_data);
+      this.MILKAT_VAPAR_NAME = (this.namuna_8_sarkar_data?.taxandMilkatDetailsRs10?.[0] !== null) ? this.namuna_8_sarkar_data?.taxandMilkatDetailsRs10?.[0]?.MILKAT_VAPAR_NAME : '';
+      // console.log('MILKAT_VAPAR_NAME:', this.MILKAT_VAPAR_NAME);
+      // console.log('Namuna 8 Sarkari Data:', this.namuna_8_sarkar_data);
     },
     error: (err: Error) => {
       console.error('Error getting for namuna 8 sarkari:', err);
