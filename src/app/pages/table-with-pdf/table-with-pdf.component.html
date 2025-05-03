@@ -1,182 +1,193 @@
-<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">Download PDF </button>
-<button (click)="downloadAndPreviewPDF()" class="buttonPdf hidden-print btn btn-primary" value="PDF">Print
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
 </button>&nbsp;&nbsp;&nbsp;
-<!-- <button (click)="printContent()" class="buttonPdf hidden-print" value="PDF">Print </button>&nbsp; -->
 <div class="container-fluid" id="contentToExport">
-  <div class="row">
-    <p class="namna heading text-center">
-      <b style="font-weight: bold; font-size: 30px !important"> आधार कार्ड व वोटर कार्ड यादी </b>
-      <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->
-    </p>
-  </div>
-  <div class="col-md-12 table-content">
+  <div class="col-md-12">
     <div class="row">
-      <span class="padding20">वार्ड नं :- 1 </span>
+      <p class="namna heading">
+        <b> नमुना ८ </b>
+        <!--<button onclick="myFunction(16546)" class="buttonPdf" value="PDF">PDF</button>-->
+      </p>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <span class="font15 left">ग्रामपंचायत :- न्यू डेमो </span>
-      </div>
-      <div class="col-md-4 center tahsil text-center">
-        <span class="font15">तहसील :- नागपूर ग्रामीण </span>
-      </div>
-      <div class="col-md-4 float-right">
-        <span class="font15 right "> जिल्हा :- नागपूर </span>
-      </div>
+      <span class="padding20"><br>ग्रामपंचायत कार्यालय : - न्यु डेमो </span>
     </div>
   </div>
   <br>
   <div class="table-responsive">
-    <table class="table">
-      <thead class="borderDouble">
-        <tr>
-          <th>अ.क्र</th>
-          <th>मालमत्ता क्र. </th>
-          <th>खातेधारकाचे नाव </th>
-          <th class="bhagedar">भोगवटदाराचे नाव </th>
-          <th>आधार कार्ड </th>
-          <th>वोटर कार्ड </th>
-          <th>पान नं. </th>
-        </tr>
-      </thead>
+    <table class="table table-bordered ">
+      <!--<thead class="borderDouble">
+            <tr>
+              <th>अ.क्र</th>
+              <th>मालमत्ता  क्र.</th>
+            <th>खातेधारकाचे नाव </th>
+            <th>भोगवटदाराचे  नाव  </th>
+            <th>मोबाईल क्रमांक </th>
+            <th>मोबाईल  क्र.  </th>
+            <th>पान नं.   </th>
+            </tr>
+            </thead>-->
       <tbody>
         <tr>
-          <td>1 </td>
+          <td rowspan="2">अनु क्रं.</td>
+          <td rowspan="2">रस्त्याचे नाव </td>
+          <td rowspan="2">सिटी सर्वे नं.</td>
+          <td rowspan="2">मालमत्ता क्र</td>
+          <td rowspan="2" colspan="3">घर मालकाचे नाव</td>
+          <td rowspan="2" colspan="2">भोगवटदाराचे नाव</td>
+          <td rowspan="2">मालमत्तेचे वर्णन </td>
+          <td rowspan="2">बांधकामाचे वय / वर्ष </td>
+          <td rowspan="2">क्षेत्रफळ ( चौ . फु .)</td>
+          <td colspan="3">रेडीरेकनर दरानुसार प्रति चौरस मीटर रुपये </td>
+        </tr>
+        <tr>
+          <td>जमीन </td>
+          <td>इमारत </td>
+          <td>बांधकाम</td>
+        </tr>
+        <tr>
+          <td rowspan="5">14</td>
+          <td rowspan="5"></td>
+          <td rowspan="5"></td>
+          <td rowspan="5">14</td>
+          <td colspan="3" rowspan="5">कमलेश राणे </td>
+          <td colspan="2" rowspan="5"></td>
+          <td>खुला भूखंड </td>
+          <td></td>
+          <td>900<br><br>
+            83.61
+          </td>
+          <td>5520</td>
+          <td></td>
+          <td></td>
+        <tr>
+          <td>आर सी सी </td>
+          <td>15<br>
+            2008
+          </td>
+          <td>400<br>
+            37.16
+          </td>
+          <td></td>
+          <td>19360</td>
+          <td>तळ मजला </td>
+        </tr>
+        <tr>
+          <td>आर सी सी </td>
+          <td>15<br>
+            2008
+          </td>
+          <td>300<br>
+            27.87
+          </td>
+          <td></td>
+          <td>19360</td>
+          <td>तळ मजला </td>
+        </tr>
+        <tr>
+          <td>अर्धे पक्के </td>
+          <td>15<br>
+            2008
+          </td>
+          <td>200<br>
+            18.58
+          </td>
+          <td></td>
+          <td>11616</td>
+          <td>तळ मजला </td>
+        </tr>
+        <tr>
+          <td>कच्चे</td>
+          <td>15<br>
+            2008
+          </td>
+          <td>250<br>
+            23.23
+          </td>
+          <td></td>
+          <td>6776</td>
+          <td>तळ मजला </td>
+        </tr>
+        <tr>
+          <td rowspan="2">घसारा </td>
+          <td rowspan="2">भारांक</td>
+          <td rowspan="2">भांडवली मूल्य </td>
+          <td>कराचा दार </td>
+          <td colspan="5">कराची रक्कम</td>
+          <td colspan="5">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार ( रुपये )</td>
+          <td rowspan="2">नंनंतर वळ किंवा घाट बदलचा शेर </td>
+        </tr>
+        <tr>
+          <td>रुपये </td>
+          <td>गृह व भूमीकर </td>
+          <td>वीज कर </td>
+          <td>आरक्षण </td>
+          <td>पाणीपट्टी कर</td>
+          <td> एकूण</td>
+          <td>गृह व भूमीकर</td>
+          <td>वीज कर </td>
+          <td>आरक्षण </td>
+          <td>पाणीपट्टी कर</td>
+          <td> एकूण</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>461527.2</td>
+          <td>1.5
+            <br>
+            <br>
+          </td>
+          <td>692.29</td>
+          <td rowspan="5">100</td>
+          <td rowspan="5">100</td>
+          <td rowspan="5">0
+            <br>
+            <br>
+            750
+          </td>
+          <td rowspan="5">2983.45</td>
+          <td rowspan="5">&nbsp;</td>
+          <td rowspan="5">&nbsp;</td>
+          <td rowspan="5">&nbsp;</td>
+          <td rowspan="5">&nbsp;</td>
+          <td rowspan="5">&nbsp;</td>
+          <td rowspan="5">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>0.8</td>
           <td>1</td>
-          <td>गजानन रामभाऊ केदार </td>
-          <td></td>
-          <td>895456354212</td>
-          <td></td>
+          <td>575534.08</td>
+          <td>1.2
+          </td>
+          <td> 690.64 </td>
+        </tr>
+        <tr>
+          <td>0.8</td>
           <td>1</td>
+          <td>431650.56</td>
+          <td>1.2
+          </td>
+          <td> 517.98 </td>
         </tr>
         <tr>
-          <td>2 </td>
-          <td>2</td>
-          <td>मनोज रामभाऊ खोडे , वंदना मनोज खोडे </td>
-          <td></td>
-          <td>305648696546</td>
-          <td></td>
-          <td>2</td>
-        </tr>
-        <tr>
-          <td>3 </td>
-          <td>3</td>
-          <td>राजाभाई जमालभाई शेख , नूरबेगम राजाभाई शेख </td>
-          <td></td>
-          <td>256489630213</td>
-          <td></td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>6 </td>
-          <td>6</td>
-          <td>राकेश मनोहर वाघमारे </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>7 </td>
-          <td>7</td>
-          <td>पंकज भीमराव कस्तुरे </td>
-          <td></td>
-          <td>123456789987</td>
-          <td>ghh2555d55</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>8 </td>
-          <td>8</td>
-          <td>शाळा जिल्हा परिषद </td>
-          <td></td>
-          <td>587469521554</td>
-          <td>dddd1551d25</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>11 </td>
-          <td>11</td>
-          <td>अजय रामभाऊ कांबळे </td>
-          <td></td>
-          <td>023554666544</td>
-          <td></td>
-          <td>7</td>
-        </tr>
-        <tr>
-          <td>12 </td>
-          <td>12</td>
-          <td>विनोद रामभाऊ काळे </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>13 </td>
-          <td>13</td>
-          <td>पंकज बव्बेन्म </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>9</td>
-        </tr>
-        <tr>
-          <td>14 </td>
-          <td>14</td>
-          <td>कमलेश राणे </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>16 </td>
-          <td>65156</td>
-          <td>65</td>
+          <td>0.75</td>
           <td>1</td>
-          <td>651</td>
-          <td>651</td>
-          <td>11</td>
+          <td>161868.96</td>
+          <td>0.6
+          </td>
+          <td> 97.12 </td>
         </tr>
         <tr>
-          <td>17 </td>
-          <td>6565</td>
-          <td>6156</td>
-          <td>65</td>
-          <td>16</td>
-          <td>165</td>
-          <td>12</td>
-        </tr>
-        <tr>
-          <td>18 </td>
-          <td>161</td>
-          <td>321</td>
-          <td>32</td>
+          <td>0.75</td>
           <td>1</td>
-          <td>132</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>19 </td>
-          <td>651615</td>
-          <td>165</td>
-          <td>1</td>
-          <td>165</td>
-          <td>65165</td>
-          <td>14</td>
-        </tr>
-        <tr>
-          <td>22 </td>
-          <td>231</td>
-          <td>31</td>
-          <td>32123</td>
-          <td>1</td>
-          <td>313</td>
-          <td>15</td>
+          <td>118054.86</td>
+          <td>0.3
+          </td>
+          <td> 35.42 </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-<br><br>
+<div style="margin-bottom: 5%;"></div>

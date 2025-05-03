@@ -1,3 +1,19 @@
+.text-bold {
+  font-weight: bold;
+}
+
+.custom-red {
+  background-color: #f14a4a !important; /* Custom Blue */
+  color: white !important;
+}
+
+.bg-color {
+  background-color: #214162;
+  color: #ffffff;
+}
+
+
+
 .form-panel {
   padding: 20px;
   margin: 10px;
