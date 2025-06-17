@@ -50,13 +50,4 @@ export class CustomerService {
     return this.api.get(`get-namuna-8-sarkari/${new_user_id}`);
   }
 
-
-
-
-
-
-
-  getPrakarById(id: number) {
-    return this.api.get(`prakar/${id}`);
-  }
 }

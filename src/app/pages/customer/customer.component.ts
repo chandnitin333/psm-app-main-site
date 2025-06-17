@@ -136,43 +136,46 @@ export class CustomerComponent {
   keyDownText(event: KeyboardEvent, controlName: string): void {
     this.util.onKeydown(event, controlName, this.customerForm);
   }
-  submitCustomer() {
-    if (!this.customerForm.invalid) {
-      let params = {
-        annu_kramank: this.customerForm.value.annu_kramank,
-        malmatta_no: this.customerForm.value.malmatta_no,
-        ward_no: this.customerForm.value.ward_no,
-        plot_no: this.customerForm.value.plot_no,
-        khasara_no: this.customerForm.value.khasara_no,
-        survey_no: this.customerForm.value.survey_no,
-        khate_dharkache_name: this.customerForm.value.khate_dharkache_name,
-        bhogvat_dharak_name: this.customerForm.value.bhogvat_dharak_name,
-        address: this.customerForm.value.address,
-        user_id: this.customerForm.value.user_id,
-      };
-      this.customerService.addCustomer(params).subscribe({
-        next: (res: any) => {
-          console.log('res', res);
-          if (res.status == 201) {
-            console.log('inside', res);
-            this.reset();
-            this.toastr.success(res.message, 'Success');
-            // this.isSubmitted = true;
-            this.fetchData();
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error adding customer:', err);
-          this.toastr.error('There was an error adding the customer.', 'Error');
-        },
-      });
-    } else {
-      this.toastr.warning('Please fill all required fields.', 'warning');
-    }
+  // submitCustomer() {
+  //   if (!this.customerForm.invalid) {
+  //     let params = {
+  //       annu_kramank: this.customerForm.value.annu_kramank,
+  //       malmatta_no: this.customerForm.value.malmatta_no,
+  //       ward_no: this.customerForm.value.ward_no,
+  //       plot_no: this.customerForm.value.plot_no,
+  //       khasara_no: this.customerForm.value.khasara_no,
+  //       survey_no: this.customerForm.value.survey_no,
+  //       khate_dharkache_name: this.customerForm.value.khate_dharkache_name,
+  //       bhogvat_dharak_name: this.customerForm.value.bhogvat_dharak_name,
+  //       address: this.customerForm.value.address,
+  //       user_id: this.customerForm.value.user_id,
+  //     };
+  //     this.customerService.addCustomer(params).subscribe({
+  //       next: (res: any) => {
+  //         console.log('res', res);
+  //         if (res.status == 201) {
+  //           console.log('inside', res);
+  //           this.reset();
+  //           this.toastr.success(res.message, 'Success');
+  //           // this.isSubmitted = true;
+  //           this.fetchData();
+  //           // this.loginSuccess = false;
+  //         } else {
+  //           this.toastr.warning(res.message, 'Warning');
+  //         }
+  //         // this.isLoading = false;
+  //       },
+  //       error: (err: Error) => {
+  //         console.error('Error adding customer:', err);
+  //         this.toastr.error('There was an error adding the customer.', 'Error');
+  //       },
+  //     });
+  //   } else {
+  //     this.toastr.warning('Please fill all required fields.', 'warning');
+  //   }
+  // }
+  searchCustomer()  {
+
   }
 
   reset() {

@@ -8,8 +8,8 @@
             <input type="hidden" formControlName="user_id" name="user_id" />
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank" [readonly]="isReadonly"
-                    title="when enter ward numberr anukaramnk added dyanmically" />
+                <input matInput type="text" formControlName="annu_kramank"
+                    title="अनु. क्रमांक" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
@@ -17,7 +17,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="number" formControlName="ward_no" min="0" (input)="getAnuKramank($event)" />
+                <input matInput type="number" formControlName="ward_no" min="0"  />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
@@ -49,8 +49,7 @@
 
         <div class="submit-row">
             <button mat-raised-button color="primary" class="submit-btn"
-                (click)="(!isEdit)  ? submitCustomer() : updateCustomer()">{{(isEdit)
-                ? "Update" : "Submit"}}</button>
+                (click)="searchCustomer()">Search</button>
         </div>
     </form>
     <div class="table-responsive mt-4">

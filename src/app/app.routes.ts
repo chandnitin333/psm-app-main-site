@@ -45,4 +45,12 @@ export const routes: Routes = [
     {path: 'namuna-8-1', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component)},
     {path: 'namuna-9-1', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component)},
     {path: 'namuna-8-sarkari', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent)},
+
+    {path: 'ward-wise-adhar-list', loadComponent: () => import('./pages/ahval/adhar-card-show/ward-wise-adhar-card-list/ward-wise-adhar-card-list.component').then(m => m.WardWiseAdharCardListComponent)},
+    {path: 'ward-wise-mobile-no-list', loadComponent: () => import('./pages/ahval/mobile-number/ward-wise-mobile-no-list/ward-wise-mobile-no-list.component').then(m => m.WardWiseMobileNoListComponent)},
+    {path: 'ward-wise-pinyache-pani-list', loadComponent: () => import('./pages/ahval/pani-vyavasta-yadi/ward-wise-pinyache-pani-list/ward-wise-pinyache-pani-list.component').then(m => m.WardWisePinyachePaniListComponent)},
+    {path: 'ward-wise-toilet-list', loadComponent: () => import('./pages/ahval/toilet-yadi/ward-wise-toilet-list/ward-wise-toilet-list.component').then(m => m.WardWiseToiletListComponent)},
+
+    {path: 'malmatta-darkahchi-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent)},
+
 ];

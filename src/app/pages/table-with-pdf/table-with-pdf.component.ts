@@ -28,12 +28,17 @@ export class TableWithPdfComponent {
         const options = {
           filename: fileName,
           html2canvas: {
-            removeContainer: true, // Remove additional border
+            // removeContainer: true, // Remove additional border
             scale: 2, // Increase scale to improve quality
             useCORS: true // Enable cross-origin resource sharing
           },
-          jsPDF: { orientation: 'landscape' }, // Set orientation to 'landscape'
-          avoidPageBreak: true, // Avoid page breaks
+          jsPDF: { orientation: 'landscape',unit: 'mm',
+    format: 'a4',}, // Set orientation to 'landscape'
+          
+  pagebreak: {
+    mode: ['css', 'legacy'], // supports your .page-break
+    before: '.page-break',   // optional, but helps consistency
+  }
         };
 
         html2pdf()
