@@ -8,7 +8,7 @@ export class CustomerService {
   constructor(private api: ApiService) {}
 
   fetchCustomersList(params: any) {
-    return this.api.post('get-malmatta-nodni-list-info', params);
+    return this.api.post('search-customer-in-malmatta-nodni', params);
   }
 
   addCustomer(params: any) {

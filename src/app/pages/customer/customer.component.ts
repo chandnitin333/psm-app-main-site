@@ -99,8 +99,18 @@ export class CustomerComponent {
     this.customerService
       .fetchCustomersList({
         page_number: this.currentPage,
-        search: this.searchValue,
-        user_id: this.userDetails.userId,
+        txtnumber: this.customerForm.value.annu_kramank,
+        txt_malmatta_number: this.customerForm.value.malmatta_no,
+        txt_vard_number: this.customerForm.value.ward_no,
+        txt_plot_number: this.customerForm.value.plot_no,
+        txt_khasara_number: this.customerForm.value.khasara_no,
+        txt_survey_number: this.customerForm.value.survey_no,
+        txt_khatedarache_name: this.customerForm.value.khate_dharkache_name,
+        txt_bhogatwarache_name: this.customerForm.value.bhogvat_dharak_name,
+        txt_patta: this.customerForm.value.address,
+       
+
+       
       })
       .subscribe({
         next: (res: any) => {
@@ -410,5 +420,10 @@ export class CustomerComponent {
         console.log('Modal Data:', result);
       }
     });
+  }
+
+  resetData(){
+    this.customerForm.reset();
+    this.fetchData();
   }
 }

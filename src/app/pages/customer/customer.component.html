@@ -49,7 +49,11 @@
 
         <div class="submit-row">
             <button mat-raised-button color="primary" class="submit-btn"
-                (click)="searchCustomer()">Search</button>
+                style="margin-right: 10px"
+                (click)="fetchData()">Search</button>
+            <button mat-raised-button color="danger" class="btn-danger"
+                style="background-color: rgb(207, 58, 58); color:#fff"
+                (click)="resetData()">Reset</button>
         </div>
     </form>
     <div class="table-responsive mt-4">
