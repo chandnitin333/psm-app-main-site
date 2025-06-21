@@ -1,0 +1,62 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div class="row">
+        <p class="heading">
+            <b> पाणी व्यवस्था यादी </b>
+        </p>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="row">
+
+            <span class="padding20"><b>वार्ड नं :- {{ ward_number }} </b></span>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <span class="font15 left">ग्रामपंचायत :- {{ adharList?.newUserDataDBRs2[0]?.PANCHAYAT_NAME }} </span>
+            </div>
+            <div class=" col-md-4 center tahsil">
+                <span class="font15">तहसील :- {{ adharList?.newUserDataDBRs2[0]?.TALUKA_NAME }} </span>
+            </div>
+            <div class="col-md-4">
+                <span class="font15 right"> जिल्हा :- {{ adharList?.newUserDataDBRs2[0]?.DISTRICT_NAME }} </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="">
+                <tr>
+                    <th>अ.क्र</th>
+                    <th>मालमत्ता क्र. </th>
+                    <th>खातेधारकाचे नाव </th>
+                    <th class="bhagedar">भोगवटदाराचे नाव </th>
+                    <!-- <th>आधार कार्ड </th>
+                    <th>वोटर कार्ड </th> -->
+                    <th>पाण्याची व्यवस्था</th>
+                    <th>पान नं. </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of adharList?.adharListRs3">
+                    <td>{{ item.ANNU_KRAMANK}} </td>
+                    <td>{{ item.MALMATTA_NUMBER}}</td>
+                    <td>{{ item.HOMEUSER_NAME}} </td>
+                    <td>{{ item.BHOGATWARGARACHE_NAME}}</td>
+                    <!-- <td>{{ item.AADHARCARD_NUMBER}}</td>
+                    <td>{{ item.VOTERCARD_NUMBER}}</td> -->
+                    <td>{{ item.PINIYACHA_PANI}}</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="margin-bottom: 5%;"></div>
