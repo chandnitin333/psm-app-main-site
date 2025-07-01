@@ -1,0 +1,96 @@
+<form>
+    <h2 mat-dialog-title class="text-center text-bold bg-color">खुला भूखंड कर आकारणी</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="form-row mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
+                <mat-select>
+                    <mat-option value="2021">Khula Bhkhand</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
+                <mat-select>
+                    <mat-option value="2021">Khula Bhkhand</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वापर प्रकार</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गावाचे नाव</mat-label>
+                <mat-select>
+                    <mat-option value="2021">Nagpur</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गावठाण/गावठाण बाहेरचे</mat-label>
+                <mat-select>
+                    <mat-option value="2021">Testing</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- </div>
+        <div class="form-row"> -->
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <!-- </div>
+        <div class="form-row"> -->
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आकारणी दर</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">जमिनीचे भांडवली मुल्य = जमिनीचे
+                    क्षेत्रफळ(चौ.
+                    मीटर) X जमिनीचे वार्षिक मुल्य जमिनीचे भांडवली मुल्य
+                    =Label</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">कर आकारणी = जमिनीचे भांडवली मुल्य X आकारणी
+                    दर
+                    /१००० कर आकारणी =Label</mat-label>
+                <input matInput type="text" />
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+
+        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>जतन करा</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Birth Certificate</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+
+    <style>
+        @page {
+            size: A4
+        }
+
+        input {
+            width: 100px;
+        }
+
+        .form-control:focus {
+            border-color: white;
+            outline: 0;
+            /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);*/
+            border-bottom-color: black;
+        }
+
+        .form-control {
+            text-align: center;
+            display: block;
+            width: 100px;
+            height: 24px;
+            /* padding: 6px 12px; */
+            font-size: 14px;
+            line-height: 1.42857143;
+            /* color: #555; */
+            background-color: #fff;
+            background-image: none;
+            border: none;
+            border-bottom: 1px dotted #000;
+            box-shadow: none;
+            border-radius: inherit;
+        }
+
+        h1,
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .abcd {
+            border: 4px double black;
+            height: 100%;
+            padding: 10px 11px;
+        }
+
+        label {
+            font-size: 14px;
+            padding-left: 10px;
+        }
+
+        .p1 {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .Rtable {
+            width: 688px;
+            ;
+            border: 1px solid black;
+            margin-top: -36px;
+        }
+
+        .img1 {
+            padding-bottom: 17px;
+            padding-top: 20px;
+            padding-right: 129px;
+            height: 76px;
+            margin-bottom: -8px;
+            /* width: 123px; */
+            padding-left: 100px;
+            margin-left: 5px;
+            border: 1px solid black;
+        }
+
+        .RR {
+            margin-left: -287px;
+        }
+
+        .A4 {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
+
+
+</head>
+
+
+<body class="A4">
+
+    <!-- Each sheet element should have the class "sheet" -->
+    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+    <section class="sheet padding-10mm">
+
+        <!-- Write HTML just like a web page -->
+        <div class="abcd"><br>
+
+            <div class="container">
+
+                <table class="Rtable">
+                    <thead>
+                        <tr>
+                            <th><label style="float:left;font-size:17px">प्रमाणपत्र क्र./ Certificate N0.</label></th>
+                            <th><label style="float:right;font-size:17px;padding-right:10px">नमुना ५ /Form 5</label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <hr color="black">
+                    <tbody>
+                        <tr>
+                            <td><img class="img1" src="images/aashok_stambha.png"></img></td>
+                            <td>
+                                <p class="p1">महाराष्ट्र शासन </p>
+                                <p class="p1">Goverment of Maharashtra</p>
+                                <p class="p1">आरोग्य विभाग </p>
+                                <p class="p1">Health Department</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label>प्रमाणपत्र निर्गमित करणाऱ्या स्थानिक क्षेत्राचे नाव / Name of the local body issuing
+                                certificate.</label></td>
+                        <td><input style="width:160px" type="text" name="dt1" value="Nagpur" class="form-control"
+                                readonly></td>
+                    </tr>
+                </table>
+                <h1>जन्म प्रमाणपत्र</h1>
+                <h1>Birth Certificate</h1>
+                <p class="p1"><label>(जन्म व मृत्यू प्रमाणपत्र नोंदणी अधिनियम १९६९ च्य कलम १२/१७ आणि महाराष्ट्र जन्म व
+                        मृत्यू नोंदणी नियम २००० चे नियम ६/१३ अन्वये देण्यात आले आहे.)</label></p>
+                <p class="p1">(Issued under section 12/17 Registration of Birth and Deaths Act,1969 and rule 8/13 of the
+                    Maharashtra Registration of Birth and Deaths Rules 2000.)</p>
+                <table>
+                    <tr>
+                        <td><label>प्रमाणित करण्यात येत आहे कि खालील माहिती जन्माच्या मूळ अभिलेखाच्या नोंदवहीतून घेण्यात
+                                आली आहे. ज्याचा (स्थानीय क्षेत्र)</label></td>
+                    </tr>
+                    <tr>
+                        <td><label>This is to certify that the following information has been taken from the original
+                                record of the birth which is the register for(local area /local body)</label></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><input style="width:130px" type="text" name="dt1" value="Test" class="form-control"></td>
+                        <td><label>तालुका /of tahsil/block</label></td>
+                        <td><input style="width:130px" type="text" name="dt1" value="nagpur" class="form-control"></td>
+                        <td><label>जि./ of district</label></td>
+                        <td><input style="width:120px" type="text" name="dt1" value="Nagpur" class="form-control"></td>
+
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><label>महाराष्ट्र राजाच्या नोंदवहीत उल्लेख आहे./of Maharashtra State.</label></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><label>आधारकार्ड नंबर /Adhar card</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="32145698775" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>बाळाचे पूर्ण नाव / Name of Child</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="Baby Test Test"
+                                class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label>लिंग /Sex</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="MALE (पुरुष) "
+                                class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label>जन्म तारीख / Date of Birth</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="12/18/2013" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label> जन्म ठिकाण / Place of Birth</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="nagpur" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label>आईचे पूर्ण नाव / Full name of Mother</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="Testing Test Test"
+                                class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label> वडिलांचे पूर्ण नाव / Full name of Father</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="Test Test Test"
+                                class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label>बाळाचे जन्माच्या वेळी आई / Address of the parents at the time of the child
+                                birth</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="Nagpur" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label> आई वडिलांचा कायमचा पत्ता /Permanant address of the parent</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="Nagpur" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label> नोंदणी क्रमांक /Registration No.</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="5245624" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label> नोंदणी दिनांक / Registration Date.</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="12/26/2013" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label> शेरा /Remark (if any)</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label>प्रमाणपत्र दिल्याचा दिनांक /Certificate Issued Date</label></td>
+                        <td><input style="width:150px" type="text" name="dt1" value="12/30/2013" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>शिक्का /seal</label></td>
+                        <td><input style="width:195px" type="text" name="dt1" class="form-control RR"></td>
+                        <td><label style="margin-left:-160px">निबंधक, जन्म-मृत्यू नोंदणी अधिकारी ग्रामपंचायत </label>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><input style="width:120px;margin-left: 235px;" type="text" name="dt1" class="form-control">
+                        </td>
+                        <td><label>ता .</label></td>
+                        <td><input style="width:120px" type="text" name="dt1" value="Nagpur" class="form-control"></td>
+                        <td><label> जि.</label></td>
+                        <td><input style="width:120px" type="text" name="dt1" value="Nagpur" class="form-control"></td>
+                    </tr>
+                </table>
+                <hr>
+                <p style="font-size:12px">प्रत्येक जन्म आणि मृत्यू घटना नोंदवल्याची खात्री करा .</p>
+                <p style="font-size:12px;float:right;margin-top: -26px;">Ensure every registration of Birth and Beath.
+                </p>
+                <p style="font-size:12px">सदर दाखल्याची वैधेत तपासणी असल्यास
+                    http://sangram.mahaonline.gov.in/Certificate Validation aspx या संकेतस्थळावर भेट देऊ शकता.</p>
+                <p style="font-size:12px">डिजिटलाईस कालबद्ध सेवा वर्ष -2015</p>
+                <p style="font-size:12px;float:right;margin-top: -26px;">2015-Yaer of Digilized and time bound services.
+                </p>
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>

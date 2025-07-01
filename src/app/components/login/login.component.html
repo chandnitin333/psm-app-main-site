@@ -1,8 +1,7 @@
 <div class="login-container">
     <mat-card class="login-card">
         <mat-card-header>
-            <mat-card-title><span
-                    style="text-align: center;">Login</span></mat-card-title>
+            <mat-card-title><span style="text-align: center;">Login</span></mat-card-title>
         </mat-card-header>
         <mat-card-content>
 
@@ -10,28 +9,23 @@
                 <div class="district-selects">
                     <mat-form-field appearance="outline">
                         <mat-label>जिल्हा</mat-label>
-                        <mat-select formControlName="district_id"
-                            (selectionChange)="fetchTalukas($event.value)">
+                        <mat-select formControlName="district_id" (selectionChange)="fetchTalukas($event.value)">
                             <mat-option *ngFor="let ele of districtList"
                                 value="{{ele.DISTRICT_ID}}">{{ele.DISTRICT_NAME}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('district_id')?.hasError('required')">
+                        <mat-error *ngIf="loginForm.get('district_id')?.hasError('required')">
                             District is required
                         </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                         <mat-label>तालुका</mat-label>
-                        <mat-select formControlName="taluka_id"
-                            (selectionChange)="fetchPanchaytList($event.value)">
-                            <mat-option *ngFor="let ele of talukaList"
-                                value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
+                        <mat-select formControlName="taluka_id" (selectionChange)="fetchPanchaytList($event.value)">
+                            <mat-option *ngFor="let ele of talukaList" value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('taluka_id')?.hasError('required')">
+                        <mat-error *ngIf="loginForm.get('taluka_id')?.hasError('required')">
                             District is required
                         </mat-error>
                     </mat-form-field>
@@ -43,21 +37,18 @@
                                 value="{{ele.PANCHAYAT_ID}}">{{ele.PANCHAYAT_NAME}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('panchayat_id')?.hasError('required')">
+                        <mat-error *ngIf="loginForm.get('panchayat_id')?.hasError('required')">
                             District is required
                         </mat-error>
                     </mat-form-field>
                 </div>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="text" formControlName="username"
-                        placeholder="Enter your username">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error
-                        *ngIf="loginForm.get('username')?.hasError('required')">
-                        Email is required
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username" placeholder="Enter your username">
+                    <mat-icon matSuffix>Username</mat-icon>
+                    <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                        Username is required
                     </mat-error>
                     <!-- <mat-error
                         *ngIf="loginForm.get('username')?.hasError('username')">
@@ -67,21 +58,17 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'"
-                        formControlName="password">
-                    <button mat-icon-button matSuffix
-                        (click)="hidePassword = !hidePassword" type="button">
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
                         <mat-icon>{{hidePassword ? 'visibility_off' :
                             'visibility'}}</mat-icon>
                     </button>
-                    <mat-error
-                        *ngIf="loginForm.get('password')?.hasError('required')">
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
                         Password is required
                     </mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" type="submit"
-                    [disabled]="loginForm.invalid">
+                <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
                     Login
                 </button>
                 <!-- Forgot Password Link -->
