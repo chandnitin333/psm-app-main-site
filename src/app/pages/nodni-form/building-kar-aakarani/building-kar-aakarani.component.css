@@ -1,0 +1,82 @@
+.text-bold {
+  font-weight: bold;
+}
+
+.custom-red {
+  background-color: #f14a4a !important; /* Custom Blue */
+  color: white !important;
+}
+
+.bg-color {
+  background-color: #214162;
+  color: #ffffff;
+}
+
+
+
+.form-panel {
+  padding: 20px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+.title {
+  font-size: 20px;
+  color: white;
+  background-color: #214162;
+  padding: 10px;
+  text-align: center;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-field {
+  flex: 1 1 calc(20% - 20px); /* 5 columns */
+  min-width: 150px;
+}
+
+.submit-row {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-btn{
+    width: 230px;
+}
+
+@media (max-width: 768px) {
+  .form-field {
+    flex: 1 1 100%; /* Stack inputs on smaller screens */
+  }
+}
+
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}

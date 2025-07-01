@@ -87,7 +87,7 @@ export class CustomerComponent {
 
   ngOnInit() {
     this.userDetails = this.apiService.getDecodedToken();
-    // console.log('userDetails', this.userDetails);
+    console.log('userDetails', this.userDetails);
     this.customerForm.patchValue({
       user_id: this.userDetails.userId,
     });
