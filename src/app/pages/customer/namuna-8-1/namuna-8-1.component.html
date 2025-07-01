@@ -1,0 +1,249 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div class="col-md-12">
+        <!-- <button onclick="myFunction(20256)" class="buttonPdf  hidden-print" value="PDF">PDF</button> -->
+        <div class="">
+            <div class="row">
+                <p class="heading">
+                    <b>नमुना ८</b>
+                    <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->
+                </p>
+                <p class="san">सन {{namuna_8_1_data?.years[0]?.currentYear}}-{{namuna_8_1_data?.years[0]?.nextYear}} ते
+                    {{namuna_8_1_data?.years[0]?.year_3}}-{{namuna_8_1_data?.years[0]?.year_4}} या वर्षासाठी करास पात्र
+                    असलेल्या इमारती व
+                    जमिनी (खुला भूखंड )
+                    यांची
+                    कर आकारणी नोंदवही .</p>
+                <p class="san">सदर नोंद ग्रामपंचायत नमुना ८ पान क्रमांक
+                    __{{namuna_8_1_data?.newUserDataDBrs3[0]?.ANNU_KRAMANK}}__ वरून घेण्यात आली </p>
+            </div>
+            <!-- <br> -->
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="font15 left">जिल्हा :- नागपूर </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15 ">तालुका :- नागपूर ग्रामीण </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right">ग्रामपंचायत :- न्यू डेमो </span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td>अ.क्र</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.ANNU_KRAMANK}}</td>
+                            <td>मालमत्ता क्र.</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.MALMATTA_NUMBER}}</td>
+                            <td>वार्ड क्र.</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.VARD_NUMBER}}</td>
+                            <td>प्लॉट क्र.</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.PLOT_NO}}</td>
+                            <td>खसरा न.</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.KHASARA_KRAMANK}}</td>
+                            <td>सर्वे क्र.</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.SURVEY_KRAMANK}}</td>
+                            <td>पाणी व्यवस्ता</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.PINIYACHA_PANI}}</td>
+                            <td>शौचालय</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.SOUNCHALAY}}</td>
+                            <td>मिलकत प्रकार</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.MILKAR_PRAKAR}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>घरमालकाचे नाव</b> </td>
+                            <td colspan="7">{{namuna_8_1_data?.newUserDataDBrs3[0]?.HOMEUSER_NAME}}</td>
+                            <td rowspan="4">चतुर : सीमा</td>
+                            <td colspan="2">पूर्वेस</td>
+                            <td colspan="10">{{namuna_8_1_data?.newUserDataDBrs3[0]?.PURVA}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>पत्नी / मुलांचे नाव</b></td>
+                            <td colspan="7">{{namuna_8_1_data?.newUserDataDBrs3[0]?.HOMEUSER_NAME1}}</td>
+                            <td colspan="2">पश्चिमेस</td>
+                            <td colspan="10">{{namuna_8_1_data?.newUserDataDBrs3[0]?.PACHHIM}} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>भोगवटदाराचे नाव</b></td>
+                            <td colspan="7">{{namuna_8_1_data?.newUserDataDBrs3[0]?.BHOGATWARGARACHE_NAME}}</td>
+                            <td colspan="2">उत्तरेस</td>
+                            <td colspan="10">{{namuna_8_1_data?.newUserDataDBrs3[0]?.UTTAR}} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">पत्ता</td>
+                            <td colspan="7">{{namuna_8_1_data?.newUserDataDBrs3[0]?.ADDRESS_NAGAR_SOCIETY}}</td>
+                            <td colspan="2"> दक्षिणेस</td>
+                            <td colspan="10">{{namuna_8_1_data?.newUserDataDBrs3[0]?.DAKSIN}}</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ</td>
+                            <td>लांबी (चौ.फु.)</td>
+                            <td>रुंदी (चौ.फु.)</td>
+                            <td colspan="2">क्षेत्रफळ (चौ.फु.)</td>
+                            <td colspan="2">क्षेत्रफळ (चौ.मीटर)</td>
+                            <td colspan="2">उर्वरितखाली जागा (चौ.फु.)</td>
+                            <td colspan="2">उर्वरितखाली जागा (चौ.मीटर)</td>
+                            <td colspan="2">मोबाईल</td>
+                            <td colspan="3">आधार कार्ड</td>
+                            <td colspan="3">वोटर कार्ड</td>
+                        </tr>
+                        <tr>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.LAMBI}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.RUNDI}}</td>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.SQUARE_FOOT}}</td>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.SQUARE_METER}}</td>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.URVATICH_KHALI_JAGA}}</td>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.URVATICH_KHALI_JAGAS}}</td>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.MOBILE_NUMBER}}</td>
+                            <td colspan="3">{{namuna_8_1_data?.newUserDataDBrs3[0]?.AADHARCARD_NUMBER}}</td>
+                            <td colspan="4">{{namuna_8_1_data?.newUserDataDBrs3[0]?.VOTERCARD_NUMBER}}</td>
+                        </tr>
+                        <tr style="font-weight: bold;">
+                            <td colspan="2">मालमत्तेचे वर्णन</td>
+                            <td>मालमत्तेचा प्रकार </td>
+                            <td>वापराचा प्रकार </td>
+                            <td>बांधकामाचा मजला </td>
+                            <td>वय / वर्ष </td>
+                            <td>क्षेत्रफळ पु.प.(चौ.फूट)</td>
+                            <td>क्षेत्रफळ उ.द.(चौ.फूट)</td>
+                            <td>एकूण क्षेत्रफळ (चौ.फूट)</td>
+                            <td>एकूण क्षेत्रफळ (चौ.मीटर)</td>
+                            <td>वार्षिक मूल्य</td>
+                            <td>घसारा </td>
+                            <td>भारांक </td>
+                            <td>भांडवली मूल्य </td>
+                            <td>आकारणी दर </td>
+                            <td>प्रति रु.१००० च्या भांडवली </td>
+                            <td colspan="4">कर आकारणी </td>
+                        </tr>
+                        <tr *ngFor="let item of namuna_8_1_data?.taxationlandDBrs4">
+                            <td colspan="2">{{item.MILKAT_VAPAR_NAME}} </td>
+                            <td>{{item.MILKAT_VAPAR_NAME}} </td>
+                            <!--  <td colspan="2">एकूण जागा </td>-->
+                            <td rowspan="1">एकूण जागा </td>
+                            <td>&nbsp; </td>
+                            <td>&nbsp;</td>
+                            <td>{{item.AREAP}}</td>
+                            <td>{{item.AREAI}}</td>
+                            <td>{{item.TOTALAREA}}</td>
+                            <td>{{item.TOTALAREA1}}</td>
+                            <td>{{item.ANNUALVALUE}}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{item.CAPITAL}}</td>
+                            <td>{{item.levyrate}}</td>
+                            <td>{{item.tax1000}}</td>
+                            <td colspan="5">{{item.TAXATION}}</td>
+                        </tr>
+                        <tr *ngFor="let item of namuna_8_1_data?.constructionTaxDetailsDBrs5">
+
+                            <td colspan="2">{{item.MILKAT_VAPAR_NAME}} </td>
+                            <td> {{item.DESCRIPTION_NAME}}</td>
+                            <td> {{item.VAPARACHE_PRAKAR}} </td>
+                            <td> {{item.FLOOR_NAME}} </td>
+                            <td> {{item.LIFESPAN}} </td>
+                            <td> {{item.AREAP}} </td>
+                            <td> {{item.AREAI}} </td>
+                            <td> {{item.TOTALAREA}} </td>
+                            <td> {{item.TOTALAREA1}} </td>
+                            <td> {{item.ANNUALCOST}} </td>
+                            <td> {{item.DEPRECIATION}} </td>
+                            <td> {{item.WEIGHTTAGE}} </td>
+                            <td> {{item.ONE}} </td>
+                            <td>{{item.levyrate}}</td>
+                            <td> {{item.cons1000}} </td>
+                            <td colspan="5">{{item.TWO}} </td>
+                        </tr>
+                        <tr *ngFor="let item of namuna_8_1_data?.taxPayerDBrrs6">
+                            <td colspan="2">{{item.DESCRIPTION_NAME}} </td>
+                            <td>{{item.MILKAT_VAPAR_NAME}} </td>
+                            <td> {{item.VAPARACHE_PRAKAR}} </td>
+                            <td> {{item.MANORAMASTER_NAME}}</td>
+                            <td>&nbsp;</td>
+                            <td> {{item.AREAP}}</td>
+                            <td> {{item.AREAI}}</td>
+                            <td> {{item.TOTALAREA}} </td>
+                            <td> {{item.TOTALAREA1}}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td> {{item.CAPITAL}}</td>
+                            <td>&nbsp;</td>
+                            <td colspan="4"> {{item.TAXATION}}</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="8">कराची रक्क्म</td>
+                            <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
+                            <td colspan="2">गृह व भूमीकर </td>
+                            <td colspan="4">{{namuna_8_1_data?.newUserDataDBrs3[0]?.BHUMIKAR}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">वीज </td>
+                            <td>आरोग्य</td>
+                            <td>सफाई</td>
+                            <td>सा.पाणी</td>
+                            <td>वि.पाणी</td>
+                            <td>एकूण</td>
+                            <td>गृह व भूमीकर </td>
+                            <td>एकूण कर </td>
+                            <td colspan="1">गृह व भूमीकर</td>
+                            <td>वीज कर</td>
+                            <td>आरोग्य</td>
+                            <td>सफाई कर</td>
+                            <td>सा.पाणी</td>
+                            <td>वि.पाणी</td>
+                            <td>एकूण</td>
+                            <td colspan="4">एकूण कर</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{namuna_8_1_data?.newUserDataDBrs3[0]?.VIZ_DIVVABATTIKAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.AAROGYA_RAKSHAN_KAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.SAFAI_KAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.SAMANYA_PANI_KAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.VISHESH_PANI_KAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.EKUN}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.BHUMIKAR}}</td>
+                            <td>{{namuna_8_1_data?.newUserDataDBrs3[0]?.EEKUN_KAR_BHARNA}}</td>
+                            <td colspan="1">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">फेरफार / शेरा </td>
+                            <td colspan="18">{{namuna_8_1_data?.newUserDataDBrs3[0]?.MAJAHUN_GHAT}} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="15">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार कराची आकारणी करण्यात आली आहे. २)
+                                मालकी हक्का
+                                बाबाद कसलाही वाद. असल्यास किंव्हा भविष्यात उदभवल्यास तो न्यायालया मार्फत सोडवावा.
+                                ३)न्यायालयाचा निर्णय
+                                अर्जदारास व ग्रामपंचायतीला बंधनकारक राहील. ४) नामांतरण हे फक्त भोगवटदारावर कर वसुलीच्या
+                                द्रूष्टीने
+                                मंजूर करण्यात येत आहे. ५) ग्रामपंचायत कर आकारणी नमुना ८ वर नाव दर्ज झाले आहे म्हणजे
+                                घराबाबत मालकीहक्क
+                                प्राप्त होत नही. १) पक्के बांधकाम (आर.सी.सी) :- वीटा सीमेंट पक्के स्ल्याब आतुन बाहेरून
+                                रंगविलेले,टाईल्स फ्लोरिंग २) इतर पक्के बांधकाम:- लोडबेरिंग,स्ल्याब,कच्चे सिमेंट
+                                फ्लोरिंग,विटाची भिंत
+                                ३) अर्ध पक्के बांधकाम:- टीनपत्रे,सिमेंटशीट,विटाची भिंत. ४) कच्चे बांधकाम:- दगडाच्या
+                                मातीच्या
+                                भिंती,कौलारू,गवती छाप्पर.</td>
+                            <td colspan="5"><b>सचिव / सरपंच स्वाक्षरी</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="font15 right"> पान नंबर : {{namuna_8_1_data?.newUserDataDBrs3[0]?.ANNU_KRAMANK}}</span>
+        </div>
+    </div>
+    <div style="margin-bottom: 5%;"></div>
