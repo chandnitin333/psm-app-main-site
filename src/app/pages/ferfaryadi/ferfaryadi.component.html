@@ -2,11 +2,11 @@
     <mat-card-title class="title">फेरफार यादी (Ferfar Yadi)</mat-card-title>
     <mat-divider></mat-divider>
 
-    <form class="form-grid">
+    <form class="form-grid" [formGroup]="ferfaryadiForm">
         <div class="form-row">
             <mat-form-field appearance="outline">
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
-                <mat-select [(value)]="fromYearSelected">
+                <mat-select [(value)]="fromYearSelected" formControlName="year">
                     <mat-option value="2021">2021</mat-option>
                     <mat-option value="2022">2022</mat-option>
                     <mat-option value="2023">2023</mat-option>
@@ -16,7 +16,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label class="text-bold">ते (To)</mat-label>
-                <mat-select [(value)]="toYearSelected" disabled>
+                <mat-select [(value)]="toYearSelected" [disabled]="true" formControlName="toYear">
                     <mat-option value="2025">2025</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -24,46 +24,59 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="annu_kramank"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="malmatta_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="ward_no"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="plot_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खसरा क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="khasara_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="survey_no" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खातेदाराचे नाव</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="khate_dharkache_name" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="bhogvat_dharak_name" />
             </mat-form-field>
         </div>
 
 
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn">Submit</button> &nbsp;
-            <a mat-raised-button color="primary" routerLink="/customer-ferfar" class="submit-btn">Add Ferfar</a>
+            <button mat-raised-button color="primary" class="submit-btn" (click)="fetchData()">Search</button> &nbsp;
+            <button mat-raised-button color="danger" class="btn-danger"
+            style="background-color: rgb(207, 58, 58); color:#fff"
+            (click)="resetData()">Reset</button>
         </div>
     </form>
     <div>
+        <div class="table-responsive mt-4">
 
+            <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
+                [currentPage]="currentPage" [isEdit]="true" [isDelete]="true" [isView]="false" [isPrint]="true"
+                [isDownload]="false" [isPreview]="false" [isKar]="true" (editEvent)="onEdit($event)"
+                (deleteEvent)="onDelete($event)" (viewEvent)="onView($event)" (printEvent)="onPrint($event)"
+                (downloadEvent)="onDownload($event)" (previewEvent)="onPreview($event)"
+                (prevTaxEvent)="onPrevTax($event)"></app-mat-data-table>
+            <app-custom-pagination [length]="totalItems" [pageSize]="itemsPerPage" [currentPage]="currentPage"
+                (pageChange)="onPageChange($event)"> </app-custom-pagination>
+        </div>
+        
     </div>
 </mat-card>
