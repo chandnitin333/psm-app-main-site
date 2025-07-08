@@ -113,8 +113,8 @@
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="vanijya_prakar_radio">
-                <mat-radio-button value="">औद्योगिक</mat-radio-button>
-                <mat-radio-button value="">मनोरा</mat-radio-button>
+                <mat-radio-button value="औद्योगिक">औद्योगिक</mat-radio-button>
+                <mat-radio-button value="मनोरा">मनोरा</mat-radio-button>
             </mat-radio-group>
         </div>
         <div class="form-row">
@@ -122,10 +122,10 @@
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="miltkat_prakar_radio">
-                <mat-radio-button value="">अधिकृत</mat-radio-button>
-                <mat-radio-button value="">इमलाकर</mat-radio-button>
-                <mat-radio-button value="">घरकुल</mat-radio-button>
-                <mat-radio-button value="">घर कर लावायचा आहे</mat-radio-button>
+                <mat-radio-button value="अधिकृत">अधिकृत</mat-radio-button>
+                <mat-radio-button value="इमलाकर">इमलाकर</mat-radio-button>
+                <mat-radio-button value="घरकुल">घरकुल</mat-radio-button>
+                <mat-radio-button value="घर कर लावायचा आहे">घर कर लावायचा आहे</mat-radio-button>
             </mat-radio-group>
         </div>
         <div class="form-row">
@@ -171,17 +171,17 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">लांबी</mat-label>
-                <input matInput type="text" formControlName="lambi" />
+                <input matInput type="text" formControlName="lambi" (keyup)="calculationLambiRundi($event)"/>
             </mat-form-field>
             <span class="star_equal">*</span>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">रूंदी</mat-label>
-                <input matInput type="text" formControlName="rundi" />
+                <input matInput type="text" formControlName="rundi" (keyup)="calculationLambiRundi($event)"/>
             </mat-form-field>
             <span class="star_equal">=</span>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस फूट)</mat-label>
-                <input matInput type="text" formControlName="shetrafadh_foot" />
+                <input matInput type="text" formControlName="shetrafadh_foot" (keyup)="calculationLambiSquareMeter($event)"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस मीटर)</mat-label>
@@ -517,7 +517,9 @@
                             <th mat-header-cell *matHeaderCellDef> <b>निवडा</b> </th>
                             <td mat-cell *matCellDef="let element">
                                 <section class="example-section">
-                                    <mat-checkbox class="example-margin"></mat-checkbox>
+                                    <mat-checkbox class="example-margin" [id]="element.checked_id"
+                                        [checked]="element.checked" (click)="checkedOthertaxTableData($event)"
+                                        checked></mat-checkbox>
                                 </section>
                             </td>
                         </ng-container>
@@ -531,7 +533,7 @@
                             <th mat-header-cell *matHeaderCellDef><b> कर दर </b></th>
                             <td mat-cell *matCellDef="let element">
                                 <input matInput type="text" style="width: 40%; height: 40px;" [id]="element.key"
-                                    [value]="element.value" />
+                                    [value]="element.value" (keyup)="insertKarDar($event)" />
                             </td>
                         </ng-container>
 
@@ -540,7 +542,7 @@
                         </tr>
                     </table>
                 </mat-card>
-                <h5 class="text-center mt-2">एकूण कर: <span class=" ms-5">2025</span></h5>
+                <h5 class="text-center mt-2">एकूण कर: <span class=" ms-5">{{ ekun_kar }}</span></h5>
             </div>
             <div class="col-md-6">
                 <h6 class="mt-3"><strong>मालमत्ता कर गणना (Property Tax Calculation):</strong></h6>
@@ -548,7 +550,7 @@
                 <div class="row">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">उर्वरित खाली जागा (चौरस फूट)</mat-label>
-                        <input matInput type="text" formControlName="urvarit_khali_jaga_feet" />
+                        <input matInput type="text" formControlName="urvarit_khali_jaga_feet" (keyup)="updateUrvaritKhaliJagaMeter($event)"/>
                     </mat-form-field>
                 </div>
                 <div class="form-row mt-2">

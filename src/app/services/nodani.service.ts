@@ -15,10 +15,38 @@ export class NodaniService {
   fetchOtherTaxCalculation(params: any) {
     return this.api.post('get-other-tax-calculation', params);
   }
-  // getAnukramankBywardNo(params: any) {
-  //   return this.api.post(`get-annu-kramank-in-malmatta-nodni`, params);
-  // }
+  getMalmattechePrakar_KhulaBhukandModal() {
+    return this.api.get(`get-khula-bhukhand-kar-malmatteche-prakar-ddl`);
+  }
+  getgavthanBaherche_KhulaBhukandModal(id: number) {
+    return this.api.get(`get-khula-bhukhand-kar-gavthan-ddl/${id}`);
+  }
+  getlandAnnualAndAakaraniRateValues_KhulaBhukandModal(id: number) {
+    return this.api.get(`get-jamin-anual-rate-akarani-dar/${id}`);
+  }
+  getyearIdName_KhulaBhukandModal() {
+    return this.api.get(`get-year-id-year-name`);
+  }
 
+  addKhulaBhukhandForm(params: any) {
+    return this.api.post(`save-khali-bhukhand`, params);
+  }
+
+  getMalmattechePrakar_BuildingKarModal() {
+    return this.api.get(`get-building-kar-malmatteche-prakar-ddl`);
+  }
+  getMalmattecheVarnan_BuildingKarModal() {
+    return this.api.get(`get-building-kar-malmatteche-varnan-ddl`);
+  }
+  getBandkamachaMajla_BuildingKarModal() {
+    return this.api.get(`get-building-kar-bandkamacha-majla-ddl`);
+  }
+  getgBharankValue_BuildingModal(id: number) {
+    return this.api.get(`get-bharank-from-malmatteche-prakar-select/${id}`);
+  }
+  getBuildingValueAndAakaraniDar(malmattaId: number,milkatVaperId: number) {
+    return this.api.get(`get-anual-building-value-aakarani-dar-building-modal/${malmattaId}/${milkatVaperId}`);
+  }
   // verifyUserLogin(params: any) {
   //   return this.api.post(`verify-user-for-permission`, params);
   // }

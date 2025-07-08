@@ -81,6 +81,9 @@ export class LoginComponent {
                     this.util.openDialog('Failed', res?.message, 'error');
                 } else {
                     this.api.setToken(res?.data?.token);
+                    console.log('Login Response------:', res?.data?.RandomNumber, res?.data?.RNO);
+                    localStorage.setItem('randomNumber', res?.data?.RandomNumber);
+                    localStorage.setItem('rno', res?.data?.RNO);
                     this.util.openDialog('Success', 'Logged in successfully', 'success');
                     this.router.navigate(['dashboard']);
                 }
