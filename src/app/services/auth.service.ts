@@ -36,6 +36,9 @@ export class AuthService {
         if (!res?.data?.token) {
           this.router.navigate(['login']);
         }
+        // console.log('Login Response------:', res?.data?.RandomNumber, res?.data?.RNO);
+        localStorage.setItem('randomNumber', res?.data?.RandomNumber);
+        localStorage.setItem('rno', res?.data?.RNO);
         this.setToken(res?.data?.token);
         this.router.navigate(['home']);
       });
