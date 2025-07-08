@@ -47,6 +47,10 @@ export class NodaniService {
   getBuildingValueAndAakaraniDar(malmattaId: number,milkatVaperId: number) {
     return this.api.get(`get-anual-building-value-aakarani-dar-building-modal/${malmattaId}/${milkatVaperId}`);
   }
+  getgGhasaraDar_BuildingModal(malmattaId: number,vayoman: number) {
+    return this.api.get(`get-new-ghasara-dar-building-modal/${malmattaId}/${vayoman}`);
+  }
+  
   // verifyUserLogin(params: any) {
   //   return this.api.post(`verify-user-for-permission`, params);
   // }

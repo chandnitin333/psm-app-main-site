@@ -23,7 +23,7 @@ export class BuildingKarAakaraniComponent {
   userDetails: any = [];
 
   BuildingkarModal = new FormGroup({
-    milkat_vapar_id: new FormControl<number | null>(null),
+    milkat_vapar_id: new FormControl<number | undefined>(undefined),
     malmatta_id: new FormControl<number | null>(null),
     vaparache_prakar: new FormControl<number | null>(null),
     manoramaster_id: new FormControl<number | null>(null),
@@ -89,16 +89,30 @@ export class BuildingKarAakaraniComponent {
     });
   }
 
-  getBharankValue(id:any){
+  async getBharankValue(id: any) {
     console.log('Selected Milkat Vapar ID:', id);
-    this.NodaniService.getgBharankValue_BuildingModal(Number(id)).subscribe({
-      next: (res: any) => {
-        let bharankValue = res?.data[0].BUILDINGWEIGHTS_NAME;
-        console.log('Bharank Value:', bharankValue);
-        this.BuildingkarModal.get('weighted')?.setValue(bharankValue || 0);
-      }
-    });
+    try {
+      const res: any = await this.NodaniService.getgBharankValue_BuildingModal(Number(id)).toPromise();
+      let bharankValue = res?.data[0].BUILDINGWEIGHTS_NAME;
+      console.log('Bharank Value:', bharankValue);
+      this.BuildingkarModal.get('weighted')?.setValue(bharankValue || 0);
+    } catch (error) {
+      console.error('Error fetching Bharank Value:', error);
+    }
   }
+
+  async getghasaraDar(id: any, vayoman : any) {
+    console.log('Selected Milkat Vapar ID:', id);
+    try {
+      const res: any = await this.NodaniService.getgGhasaraDar_BuildingModal(Number(id), vayoman).toPromise();
+      console.log('Bharank Value:', res?.data[0]);
+      let ghsaraDar = res?.data[0].DEPRECIATION_NAME;
+      this.BuildingkarModal.get('depreciation')?.setValue(ghsaraDar || 0);
+    } catch (error) {
+      console.error('Error fetching Bharank Value:', error);
+    }
+  }
+
   getBuildinAndAakaraniDar(malmattaId: any){
     let milkatVaperId = this.BuildingkarModal.value.milkat_vapar_id;
       this.NodaniService.getBuildingValueAndAakaraniDar(Number(malmattaId),Number(milkatVaperId)).subscribe({
@@ -111,12 +125,32 @@ export class BuildingKarAakaraniComponent {
         }
       });
   }
-  vayoman(event: any) {
-    console.log('Selected Vayoman:', event.target.value);
+  async vayoman(event: any) {
+    console.log('Selected Vayoman:', this.BuildingkarModal.value.malmatta_id);
     let lifespan = Number(event.target.value);
+    await this.getghasaraDar(this.BuildingkarModal.value.malmatta_id, lifespan);
     let currentYear = new Date().getFullYear();
     let constructing = currentYear - lifespan;
     this.BuildingkarModal.get('constructing')?.setValue(Number(constructing) || 0);
+
+    // console.log("this.BuildingkarModal.value.depreciation", this.BuildingkarModal.value.depreciation);
+    // console.log("this.BuildingkarModal.value.totalarea1", this.BuildingkarModal.value.totalarea1);
+    // console.log("this.BuildingkarModal.value.weighted", this.BuildingkarModal.value.weighted);
+    // console.log("this.BuildingkarModal.value.annual_cost", this.BuildingkarModal.value.annual_cost);
+    let one_cost = Number(this.BuildingkarModal.value.depreciation) * Number(this.BuildingkarModal.value.totalarea1) * Number(this.BuildingkarModal.value.weighted) * Number(this.BuildingkarModal.value.annual_cost);
+    console.log('one_cost:', one_cost);
+    const convrt_one = parseFloat((one_cost).toFixed(2));
+    this.BuildingkarModal.get('one')?.setValue(convrt_one || 0);
+
+    let two_cal = one_cost * Number(this.BuildingkarModal.value.levyrate);
+    let final_two_calcualtion = parseFloat((two_cal / 1000).toFixed(2));
+    console.log('final_two_calcualtion:', final_two_calcualtion);
+    this.BuildingkarModal.get('two')?.setValue(final_two_calcualtion || 0);
+    // one  = depreciation * totalarea1 * weighted *  
+
+    // a = one * levyrate
+    // d = a / parseFloat(1000)
+
   }
 
 
