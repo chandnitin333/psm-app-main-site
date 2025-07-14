@@ -31,6 +31,10 @@ export class NodaniService {
   addKhulaBhukhandForm(params: any) {
     return this.api.post(`save-khali-bhukhand`, params);
   }
+  getKhulabhukhandSavedRecords(params: any){
+    return this.api.post("get-open-construction-tax-assessment",  params)
+  }
+ 
 
   getMalmattechePrakar_BuildingKarModal() {
     return this.api.get(`get-building-kar-malmatteche-prakar-ddl`);
@@ -49,6 +53,29 @@ export class NodaniService {
   }
   getgGhasaraDar_BuildingModal(malmattaId: number,vayoman: number) {
     return this.api.get(`get-new-ghasara-dar-building-modal/${malmattaId}/${vayoman}`);
+  }
+
+  addBuildingkarForm(params: any) {
+    return this.api.post(`save-bandh-kam`, params);
+  }
+   getbankamachiKarAakarniSavedRecords(params: any){
+    return this.api.post("get-tax-assessment-construction",  params)
+  }
+  
+
+
+  getMalmattechePrakar_ManoraModal() {
+    return this.api.get(`get-monora-kar-malmatteche-prakar-ddl`);
+  }
+  getMalmattecheVarnan_ManoraModal() {
+    return this.api.get(`get-monora-kar-malmatteche-varnan-ddl`);
+  }
+  getBandkamachaMajla_ManoraModal() {
+    return this.api.get(`get-monora-kar-manorache-bhag-ddl`);
+  }
+
+  addManoraForm(params: any) {
+    return this.api.post(`save-tax-payer`, params);
   }
   
   // verifyUserLogin(params: any) {

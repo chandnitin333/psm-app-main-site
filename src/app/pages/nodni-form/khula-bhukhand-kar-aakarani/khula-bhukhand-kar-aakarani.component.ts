@@ -160,7 +160,8 @@ export class KhulaBhukhandKarAakaraniComponent {
     this.khulaBhukhandModal.get('capital')?.setValue(Number(capital) || 0);
     let taxation = Number(capital) * Number(this.khulaBhukhandModal.value.levyrate) / 1000;
     console.log('Taxation:', taxation);
-    this.khulaBhukhandModal.get('taxation')?.setValue(Number(taxation) || 0);
+    let finalTaxation = taxation.toFixed(2)
+    this.khulaBhukhandModal.get('taxation')?.setValue(Number(finalTaxation) || 0);
   }
   foot_to_meter_conversion_ekun_foot(){
     // Number(this.khulaBhukhandModal.value.totalarea1)
@@ -169,8 +170,9 @@ export class KhulaBhukhandKarAakaraniComponent {
     let capital = parseFloat((Number(this.khulaBhukhandModal.value.totalarea1) * Number(this.khulaBhukhandModal.value.annualvalue)).toFixed(2));
     this.khulaBhukhandModal.get('capital')?.setValue(Number(capital) || 0);
     let taxation = Number(capital) * Number(this.khulaBhukhandModal.value.levyrate) / 1000;
+    let finalTaxation = taxation.toFixed(2)
     console.log('Taxation:', taxation);
-    this.khulaBhukhandModal.get('taxation')?.setValue(Number(taxation) || 0);
+    this.khulaBhukhandModal.get('taxation')?.setValue(Number(finalTaxation) || 0);
   }
   
 }

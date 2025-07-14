@@ -21,6 +21,8 @@ export class BuildingKarAakaraniComponent {
   building_malmattecheVarnan: { MALMATTA_ID: number; DESCRIPTION_NAME: String }[] = [];
   building_bandkamachaMajla: { FLOOR_ID: number; FLOOR_NAME: String }[] = [];
   userDetails: any = [];
+  yearId: number = 0;
+  YearName: string = '';
 
   BuildingkarModal = new FormGroup({
     milkat_vapar_id: new FormControl<number | undefined>(undefined),
@@ -60,6 +62,7 @@ export class BuildingKarAakaraniComponent {
     this.loadMalmattechePrakarDDL();
     this.loadMalmattecheVarnanDDL();
     this.loadBandkamachaMajlaDDL();
+    this.loadYearIdYearName();
   }
 
   loadMalmattechePrakarDDL(): void {
@@ -185,6 +188,69 @@ export class BuildingKarAakaraniComponent {
     // let taxation = Number(capital) * Number(this.khulaBhukhandModal.value.levyrate) / 1000;
     // console.log('Taxation:', taxation);
     // this.khulaBhukhandModal.get('taxation')?.setValue(Number(taxation) || 0);
+  }
+
+  loadYearIdYearName(): void {
+    this.NodaniService.getyearIdName_KhulaBhukandModal().subscribe({
+      next: (res: any) => {
+        console.log('res', res.data);
+        this.yearId = res?.data[0]?.YEAR_ID;
+        this.YearName = res?.data[0]?.YEAR_NAME;
+      }
+    });
+  }
+
+  save_bandkam_form(){
+    if (!this.BuildingkarModal.invalid) {
+      let params = {
+        newuser_id:"",
+        user_id: this.userDetails.userId,
+        milkat_vapar_id: this.BuildingkarModal.value.milkat_vapar_id,
+        malmatta_id: this.BuildingkarModal.value.malmatta_id,
+        vaparache_prakar: this.BuildingkarModal.value.vaparache_prakar,
+        manoramaster_id: this.BuildingkarModal.value.manoramaster_id,
+        areap: this.BuildingkarModal.value.areap,
+        areai: this.BuildingkarModal.value.areai,
+        totalarea: this.BuildingkarModal.value.totalarea,
+        areap1: this.BuildingkarModal.value.areap1,
+        areai1: this.BuildingkarModal.value.areai1,
+        totalarea1: this.BuildingkarModal.value.totalarea1,
+        lifespan: this.BuildingkarModal.value.lifespan,
+        constructing: this.BuildingkarModal.value.constructing,
+        depreciation: this.BuildingkarModal.value.depreciation,
+        weighted: this.BuildingkarModal.value.weighted,
+        annual_cost: this.BuildingkarModal.value.annual_cost,
+        levyrate: this.BuildingkarModal.value.levyrate,
+        one: this.BuildingkarModal.value.one,
+        two: this.BuildingkarModal.value.two,
+        rno: localStorage.getItem('rno'),
+        annu_kramank:this.data.anu_kramank,
+        vard_number: this.data.ward_kramank,
+        year_id: this.yearId,
+        year_name: this.YearName,
+        random_number:localStorage.getItem('randomNumber'),
+        token: localStorage.getItem('token'),
+      };
+      this.NodaniService.addBuildingkarForm(params).subscribe({
+        next: (res: any) => {
+          console.log('save Bandkam kar aakarni', res);
+          if (res.status == 201) {
+            console.log('inside', res);
+            this.toastr.success(res.message, 'Success');
+            // this.loginSuccess = false;
+          } else {
+            this.toastr.warning(res.message, 'Warning');
+          }
+          // this.isLoading = false;
+        },
+        error: (err: Error) => {
+          console.error('Error adding Bandkam kar aakarni form:', err);
+          this.toastr.error('There was an error adding the Bandkam kar aakarni form.', 'Error');
+        },
+      });
+    } else {
+      this.toastr.warning('Please fill all required fields.', 'warning');
+    }
   }
 
 }

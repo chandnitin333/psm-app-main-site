@@ -28,6 +28,7 @@ fromYearSelected: string = '2024';
 userDetails: any = [];
 otherTaxData:any = [];
 otherTaxTableData: any = [];
+khulaBhukhandKarAakarniTableData : any = [];
 urvarit_khali_jaga_meter: any = 0;
 
 viz_divabatti_kar: Number = 0;
@@ -104,6 +105,9 @@ ngOnInit(){
   // console.log('NodniFormComponent initialized');
   this.userDetails = this.apiService.getDecodedToken();
   this.getOtherTaxCalculationApi();
+  this.getKhulaBhukhandList();
+  this.getBandkamachiKarAkkarniList();
+  this.getTotalAREAP_KB();
   // console.log('User Details:', this.userDetails);
 }
  goToNextTab(tabGroup: MatTabGroup) { 
@@ -128,11 +132,25 @@ ngOnInit(){
   }
   building_kar_aakarani(element:any) {
     console.log('Selected Element:', element.target.value);
-    this.openBuildingKarModal(element);
+    const anu_kramank = this.nodaniForm.value.annu_kramank;
+    const ward_kramank = this.nodaniForm.value.ward_kramank;
+    const params = {
+      anu_kramank: anu_kramank,
+      ward_kramank: ward_kramank,
+      modal_name: element.target.value,
+    }
+    this.openBuildingKarModal(params);
   }
   manora_kar_aakarani(element:any) {
     console.log('Selected Element:', element.target.value);
-    this.openManoraKarModal(element);
+    const anu_kramank = this.nodaniForm.value.annu_kramank;
+    const ward_kramank = this.nodaniForm.value.ward_kramank;
+    const params = {
+      anu_kramank: anu_kramank,
+      ward_kramank: ward_kramank,
+      modal_name: element.target.value,
+    }
+    this.openManoraKarModal(params);
   }
   openKhulaBhukandModal(params:any): void {
     const dialogRef = this.dialog.open(KhulaBhukhandKarAakaraniComponent, {
@@ -143,13 +161,14 @@ ngOnInit(){
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Modal Data:', result);
+        this.getKhulaBhukhandList();
       }
     });
   }
-  openBuildingKarModal(element:any): void {
+  openBuildingKarModal(params:any): void {
     const dialogRef = this.dialog.open(BuildingKarAakaraniComponent, {
-      width: '1000px', // Adjust size
-      data: element,
+      width: '1200px', // Adjust size
+      data: params,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -158,10 +177,10 @@ ngOnInit(){
       }
     });
   }
-  openManoraKarModal(element:any): void {
+  openManoraKarModal(params:any): void {
     const dialogRef = this.dialog.open(ManoraKarAakarniComponent, {
-      width: '1000px', // Adjust size
-      data: element,
+      width: '1200px', // Adjust size
+      data: params,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -194,45 +213,46 @@ ngOnInit(){
         txt_bhogatwadarache_name: this.nodaniForm.value.bhogvat_dharkache_nav,
         txt_address: this.nodaniForm.value.patta_nagar_layout,
         txt_kamayacha_address: this.nodaniForm.value.kaymacha_patta,
+        txt_bhogatwarache_malak: this.nodaniForm.value.bhogvat_dharak_malak_radio,
         txt_east: this.nodaniForm.value.purves,
         txt_west: this.nodaniForm.value.paschimes,
         txt_north: this.nodaniForm.value.uttares,
         txt_south: this.nodaniForm.value.dakshines,
         txt_water: this.nodaniForm.value.pinachya_panichi_vyavstha_radio,
         txt_washroom: this.nodaniForm.value.ghari_toilet_radio,
-        vanijya_prakar_radio: this.nodaniForm.value.vanijya_prakar_radio,
         txt_milkat_prakar: this.nodaniForm.value.miltkat_prakar_radio,
-        txt_emarat_mokdi: this.nodaniForm.value.emarat_mokadi_jaga_radio,
         txt_emarat_jamin: this.nodaniForm.value.emarat_jamin_dharmik_radio,
-        txt_bhogatwarache_malak: this.nodaniForm.value.bhogvat_dharak_malak_radio,
+        txt_emarat_mokdi: this.nodaniForm.value.emarat_mokadi_jaga_radio,
         txt_lambi: this.nodaniForm.value.lambi,
         txt_rundi: this.nodaniForm.value.rundi,
         txt_shetrafadh_foot: this.nodaniForm.value.shetrafadh_foot,
         txt_shetrafadh_meter: this.nodaniForm.value.shetrafadh_meter,
-
-        viz_divabatti_kar: this.viz_divabatti_kar,
-        aaraogya_rakashan_kar: this.aaraogya_rakashan_kar,
-        safae_kar: this.safae_kar,
-        samanya_pani_kar: this.samanya_pani_kar,
-        vishesh_pani_kar: this.vishesh_pani_kar,
-
+        user_id: this.userDetails.userId,
+        randomNumber:localStorage.getItem('randomNumber'), 
+        rno: localStorage.getItem('rno'),
+        token:localStorage.getItem('token'),
         urvarit_khali_jaga_feet: this.nodaniForm.value.urvarit_khali_jaga_feet,
         urvarit_khali_jaga_meter: this.urvarit_khali_jaga_meter,
-        jaminiche_bhandavali_mulya: this.nodaniForm.value.jaminiche_bhandavali_mulya,
         emaratiche_bhandavali_mulya: this.nodaniForm.value.emaratiche_bhandavali_mulya,
+        jaminiche_bhandavali_mulya: this.nodaniForm.value.jaminiche_bhandavali_mulya,
         ekun_bhandavli_mulya: this.nodaniForm.value.ekun_bhandavli_mulya,
-        khula_bhukand_kar_aakarani_txt: this.nodaniForm.value.khula_bhukand_kar_aakarani_txt,
         emartiche_kar_akarani_txt: this.nodaniForm.value.emartiche_kar_akarani_txt,
+        khula_bhukand_kar_aakarani_txt: this.nodaniForm.value.khula_bhukand_kar_aakarani_txt,
         gruhkar_bhumikar_from_property_tax: this.nodaniForm.value.gruhkar_bhumikar_from_property_tax,
         gruhkar_bhumikar_from_tax_payble: this.nodaniForm.value.gruhkar_bhumikar_from_tax_payble,
         chalu_kar: this.nodaniForm.value.chalu_kar,
         magil_kar: this.nodaniForm.value.magil_kar,
         ekun_kar_bharna: this.nodaniForm.value.ekun_kar_bharna,
         magahun_ghat_kiva_badal: this.nodaniForm.value.magahun_ghat_kiva_badal,
-        user_id: this.userDetails.userId,
-        randomNumber:localStorage.getItem('randomNumber'), 
-        token:localStorage.getItem('token'),
-        rno: localStorage.getItem('rno'),
+        vanijya_prakar_radio: this.nodaniForm.value.vanijya_prakar_radio,
+        
+        
+        // check1: this.viz_divabatti_kar_checkbox,
+        // viz_divabatti_kar: this.viz_divabatti_kar,
+        // aaraogya_rakashan_kar: this.aaraogya_rakashan_kar,
+        // safae_kar: this.safae_kar,
+        // samanya_pani_kar: this.samanya_pani_kar,
+        // vishesh_pani_kar: this.vishesh_pani_kar,
       };
       this.NodaniService.addNodaniForm(params).subscribe({
         next: (res: any) => {
@@ -368,6 +388,102 @@ ngOnInit(){
   }
   ngAfterViewInit() {
     // this.getOtherTaxCalculationApi();
+  }
+  getKhulaBhukhandList(){
+    const params = {
+        "randomNumber": localStorage.getItem('randomNumber'), 
+        "userId": this.userDetails.userId,
+        "rno": localStorage.getItem('rno'),
+        "token": ""
+    }
+    this.NodaniService.getKhulabhukhandSavedRecords(params).subscribe({
+        next: (res: any) => {
+          console.log('res', res);
+          // khulaBhukhandKarAakarniTableData
+          this.khulaBhukhandKarAakarniTableData = res?.data ?? [];
+          this.getTotalAREAP_KB();
+          //  this.khulaBhukhandKarAakarniTableData = [
+          //   {  karanchi_nav: 'विज /दिवाबत्ती कर', value:this.otherTaxData.TAXRATE1, key:'TAXRATE1', checked_id:'check_TAXRATE1', checked:false},
+          //   {  karanchi_nav: 'आरोग्य रक्षण कर', value:this.otherTaxData.TAXRATE2, key:'TAXRATE2', checked_id:'check_TAXRATE2', checked:false},
+          //   {  karanchi_nav: 'सफाई कर', value:this.otherTaxData.TAXRATE3, key:'TAXRATE3', checked_id:'check_TAXRATE3', checked:false},
+          //   {  karanchi_nav: 'सामान्य पानी क़र', value:this.otherTaxData.TAXRATE4, key:'TAXRATE4', checked_id:'check_TAXRATE4', checked:false},
+          //   {  karanchi_nav: 'विशेष पाणी कर', value:this.otherTaxData.TAXRATE5, key:'TAXRATE5', checked_id:'check_TAXRATE5', checked:false},
+          // ]
+          
+        },
+        error: (err: Error) => {
+          console.error('Error adding getting khula bhukand record:', err);
+          this.toastr.error('There was an error fetching the khula bhukhand records.', 'Error');
+        },
+      });
+  }
+  getTotalAREAP_KB():any {
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.AREAP) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalAREAI_KB():any{
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.AREAI) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalTOTALAREA_KB():any{
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.TOTALAREA) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalTOTALAREA1_KB():any{
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.TOTALAREA1) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalCAPITAL_KB():any{
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.CAPITAL) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalTAXATION_KB():any{
+    if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
+      return 0;
+    }
+    return this.khulaBhukhandKarAakarniTableData
+        .map(t => Number(t?.TAXATION) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  
+
+  getBandkamachiKarAkkarniList(){
+    const params = {
+        "randomNumber": localStorage.getItem('randomNumber'), 
+        "userId": this.userDetails.userId,
+        "rno": localStorage.getItem('rno'),
+        "token": ""
+    }
+    this.NodaniService.getbankamachiKarAakarniSavedRecords(params).subscribe({
+        next: (res: any) => {
+          console.log('res', res);
+          
+        },
+        error: (err: Error) => {
+          console.error('Error बिल्डिंग कर आकारणी reords fetching:', err);
+          this.toastr.error('There was an error fetching बिल्डिंग कर आकारणी records.', 'Error');
+        },
+      });
   }
   
 }
