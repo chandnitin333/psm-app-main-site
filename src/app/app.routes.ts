@@ -22,7 +22,9 @@ export const routes: Routes = [
     { path: 'toilet-yadi', loadComponent: () => import('./pages/ahval/toilet-yadi/toilet-yadi.component').then(m => m.ToiletYadiComponent) },
     { path: 'malmatta-grahak-yadi', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi.component').then(m => m.MalmattaGrahakYadiComponent) },
     { path: 'namuna-8-form', loadComponent: () => import('./pages/ahval/namuna8form/namuna8form.component').then(m => m.Namuna8formComponent) },
+    { path: 'namuna-8-form-new', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-form-new.component').then(m => m.Namuna8FormNewComponent) },
     { path: 'namuna-9-form', loadComponent: () => import('./pages/ahval/namuna9form/namuna9form.component').then(m => m.Namuna9formComponent) },
+    { path: 'namuna-9-form-new', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9form-new.component').then(m => m.Namuna9formNewComponent) },
     { path: 'magniche-bill', loadComponent: () => import('./pages/ahval/magniche-bill/magniche-bill.component').then(m => m.MagnicheBillComponent) },
     { path: 'magniche-bill-ward', loadComponent: () => import('./pages/ahval/magniche-bill-ward/magniche-bill-ward.component').then(m => m.MagnicheBillWardComponent) },
     { path: 'imla-kar-form', loadComponent: () => import('./pages/ahval/imla-kar-form/imla-kar-form.component').then(m => m.ImlaKarFormComponent) },
@@ -42,4 +44,15 @@ export const routes: Routes = [
     { path: 'below-poverty-certificate', loadComponent: () => import('./pages/certificates/below-poverty-certificate/below-poverty-certificate.component').then(m => m.BelowPovertyCertificateComponent) },
 
     { path: 'table-with-pdf', loadComponent: () => import('./pages/table-with-pdf/table-with-pdf.component').then(m => m.TableWithPdfComponent) },
+    {path: 'namuna-8-1', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component)},
+    {path: 'namuna-9-1', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component)},
+    {path: 'namuna-8-sarkari', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent)},
+
+    {path: 'ward-wise-adhar-list', loadComponent: () => import('./pages/ahval/adhar-card-show/ward-wise-adhar-card-list/ward-wise-adhar-card-list.component').then(m => m.WardWiseAdharCardListComponent)},
+    {path: 'ward-wise-mobile-no-list', loadComponent: () => import('./pages/ahval/mobile-number/ward-wise-mobile-no-list/ward-wise-mobile-no-list.component').then(m => m.WardWiseMobileNoListComponent)},
+    {path: 'ward-wise-pinyache-pani-list', loadComponent: () => import('./pages/ahval/pani-vyavasta-yadi/ward-wise-pinyache-pani-list/ward-wise-pinyache-pani-list.component').then(m => m.WardWisePinyachePaniListComponent)},
+    {path: 'ward-wise-toilet-list', loadComponent: () => import('./pages/ahval/toilet-yadi/ward-wise-toilet-list/ward-wise-toilet-list.component').then(m => m.WardWiseToiletListComponent)},
+
+    {path: 'malmatta-darkahchi-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent)},
+
 ];

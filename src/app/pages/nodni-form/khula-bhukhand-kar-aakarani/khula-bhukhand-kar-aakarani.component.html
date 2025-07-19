@@ -1,0 +1,120 @@
+<form [formGroup]="khulaBhukhandModal">
+    <h2 mat-dialog-title class="text-center text-bold bg-color">खुला भूखंड कर आकारणी</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="form-row mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
+                <mat-select formControlName="milkat_vapar_id" id="malmatteche_prakar_DDL">
+                    <mat-option *ngFor="let item of khulaBhukand_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
+                        {{ item.MILKAT_VAPAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
+                <mat-select formControlName="milkat_vapar_id1">
+                    <mat-option *ngFor="let item of khulaBhukand_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
+                        {{ item.MILKAT_VAPAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वापर प्रकार</mat-label>
+                <input matInput type="text" formControlName="vaparache_prakar" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गावाचे नाव</mat-label>
+                <mat-select (selectionChange)="getGavthanDDL($event.value)" formControlName="gatgrampanchayat_id">
+                    <mat-option value="">Select गाव</mat-option>
+                    <mat-option *ngFor="let item of khulaBhukhand_gavacheNav" [value]="item.gatGrampanchayatId">
+                        {{ item.gatGrampanchayatName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गावठाण/गावठाण बाहेरचे</mat-label>
+                <mat-select (selectionChange)="getLandAnnualAndAakaraniRateData($event.value)"
+                    formControlName="openplot_id">
+                    <!-- <mat-option value="">Select </mat-option> -->
+                    <mat-option *ngFor="let item of khulaBhukhand_gavthanBaherche" [value]="item.openplot_id">
+                        {{ item.PRAKAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- </div>
+        <div class="form-row"> -->
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="areap" (keyup)="foot_to_meter_conversion()" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="areai" (keyup)="foot_to_meter_conversion()" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="totalarea"
+                    (keyup)="foot_to_meter_conversion_ekun_foot()" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="areap1" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="areai1" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="totalarea1" readonly/>
+            </mat-form-field>
+            <!-- </div>
+        <div class="form-row"> -->
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
+                <input matInput type="text" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आकारणी दर</mat-label>
+                <input matInput type="text" formControlName="levyrate" (keyup)="foot_to_meter_conversion()" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">जमिनीचे भांडवली मुल्य = जमिनीचे
+                    क्षेत्रफळ(चौ.
+                    मीटर) X जमिनीचे वार्षिक मुल्य जमिनीचे भांडवली मुल्य
+                    =Label</mat-label>
+                <input matInput type="text" formControlName="capital" readonly/>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">कर आकारणी = जमिनीचे भांडवली मुल्य X आकारणी
+                    दर
+                    /१००० कर आकारणी =Label</mat-label>
+                <input matInput type="text" formControlName="taxation" readonly/>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <!-- <mat-dialog-content class="mat-typography" *ngIf="data.annu_kramank === null || data.ward_kramank === null"> -->
+    <div class="form-row"
+        *ngIf="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''">
+        <p style="color:red;margin-left: 1rem;">खुला भूखंड कर आकारणी फॉर्म
+            भरण्यासाठी अनु क्रमांक आणि वॉर्ड क्रमांक आवश्यक आहे. </p>
+    </div>
+    <!-- </mat-dialog-content> -->
+
+    <mat-dialog-actions align="center">
+
+        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
+            [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
+            (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" :
+            "जतन
+            करा"}}</button>
+    </mat-dialog-actions>
+</form>

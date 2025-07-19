@@ -1,0 +1,89 @@
+<form [formGroup]="manoraKarForm">
+    <h2 mat-dialog-title class="text-center text-bold bg-color">मनोरा कर आकारणी</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="form-row mt-4">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
+                <mat-select formControlName="milkat_vapar_id">
+                    <mat-option *ngFor="let item of manora_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
+                        {{ item.MILKAT_VAPAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
+                <mat-select formControlName="malmatta_id">
+                    <mat-option *ngFor="let item of manora_malmattecheVarnan" [value]="item.MALMATTA_ID">
+                        {{ item.DESCRIPTION_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वापर प्रकार</mat-label>
+                <input matInput type="text" formControlName="vaparache_prakar" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मनोऱ्याचे भाग</mat-label>
+                <mat-select formControlName="manoramaster_id">
+                    <mat-option *ngFor="let item of manora_manoracheBhag" [value]="item.MANORAMASTER_ID">
+                        {{ item.MANORAMASTER_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="areap" (keyup)="foot_to_meter_conversion()"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="areai" (keyup)="foot_to_meter_conversion()"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
+                <input matInput type="text" formControlName="totalarea" />
+            </mat-form-field>
+
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="areap1" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="areai1" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
+                <input matInput type="text" formControlName="totalarea1" readonly/>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आकारणी दर</mat-label>
+                <input matInput type="text" formControlName="levyrate" (keyup)="getKarAakarani()"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">कर आकारणी = भांडवली मुल्य X आकारणी दर /१०००
+                    कर आकारणी = Label</mat-label>
+                <input matInput type="text" formControlName="karAkarani"/>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <div class="form-row"
+        *ngIf="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''">
+        <p style="color:red;margin-left: 1rem;">मनोरा कर आकारणी फॉर्म
+            भरण्यासाठी अनु क्रमांक आणि वॉर्ड क्रमांक आवश्यक आहे. </p>
+    </div>
+    <mat-dialog-actions align="center">
+
+        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
+        <!-- <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save_manora_form()">जतन करा</button> -->
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
+            (click)="(!is_edit)  ? save_manora_form() : update_manora_form()">{{(is_edit) ? "बदल करा" : "जतन
+            करा"}}</button>
+    </mat-dialog-actions>
+</form>

@@ -31,39 +31,38 @@
                     <th mat-header-cell *matHeaderCellDef
                         class="text-bold">Actions</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button matTooltip="Edit"
-                            (click)="edit(element)" *ngIf="isEdit">
+                        <button mat-icon-button matTooltip="मागिल कर जोडा" (click)="prevTax(element)" *ngIf="isKar"
+                            class="text-success">
+                            <mat-icon>description</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="बदल करा" (click)="edit(element)" *ngIf="isEdit"
+                            class="text-primary">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button matTooltip="View"
-                            (click)="view(element)" *ngIf="isView">
+                        <button mat-icon-button matTooltip="पूर्वावलोकन(View Details)" (click)="view(element)"
+                            *ngIf="isView" class="text-info">
                             <mat-icon>visibility</mat-icon>
                         </button>
 
-                        <button mat-icon-button matTooltip="Delete"
-                            class="text-danger"
-                            (click)="delete(element)" *ngIf="isDelete">
+                        <button mat-icon-button matTooltip="रद्द करा" (click)="delete(element)" *ngIf="isDelete"
+                            class="text-danger">
                             <mat-icon>delete</mat-icon>
                         </button>
 
-                        <button mat-icon-button matTooltip="Print"
-                            (click)="print(element)" *ngIf="isPrint">
+                        <button mat-icon-button matTooltip="प्रिंट" (click)="print(element)" *ngIf="isPrint"
+                            class="text-dark">
                             <mat-icon>print</mat-icon>
                         </button>
 
-                        <button mat-icon-button matTooltip="Download PDF"
-                            (click)="downloadPDF(element)" *ngIf="isDownload">
+                        <button mat-icon-button matTooltip="पीडीएफ डाउनलोड करा" (click)="downloadPDF(element)"
+                            *ngIf="isDownload" class="text-danger">
                             <mat-icon>picture_as_pdf</mat-icon>
                         </button>
 
-                        <button mat-icon-button matTooltip="Preview"
-                            (click)="preview(element)" *ngIf="isPreview">
+                        <button mat-icon-button matTooltip="Preview" (click)="preview(element)" *ngIf="isPreview"
+                            class="text-secondary">
                             <mat-icon>remove_red_eye</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="मागिल कर जोडा"
-                            (click)="prevTax(element)" *ngIf="isKar">
-                            <mat-icon>description</mat-icon>
                         </button>
                     </td>
 

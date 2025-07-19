@@ -1,0 +1,64 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">नमुना ८</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">नमुना</mat-label>
+                <mat-select>
+                    <mat-option value="Namuna8anukramanika">नमुना ८- अनुक्रमणिका</mat-option>
+                    <mat-option value="namuna8">नमुना ८</mat-option>
+                    <mat-option value="namuna8New">नमुना ८ New</mat-option>
+                    <mat-option value="namuna8i">नमुना ८ Images</mat-option>
+                    <mat-option value="namuna8ghoswara">नमुना ८ गोषवारा</mat-option>
+                    <mat-option value="sarkarinamuna8">सरकारी नमुना ८</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वार्ड नं. (Ward No)</mat-label>
+                <mat-select name="ward_number">
+                    <mat-option *ngFor="let item of wardOptions" [value]="item.label">
+                        {{ item.value }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वर्ष (Year)</mat-label>
+                <mat-select name="ward_number">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">ते (To)</mat-label>
+                <!-- <input type="hidden" formControlName="to" readonly />
+                <input matInput type="text" formControlName="to1" readonly /> -->
+                <!-- <mat-select formControlName="to">
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                    <mat-option value="2025">2025</mat-option>
+                </mat-select> -->
+                <mat-select name="ward_number">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">Start</mat-label>
+                <input matInput type="number" min="0" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">End</mat-label>
+                <input matInput type="number" min="0" />
+            </mat-form-field>
+
+        </div>
+        <div class="submit-row">
+            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+        </div>
+    </form>
+</mat-card>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "myappp": {
+    "psm_main": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/myappp",
+            "outputPath": "dist/psm_main",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -47,13 +47,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "256MB",
+                  "maximumError": "256MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "256MB",
+                  "maximumError": "256MB"
                 }
               ],
               "outputHashing": "all"
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "myappp:build:production"
+              "buildTarget": "psm_main:build:production"
             },
             "development": {
-              "buildTarget": "myappp:build:development"
+              "buildTarget": "psm_main:build:development"
             }
           },
           "defaultConfiguration": "development"
