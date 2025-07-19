@@ -212,6 +212,26 @@ export class Util {
     openDialog(title: string, message: string, type: string): void {
         this.dialog.open(CommonDialogComponent, { data: { title, message, type } });
     }
+    allowOnlyCharacters(event: KeyboardEvent): boolean {
+        const inputChar = String.fromCharCode(event.keyCode || event.which);
+        const pattern = /^[a-zA-Z\s]*$/; // allows letters and spaces
+
+        if (!pattern.test(inputChar)) {
+            event.preventDefault(); // block the input
+            return false;
+        }
+        return true;
+    }
+    allowOnlyNumbers(event: KeyboardEvent): boolean {
+        const charCode = event.keyCode || event.which;
+        const isNumber = charCode >= 48 && charCode <= 57; // 0 to 9
+
+        if (!isNumber) {
+            event.preventDefault(); // Block non-numeric input
+            return false;
+        }
+        return true;
+    }
 }
 
 

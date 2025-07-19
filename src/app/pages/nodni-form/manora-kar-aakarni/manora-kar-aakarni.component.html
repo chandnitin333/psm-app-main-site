@@ -49,15 +49,15 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="areap1" />
+                <input matInput type="text" formControlName="areap1" readonly/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="areai1" />
+                <input matInput type="text" formControlName="areai1" readonly/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="totalarea1" />
+                <input matInput type="text" formControlName="totalarea1" readonly/>
             </mat-form-field>
         </div>
 
@@ -73,9 +73,17 @@
             </mat-form-field>
         </div>
     </mat-dialog-content>
+    <div class="form-row"
+        *ngIf="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''">
+        <p style="color:red;margin-left: 1rem;">मनोरा कर आकारणी फॉर्म
+            भरण्यासाठी अनु क्रमांक आणि वॉर्ड क्रमांक आवश्यक आहे. </p>
+    </div>
     <mat-dialog-actions align="center">
 
         <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save_manora_form()">जतन करा</button>
+        <!-- <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save_manora_form()">जतन करा</button> -->
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
+            (click)="(!is_edit)  ? save_manora_form() : update_manora_form()">{{(is_edit) ? "बदल करा" : "जतन
+            करा"}}</button>
     </mat-dialog-actions>
 </form>

@@ -23,9 +23,10 @@ export class BuildingKarAakaraniComponent {
   userDetails: any = [];
   yearId: number = 0;
   YearName: string = '';
+  is_edit: boolean = false;
 
   BuildingkarModal = new FormGroup({
-    milkat_vapar_id: new FormControl<number | undefined>(undefined),
+    milkat_vapar_id: new FormControl<number | null>(null),
     malmatta_id: new FormControl<number | null>(null),
     vaparache_prakar: new FormControl<number | null>(null),
     manoramaster_id: new FormControl<number | null>(null),
@@ -63,6 +64,11 @@ export class BuildingKarAakaraniComponent {
     this.loadMalmattecheVarnanDDL();
     this.loadBandkamachaMajlaDDL();
     this.loadYearIdYearName();
+
+    if(this.data.construction_id!= ""){
+      this.is_edit = true;
+      this.editbandkamKarAkarnModal(Number(this.data.construction_id));
+    }
   }
 
   loadMalmattechePrakarDDL(): void {
@@ -252,5 +258,86 @@ export class BuildingKarAakaraniComponent {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
   }
+  editbandkamKarAkarnModal(id: number) {
+   this.NodaniService.editbandkamKarAakaraniModal(id).subscribe({
+      next: (res: any) => {
+        console.log('editbandkamKarAakaraniModal', res);
+        if(res.data.length > 0){
+          this.BuildingkarModal.patchValue({
+              milkat_vapar_id: Number(res?.data[0]?.MILKAT_VAPAR_ID),
+              malmatta_id: Number(res?.data[0]?.MALMATTA_ID),
+              vaparache_prakar: res?.data[0]?.VAPARACHE_PRAKAR,
+              manoramaster_id: Number(res?.data[0]?.FLOOR_ID),
+              areap: res?.data[0]?.AREAP,
+              areai: res?.data[0]?.AREAI,
+              totalarea: res?.data[0]?.TOTALAREA,
+              areap1: res?.data[0]?.AREAP1,
+              areai1: res?.data[0]?.AREAI1,
+              totalarea1: res?.data[0]?.TOTALAREA1,
+              lifespan: Number(res?.data[0]?.LIFESPAN),
+              constructing: Number(res?.data[0]?.CONSTRUCTING),
+              depreciation: res?.data[0]?.DEPRECIATION,
+              weighted: res?.data[0]?.WEIGHTTAGE,
+              annual_cost: res?.data[0]?.ANNUALCOST,
+              levyrate: res?.data[0]?.LEVYRATE,
+              one: res?.data[0]?.ONE,
+              two: res?.data[0]?.TWO
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching bankam kar aakarni data:', err);
+        this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
+      }
+    });
+  }
+
+  update_bandkam_form(){
+    if (!this.BuildingkarModal.invalid) {
+      let params = {
+        milkat_vapar_id: this.BuildingkarModal.value.milkat_vapar_id,
+        malmatta_id: this.BuildingkarModal.value.malmatta_id,
+        vaparache_prakar: this.BuildingkarModal.value.vaparache_prakar,
+        manoramaster_id: this.BuildingkarModal.value.manoramaster_id,
+        areap: this.BuildingkarModal.value.areap,
+        areai: this.BuildingkarModal.value.areai,
+        totalarea: this.BuildingkarModal.value.totalarea,
+        areap1: this.BuildingkarModal.value.areap1,
+        areai1: this.BuildingkarModal.value.areai1,
+        totalarea1: this.BuildingkarModal.value.totalarea1,
+        lifespan: this.BuildingkarModal.value.lifespan,
+        constructing: this.BuildingkarModal.value.constructing,
+        depreciation: this.BuildingkarModal.value.depreciation,
+        weighted: this.BuildingkarModal.value.weighted,
+        annual_cost: this.BuildingkarModal.value.annual_cost,
+        levyrate: this.BuildingkarModal.value.levyrate,
+        one: this.BuildingkarModal.value.one,
+        two: this.BuildingkarModal.value.two
+      };
+      this.NodaniService.updateBandkamKarModal(params, Number(this.data.construction_id)).subscribe({
+        next: (res: any) => {
+          console.log('Update Bandkam kar aakarni', res);
+          if (res.status == 200) {
+            console.log('inside', res);
+            this.toastr.success(res.message, 'Success');
+            // this.loginSuccess = false;
+          } else {
+            this.toastr.warning(res.message, 'Warning');
+          }
+          // this.isLoading = false;
+        },
+        error: (err: Error) => {
+          console.error('Error updating Bandkam kar aakarni form:', err);
+          this.toastr.error('There was an error updating the Bandkam kar aakarni form.', 'Error');
+        },
+      });
+    } else {
+      this.toastr.warning('Please fill all required fields.', 'warning');
+    }
+  }
 
 }
+
+
+
+       

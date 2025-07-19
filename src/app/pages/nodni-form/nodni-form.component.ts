@@ -29,6 +29,8 @@ userDetails: any = [];
 otherTaxData:any = [];
 otherTaxTableData: any = [];
 khulaBhukhandKarAakarniTableData : any = [];
+bandkamkarAakarniTableData: any = [];
+manoraKarAakarniTableData: any = [];
 urvarit_khali_jaga_meter: any = 0;
 
 viz_divabatti_kar: Number = 0;
@@ -42,6 +44,10 @@ safae_kar_checkbox:  String = '0';
 samanya_pani_kar_checkbox:  String = '0';
 vishesh_pani_kar_checkbox:  String = '0';
 ekun_kar : Number = 0;
+chalu_kar: Number = 0;
+
+gruhkar_bhumikar_total:Number = 0;
+ekun_bhandavali_mulya_total:Number = 0;
 
 nodaniForm = new FormGroup({
     annu_kramank: new FormControl(undefined),
@@ -64,31 +70,31 @@ nodaniForm = new FormGroup({
     dakshines: new FormControl(undefined),
     pinachya_panichi_vyavstha_radio: new FormControl(undefined),
     ghari_toilet_radio: new FormControl(undefined),
-    vanijya_prakar_radio: new FormControl(undefined),
+    vanijya_prakar_radio: new FormControl<string | null>(null),
     miltkat_prakar_radio: new FormControl(undefined),
     emarat_mokadi_jaga_radio: new FormControl(undefined),
     emarat_jamin_dharmik_radio: new FormControl(undefined),
     bhogvat_dharak_malak_radio: new FormControl(undefined),
-    lambi: new FormControl<number | undefined>(0),
-    rundi: new FormControl<number | undefined>(0),
-    shetrafadh_foot: new FormControl<number | undefined>(0),
-    shetrafadh_meter: new FormControl<number | undefined>(0),
+    lambi: new FormControl<number | null>(null),
+    rundi: new FormControl<number | null>(null),
+    shetrafadh_foot: new FormControl<number | null>(null),
+    shetrafadh_meter: new FormControl<number | null>(null),
     // viz_divabatti_kar: new FormControl(undefined),
     // aaraogya_rakashan_kar: new FormControl(undefined),
     // safae_kar: new FormControl(undefined),
     // samanya_pani_kar: new FormControl(undefined),
     // vishesh_pani_kar: new FormControl(undefined),
-    urvarit_khali_jaga_feet: new FormControl(undefined),
-    jaminiche_bhandavali_mulya: new FormControl(undefined),
-    emaratiche_bhandavali_mulya: new FormControl(undefined),
-    ekun_bhandavli_mulya: new FormControl(undefined),
-    khula_bhukand_kar_aakarani_txt: new FormControl(undefined),
-    emartiche_kar_akarani_txt: new FormControl(undefined),
-    gruhkar_bhumikar_from_property_tax: new FormControl(undefined),
-    gruhkar_bhumikar_from_tax_payble: new FormControl(undefined),
-    chalu_kar: new FormControl(Number(0)),
-    magil_kar: new FormControl(undefined),
-    ekun_kar_bharna: new FormControl(undefined),
+    urvarit_khali_jaga_feet: new FormControl<number | null>(null),
+    jaminiche_bhandavali_mulya: new FormControl<number | null>(null),
+    emaratiche_bhandavali_mulya: new FormControl<number | null>(null),
+    ekun_bhandavli_mulya: new FormControl<number | null>(null),
+    khula_bhukand_kar_aakarani_txt: new FormControl<number | null>(null),
+    emartiche_kar_akarani_txt: new FormControl<number | null>(null),
+    gruhkar_bhumikar_from_property_tax: new FormControl<number | null>(null),
+    gruhkar_bhumikar_from_tax_payble: new FormControl<number | null>(null),
+    chalu_kar: new FormControl<number | null>(null),
+    magil_kar: new FormControl<number | null>(null),
+    ekun_kar_bharna: new FormControl<number | null>(null),
     magahun_ghat_kiva_badal: new FormControl(undefined),
     
   });
@@ -107,8 +113,19 @@ ngOnInit(){
   this.getOtherTaxCalculationApi();
   this.getKhulaBhukhandList();
   this.getBandkamachiKarAkkarniList();
-  this.getTotalAREAP_KB();
+  this.getManoraKarAakaraniList();
+  setTimeout(() => {
+    this.chalu_kar = Number(this.getTotalTAXATION_KB()) + Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+    // console.log('chalu_kar-----------:', this.chalu_kar);
+     this.nodaniForm.get('chalu_kar')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+     this.nodaniForm.get('ekun_kar_bharna')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+    //  ekun_kar_bharna
+  }, 1000);
+  // this.getTotalAREAP_KB();
   // console.log('User Details:', this.userDetails);
+}
+resetSelection() {
+  this.nodaniForm.get('vanijya_prakar_radio')?.setValue('');
 }
  goToNextTab(tabGroup: MatTabGroup) { 
   const nextIndex = (tabGroup.selectedIndex! + 1) % tabGroup._tabs.length; 
@@ -119,36 +136,40 @@ ngOnInit(){
     const previousIndex = (tabGroup.selectedIndex! - 1 + tabGroup._tabs.length) % tabGroup._tabs.length; 
     tabGroup.selectedIndex = previousIndex; 
   }
-  khula_bhukand_modal(element:any) {
-    console.log('Selected Element:', element.target.value);
+  khula_bhukand_modal(element:any, taxation_id:any="") {
+    // console.log('Selected Element:', element);
     const anu_kramank = this.nodaniForm.value.annu_kramank;
     const ward_kramank = this.nodaniForm.value.ward_kramank;
     const params = {
       anu_kramank: anu_kramank,
       ward_kramank: ward_kramank,
-      modal_name: element.target.value,
+      modal_name: element,
+      taxation_id: taxation_id,
     }
+    // console.log('Params for Khula Bhukand Modal:', params);
     this.openKhulaBhukandModal(params);
   }
-  building_kar_aakarani(element:any) {
-    console.log('Selected Element:', element.target.value);
+  building_kar_aakarani(element:any, construction_id:any="") {
+    // console.log('Selected Element:', element);
     const anu_kramank = this.nodaniForm.value.annu_kramank;
     const ward_kramank = this.nodaniForm.value.ward_kramank;
     const params = {
       anu_kramank: anu_kramank,
       ward_kramank: ward_kramank,
-      modal_name: element.target.value,
+      modal_name: element,
+      construction_id: construction_id,
     }
     this.openBuildingKarModal(params);
   }
-  manora_kar_aakarani(element:any) {
-    console.log('Selected Element:', element.target.value);
+  manora_kar_aakarani(element:any, tax_payer_id:any="") {
+    console.log('Selected Element:', element);
     const anu_kramank = this.nodaniForm.value.annu_kramank;
     const ward_kramank = this.nodaniForm.value.ward_kramank;
     const params = {
       anu_kramank: anu_kramank,
       ward_kramank: ward_kramank,
-      modal_name: element.target.value,
+      modal_name: element,
+      tax_payer_id: tax_payer_id,
     }
     this.openManoraKarModal(params);
   }
@@ -160,7 +181,7 @@ ngOnInit(){
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Modal Data:', result);
+        // console.log('Modal Data:', result);
         this.getKhulaBhukhandList();
       }
     });
@@ -172,8 +193,9 @@ ngOnInit(){
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log('Modal Data:', result);
       if (result) {
-        console.log('Modal Data:', result);
+        this.getBandkamachiKarAkkarniList();
       }
     });
   }
@@ -186,6 +208,7 @@ ngOnInit(){
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Modal Data:', result);
+        this.getManoraKarAakaraniList();
       }
     });
   }
@@ -247,13 +270,19 @@ ngOnInit(){
         vanijya_prakar_radio: this.nodaniForm.value.vanijya_prakar_radio,
         
         
-        // check1: this.viz_divabatti_kar_checkbox,
-        // viz_divabatti_kar: this.viz_divabatti_kar,
-        // aaraogya_rakashan_kar: this.aaraogya_rakashan_kar,
-        // safae_kar: this.safae_kar,
-        // samanya_pani_kar: this.samanya_pani_kar,
-        // vishesh_pani_kar: this.vishesh_pani_kar,
+        check1: this.viz_divabatti_kar_checkbox,
+        viz_divabatti_kar: this.viz_divabatti_kar,
+        check2: this.aaraogya_rakashan_kar_checkbox,
+        aaraogya_rakashan_kar: this.aaraogya_rakashan_kar,
+        check3: this.safae_kar_checkbox,
+        safae_kar: this.safae_kar,
+        check4: this.samanya_pani_kar_checkbox,
+        samanya_pani_kar: this.samanya_pani_kar,
+        check5: this.vishesh_pani_kar_checkbox,
+        vishesh_pani_kar: this.vishesh_pani_kar,
       };
+      console.log('Params for Nodani Form:', params);
+
       this.NodaniService.addNodaniForm(params).subscribe({
         next: (res: any) => {
           console.log('res', res);
@@ -317,6 +346,8 @@ ngOnInit(){
     // console.log('Checked Data:', event.target.checked);
     // console.log('Checked Data:', event.target.value);
     // console.log('Checked Data:', event.target.id);
+
+
     if(event.target.id == 'check_TAXRATE1-input'){
       this.viz_divabatti_kar_checkbox = (event.target.checked === true) ? 'on' : '0';
       if(event.target.checked === true){
@@ -354,7 +385,13 @@ ngOnInit(){
         this.ekun_kar = Number(this.ekun_kar) - Number(this.vishesh_pani_kar);
       }
     }
-    this.nodaniForm.get('chalu_kar')?.setValue(Number(this.ekun_kar));
+    let totalChalukar = Number(this.ekun_kar) + Number(this.chalu_kar);
+    // console.log('Total Chalu Kar:', this.viz_divabatti_kar_checkbox);
+    this.nodaniForm.get('chalu_kar')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+    this.nodaniForm.get('ekun_kar_bharna')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+    // this.nodaniForm.get('chalu_kar')?.setValue(Number(this.ekun_kar) + Number(this.chalu_kar));
+    // this.nodaniForm.get('ekun_kar_bharna')?.setValue(Number(this.ekun_kar) + Number(this.chalu_kar));
+    console.log("kundan==",this.otherTaxTableData)
    
   }
   insertKarDar(event:any){
@@ -381,6 +418,8 @@ ngOnInit(){
       this.nodaniForm.get('shetrafadh_foot')?.setValue(total);
       let meterTotal = parseFloat((total / 10.764).toFixed(2));
       this.nodaniForm.get('shetrafadh_meter')?.setValue(meterTotal);
+
+      
   }
   calculationLambiSquareMeter(event: any){
     var squareMeter = parseFloat(((Number(this.nodaniForm.value.shetrafadh_foot) * 9.29) / 100).toFixed(2));
@@ -388,6 +427,8 @@ ngOnInit(){
   }
   ngAfterViewInit() {
     // this.getOtherTaxCalculationApi();
+    // this.gruhakar_bhumikar_calcuialtion();
+    
   }
   getKhulaBhukhandList(){
     const params = {
@@ -398,18 +439,32 @@ ngOnInit(){
     }
     this.NodaniService.getKhulabhukhandSavedRecords(params).subscribe({
         next: (res: any) => {
-          console.log('res', res);
+          // console.log('res=====>', res);
           // khulaBhukhandKarAakarniTableData
           this.khulaBhukhandKarAakarniTableData = res?.data ?? [];
-          this.getTotalAREAP_KB();
-          //  this.khulaBhukhandKarAakarniTableData = [
-          //   {  karanchi_nav: 'विज /दिवाबत्ती कर', value:this.otherTaxData.TAXRATE1, key:'TAXRATE1', checked_id:'check_TAXRATE1', checked:false},
-          //   {  karanchi_nav: 'आरोग्य रक्षण कर', value:this.otherTaxData.TAXRATE2, key:'TAXRATE2', checked_id:'check_TAXRATE2', checked:false},
-          //   {  karanchi_nav: 'सफाई कर', value:this.otherTaxData.TAXRATE3, key:'TAXRATE3', checked_id:'check_TAXRATE3', checked:false},
-          //   {  karanchi_nav: 'सामान्य पानी क़र', value:this.otherTaxData.TAXRATE4, key:'TAXRATE4', checked_id:'check_TAXRATE4', checked:false},
-          //   {  karanchi_nav: 'विशेष पाणी कर', value:this.otherTaxData.TAXRATE5, key:'TAXRATE5', checked_id:'check_TAXRATE5', checked:false},
-          // ]
-          
+          // console.log('Khula Bhukhand Kar Aakarni Table Data:', this.khulaBhukhandKarAakarniTableData);
+          // this.getTotalAREAP_KB();
+          setTimeout(() => {
+
+            let urvaritJaga = Number(this.getTotalTOTALAREA_KB());
+            this.nodaniForm.get('urvarit_khali_jaga_feet')?.setValue(parseFloat(Number(urvaritJaga).toFixed(2)));
+            let khulaBukhandkarakaranitotal = Number(this.getTotalTAXATION_KB())
+            this.nodaniForm.get('khula_bhukand_kar_aakarani_txt')?.setValue(parseFloat(Number(khulaBukhandkarakaranitotal).toFixed(2))); 
+            let jaminichiBhandvalitotal = Number(this.getTotalCAPITAL_KB())
+            this.nodaniForm.get('jaminiche_bhandavali_mulya')?.setValue(parseFloat(Number(jaminichiBhandvalitotal).toFixed(2)));
+
+            this.chalu_kar = Number(this.getTotalTAXATION_KB()) + Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+            let totalChalukar = Number(this.ekun_kar) + Number(this.chalu_kar);
+            this.nodaniForm.get('chalu_kar')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+            this.nodaniForm.get('ekun_kar_bharna')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+            let bhandavali_muly_total = Number(this.getTotalCAPITAL_KB()) + Number(this.getONE_bandkam());
+            this.nodaniForm.get('ekun_bhandavli_mulya')?.setValue(parseFloat(Number(bhandavali_muly_total).toFixed(2)));
+
+            this.nodaniForm.get('gruhkar_bhumikar_from_property_tax')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+            this.nodaniForm.get('gruhkar_bhumikar_from_tax_payble')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+           
+            
+          });
         },
         error: (err: Error) => {
           console.error('Error adding getting khula bhukand record:', err);
@@ -437,9 +492,14 @@ ngOnInit(){
     if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
       return 0;
     }
-    return this.khulaBhukhandKarAakarniTableData
+    let total = this.khulaBhukhandKarAakarniTableData
         .map(t => Number(t?.TOTALAREA) || 0)  
         .reduce((acc, value) => acc + value, 0).toFixed(2);
+
+    // setTimeout(() => {
+    //     this.nodaniForm.get('urvarit_khali_jaga_feet')?.setValue(Number(total));
+    //   });
+    return total;
   }
   getTotalTOTALAREA1_KB():any{
     if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
@@ -449,21 +509,29 @@ ngOnInit(){
         .map(t => Number(t?.TOTALAREA1) || 0)  
         .reduce((acc, value) => acc + value, 0).toFixed(2);
   }
-  getTotalCAPITAL_KB():any{
+  getTotalCAPITAL_KB(): number {
     if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
       return 0;
     }
-    return this.khulaBhukhandKarAakarniTableData
+    let total =  Number(this.khulaBhukhandKarAakarniTableData
         .map(t => Number(t?.CAPITAL) || 0)  
-        .reduce((acc, value) => acc + value, 0).toFixed(2);
+        .reduce((acc, value) => acc + value, 0).toFixed(2));
+      // setTimeout(() => {
+      //   this.nodaniForm.get('jaminiche_bhandavali_mulya')?.setValue(Number(total));
+      // });
+    return total;
   }
-  getTotalTAXATION_KB():any{
+  getTotalTAXATION_KB():number{
     if (!this.khulaBhukhandKarAakarniTableData || !Array.isArray(this.khulaBhukhandKarAakarniTableData)) {
       return 0;
     }
-    return this.khulaBhukhandKarAakarniTableData
+   let total = Number(this.khulaBhukhandKarAakarniTableData
         .map(t => Number(t?.TAXATION) || 0)  
-        .reduce((acc, value) => acc + value, 0).toFixed(2);
+        .reduce((acc, value) => acc + value, 0).toFixed(2));
+    // setTimeout(() => {
+    //     this.nodaniForm.get('khula_bhukand_kar_aakarani_txt')?.setValue(Number(total));
+    //   });
+    return total;
   }
   
 
@@ -476,7 +544,26 @@ ngOnInit(){
     }
     this.NodaniService.getbankamachiKarAakarniSavedRecords(params).subscribe({
         next: (res: any) => {
-          console.log('res', res);
+          // console.log('res-----------------', res);
+          this.bandkamkarAakarniTableData = res?.data ?? [];
+          setTimeout(() => {
+            this.chalu_kar = Number(this.getTotalTAXATION_KB()) + Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+            let totalChalukar = Number(this.ekun_kar) + Number(this.chalu_kar);
+            this.nodaniForm.get('chalu_kar')?.setValue( parseFloat(Number(totalChalukar).toFixed(2)));
+            this.nodaniForm.get('ekun_kar_bharna')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+
+            this.nodaniForm.get('gruhkar_bhumikar_from_property_tax')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+            this.nodaniForm.get('gruhkar_bhumikar_from_tax_payble')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+            
+
+            let bhandavali_muly_total = Number(this.getTotalCAPITAL_KB()) + Number(this.getONE_bandkam());
+            this.nodaniForm.get('ekun_bhandavli_mulya')?.setValue(parseFloat(Number(bhandavali_muly_total).toFixed(2)));
+            // [value]=" (getTWO_bandkam() + getTAXATION_manora()).toFixed(2)"
+            let emartiche_total =  Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+            this.nodaniForm.get('emartiche_kar_akarani_txt')?.setValue(parseFloat(Number(emartiche_total).toFixed(2)));
+            let emaratiche_total = Number(this.getONE_bandkam());
+            this.nodaniForm.get('emaratiche_bhandavali_mulya')?.setValue(parseFloat(Number(emaratiche_total).toFixed(2)));
+          });
           
         },
         error: (err: Error) => {
@@ -486,4 +573,226 @@ ngOnInit(){
       });
   }
   
+  getTotalAREAP_bandkam():any {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.AREAP) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTotalAREAI_bandkam():any{
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.AREAI) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTOTALAREA_bandkam():any{
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.TOTALAREA) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getTOTALAREA1_bandkam():any{ 
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.TOTALAREA1) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getCONSTRUCTING_bandkam(): any {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.CONSTRUCTING) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getANNUALCOST_bandkam(): any {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.ANNUALCOST) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getLEVYRATE_bandkam(): any {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return this.bandkamkarAakarniTableData
+        .map(t => Number(t?.LEVYRATE) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2);
+  }
+  getONE_bandkam(): number {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    let total = Number(this.bandkamkarAakarniTableData
+        .map(t => Number(t?.ONE) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2));
+      // setTimeout(() => {
+      //   this.nodaniForm.get('emaratiche_bhandavali_mulya')?.setValue(Number(total));
+      // });
+    return total;
+  }
+  getTWO_bandkam(): number {
+    if (!this.bandkamkarAakarniTableData || !Array.isArray(this.bandkamkarAakarniTableData)) {
+      return 0;
+    }
+    return Number(this.bandkamkarAakarniTableData
+        .map(t => Number(t?.TWO) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2));
+  }
+  getManoraKarAakaraniList(){
+    const params = {
+        "randomNumber": localStorage.getItem('randomNumber'), 
+        "userId": this.userDetails.userId,
+        "rno": localStorage.getItem('rno'),
+        "token": ""
+    }
+    this.NodaniService.getmanoraKarAakarniSavedRecords(params).subscribe({
+        next: (res: any) => {
+          // console.log('res kundan-----------------', res);
+          this.manoraKarAakarniTableData = res?.data ?? [];
+          setTimeout(() => {
+            this.chalu_kar = Number(this.getTotalTAXATION_KB()) + Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+            let totalChalukar = Number(this.ekun_kar) + Number(this.chalu_kar);
+            this.nodaniForm.get('chalu_kar')?.setValue( parseFloat(Number(totalChalukar).toFixed(2)));
+            this.nodaniForm.get('ekun_kar_bharna')?.setValue(parseFloat(Number(totalChalukar).toFixed(2)));
+
+            this.nodaniForm.get('gruhkar_bhumikar_from_property_tax')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+            this.nodaniForm.get('gruhkar_bhumikar_from_tax_payble')?.setValue(parseFloat(Number(this.chalu_kar).toFixed(2)));
+            
+
+            let emartiche_total =  Number(this.getTWO_bandkam() + Number(this.getTAXATION_manora()));
+            this.nodaniForm.get('emartiche_kar_akarani_txt')?.setValue(parseFloat(Number(emartiche_total).toFixed(2)));
+          });
+        },
+        error: (err: Error) => {
+          console.error('Error मनोऱ्याचे कर आकारणी reords fetching:', err);
+          this.toastr.error('There was an error fetching मनोऱ्याचे कर आकारणी records.', 'Error');
+        },
+      });
+  }
+  getTAXATION_manora(): number {
+      if (!this.manoraKarAakarniTableData || !Array.isArray(this.manoraKarAakarniTableData)) {
+      return 0;
+      }
+    return Number(this.manoraKarAakarniTableData
+          .map(t => Number(t?.TAXATION) || 0)  
+        .reduce((acc, value) => acc + value, 0).toFixed(2));
+   }
+  edit_khula_bhukhand(event:any){
+      console.log('Edit Khula Bhukhand:', event.target.id);
+    this.khula_bhukand_modal("khula_bhukhand", event.target.id);
+    }
+  delete_khula_bhukhand(event:any){
+      if (confirm('Are you sure you want to delete this Khula Bhukhand record?')) {
+        // console.log('Delete Khula Bhukhand:', event.target.id);
+        const taxation_id =  event.target.id;
+        this.NodaniService.deleteKhulaBhukhand(Number(taxation_id)).subscribe({
+          next: (res: any) => {
+            console.log('Delete Response:', res);
+            if (res.status == 200) {
+              this.toastr.success(res.message, 'Success');
+              this.getKhulaBhukhandList();
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+          },
+          error: (err: Error) => {
+            console.error('Error deleting khula bhukhand:', err);
+            this.toastr.error('There was an error deleting the khula bhukhand.', 'Error');
+          },
+        });
+      }
+    }
+    edit_bandkam_modal(event:any){
+      console.log('bandkam edit modal:', event.target.id);
+      this.building_kar_aakarani("bandkam_kar_aakarani", event.target.id);
+    }
+    delete_bandkam_kar_aakarn_record(event:any){
+      const construction_id =  event.target.id;
+      if (confirm('Are you sure you want to delete this Bandkam Kar Aakarni record?')) {
+        this.NodaniService.deletebandkamKarAkarniRecords(Number(construction_id)).subscribe({
+          next: (res: any) => {
+            // console.log('Delete Response:', res);
+            if (res.status == 200) {
+              this.toastr.success(res.message, 'Success');
+              this.getBandkamachiKarAkkarniList();
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+          },
+          error: (err: Error) => {
+            console.error('Error deleting bandkam kar aakarni record:', err);
+            this.toastr.error('There was an error deleting the bandkam kar aakarni record.', 'Error');
+          },
+        });
+      }
+    }
+    edit_manorakar_modal(event:any){
+      console.log('manora edit modal:', event.target.id);
+      this.manora_kar_aakarani("manora_kar", event.target.id);
+    }
+
+     delete_manora_kar_aakarn_record(event:any){
+      const taxpayer_id =  event.target.id;
+      if (confirm('Are you sure you want to delete this Manora Kar Aakarni record?')) {
+        this.NodaniService.deleteManoraAkarniRecords(Number(taxpayer_id)).subscribe({
+          next: (res: any) => {
+            // console.log('Delete Response:', res);
+            if (res.status == 200) {
+              this.toastr.success(res.message, 'Success');
+              this.getManoraKarAakaraniList();
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+          },
+          error: (err: Error) => {
+            console.error('Error deleting manora kar aakarni record:', err);
+            this.toastr.error('There was an error deleting the manora kar aakarni record.', 'Error');
+          },
+        });
+      }
+    }
+
+    reset() {
+       
+        const params = {
+              "randomNumber": localStorage.getItem('randomNumber'),
+              "user_id": this.userDetails.userId,
+              "rno": localStorage.getItem('rno'),
+          }
+        this.ekun_kar = 0;
+        console.log('Resetting Nodani Form with params:', this.khulaBhukhandKarAakarniTableData.length);
+        if(this.bandkamkarAakarniTableData.length > 0){
+          this.reset_tables("delete-building-kar-session-wise-clear-api",params);
+        }
+        if(this.khulaBhukhandKarAakarniTableData.length > 0){
+            this.reset_tables("delete-khula-bhukhand-session-wise-clear-api",params);
+        }
+        if(this.manoraKarAakarniTableData.length > 0){
+            this.reset_tables("delete-monora-kar-session-wise-clear-api",params);
+        }        
+        this.getBandkamachiKarAkkarniList();
+        this.getKhulaBhukhandList();
+        this.getManoraKarAakaraniList();
+        this.nodaniForm.reset();
+        this.getOtherTaxCalculationApi();
+    }
+    async reset_tables(api_url:any, params:any) {
+      this.NodaniService.resetTableApis(api_url,params).subscribe({
+        next: (res: any) => {},
+        error: (err: Error) => {
+          console.error('Error reseting table data:', err);
+        },
+      });
+    }
 }

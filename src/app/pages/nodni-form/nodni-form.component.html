@@ -7,6 +7,7 @@
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
                 <input matInput type="text" formControlName="annu_kramank" />
             </mat-form-field>
+
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
                 <input matInput type="text" formControlName="malmatta_kramank" />
@@ -33,12 +34,12 @@
                 <input matInput type="text" formControlName="voter_card_number" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
-                <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
-                <input matInput type="text" formControlName="aadhar_card_number" />
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मोबाईल नं.</mat-label>
                 <input matInput type="text" formControlName="mobile_number" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
+                <input matInput type="text" formControlName="aadhar_card_number" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -46,6 +47,8 @@
                 <mat-label class="text-bold">घर मालकाचे नाव</mat-label>
                 <input matInput type="text" formControlName="ghar_malkache_nav" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">पत्नी/मुलाचे नाव श्री/श्रीमती</mat-label>
                 <input matInput type="text" formControlName="patni_mulache_nav" />
@@ -109,7 +112,10 @@
             </mat-radio-group>
         </div>
         <div class="form-row">
-            <h6 class="mt-3">वाणिज्य प्रकार :</h6>
+            <h6 class="mt-3">वाणिज्य प्रकार : </h6>
+            <button mat-icon-button (click)="resetSelection()">
+                <mat-icon>refresh</mat-icon>
+            </button>
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="vanijya_prakar_radio">
@@ -193,12 +199,13 @@
         <div class="row">
             <div class="d-flex">
                 <button type="button" class="btn btn-success col-md-2" value="khula_bhukhand"
-                    (click)="khula_bhukand_modal($event)">खुला
+                    (click)="khula_bhukand_modal('khula_bhukhand')">खुला
                     भूखंड कर आकारणी</button>&nbsp;
-                <button type="button" class="btn btn-success col-md-2"
-                    (click)="building_kar_aakarani($event)">बांधकामाची कर
+                <button type="button" class="btn btn-success col-md-2" value="bandkam_kar_aakarani"
+                    (click)="building_kar_aakarani('bandkam_kar_aakarani')">बांधकामाची कर
                     आकारणी</button>&nbsp;
-                <button type="button" class="btn btn-success col-md-2" (click)="manora_kar_aakarani($event)">मनोऱ्याचे
+                <button type="button" class="btn btn-success col-md-2" value="manora_kar"
+                    (click)="manora_kar_aakarani('manora_kar')">मनोऱ्याचे
                     कर
                     आकारणी</button>
             </div>
@@ -292,11 +299,13 @@
                     </ng-container>
 
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
                         <td mat-cell *matCellDef="let element">
-                            <div style="display: inline-flex; align-items: center; ">
-                                <mat-icon color="warn">delete</mat-icon>
-                                <mat-icon color="primary">edit</mat-icon>
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_khula_bhukhand($event)"
+                                    id="{{element.TAXATIONLAND_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_khula_bhukhand($event)"
+                                    id="{{element.TAXATIONLAND_ID}}">edit</mat-icon>
                             </div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
@@ -319,118 +328,137 @@
         </div>
         <hr>
         <div class="row">
-            <mat-card class="example-card">
-                <table mat-table [dataSource]="[
-                                                                            { malmatteche_prakar: 'kundan', malmatteche_varnan: 'kundan', vapar_prakar: 'kundan', bandkamacha_majla: 'kundan',shetrafal_east_west:'1020', shetrafal_north_south:'1202', total_shetrafal_cho_foot:'2000', total_shetrafal_cho_meter:'6500',
-                                                                            vayomanay:'3', imartiche_bandkam_varsh:'2024', ghasara_dar:'25%', bharank:'30', imartiche_varshik_mulya:'350',aakarani_dar:'20', imaratiche_bhandavli_mulya:'20',kar_aakarani:'20', action:''}
-                                                                          ]">
+            <mat-card class="example-card table-responsive">
+                <table mat-table [dataSource]="bandkamkarAakarniTableData">
 
-                    <ng-container matColumnDef="malmatteche_prakar">
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME">
                         <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_prakar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="malmatteche_varnan">
+                    <ng-container matColumnDef="DESCRIPTION_NAME">
                         <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_varnan}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="vapar_prakar">
+                    <ng-container matColumnDef="VAPARACHE_PRAKAR">
                         <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.vapar_prakar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.VAPARACHE_PRAKAR}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="bandkamacha_majla">
+                    <ng-container matColumnDef="FLOOR_NAME">
                         <th mat-header-cell *matHeaderCellDef><b> बांधकामाचा मजला</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.bandkamacha_majla}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.FLOOR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="gavthan_baherche">
+                    <!-- <ng-container matColumnDef="gavthan_baherche">
                         <th mat-header-cell *matHeaderCellDef><b> गावठाण/गावठाण बाहेरचे </b></th>
                         <td mat-cell *matCellDef="let element"> {{element.gavthan_baherche}} </td>
-                    </ng-container>
+                    </ng-container> -->
 
-                    <ng-container matColumnDef="shetrafal_east_west">
+                    <ng-container matColumnDef="AREAP">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_east_west}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAP_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="shetrafal_north_south">
+                    <ng-container matColumnDef="AREAI">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_north_south}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAI_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="total_shetrafal_cho_foot">
+                    <ng-container matColumnDef="TOTALAREA">
                         <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_foot}}
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTOTALAREA_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="total_shetrafal_cho_meter">
+                    <ng-container matColumnDef="TOTALAREA1">
                         <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_meter}}
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA1}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTOTALAREA1_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="vayomanay">
+                    <ng-container matColumnDef="LIFESPAN">
                         <th mat-header-cell *matHeaderCellDef><b> वयोमानय </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.vayomanay}}
+                        <td mat-cell *matCellDef="let element"> {{element.LIFESPAN}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="imartiche_bandkam_varsh">
+                    <ng-container matColumnDef="CONSTRUCTING">
                         <th mat-header-cell *matHeaderCellDef><b> इमारतीचे बांधकाम वर्ष </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.imartiche_bandkam_varsh}}
+                        <td mat-cell *matCellDef="let element"> {{element.CONSTRUCTING}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getCONSTRUCTING_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="ghasara_dar">
+                    <ng-container matColumnDef="DEPRECIATION">
                         <th mat-header-cell *matHeaderCellDef><b> घसारा दर </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.ghasara_dar}}
+                        <td mat-cell *matCellDef="let element"> {{element.DEPRECIATION}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="bharank">
+                    <ng-container matColumnDef="WEIGHTTAGE">
                         <th mat-header-cell *matHeaderCellDef><b> भारांक </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.bharank}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.WEIGHTTAGE}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="imartiche_varshik_mulya">
+                    <ng-container matColumnDef="ANNUALCOST">
                         <th mat-header-cell *matHeaderCellDef><b> इमारतीचे वार्षिक मुल्य </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.imartiche_varshik_mulya}}
+                        <td mat-cell *matCellDef="let element"> {{element.ANNUALCOST}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getANNUALCOST_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="aakarani_dar">
+                    <ng-container matColumnDef="LEVYRATE">
                         <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.aakarani_dar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.LEVYRATE}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getLEVYRATE_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="imaratiche_bhandavli_mulya">
+                    <ng-container matColumnDef="ONE">
                         <th mat-header-cell *matHeaderCellDef><b> इमारतीचे भांडवली मुल्य </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.imaratiche_bhandavli_mulya}}
+                        <td mat-cell *matCellDef="let element"> {{element.ONE}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getONE_bandkam() || 0 }} </b></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="kar_aakarani">
+                    <ng-container matColumnDef="TWO">
                         <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.kar_aakarani}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.TWO}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTWO_bandkam() || 0 }} </b></td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
                         <td mat-cell *matCellDef="let element">
-                            <div style="display: inline-flex; align-items: center; ">
-                                <mat-icon color="warn">delete</mat-icon>
-                                <mat-icon color="primary">edit</mat-icon>
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_bandkam_kar_aakarn_record($event)"
+                                    id="{{element.CONSTRUCTIONTAX_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_bandkam_modal($event)"
+                                    id="{{element.CONSTRUCTIONTAX_ID}}">edit</mat-icon>
                             </div>
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <tr mat-header-row
-                        *matHeaderRowDef="['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'bandkamacha_majla', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'vayomanay','imartiche_bandkam_varsh','ghasara_dar','bharank','imartiche_varshik_mulya','aakarani_dar','imaratiche_bhandavli_mulya','kar_aakarani','action']">
+                        *matHeaderRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action']">
                     </tr>
                     <tr mat-row
-                        *matRowDef="let row; columns: ['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'bandkamacha_majla', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'vayomanay','imartiche_bandkam_varsh','ghasara_dar','bharank','imartiche_varshik_mulya','aakarani_dar','imaratiche_bhandavli_mulya','kar_aakarani','action'];">
+                        *matRowDef="let row; columns: ['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action'];">
+                    </tr>
+                    <tr mat-footer-row
+                        *matFooterRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action']">
                     </tr>
                 </table>
             </mat-card>
@@ -442,77 +470,91 @@
         <hr>
         <div class="row">
             <mat-card class="example-card">
-                <table mat-table [dataSource]="[
-                                                { malmatteche_prakar: 'kundan', malmatteche_varnan: 'kundan', vapar_prakar: 'kundan', manorache_bhag: 'kundan',shetrafal_east_west:'1020', shetrafal_north_south:'1202', total_shetrafal_cho_foot:'2000', total_shetrafal_cho_meter:'6500',aakarani_dar:'20',kar_aakarani:'20', action:''}
-                                                ]">
+                <table mat-table [dataSource]="manoraKarAakarniTableData">
 
-                    <ng-container matColumnDef="malmatteche_prakar">
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME">
                         <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_prakar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="malmatteche_varnan">
+                    <ng-container matColumnDef="DESCRIPTION_NAME">
                         <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_varnan}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="vapar_prakar">
+                    <ng-container matColumnDef="VAPARACHE_PRAKAR">
                         <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.vapar_prakar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.VAPARACHE_PRAKAR}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="manorache_bhag">
+                    <ng-container matColumnDef="MANORAMASTER_NAME">
                         <th mat-header-cell *matHeaderCellDef><b> गावाचे नाव</b> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.bandkamacha_majla}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.MANORAMASTER_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="shetrafal_east_west">
+                    <ng-container matColumnDef="AREAP">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_east_west}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="shetrafal_north_south">
+                    <ng-container matColumnDef="AREAI">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_north_south}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="total_shetrafal_cho_foot">
+                    <ng-container matColumnDef="TOTALAREA">
                         <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_foot}}
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="total_shetrafal_cho_meter">
+                    <ng-container matColumnDef="TOTALAREA1">
                         <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_meter}}
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA1}}
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
 
-                    <ng-container matColumnDef="aakarani_dar">
+                    <ng-container matColumnDef="CAPITAL">
                         <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.aakarani_dar}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.CAPITAL}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="kar_aakarani">
+                    <ng-container matColumnDef="TAXATION">
                         <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.kar_aakarani}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.TAXATION}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTAXATION_manora() || 0 }} </b></td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
                         <td mat-cell *matCellDef="let element">
-                            <div style="display: inline-flex; align-items: center; ">
-                                <mat-icon color="warn">delete</mat-icon>
-                                <mat-icon color="primary">edit</mat-icon>
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_manora_kar_aakarn_record($event)"
+                                    id="{{element.TAXPAYERS_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_manorakar_modal($event)"
+                                    id="{{element.TAXPAYERS_ID}}">edit</mat-icon>
                             </div>
                         </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <tr mat-header-row
-                        *matHeaderRowDef="['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'manorache_bhag', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'aakarani_dar','kar_aakarani','action']">
+                        *matHeaderRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action']">
                     </tr>
                     <tr mat-row
-                        *matRowDef="let row; columns: ['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'manorache_bhag', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'aakarani_dar','kar_aakarani','action'];">
+                        *matRowDef="let row; columns: ['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action'];">
+                    </tr>
+                    <tr mat-footer-row
+                        *matFooterRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action']">
                     </tr>
                 </table>
             </mat-card>
@@ -523,15 +565,15 @@
                 <h6 class="mt-3"><strong>इतर कर गणना (Other Tax Calculation):</strong></h6>
                 <hr>
                 <mat-card class="example-card">
-                    <table mat-table [dataSource]="otherTaxTableData">
+                    <table mat-table [dataSource]="otherTaxTableData" id="othertaxTable">
 
                         <ng-container matColumnDef="nivada">
                             <th mat-header-cell *matHeaderCellDef> <b>निवडा</b> </th>
                             <td mat-cell *matCellDef="let element">
                                 <section class="example-section">
                                     <mat-checkbox class="example-margin" [id]="element.checked_id"
-                                        [checked]="element.checked" (click)="checkedOthertaxTableData($event)"
-                                        checked></mat-checkbox>
+                                        [checked]="element.checked"
+                                        (click)="checkedOthertaxTableData($event)"></mat-checkbox>
                                 </section>
                             </td>
                         </ng-container>
@@ -562,8 +604,7 @@
                 <div class="row">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">उर्वरित खाली जागा (चौरस फूट)</mat-label>
-                        <input matInput type="text" formControlName="urvarit_khali_jaga_feet"
-                            (keyup)="updateUrvaritKhaliJagaMeter($event)" />
+                        <input matInput type="text" formControlName="urvarit_khali_jaga_feet" />
                     </mat-form-field>
                 </div>
                 <div class="form-row mt-2">
@@ -616,7 +657,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मागील बाकी</mat-label>
-                <input matInput type="text" formControlName="magil_kar" />
+                <input matInput type="text" formControlName="magil_kar" readonly />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण कर भरणा</mat-label>
@@ -631,6 +672,7 @@
             </mat-form-field>
         </div>
         <div class="submit-row">
+            <a mat-raised-button color="primary" class="submit-btn" (click)="reset()">Reset</a>
             <a mat-raised-button color="primary" class="submit-btn" (click)="save_nodani_form()">जतन करा</a>
         </div>
     </mat-card>

@@ -23,9 +23,10 @@ export class ManoraKarAakarniComponent {
   manora_manoracheBhag: { MANORAMASTER_ID: number; MANORAMASTER_NAME: String }[] = [];
   yearId: number = 0;
   YearName: string = '';  
+  is_edit: boolean = false;
 
   manoraKarForm = new FormGroup({
-    milkat_vapar_id: new FormControl<number | undefined>(undefined),
+    milkat_vapar_id: new FormControl<number | null>(null),
     malmatta_id: new FormControl<number | null>(null),
     vaparache_prakar: new FormControl<number | null>(null),
     manoramaster_id: new FormControl<number | null>(null),
@@ -56,6 +57,10 @@ export class ManoraKarAakarniComponent {
     this.loadMalmattecheVarnanDDL();
     this.loadManoracheBhagDDL();
     this.loadYearIdYearName();
+    if(this.data.tax_payer_id!= ""){
+      this.is_edit = true;
+      this.editManoraKarAakarni(Number(this.data.tax_payer_id));
+    }
   }
 
   loadMalmattechePrakarDDL(): void {
@@ -113,7 +118,7 @@ export class ManoraKarAakarniComponent {
   getKarAakarani(){
     // (totalarea / 100) * levyrate
     // karAkarani
-    const cal = (Number(this.manoraKarForm.value.totalarea) / 100) * Number(this.manoraKarForm.value.levyrate);
+    const cal = (Number(this.manoraKarForm.value.totalarea)) * Number(this.manoraKarForm.value.levyrate);
     const total = cal.toFixed(2); 
     // console.log("total", total)
     this.manoraKarForm.get('karAkarani')?.setValue(Number(total) || 0);
@@ -166,5 +171,68 @@ export class ManoraKarAakarniComponent {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
   }
-
+  editManoraKarAakarni(id: number) {
+    this.NodaniService.editmanoraKarAakaraniModal(id).subscribe({
+      next: (res: any) => {
+        console.log('editmanoraKarAakaraniModal', res);
+        if(res.data.length > 0){
+          this.manoraKarForm.patchValue({
+              milkat_vapar_id: Number(res?.data[0].MILKAT_VAPAR_ID),
+              malmatta_id: Number(res?.data[0].MALMATTA_ID),
+              vaparache_prakar: res?.data[0].VAPARACHE_PRAKAR,
+              manoramaster_id: Number(res?.data[0].MANORAMASTER_ID),
+              areap: res?.data[0].AREAP,
+              areai: res?.data[0].AREAI,
+              totalarea: res?.data[0].TOTALAREA,
+              areap1: res?.data[0].AREAP1,
+              areai1: res?.data[0].AREAI1,
+              totalarea1: res?.data[0].TOTALAREA1,
+              levyrate: res?.data[0].CAPITAL,
+              karAkarani: res?.data[0].TAXATION,
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching bankam kar aakarni data:', err);
+        this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
+      }
+    });
+  }
+  update_manora_form(){
+    if (!this.manoraKarForm.invalid) {
+      let params = {
+        milkat_vapar_id: this.manoraKarForm.value.milkat_vapar_id,
+        malmatta_id: this.manoraKarForm.value.malmatta_id,
+        vaparache_prakar: this.manoraKarForm.value.vaparache_prakar,
+        manoramaster_id: this.manoraKarForm.value.manoramaster_id,
+        areap: this.manoraKarForm.value.areap,
+        areai: this.manoraKarForm.value.areai,
+        totalarea: this.manoraKarForm.value.totalarea,
+        areap1: this.manoraKarForm.value.areap1,
+        areai1: this.manoraKarForm.value.areai1,
+        totalarea1: this.manoraKarForm.value.totalarea1,
+        levyrate: this.manoraKarForm.value.levyrate,
+        karAkarani: this.manoraKarForm.value.karAkarani,
+      };
+      this.NodaniService.updateManoraKarModal(params, this.data.tax_payer_id).subscribe({
+        next: (res: any) => {
+          console.log('update Manora kar aakarni', res);
+          if (res.status == 200) {
+            // console.log('inside', res);
+            this.toastr.success(res.message, 'Success');
+            // this.loginSuccess = false;
+          } else {
+            this.toastr.warning(res.message, 'Warning');
+          }
+          // this.isLoading = false;
+        },
+        error: (err: Error) => {
+          console.error('Error updating manora kar form:', err);
+          this.toastr.error('There was an error updating the manora kar form.', 'Error');
+        },
+      });
+    } else {
+      this.toastr.warning('Please fill all required fields.', 'warning');
+    }
+  }
 }

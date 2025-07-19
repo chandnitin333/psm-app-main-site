@@ -31,8 +31,17 @@ export class NodaniService {
   addKhulaBhukhandForm(params: any) {
     return this.api.post(`save-khali-bhukhand`, params);
   }
+  updateKhulaBhukhandForm(params: any, id:any) {
+    return this.api.put(`update-khula-bhukhand-modal/${id}`, params);
+  }
+  deleteKhulaBhukhand(id: number) {
+    return this.api.delete(`delete-khula-bhukhand-record/${id}`);
+  }
   getKhulabhukhandSavedRecords(params: any){
     return this.api.post("get-open-construction-tax-assessment",  params)
+  }
+  editKhulabhukhandModal(id: number) {
+    return this.api.get(`edit-khula-bhukhand-modal-by-id/${id}`);
   }
  
 
@@ -61,7 +70,16 @@ export class NodaniService {
    getbankamachiKarAakarniSavedRecords(params: any){
     return this.api.post("get-tax-assessment-construction",  params)
   }
-  
+  editbandkamKarAakaraniModal(id: number) {
+    return this.api.get(`edit-bandkam-kar-aakarni-modal-data/${id}`);
+  }
+  updateBandkamKarModal(params: any, id:any) {
+    return this.api.put(`update-bandkam-kar-aakarani-modal/${id}`, params);
+  }
+  deletebandkamKarAkarniRecords(id: number) {
+    return this.api.delete(`delete-bandkam-kar-aakarni-record/${id}`);
+  }
+ 
 
 
   getMalmattechePrakar_ManoraModal() {
@@ -76,6 +94,21 @@ export class NodaniService {
 
   addManoraForm(params: any) {
     return this.api.post(`save-tax-payer`, params);
+  }
+   getmanoraKarAakarniSavedRecords(params: any){
+    return this.api.post("get-tax-assessment-towers",  params)
+  }
+  editmanoraKarAakaraniModal(id: number) {
+    return this.api.get(`edit-manora-kar-aakarni-modal-data/${id}`);
+  }
+  updateManoraKarModal(params: any, id:any) {
+    return this.api.put(`update-manora-kar-aakarani-modal/${id}`, params);
+  }
+  deleteManoraAkarniRecords(id: number) {
+    return this.api.delete(`delete-manora-kar-aakarni-record/${id}`);
+  }
+  resetTableApis(api_url:string, params: any){
+    return this.api.post(api_url,  params)
   }
   
   // verifyUserLogin(params: any) {
