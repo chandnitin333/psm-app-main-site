@@ -1,14 +1,74 @@
 <section *ngIf="dataSource.data.length > 0">
     <table mat-table [dataSource]="dataSource" matSort>
+
         <!-- Define columns dynamically -->
-        <ng-container *ngFor="let column of displayedColumns"
-            [matColumnDef]="column.key">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                {{ column.value | titlecase }}
-            </th>
-            <td mat-cell *matCellDef="let element">
-                {{ element[column.key] }}
-            </td>
+        <ng-container *ngFor="let column of displayedColumns">
+
+            <!-- Serial Number Column -->
+            <ng-container [matColumnDef]="column.key">
+                <ng-container *ngIf="column.key === '#'">
+                    <th mat-header-cell *matHeaderCellDef
+                        class="text-bold">S.No</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        {{ srNo(i) }}
+                    </td>
+                </ng-container>
+
+                <!-- Normal Data Columns -->
+                <ng-container
+                    *ngIf="column.key !== '#' && column.key !== 'action'">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                        class="text-bold">
+                        {{ column.value | titlecase }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element[column.key] }}
+                    </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container *ngIf="column.key === 'action'">
+                    <th mat-header-cell *matHeaderCellDef
+                        class="text-bold">Actions</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button matTooltip="मागिल कर जोडा" (click)="prevTax(element)" *ngIf="isKar"
+                            class="text-success">
+                            <mat-icon>description</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="बदल करा" (click)="edit(element)" *ngIf="isEdit"
+                            class="text-primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="पूर्वावलोकन(View Details)" (click)="view(element)"
+                            *ngIf="isView" class="text-info">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="रद्द करा" (click)="delete(element)" *ngIf="isDelete"
+                            class="text-danger">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="प्रिंट" (click)="print(element)" *ngIf="isPrint"
+                            class="text-dark">
+                            <mat-icon>print</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="पीडीएफ डाउनलोड करा" (click)="downloadPDF(element)"
+                            *ngIf="isDownload" class="text-danger">
+                            <mat-icon>picture_as_pdf</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Preview" (click)="preview(element)" *ngIf="isPreview"
+                            class="text-secondary">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+                    </td>
+
+                </ng-container>
+            </ng-container>
+
         </ng-container>
 
         <!-- Table Header Row -->
@@ -16,5 +76,6 @@
 
         <!-- Table Row -->
         <tr mat-row *matRowDef="let row; columns: columnKeys;"></tr>
+
     </table>
 </section>

@@ -1,823 +1,579 @@
-<mat-card class="form-panel">
-    <mat-tab-group #tabGroup>
-        <div class="form-grid">
-            <mat-tab label="मालमत्ताधारकाचा तपशील (Owner Details)">
-                <div class="form-row mt-3">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">प्लॉट क्र.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">खसरा क्र.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">सर्वे क्र.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
+<form [formGroup]="nodaniForm">
+    <mat-card class="form-panel">
+        <h3 class="text-center"><strong>मालमत्ताधारकाचा तपशील (Owner Details)</strong></h3>
+        <hr />
+        <div class="form-row mt-3">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">अनु. क्रमांक</mat-label>
+                <input matInput type="text" formControlName="annu_kramank" />
+            </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">वोटर कार्ड नं.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">मोबाईल नं.</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">घर मालकाचे नाव</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">पत्नी/मुलाचे नाव श्री/श्रीमती</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">पत्ता:नगर/ले-आउट/सोसायटी :</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">कायमचा पत्ता</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
+                <input matInput type="text" formControlName="malmatta_kramank" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
+                <input matInput type="text" formControlName="ward_kramank" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">प्लॉट क्र.</mat-label>
+                <input matInput type="text" formControlName="plot_kramank" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खसरा क्र.</mat-label>
+                <input matInput type="text" formControlName="khasara_kramank" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">सर्वे क्र.</mat-label>
+                <input matInput type="text" formControlName="survey_kramank" />
+            </mat-form-field>
 
-                <div class="form-row">
-                    <h6>चतुसिमा</h6>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">पूर्वेस</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">पश्चिमेस</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">उत्तरेस</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">दक्षिणेस</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <h6>पिण्याच्या पाण्याची व्यवस्था:</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="1">हातपंप</mat-radio-button>
-                        <mat-radio-button value="2">विहिर</mat-radio-button>
-                        <mat-radio-button value="3">सार्वजनिक नळ</mat-radio-button>
-                        <mat-radio-button value="4">घरी नळ</mat-radio-button>
-                        <mat-radio-button value="no">नाही</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="form-row">
-                    <h6 class="mt-3">घरी शौचालयं आहे काय :</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="yes">होय</mat-radio-button>
-                        <mat-radio-button value="no">नाही</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="form-row">
-                    <h6 class="mt-3">वाणिज्य प्रकार :</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="">औद्योगिक</mat-radio-button>
-                        <mat-radio-button value="">मनोरा</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="form-row">
-                    <h6 class="mt-3">मिलकत प्रकार :</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="">अधिकृत</mat-radio-button>
-                        <mat-radio-button value="">इमलाकर</mat-radio-button>
-                        <mat-radio-button value="">घरकुल</mat-radio-button>
-                        <mat-radio-button value="">घर कर लावायचा आहे</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="form-row">
-                    <h6 class="mt-3">इमारत किंवा मोकळी जागा दळणवळण किंवा इतर प्रयोजनासाठी वापरली जाते काय :</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="yes">होय</mat-radio-button>
-                        <mat-radio-button value="no">नाही</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="form-row">
-                    <h6 class="mt-3">इमारत /जमीन केवळ धार्मिक /शैक्षणिक प्रयोजनासाठी वापरली जाते काय (१९६१ चा. अधिनियम
-                        क्र .
-                        ४३
-                        अन्वये सूट
-                        देण्यात आली आहे )
-                        :</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary" color="primary">
-                        <mat-radio-button value="yes">होय</mat-radio-button>
-                        <mat-radio-button value="no">नाही</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-
-                <div class="form-row">
-                    <h6 class="mt-3">भोगवटधारक (मालक) संरक्षण दलातील शौर्य पदक किंवा सेवा पदक धारकांच्या विधवा किंवा
-                        अवलंबीनाच्या वापरातील
-                        निवासी इमारत (फक्त
-                        एक ) आहे काय (होय असल्यास जिल्हा सैनिक कल्याण अधिकाऱ्याचे प्रमाण पत्र जोडावे )</h6>
-                </div>
-                <div class="form-row">
-                    <mat-radio-group aria-label="Select an option" color="primary">
-                        <mat-radio-button value="yes">होय</mat-radio-button>
-                        <mat-radio-button value="no">नाही</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-
-                <div class="form-row">
-                    <h6 class="mt-3">एकूण जागेची क्षेत्रफळ</h6>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">लांबी</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <span class="star_equal">*</span>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">रूंदी</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <span class="star_equal">=</span>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">क्षेत्रफळ (चौरस फूट)</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">क्षेत्रफळ (चौरस मीटर)</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="submit-row">
-                    <a mat-raised-button color="primary" (click)="goToNextTab(tabGroup)" class="submit-btn">Next >></a>
-                </div>
-            </mat-tab>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">वोटर कार्ड नं.</mat-label>
+                <input matInput type="text" formControlName="voter_card_number" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मोबाईल नं.</mat-label>
+                <input matInput type="text" formControlName="mobile_number" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
+                <input matInput type="text" formControlName="aadhar_card_number" />
+            </mat-form-field>
         </div>
-        <mat-tab label="कर आकारणी तपशील (Taxation Details)">
-            <div class="form-grid">
-                <mat-tab-group>
-                    <mat-tab label="खुला भूखंड कर आकारणी ">
-                        <div class="mt-1">
-                            <mat-accordion>
-                                <mat-expansion-panel (opened)="panelOpenState.set(true)"
-                                    (closed)="panelOpenState.set(false)" class="expansion-header">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title class="expansion-text"> खुला भूखंड कर आकारणी </mat-panel-title>
-                                        <mat-panel-description class="expansion-text">
-                                            खुला भूखंडाची कर आकारणी फॉर्म {{panelOpenState() ? 'बंद करण्यासाठी इथे क्लिक
-                                            करा' : 'भरण्यासाठी इथे क्लिक करा'}}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <div style="background-color: #fff; padding: 10px;">
-                                        <div class="form-row mt-4">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">वापर प्रकार</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">गावाचे नाव</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Nagpur</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">गावठाण/गावठाण बाहेरचे</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Testing</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">घर मालकाचे नाव</mat-label>
+                <input matInput type="text" formControlName="ghar_malkache_nav" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">पत्नी/मुलाचे नाव श्री/श्रीमती</mat-label>
+                <input matInput type="text" formControlName="patni_mulache_nav" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
+                <input matInput type="text" formControlName="bhogvat_dharkache_nav" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">पत्ता:नगर/ले-आउट/सोसायटी :</mat-label>
+                <input matInput type="text" formControlName="patta_nagar_layout" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">कायमचा पत्ता</mat-label>
+                <input matInput type="text" formControlName="kaymacha_patta" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <h6>चतुसिमा</h6>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">पूर्वेस</mat-label>
+                <input matInput type="text" formControlName="purves" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">पश्चिमेस</mat-label>
+                <input matInput type="text" formControlName="paschimes" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">उत्तरेस</mat-label>
+                <input matInput type="text" formControlName="uttares" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">दक्षिणेस</mat-label>
+                <input matInput type="text" formControlName="dakshines" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <h6>पिण्याच्या पाण्याची व्यवस्था:</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary"
+                formControlName="pinachya_panichi_vyavstha_radio">
+                <mat-radio-button value="1">हातपंप</mat-radio-button>
+                <mat-radio-button value="2">विहिर</mat-radio-button>
+                <mat-radio-button value="3">सार्वजनिक नळ</mat-radio-button>
+                <mat-radio-button value="4">घरी नळ</mat-radio-button>
+                <mat-radio-button value="no">नाही</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">घरी शौचालयं आहे काय :</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" formControlName="ghari_toilet_radio">
+                <mat-radio-button value="yes">होय</mat-radio-button>
+                <mat-radio-button value="no">नाही</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">वाणिज्य प्रकार : </h6>
+            <button mat-icon-button (click)="resetSelection()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" formControlName="vanijya_prakar_radio">
+                <mat-radio-button value="औद्योगिक">औद्योगिक</mat-radio-button>
+                <mat-radio-button value="मनोरा">मनोरा</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">मिलकत प्रकार :</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" formControlName="miltkat_prakar_radio">
+                <mat-radio-button value="अधिकृत">अधिकृत</mat-radio-button>
+                <mat-radio-button value="इमलाकर">इमलाकर</mat-radio-button>
+                <mat-radio-button value="घरकुल">घरकुल</mat-radio-button>
+                <mat-radio-button value="घर कर लावायचा आहे">घर कर लावायचा आहे</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">इमारत किंवा मोकळी जागा दळणवळण किंवा इतर प्रयोजनासाठी वापरली जाते काय :</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" formControlName="emarat_mokadi_jaga_radio">
+                <mat-radio-button value="yes">होय</mat-radio-button>
+                <mat-radio-button value="no">नाही</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">इमारत /जमीन केवळ धार्मिक /शैक्षणिक प्रयोजनासाठी वापरली जाते काय (१९६१ चा. अधिनियम
+                क्र .
+                ४३
+                अन्वये सूट
+                देण्यात आली आहे )
+                :</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" color="primary"
+                formControlName="emarat_jamin_dharmik_radio">
+                <mat-radio-button value="yes">होय</mat-radio-button>
+                <mat-radio-button value="no">नाही</mat-radio-button>
+            </mat-radio-group>
+        </div>
 
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">आकारणी दर</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">जमिनीचे भांडवली मुल्य = जमिनीचे
-                                                    क्षेत्रफळ(चौ.
-                                                    मीटर) X जमिनीचे वार्षिक मुल्य जमिनीचे भांडवली मुल्य
-                                                    =Label</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">कर आकारणी = जमिनीचे भांडवली मुल्य X आकारणी
-                                                    दर
-                                                    /१००० कर आकारणी =Label</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="submit-row ">
-                                            <a mat-raised-button color="basic" class="submit-btn">रद्द करा</a>&nbsp;<a
-                                                mat-raised-button color="primary" class="submit-btn">जतन करा</a>
-                                        </div>
-                                    </div>
-                                </mat-expansion-panel>
-                                <br><br>
-                            </mat-accordion>
-                            <mat-card class="example-card">
-                                <table mat-table [dataSource]="[
-                                        { malmatteche_prakar: 'kundan', malmatteche_varnan: 'kundan', vapar_prakar: 'kundan', gavache_nav: 'kundan', gavthan_baherche: 'kundan',shetrafal_east_west:'1020', shetrafal_north_south:'1202', total_shetrafal_cho_foot:'2000', total_shetrafal_cho_meter:'6500',jaminiche_varshik_mulya:'1200', aakarani_dar:'25%', jaminiche_bhadvali_mulya:'30', kar_aakarni:'350', action:''}
-                                      ]">
-
-                                    <ng-container matColumnDef="malmatteche_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="malmatteche_varnan">
-                                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_varnan}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="vapar_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.vapar_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="gavache_nav">
-                                        <th mat-header-cell *matHeaderCellDef><b> गावाचे नाव</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.gavache_nav}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="gavthan_baherche">
-                                        <th mat-header-cell *matHeaderCellDef><b> गावठाण/गावठाण बाहेरचे </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.gavthan_baherche}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_east_west">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_east_west}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_north_south">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_north_south}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_foot">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_foot}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_meter">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_meter}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="jaminiche_varshik_mulya">
-                                        <th mat-header-cell *matHeaderCellDef><b> जमिनीचे वार्षिक मुल्य </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.jaminiche_varshik_mulya}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="aakarani_dar">
-                                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.aakarani_dar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="jaminiche_bhadvali_mulya">
-                                        <th mat-header-cell *matHeaderCellDef><b> जमिनीचे भांडवली मुल्य </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.jaminiche_bhadvali_mulya}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="kar_aakarni">
-                                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.kar_aakarni}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div style="display: inline-flex; align-items: center; ">
-                                                <mat-icon color="warn">delete</mat-icon>
-                                                <mat-icon color="primary">edit</mat-icon>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                    <tr mat-header-row
-                                        *matHeaderRowDef="['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'gavache_nav', 'gavthan_baherche', 'shetrafal_east_west', 'shetrafal_north_south',  'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'jaminiche_varshik_mulya', 'aakarani_dar','jaminiche_bhadvali_mulya','kar_aakarni','action']">
-                                    </tr>
-                                    <tr mat-row
-                                        *matRowDef="let row; columns: ['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'gavache_nav', 'gavthan_baherche', 'shetrafal_east_west', 'shetrafal_north_south',  'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'jaminiche_varshik_mulya', 'aakarani_dar','jaminiche_bhadvali_mulya','kar_aakarni','action'];">
-                                    </tr>
-                                </table>
-                            </mat-card>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="बांधकामाची कर आकारणी">
-                        <div class="mt-1">
-                            <mat-accordion>
-                                <mat-expansion-panel (opened)="panelOpenState.set(true)"
-                                    (closed)="panelOpenState.set(false)" class="expansion-header">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title class="expansion-text"> बिल्डिंग कर आकारणी </mat-panel-title>
-                                        <mat-panel-description class="expansion-text">
-                                            बांधकामाची कर आकारणी फॉर्म {{panelOpenState() ? 'बंद करण्यासाठी इथे क्लिक
-                                            करा' : 'भरण्यासाठी इथे क्लिक करा'}}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <div style="background-color: #fff; padding: 10px;">
-                                        <div class="form-row mt-4">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">वापर प्रकार</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">बांधकामाचा मजला</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="1">1 st floor</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">वयोमान</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">इमारतीचे बांधकाम वर्ष</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">घसारा दर</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">भारांक</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">इमारतीचे वार्षिक मुल्य</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">आकारणी दर</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">इमारतीचे भांडवली मुल्य = इमारतीचे क्षेत्रफळ
-                                                    (चौ. मीटर) X इमारतीचे वार्षिक मुल्य X घसारा दर X भारांक इमारतीचे
-                                                    भांडवली
-                                                    मुल्य = Label</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">कर आकारणी = भांडवली मुल्य X आकारणी दर /१०००
-                                                    कर आकारणी = Label</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="submit-row ">
-                                            <a mat-raised-button color="basic" class="submit-btn">रद्द करा</a>&nbsp;
-                                            <a mat-raised-button color="primary" class="submit-btn">जतन करा</a>
-                                        </div>
-                                    </div>
-                                </mat-expansion-panel>
-                                <br><br>
-                            </mat-accordion>
-                            <mat-card class="example-card">
-                                <table mat-table [dataSource]="[
-                                                                    { malmatteche_prakar: 'kundan', malmatteche_varnan: 'kundan', vapar_prakar: 'kundan', bandkamacha_majla: 'kundan',shetrafal_east_west:'1020', shetrafal_north_south:'1202', total_shetrafal_cho_foot:'2000', total_shetrafal_cho_meter:'6500',
-                                                                    vayomanay:'3', imartiche_bandkam_varsh:'2024', ghasara_dar:'25%', bharank:'30', imartiche_varshik_mulya:'350',aakarani_dar:'20', imaratiche_bhandavli_mulya:'20',kar_aakarani:'20', action:''}
-                                                                  ]">
-
-                                    <ng-container matColumnDef="malmatteche_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="malmatteche_varnan">
-                                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_varnan}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="vapar_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.vapar_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="bandkamacha_majla">
-                                        <th mat-header-cell *matHeaderCellDef><b> बांधकामाचा मजला</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.bandkamacha_majla}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="gavthan_baherche">
-                                        <th mat-header-cell *matHeaderCellDef><b> गावठाण/गावठाण बाहेरचे </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.gavthan_baherche}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_east_west">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_east_west}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_north_south">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_north_south}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_foot">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_foot}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_meter">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_meter}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="vayomanay">
-                                        <th mat-header-cell *matHeaderCellDef><b> वयोमानय </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.vayomanay}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="imartiche_bandkam_varsh">
-                                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे बांधकाम वर्ष </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.imartiche_bandkam_varsh}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="ghasara_dar">
-                                        <th mat-header-cell *matHeaderCellDef><b> घसारा दर </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.ghasara_dar}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="bharank">
-                                        <th mat-header-cell *matHeaderCellDef><b> भारांक </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.bharank}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="imartiche_varshik_mulya">
-                                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे वार्षिक मुल्य </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.imartiche_varshik_mulya}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="aakarani_dar">
-                                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.aakarani_dar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="imaratiche_bhandavli_mulya">
-                                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे भांडवली मुल्य </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.imaratiche_bhandavli_mulya}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="kar_aakarani">
-                                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.kar_aakarani}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div style="display: inline-flex; align-items: center; ">
-                                                <mat-icon color="warn">delete</mat-icon>
-                                                <mat-icon color="primary">edit</mat-icon>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                    <tr mat-header-row
-                                        *matHeaderRowDef="['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'bandkamacha_majla', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'vayomanay','imartiche_bandkam_varsh','ghasara_dar','bharank','imartiche_varshik_mulya','aakarani_dar','imaratiche_bhandavli_mulya','kar_aakarani','action']">
-                                    </tr>
-                                    <tr mat-row
-                                        *matRowDef="let row; columns: ['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'bandkamacha_majla', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'vayomanay','imartiche_bandkam_varsh','ghasara_dar','bharank','imartiche_varshik_mulya','aakarani_dar','imaratiche_bhandavli_mulya','kar_aakarani','action'];">
-                                    </tr>
-                                </table>
-                            </mat-card>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="मनोऱ्याचे कर आकारणी">
-                        <div class="mt-1">
-                            <mat-accordion>
-                                <mat-expansion-panel (opened)="panelOpenState.set(true)"
-                                    (closed)="panelOpenState.set(false)" class="expansion-header">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title class="expansion-text"> मनोरा कर आकारणी </mat-panel-title>
-                                        <mat-panel-description class="expansion-text">
-                                            मनोऱ्याची कर आकारणी फॉर्म {{panelOpenState() ? 'बंद करण्यासाठी इथे क्लिक
-                                            करा' : 'भरण्यासाठी इथे क्लिक करा'}}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <div style="background-color: #fff; padding: 10px;">
-                                        <div class="form-row mt-4">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="2021">Khula Bhkhand</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">वापर प्रकार</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">मनोऱ्याचे भाग</mat-label>
-                                                <mat-select>
-                                                    <mat-option value="1">Manora tower</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-
-                                        </div>
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">आकारणी दर</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                            <mat-form-field appearance="outline" class="form-field">
-                                                <mat-label class="text-bold">कर आकारणी = भांडवली मुल्य X आकारणी दर /१०००
-                                                    कर आकारणी = Label</mat-label>
-                                                <input matInput type="text" />
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="submit-row ">
-                                            <a mat-raised-button color="basic" class="submit-btn">रद्द करा</a>&nbsp;
-                                            <a mat-raised-button color="primary" class="submit-btn">जतन करा</a>
-                                        </div>
-                                    </div>
-                                </mat-expansion-panel>
-                                <br><br>
-                            </mat-accordion>
-                            <mat-card class="example-card">
-                                <table mat-table [dataSource]="[
-                                        { malmatteche_prakar: 'kundan', malmatteche_varnan: 'kundan', vapar_prakar: 'kundan', manorache_bhag: 'kundan',shetrafal_east_west:'1020', shetrafal_north_south:'1202', total_shetrafal_cho_foot:'2000', total_shetrafal_cho_meter:'6500',aakarani_dar:'20',kar_aakarani:'20', action:''}
-                                        ]">
-
-                                    <ng-container matColumnDef="malmatteche_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="malmatteche_varnan">
-                                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.malmatteche_varnan}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="vapar_prakar">
-                                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.vapar_prakar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="manorache_bhag">
-                                        <th mat-header-cell *matHeaderCellDef><b> गावाचे नाव</b> </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.bandkamacha_majla}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_east_west">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_east_west}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="shetrafal_north_south">
-                                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.shetrafal_north_south}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_foot">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_foot}}
-                                        </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="total_shetrafal_cho_meter">
-                                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.total_shetrafal_cho_meter}}
-                                        </td>
-                                    </ng-container>
-
-
-                                    <ng-container matColumnDef="aakarani_dar">
-                                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.aakarani_dar}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="kar_aakarani">
-                                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
-                                        <td mat-cell *matCellDef="let element"> {{element.kar_aakarani}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef><b>test</b></th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div style="display: inline-flex; align-items: center; ">
-                                                <mat-icon color="warn">delete</mat-icon>
-                                                <mat-icon color="primary">edit</mat-icon>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                    <tr mat-header-row
-                                        *matHeaderRowDef="['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'manorache_bhag', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'aakarani_dar','kar_aakarani','action']">
-                                    </tr>
-                                    <tr mat-row
-                                        *matRowDef="let row; columns: ['malmatteche_prakar', 'malmatteche_varnan', 'vapar_prakar', 'manorache_bhag', 'shetrafal_east_west', 'shetrafal_north_south', 'total_shetrafal_cho_foot', 'total_shetrafal_cho_meter', 'aakarani_dar','kar_aakarani','action'];">
-                                    </tr>
-                                </table>
-                            </mat-card>
-                        </div>
-                    </mat-tab>
-                </mat-tab-group>
+        <div class="form-row">
+            <h6 class="mt-3">भोगवटधारक (मालक) संरक्षण दलातील शौर्य पदक किंवा सेवा पदक धारकांच्या विधवा किंवा
+                अवलंबीनाच्या वापरातील
+                निवासी इमारत (फक्त
+                एक ) आहे काय (होय असल्यास जिल्हा सैनिक कल्याण अधिकाऱ्याचे प्रमाण पत्र जोडावे )</h6>
+        </div>
+        <div class="form-row">
+            <mat-radio-group aria-label="Select an option" color="primary" formControlName="bhogvat_dharak_malak_radio">
+                <mat-radio-button value="yes">होय</mat-radio-button>
+                <mat-radio-button value="no">नाही</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row">
+            <h6 class="mt-3">एकूण जागेची क्षेत्रफळ</h6>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">लांबी</mat-label>
+                <input matInput type="text" formControlName="lambi" (keyup)="calculationLambiRundi($event)" />
+            </mat-form-field>
+            <span class="star_equal">*</span>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">रूंदी</mat-label>
+                <input matInput type="text" formControlName="rundi" (keyup)="calculationLambiRundi($event)" />
+            </mat-form-field>
+            <span class="star_equal">=</span>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ (चौरस फूट)</mat-label>
+                <input matInput type="text" formControlName="shetrafadh_foot"
+                    (keyup)="calculationLambiSquareMeter($event)" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">क्षेत्रफळ (चौरस मीटर)</mat-label>
+                <input matInput type="text" formControlName="shetrafadh_meter" />
+            </mat-form-field>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="d-flex">
+                <button type="button" class="btn btn-success col-md-2" value="khula_bhukhand"
+                    (click)="khula_bhukand_modal('khula_bhukhand')">खुला
+                    भूखंड कर आकारणी</button>&nbsp;
+                <button type="button" class="btn btn-success col-md-2" value="bandkam_kar_aakarani"
+                    (click)="building_kar_aakarani('bandkam_kar_aakarani')">बांधकामाची कर
+                    आकारणी</button>&nbsp;
+                <button type="button" class="btn btn-success col-md-2" value="manora_kar"
+                    (click)="manora_kar_aakarani('manora_kar')">मनोऱ्याचे
+                    कर
+                    आकारणी</button>
             </div>
-            <div class="submit-row">
-                <a mat-raised-button color="primary" (click)="goToPreviousTab(tabGroup)" class="submit-btn">
-                    << Back</a>
-                        <a mat-raised-button color="primary" (click)="goToNextTab(tabGroup)" class="submit-btn">Next
-                            >></a>
-            </div>
-        </mat-tab>
-        <mat-tab label="इतर कर गणना (Other Tax Calculation)">
-            <div class="form-grid mt-3">
+            <h5 class="text-center mt-5"><strong>कर आकारणी तपशील (Taxation Details):</strong></h5>
+        </div>
+        <hr />
+        <div class="form-row">
+            <h6 class="mt-3 col-md-6"><strong>खुला भूखंड कर आकारणी:</strong></h6>
+        </div>
+        <hr>
+        <div class="row">
+            <mat-card class="example-card">
+                <table mat-table [dataSource]="khulaBhukhandKarAakarniTableData">
+
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME1">
+                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME1}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="VAPARACHE_PRAKAR">
+                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.VAPARACHE_PRAKAR}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="GATGRAMPANCHAYAT_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> गावाचे नाव</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.GATGRAMPANCHAYAT_NAME }} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="PRAKAR_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> गावठाण/गावठाण बाहेरचे </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.PRAKAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="AREAP">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAP_KB() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="AREAI">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b>{{ getTotalAREAI_KB() || 0 }}</b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA}}</td>
+                        <td mat-footer-cell *matFooterCellDef> <b> {{ getTotalTOTALAREA_KB() || 0 }} </b> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA1">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA1}}</td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalTOTALAREA1_KB() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ANNUALVALUE">
+                        <th mat-header-cell *matHeaderCellDef><b> जमिनीचे वार्षिक मुल्य </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.ANNUALVALUE}}</td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="LEVYRATE">
+                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.LEVYRATE}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="CAPITAL">
+                        <th mat-header-cell *matHeaderCellDef><b> जमिनीचे भांडवली मुल्य </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.CAPITAL}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalCAPITAL_KB() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TAXATION">
+                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TAXATION}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalTAXATION_KB() || 0 }}</b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_khula_bhukhand($event)"
+                                    id="{{element.TAXATIONLAND_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_khula_bhukhand($event)"
+                                    id="{{element.TAXATIONLAND_ID}}">edit</mat-icon>
+                            </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <tr mat-header-row
+                        *matHeaderRowDef="['MILKAT_VAPAR_NAME', 'MILKAT_VAPAR_NAME1', 'VAPARACHE_PRAKAR', 'GATGRAMPANCHAYAT_NAME', 'PRAKAR_NAME', 'AREAP', 'AREAI',  'TOTALAREA', 'TOTALAREA1', 'ANNUALVALUE', 'LEVYRATE','CAPITAL','TAXATION','action']">
+                    </tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: ['MILKAT_VAPAR_NAME', 'MILKAT_VAPAR_NAME1', 'VAPARACHE_PRAKAR', 'GATGRAMPANCHAYAT_NAME', 'PRAKAR_NAME', 'AREAP', 'AREAI',  'TOTALAREA', 'TOTALAREA1', 'ANNUALVALUE', 'LEVYRATE','CAPITAL','TAXATION','action'];">
+                    </tr>
+                    <tr mat-footer-row
+                        *matFooterRowDef="['MILKAT_VAPAR_NAME', 'MILKAT_VAPAR_NAME1', 'VAPARACHE_PRAKAR', 'GATGRAMPANCHAYAT_NAME', 'PRAKAR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'ANNUALVALUE', 'LEVYRATE','CAPITAL','TAXATION','action']">
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+        <hr>
+        <div class="form-row">
+            <h6 class="mt-3"><strong>बांधकामाची कर आकारणी:</strong></h6>
+        </div>
+        <hr>
+        <div class="row">
+            <mat-card class="example-card table-responsive">
+                <table mat-table [dataSource]="bandkamkarAakarniTableData">
+
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="DESCRIPTION_NAME">
+                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="VAPARACHE_PRAKAR">
+                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.VAPARACHE_PRAKAR}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="FLOOR_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> बांधकामाचा मजला</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.FLOOR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="gavthan_baherche">
+                        <th mat-header-cell *matHeaderCellDef><b> गावठाण/गावठाण बाहेरचे </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.gavthan_baherche}} </td>
+                    </ng-container> -->
+
+                    <ng-container matColumnDef="AREAP">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAP_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="AREAI">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAI_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTOTALAREA_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA1">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA1}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTOTALAREA1_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="LIFESPAN">
+                        <th mat-header-cell *matHeaderCellDef><b> वयोमानय </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.LIFESPAN}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="CONSTRUCTING">
+                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे बांधकाम वर्ष </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.CONSTRUCTING}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getCONSTRUCTING_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="DEPRECIATION">
+                        <th mat-header-cell *matHeaderCellDef><b> घसारा दर </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.DEPRECIATION}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="WEIGHTTAGE">
+                        <th mat-header-cell *matHeaderCellDef><b> भारांक </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.WEIGHTTAGE}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ANNUALCOST">
+                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे वार्षिक मुल्य </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.ANNUALCOST}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getANNUALCOST_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="LEVYRATE">
+                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.LEVYRATE}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getLEVYRATE_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ONE">
+                        <th mat-header-cell *matHeaderCellDef><b> इमारतीचे भांडवली मुल्य </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.ONE}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getONE_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TWO">
+                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TWO}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTWO_bandkam() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_bandkam_kar_aakarn_record($event)"
+                                    id="{{element.CONSTRUCTIONTAX_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_bandkam_modal($event)"
+                                    id="{{element.CONSTRUCTIONTAX_ID}}">edit</mat-icon>
+                            </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <tr mat-header-row
+                        *matHeaderRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action']">
+                    </tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: ['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action'];">
+                    </tr>
+                    <tr mat-footer-row
+                        *matFooterRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'FLOOR_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'LIFESPAN','CONSTRUCTING','DEPRECIATION','WEIGHTTAGE','ANNUALCOST','LEVYRATE','ONE','TWO','action']">
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+        <hr>
+        <div class="form-row">
+            <h6 class="mt-3"><strong>मनोऱ्याचे कर आकारणी:</strong></h6>
+        </div>
+        <hr>
+        <div class="row">
+            <mat-card class="example-card">
+                <table mat-table [dataSource]="manoraKarAakarniTableData">
+
+                    <ng-container matColumnDef="MILKAT_VAPAR_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> मालमत्तेचे प्रकार</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.MILKAT_VAPAR_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="DESCRIPTION_NAME">
+                        <th mat-header-cell *matHeaderCellDef> <b>मालमत्तेचे वर्णन</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="VAPARACHE_PRAKAR">
+                        <th mat-header-cell *matHeaderCellDef><b>वापर प्रकार </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.VAPARACHE_PRAKAR}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="MANORAMASTER_NAME">
+                        <th mat-header-cell *matHeaderCellDef><b> गावाचे नाव</b> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.MANORAMASTER_NAME}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="AREAP">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="AREAI">
+                        <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.फुट) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TOTALAREA1">
+                        <th mat-header-cell *matHeaderCellDef><b> एकूण क्षेत्रफळ (चौ.मिटर) </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TOTALAREA1}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="CAPITAL">
+                        <th mat-header-cell *matHeaderCellDef><b> आकारणी दर </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.CAPITAL}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TAXATION">
+                        <th mat-header-cell *matHeaderCellDef><b> कर आकारणी </b></th>
+                        <td mat-cell *matCellDef="let element"> {{element.TAXATION}} </td>
+                        <td mat-footer-cell *matFooterCellDef><b> {{ getTAXATION_manora() || 0 }} </b></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="display: inline-flex; align-items: center; cursor: pointer;">
+                                <mat-icon color="warn" (click)="delete_manora_kar_aakarn_record($event)"
+                                    id="{{element.TAXPAYERS_ID}}">delete</mat-icon>
+                                <mat-icon color="primary" (click)="edit_manorakar_modal($event)"
+                                    id="{{element.TAXPAYERS_ID}}">edit</mat-icon>
+                            </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <tr mat-header-row
+                        *matHeaderRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action']">
+                    </tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: ['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action'];">
+                    </tr>
+                    <tr mat-footer-row
+                        *matFooterRowDef="['MILKAT_VAPAR_NAME', 'DESCRIPTION_NAME', 'VAPARACHE_PRAKAR', 'MANORAMASTER_NAME', 'AREAP', 'AREAI', 'TOTALAREA', 'TOTALAREA1', 'CAPITAL','TAXATION','action']">
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="mt-3"><strong>इतर कर गणना (Other Tax Calculation):</strong></h6>
+                <hr>
                 <mat-card class="example-card">
-                    <table mat-table [dataSource]="[
-                        {  karanchi_nav: 'विज /दिवाबत्ती कर' },
-                        {  karanchi_nav: 'आरोग्य रक्षण कर'},
-                        {  karanchi_nav: 'सफाई कर'},
-                        {  karanchi_nav: 'सामान्य पानी क़र'},
-                        {  karanchi_nav: 'विशेष पाणी कर'}
-                      ]">
+                    <table mat-table [dataSource]="otherTaxTableData" id="othertaxTable">
 
                         <ng-container matColumnDef="nivada">
                             <th mat-header-cell *matHeaderCellDef> <b>निवडा</b> </th>
                             <td mat-cell *matCellDef="let element">
                                 <section class="example-section">
-                                    <mat-checkbox class="example-margin"></mat-checkbox>
+                                    <mat-checkbox class="example-margin" [id]="element.checked_id"
+                                        [checked]="element.checked"
+                                        (click)="checkedOthertaxTableData($event)"></mat-checkbox>
                                 </section>
                             </td>
                         </ng-container>
@@ -830,7 +586,8 @@
                         <ng-container matColumnDef="kar_dar">
                             <th mat-header-cell *matHeaderCellDef><b> कर दर </b></th>
                             <td mat-cell *matCellDef="let element">
-                                <input matInput type="text" style="width: 40%; height: 40px;" />
+                                <input matInput type="text" style="width: 40%; height: 40px;" [id]="element.key"
+                                    [value]="element.value" (keyup)="insertKarDar($event)" />
                             </td>
                         </ng-container>
 
@@ -839,94 +596,84 @@
                         </tr>
                     </table>
                 </mat-card>
-                <h5 class="text-center">एकूण कर: 2025</h5>
-                <div class="submit-row">
-                    <a mat-raised-button color="primary" (click)="goToPreviousTab(tabGroup)" class="submit-btn">
-                        << Back</a>
-                            <a mat-raised-button color="primary" (click)="goToNextTab(tabGroup)" class="submit-btn">Next
-                                >></a>
-                </div>
+                <h5 class="text-center mt-2">एकूण कर: <span class=" ms-5">{{ ekun_kar }}</span></h5>
             </div>
-        </mat-tab>
-        <mat-tab label="मालमत्ता कर गणना (Property Tax Calculation)">
-            <div class="form-grid">
-                <div class="form-row mt-2">
+            <div class="col-md-6">
+                <h6 class="mt-3"><strong>मालमत्ता कर गणना (Property Tax Calculation):</strong></h6>
+                <hr>
+                <div class="row">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">उर्वरित खाली जागा (चौरस फूट)</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="urvarit_khali_jaga_feet" />
                     </mat-form-field>
+                </div>
+                <div class="form-row mt-2">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">जमिनीचे भांडवली मुल्य</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="jaminiche_bhandavali_mulya" />
                     </mat-form-field>
                     <span class="star_equal">+</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">इमारतीचे भांडवली मुल्य</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="emaratiche_bhandavali_mulya" />
                     </mat-form-field>
                     <span class="star_equal">=</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">एकूण भांडवली मुल्य</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="ekun_bhandavli_mulya" />
                     </mat-form-field>
                 </div>
                 <div class="form-row">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">खुला भूखंड कर आकारणी</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="khula_bhukand_kar_aakarani_txt" />
                     </mat-form-field>
                     <span class="star_equal">+</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">इमारतीची कर आकारणी</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="emartiche_kar_akarani_txt" />
                     </mat-form-field>
                     <span class="star_equal">=</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
-                        <input matInput type="text" />
+                        <input matInput type="text" formControlName="gruhkar_bhumikar_from_property_tax" />
                     </mat-form-field>
-                </div>
-                <div class="submit-row">
-                    <a mat-raised-button color="primary" (click)="goToPreviousTab(tabGroup)" class="submit-btn">
-                        << Back</a>
-                            <a mat-raised-button color="primary" (click)="goToNextTab(tabGroup)" class="submit-btn">Next
-                                >></a>
                 </div>
             </div>
-        </mat-tab>
-        <mat-tab label="कर देय (Tax Payble)">
-            <div class="form-grid mt-2">
-                <div class="form-row mt-2">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">चालू कर</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">मागील बाकी</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">एकूण कर भरणा</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label class="text-bold">मागाहून घट किंवा बदल झाल्याच्या बाबतीत आदेशाचा उल्लेख धरून
-                            शेरे:</mat-label>
-                        <input matInput type="text" />
-                    </mat-form-field>
-                </div>
-                <div class="submit-row">
-                    <a mat-raised-button color="primary" (click)="goToPreviousTab(tabGroup)" class="submit-btn"><< Back </a>
-                    <a mat-raised-button color="primary" class="submit-btn">जतन करा</a>
-                </div>
-            </div>
-
-        </mat-tab>
-    </mat-tab-group>
-</mat-card>
+        </div>
+        <hr>
+        <div class="form-row">
+            <h6 class="mt-3"><strong>कर देय (Tax Payble):</strong></h6>
+        </div>
+        <hr>
+        <div class="form-row mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
+                <input matInput type="text" formControlName="gruhkar_bhumikar_from_tax_payble" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">चालू कर</mat-label>
+                <input matInput type="text" formControlName="chalu_kar" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मागील बाकी</mat-label>
+                <input matInput type="text" formControlName="magil_kar" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">एकूण कर भरणा</mat-label>
+                <input matInput type="text" formControlName="ekun_kar_bharna" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">मागाहून घट किंवा बदल झाल्याच्या बाबतीत आदेशाचा उल्लेख धरून
+                    शेरे:</mat-label>
+                <input matInput type="text" formControlName="magahun_ghat_kiva_badal" />
+            </mat-form-field>
+        </div>
+        <div class="submit-row">
+            <a mat-raised-button color="primary" class="submit-btn" (click)="reset()">Reset</a>
+            <a mat-raised-button color="primary" class="submit-btn" (click)="save_nodani_form()">जतन करा</a>
+        </div>
+    </mat-card>
+</form>

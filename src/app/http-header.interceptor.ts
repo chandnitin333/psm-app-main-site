@@ -15,7 +15,7 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
         'Authorization': `Bearer ${token}`
       }
     });
-    console.log('modifiedReq', modifiedReq);
+    // console.log('modifiedReq', modifiedReq);
     // Handle errors
     return next.handle(modifiedReq).pipe(
       catchError((error: HttpErrorResponse) => {
