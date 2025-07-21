@@ -38,11 +38,11 @@ aaraogya_rakashan_kar: Number = 0;
 safae_kar: Number = 0;
 samanya_pani_kar: Number = 0;
 vishesh_pani_kar: Number = 0;
-viz_divabatti_kar_checkbox: String = '0';
-aaraogya_rakashan_kar_checkbox:  String = '0';
-safae_kar_checkbox:  String = '0';
-samanya_pani_kar_checkbox:  String = '0';
-vishesh_pani_kar_checkbox:  String = '0';
+viz_divabatti_kar_checkbox: String = '';
+aaraogya_rakashan_kar_checkbox:  String = '';
+safae_kar_checkbox:  String = '';
+samanya_pani_kar_checkbox:  String = '';
+vishesh_pani_kar_checkbox:  String = '';
 ekun_kar : Number = 0;
 chalu_kar: Number = 0;
 
@@ -349,21 +349,21 @@ resetSelection() {
 
 
     if(event.target.id == 'check_TAXRATE1-input'){
-      this.viz_divabatti_kar_checkbox = (event.target.checked === true) ? 'on' : '0';
+      this.viz_divabatti_kar_checkbox = (event.target.checked === true) ? 'on' : '';
       if(event.target.checked === true){
         this.ekun_kar = Number(this.ekun_kar) + Number(this.viz_divabatti_kar);
       }else{
         this.ekun_kar = Number(this.ekun_kar) - Number(this.viz_divabatti_kar);
       }
     } else if(event.target.id == 'check_TAXRATE2-input'){
-      this.aaraogya_rakashan_kar_checkbox= (event.target.checked === true) ? 'on' : '0';
+      this.aaraogya_rakashan_kar_checkbox= (event.target.checked === true) ? 'on' : '';
       if(event.target.checked === true){
         this.ekun_kar = Number(this.ekun_kar) + Number(this.aaraogya_rakashan_kar);
       }else{
         this.ekun_kar = Number(this.ekun_kar) - Number(this.aaraogya_rakashan_kar);
       }
     }else if(event.target.id == 'check_TAXRATE3-input'){
-      this.safae_kar_checkbox = (event.target.checked === true) ? 'on' : '0';
+      this.safae_kar_checkbox = (event.target.checked === true) ? 'on' : '';
       if(event.target.checked === true){
         this.ekun_kar = Number(this.ekun_kar) + Number(this.safae_kar);
       } else{
@@ -371,14 +371,14 @@ resetSelection() {
       }
 
     }else if(event.target.id == 'check_TAXRATE4-input'){
-      this.samanya_pani_kar_checkbox = (event.target.checked === true) ? 'on' : '0';
+      this.samanya_pani_kar_checkbox = (event.target.checked === true) ? 'on' : '';
       if(event.target.checked === true){
         this.ekun_kar = Number(this.ekun_kar) + Number(this.samanya_pani_kar);
       } else{
         this.ekun_kar = Number(this.ekun_kar) - Number(this.samanya_pani_kar);
       }
     } else if(event.target.id == 'check_TAXRATE5-input'){
-      this.vishesh_pani_kar_checkbox = (event.target.checked === true) ? 'on' : '0';
+      this.vishesh_pani_kar_checkbox = (event.target.checked === true) ? 'on' : '';
       if(event.target.checked === true){
         this.ekun_kar = Number(this.ekun_kar) + Number(this.vishesh_pani_kar);
       } else{
