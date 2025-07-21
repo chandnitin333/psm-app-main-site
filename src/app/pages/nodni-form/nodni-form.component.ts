@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
@@ -12,11 +12,12 @@ import { Util } from '../../utils/utils';
 import { BuildingKarAakaraniComponent } from './building-kar-aakarani/building-kar-aakarani.component';
 import { KhulaBhukhandKarAakaraniComponent } from './khula-bhukhand-kar-aakarani/khula-bhukhand-kar-aakarani.component';
 import { ManoraKarAakarniComponent } from './manora-kar-aakarni/manora-kar-aakarni.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-nodni-form',
   standalone: true,
-  imports: [LayoutModule,ReactiveFormsModule,CommonModule,RouterLink,MatTabGroup],
+  imports: [LayoutModule,ReactiveFormsModule,CommonModule,RouterLink,MatTabGroup,MatCheckboxModule],
   templateUrl: './nodni-form.component.html',
   styleUrl: './nodni-form.component.css',
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +33,7 @@ khulaBhukhandKarAakarniTableData : any = [];
 bandkamkarAakarniTableData: any = [];
 manoraKarAakarniTableData: any = [];
 urvarit_khali_jaga_meter: any = 0;
+reset_count :number = 0;
 
 viz_divabatti_kar: Number = 0;
 aaraogya_rakashan_kar: Number = 0;
@@ -762,10 +764,29 @@ resetSelection() {
         });
       }
     }
-
+    
     reset() {
-       
-        const params = {
+      
+      this.getOtherTaxCalculationApi();
+      
+      this.nodaniForm.reset();
+      this.reset_apis()
+      // window.location.reload();
+      this.getBandkamachiKarAkkarniList();
+      this.getKhulaBhukhandList();
+      this.getManoraKarAakaraniList();
+      this.nodaniForm.reset();
+    }
+    async reset_tables(api_url:any, params:any) {
+      this.NodaniService.resetTableApis(api_url,params).subscribe({
+        next: (res: any) => {},
+        error: (err: Error) => {
+          console.error('Error reseting table data:', err);
+        },
+      });
+    }
+    reset_apis() {
+      const params = {
               "randomNumber": localStorage.getItem('randomNumber'),
               "user_id": this.userDetails.userId,
               "rno": localStorage.getItem('rno'),
@@ -776,23 +797,13 @@ resetSelection() {
           this.reset_tables("delete-building-kar-session-wise-clear-api",params);
         }
         if(this.khulaBhukhandKarAakarniTableData.length > 0){
-            this.reset_tables("delete-khula-bhukhand-session-wise-clear-api",params);
+          this.reset_tables("delete-khula-bhukhand-session-wise-clear-api",params);
         }
         if(this.manoraKarAakarniTableData.length > 0){
-            this.reset_tables("delete-monora-kar-session-wise-clear-api",params);
+          this.reset_tables("delete-monora-kar-session-wise-clear-api",params);
         }        
         this.getBandkamachiKarAkkarniList();
         this.getKhulaBhukhandList();
         this.getManoraKarAakaraniList();
-        this.nodaniForm.reset();
-        this.getOtherTaxCalculationApi();
-    }
-    async reset_tables(api_url:any, params:any) {
-      this.NodaniService.resetTableApis(api_url,params).subscribe({
-        next: (res: any) => {},
-        error: (err: Error) => {
-          console.error('Error reseting table data:', err);
-        },
-      });
     }
 }
