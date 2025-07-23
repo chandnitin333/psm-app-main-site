@@ -21,7 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -48,6 +48,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRadioModule,
     MatExpansionModule,
     MatDialogModule,
+    NgxMaskDirective
   ],
   exports: [
     MatSidenavModule,
@@ -72,5 +73,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatExpansionModule,
     MatDialogModule,
   ],
+  providers: [provideNgxMask()],
 })
 export class LayoutModule {}

@@ -20,6 +20,7 @@ import { CustomerService } from '../../services/customer.service';
 import Util from '../../utils/utils';
 import { NamunaprintComponent } from './namunaprint/namunaprint.component';
 import { SillakjodaComponent } from './sillakjoda/sillakjoda.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
@@ -82,7 +83,8 @@ export class CustomerComponent {
     private apiService: ApiService,
     private toastr: ToastrService,
     private customerService: CustomerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -242,8 +244,10 @@ export class CustomerComponent {
             if (res.status == 200) {
               this.toastr.success('Access has been granted');
               if (status == 'edit') {
-                this.editInfo(element.NEWUSER_ID);
-                this.primary_key_id = element.NEWUSER_ID;
+                // this.router.navigate(['/user', element.NEWUSER_ID]);
+                this.router.navigate(['/nodni-form'], { queryParams: { id: element.NEWUSER_ID } });
+                // this.editInfo(element.NEWUSER_ID);
+                // this.primary_key_id = element.NEWUSER_ID;
               }
             } else {
               this.toastr.error('You entered wrong credentials', 'Error');

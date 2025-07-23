@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { ApiService } from '../../../services/api.service';
@@ -24,6 +24,9 @@ export class KhulaBhukhandKarAakaraniComponent {
   YearName: string = '';
   userDetails: any = [];
   is_edit:boolean = false;
+  orginal_edit:boolean = false;
+  original_new_user_id : string = '';
+
   khulaBhukhandModal = new FormGroup({
     milkat_vapar_id: new FormControl<number | null>(null),
     milkat_vapar_id1: new FormControl<number | null>(null),
@@ -48,6 +51,7 @@ export class KhulaBhukhandKarAakaraniComponent {
     private NodaniService: NodaniService,
     private util: Util,
     private apiService: ApiService,
+    private route: ActivatedRoute
   ) {
     console.log('Received data in kundan:', this.data);
   }
@@ -55,13 +59,19 @@ export class KhulaBhukhandKarAakaraniComponent {
     this.userDetails = this.apiService.getDecodedToken();
     // console.log('userDetails', this.userDetails);
     // this.gavacheNav = [{ gatGrampanchayatId: 0, gatGrampanchayatName: '' }];
+    this.route.queryParams.subscribe(params => {
+      this.original_new_user_id = params['id'];
+      console.log('Query ID==============:', this.original_new_user_id);
+    });
+
     this.khulaBhukhand_gavacheNav[0].gatGrampanchayatId = this.userDetails?.GATGRAMPANCHAYAT_id;
     this.khulaBhukhand_gavacheNav[0].gatGrampanchayatName = this.userDetails?.GATGRAMPANCHAYAT_NAME;
     this.loadMalmattechePrakarDDL();
     this.loadYearIdYearName();
+    this.orginal_edit = this.data.orginal_edit || false; // Check if orginal_edit is passed
     if(this.data.taxation_id!= ""){
       this.is_edit = true;
-      this.editKhulaBhukhandForm(this.data.taxation_id);
+      this.editKhulaBhukhandForm(this.data.taxation_id, this.orginal_edit);
     }
   }
 
@@ -99,37 +109,70 @@ export class KhulaBhukhandKarAakaraniComponent {
       }
     });
   }
-  editKhulaBhukhandForm(id:any){
-    this.NodaniService.editKhulabhukhandModal(id).subscribe({
-      next: (res: any) => {
-        // console.log('Khula Bhukhand Data:============', res.data);
-        if(res.data.length > 0){
-          this.getGavthanDDL(res.data[0].GATGRAMPANCHAYAT_ID);
-          this.khulaBhukhandModal.patchValue({
-            milkat_vapar_id: Number(res.data[0].MILKAT_VAPAR_ID),
-            milkat_vapar_id1: Number(res.data[0].MILKAT_VAPAR_ID1),
-            vaparache_prakar: res.data[0].VAPARACHE_PRAKAR,
-            gatgrampanchayat_id: Number(res.data[0].GATGRAMPANCHAYAT_ID),
-            openplot_id: Number(res.data[0].OPENPLOT_ID),
-            areap: res.data[0].AREAP,
-            areai: res.data[0].AREAI,
-            totalarea: res.data[0].TOTALAREA,
-            areap1: res.data[0].AREAP1,
-            areai1: res.data[0].AREAI1,
-            totalarea1: res.data[0].TOTALAREA1,
-            annualvalue: res.data[0].ANNUALVALUE,
-            levyrate: res.data[0].LEVYRATE,
-            capital: res.data[0].CAPITAL,
-            taxation: res.data[0].TAXATION
-          });
-          
+  editKhulaBhukhandForm(id:any, orginal_edit:boolean) {
+    if(orginal_edit == true) {
+      this.NodaniService.editKhulabhukhandModal_original_edit(id).subscribe({
+        next: (res: any) => {
+          // console.log('Khula Bhukhand Data:============', res.data);
+          if(res.data.length > 0){
+            this.getGavthanDDL(res.data[0].GATGRAMPANCHAYAT_ID);
+            this.khulaBhukhandModal.patchValue({
+              milkat_vapar_id: Number(res.data[0].MILKAT_VAPAR_ID),
+              milkat_vapar_id1: Number(res.data[0].MILKAT_VAPAR_ID1),
+              vaparache_prakar: res.data[0].VAPARACHE_PRAKAR,
+              gatgrampanchayat_id: Number(res.data[0].GATGRAMPANCHAYAT_ID),
+              openplot_id: Number(res.data[0].OPENPLOT_ID),
+              areap: res.data[0].AREAP,
+              areai: res.data[0].AREAI,
+              totalarea: res.data[0].TOTALAREA,
+              areap1: res.data[0].AREAP1,
+              areai1: res.data[0].AREAI1,
+              totalarea1: res.data[0].TOTALAREA1,
+              annualvalue: res.data[0].ANNUALVALUE,
+              levyrate: res.data[0].LEVYRATE,
+              capital: res.data[0].CAPITAL,
+              taxation: res.data[0].TAXATION
+            });
+            
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching Khula Bhukhand data:', err);
+          this.toastr.error('There was an error fetching the Khula Bhukhand data.', 'Error');
         }
-      },
-      error: (err) => {
-        console.error('Error fetching Khula Bhukhand data:', err);
-        this.toastr.error('There was an error fetching the Khula Bhukhand data.', 'Error');
-      }
-    });
+      });
+    }else{
+      this.NodaniService.editKhulabhukhandModal(id).subscribe({
+        next: (res: any) => {
+          // console.log('Khula Bhukhand Data:============', res.data);
+          if(res.data.length > 0){
+            this.getGavthanDDL(res.data[0].GATGRAMPANCHAYAT_ID);
+            this.khulaBhukhandModal.patchValue({
+              milkat_vapar_id: Number(res.data[0].MILKAT_VAPAR_ID),
+              milkat_vapar_id1: Number(res.data[0].MILKAT_VAPAR_ID1),
+              vaparache_prakar: res.data[0].VAPARACHE_PRAKAR,
+              gatgrampanchayat_id: Number(res.data[0].GATGRAMPANCHAYAT_ID),
+              openplot_id: Number(res.data[0].OPENPLOT_ID),
+              areap: res.data[0].AREAP,
+              areai: res.data[0].AREAI,
+              totalarea: res.data[0].TOTALAREA,
+              areap1: res.data[0].AREAP1,
+              areai1: res.data[0].AREAI1,
+              totalarea1: res.data[0].TOTALAREA1,
+              annualvalue: res.data[0].ANNUALVALUE,
+              levyrate: res.data[0].LEVYRATE,
+              capital: res.data[0].CAPITAL,
+              taxation: res.data[0].TAXATION
+            });
+            
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching Khula Bhukhand data:', err);
+          this.toastr.error('There was an error fetching the Khula Bhukhand data.', 'Error');
+        }
+      });
+    }
   }
   save_khula_bhukhand_form(){
     if (!this.khulaBhukhandModal.invalid) {
@@ -162,23 +205,48 @@ export class KhulaBhukhandKarAakaraniComponent {
         year_name: this.YearName,
         randomNumber:localStorage.getItem('randomNumber'),
       };
-      this.NodaniService.addKhulaBhukhandForm(params).subscribe({
-        next: (res: any) => {
-          console.log('save khula bhukhand', res);
-          if (res.status == 201) {
-            console.log('inside', res);
-            this.toastr.success(res.message, 'Success');
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error adding khula bhukhand form:', err);
-          this.toastr.error('There was an error adding the khula bhukhand form.', 'Error');
-        },
-      });
+      if(this.orginal_edit == true) {
+        params.newuser_id = String(this.original_new_user_id); // Set new user ID from query params
+        console.log('Params for original edit:', params);
+        this.NodaniService.addKhulaBhukhandFormFromoriginalTable(params).subscribe({
+            next: (res: any) => {
+              console.log('save khula bhukhand', res);
+              if (res.status == 201) {
+                console.log('inside', res);
+                this.toastr.success(res.message, 'Success');
+                // this.loginSuccess = false;
+              } else {
+                this.toastr.warning(res.message, 'Warning');
+              }
+              // this.isLoading = false;
+            },
+            error: (err: Error) => {
+              console.error('Error adding khula bhukhand form:', err);
+              this.toastr.error('There was an error adding the khula bhukhand form.', 'Error');
+            },
+          });
+      }else{
+        params.newuser_id = ""; // Set new user ID from query params
+        console.log('Params for original edit:', params);
+          this.NodaniService.addKhulaBhukhandForm(params).subscribe({
+            next: (res: any) => {
+              console.log('save khula bhukhand', res);
+              if (res.status == 201) {
+                console.log('inside', res);
+                this.toastr.success(res.message, 'Success');
+                // this.loginSuccess = false;
+              } else {
+                this.toastr.warning(res.message, 'Warning');
+              }
+              // this.isLoading = false;
+            },
+            error: (err: Error) => {
+              console.error('Error adding khula bhukhand form:', err);
+              this.toastr.error('There was an error adding the khula bhukhand form.', 'Error');
+            },
+          });
+      }
+      
     } else {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
@@ -218,8 +286,6 @@ export class KhulaBhukhandKarAakaraniComponent {
   update_khula_bhukhand_form(){
     if (!this.khulaBhukhandModal.invalid) {
       let params = {
-        // newuser_id:"",
-        // user_id: this.userDetails.userId,
         milkat_vapar_id: this.khulaBhukhandModal.value.milkat_vapar_id,
         milkat_vapar_id1: this.khulaBhukhandModal.value.milkat_vapar_id1,
         vaparache_prakar: this.khulaBhukhandModal.value.vaparache_prakar,
@@ -234,29 +300,42 @@ export class KhulaBhukhandKarAakaraniComponent {
         annualvalue: this.khulaBhukhandModal.value.annualvalue,
         levyrate: this.khulaBhukhandModal.value.levyrate,
         capital: this.khulaBhukhandModal.value.capital,
-        taxation: this.khulaBhukhandModal.value.taxation,
-        // rno: localStorage.getItem('rno'),
-        // vard_number: this.data.ward_kramank,
-        // annu_kramank:this.data.anu_kramank,
-        // year_id: this.yearId,
-        // year_name: this.YearName,
-        // randomNumber:localStorage.getItem('randomNumber'),
+        taxation: this.khulaBhukhandModal.value.taxation
       };
-      this.NodaniService.updateKhulaBhukhandForm(params, this.data.taxation_id).subscribe({
-        next: (res: any) => {
-          if (res.status == 200) {
-            this.toastr.success(res?.message, 'Success');
-          } else {
-            this.toastr.error(res?.message, 'Warning');
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('Failed to updateopen plot rate', 'Error');
-          console.log("error: updateOpen plot  ::", err);
-          // this.isSubmitted = false;
-        }
+       if(this.orginal_edit == true) {
+        this.NodaniService.updateKhulaBhukhandForm_original_table_update(params, this.data.taxation_id).subscribe({
+            next: (res: any) => {
+              if (res.status == 200) {
+                this.toastr.success(res?.message, 'Success');
+              } else {
+                this.toastr.error(res?.message, 'Warning');
+              }
+            },
+            error: (err: any) => {
+              this.toastr.error('Failed to updateopen plot rate', 'Error');
+              console.log("error: updateOpen plot  ::", err);
+              // this.isSubmitted = false;
+            }
 
-      });
+        });
+       }else{
+          this.NodaniService.updateKhulaBhukhandForm(params, this.data.taxation_id).subscribe({
+            next: (res: any) => {
+              if (res.status == 200) {
+                this.toastr.success(res?.message, 'Success');
+              } else {
+                this.toastr.error(res?.message, 'Warning');
+              }
+            },
+            error: (err: any) => {
+              this.toastr.error('Failed to updateopen plot rate', 'Error');
+              console.log("error: updateOpen plot  ::", err);
+              // this.isSubmitted = false;
+            }
+
+          });
+       }
+      
     }else{
       this.toastr.warning('Please fill all required fields.', 'warning');
       return;

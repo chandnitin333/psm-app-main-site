@@ -11,6 +11,9 @@ export class NodaniService {
   addNodaniForm(params: any) {
     return this.api.post(`save-nodni-from`, params);
   }
+  updateNodaniForm(params: any, id:any) {
+    return this.api.put(`update-nodni-form/${id}`, params);
+  }
   
   fetchOtherTaxCalculation(params: any) {
     return this.api.post('get-other-tax-calculation', params);
@@ -31,17 +34,32 @@ export class NodaniService {
   addKhulaBhukhandForm(params: any) {
     return this.api.post(`save-khali-bhukhand`, params);
   }
+  addKhulaBhukhandFormFromoriginalTable(params: any) {
+    return this.api.post(`save-khali-bhukhand-insert-in-original-table`, params);
+  }
   updateKhulaBhukhandForm(params: any, id:any) {
     return this.api.put(`update-khula-bhukhand-modal/${id}`, params);
+  }
+  updateKhulaBhukhandForm_original_table_update(params: any, id:any) {
+    return this.api.put(`update-khula-bhukhand-modal-original-table/${id}`, params);
   }
   deleteKhulaBhukhand(id: number) {
     return this.api.delete(`delete-khula-bhukhand-record/${id}`);
   }
+  deleteKhulaBhukhand_original(id: number) {
+    return this.api.delete(`delete-khula-bhukhand-record-original/${id}`);
+  }
   getKhulabhukhandSavedRecords(params: any){
     return this.api.post("get-open-construction-tax-assessment",  params)
   }
+  getKhulabhukhandModal_from_original_table_list(id: number) {
+    return this.api.get(`get-khula-bhukhand-modal-by-newuserid-from-original/${id}`);
+  }
   editKhulabhukhandModal(id: number) {
     return this.api.get(`edit-khula-bhukhand-modal-by-id/${id}`);
+  }
+  editKhulabhukhandModal_original_edit(id: number) {
+    return this.api.get(`edit-khula-bhukhand-modal-by-id-original-edit/${id}`);
   }
  
 
@@ -67,17 +85,33 @@ export class NodaniService {
   addBuildingkarForm(params: any) {
     return this.api.post(`save-bandh-kam`, params);
   }
+addBuildingkarFormI_original_table(params: any) {
+    return this.api.post(`save-bandh-kam-insert-in-original-table`, params);
+  }
+  
    getbankamachiKarAakarniSavedRecords(params: any){
     return this.api.post("get-tax-assessment-construction",  params)
+  }
+  getbandkamKarAakaraniModal_from_original_table_list(id: number) {
+    return this.api.get(`get-bandkam-kar-aakarni-modal-data-from-original/${id}`);
   }
   editbandkamKarAakaraniModal(id: number) {
     return this.api.get(`edit-bandkam-kar-aakarni-modal-data/${id}`);
   }
+  editbandkamKarAakaraniModal_originalEdit(id: number) {
+    return this.api.get(`edit-bandkam-kar-aakarni-modal-data-original-edit/${id}`);
+  }
   updateBandkamKarModal(params: any, id:any) {
     return this.api.put(`update-bandkam-kar-aakarani-modal/${id}`, params);
   }
+   updateBandkamKarModal_From_original_table(params: any, id:any) { // -----------------
+    return this.api.put(`update-bandkam-kar-aakarani-modal-from-original-table/${id}`, params);
+  }
   deletebandkamKarAkarniRecords(id: number) {
     return this.api.delete(`delete-bandkam-kar-aakarni-record/${id}`);
+  }
+  deletebandkamKarAkarniRecords_original(id: number) {
+    return this.api.delete(`delete-bandkam-kar-aakarni-record-original/${id}`);
   }
  
 
@@ -95,20 +129,38 @@ export class NodaniService {
   addManoraForm(params: any) {
     return this.api.post(`save-tax-payer`, params);
   }
+  addManoraForm_from_original_table(params: any) {
+    return this.api.post(`save-tax-payer-insert-in-original-table`, params);
+  }
    getmanoraKarAakarniSavedRecords(params: any){
     return this.api.post("get-tax-assessment-towers",  params)
+  }
+  getmanoraKarAakarniFromOriginalList(id: number){
+    return this.api.get(`get-manora-kar-aakarni-modal-data-from-original/${id}`)
   }
   editmanoraKarAakaraniModal(id: number) {
     return this.api.get(`edit-manora-kar-aakarni-modal-data/${id}`);
   }
+  editmanoraKarAakaraniModal_from_original_edit(id: number) {
+    return this.api.get(`edit-manora-kar-aakarni-modal-data-original-edit/${id}`);
+  }
   updateManoraKarModal(params: any, id:any) {
     return this.api.put(`update-manora-kar-aakarani-modal/${id}`, params);
+  }
+  updateManoraKarModalFromOriginalTable(params: any, id:any) {
+    return this.api.put(`update-manora-kar-aakarani-modal-from-original-table/${id}`, params);
   }
   deleteManoraAkarniRecords(id: number) {
     return this.api.delete(`delete-manora-kar-aakarni-record/${id}`);
   }
+  deleteManoraAkarniRecords_original(id: number) {
+    return this.api.delete(`delete-manora-kar-aakarni-record-original/${id}`);
+  }
   resetTableApis(api_url:string, params: any){
     return this.api.post(api_url,  params)
+  }
+  getnodniById(id: number) {
+    return this.api.get(`get-malmatta-nodni-user-by-id/${id}`);
   }
   
   // verifyUserLogin(params: any) {

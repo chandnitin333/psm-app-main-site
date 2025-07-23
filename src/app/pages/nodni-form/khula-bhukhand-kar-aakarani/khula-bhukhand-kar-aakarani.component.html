@@ -47,39 +47,39 @@
         <div class="form-row"> -->
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                <input matInput type="text" formControlName="areap" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                <input matInput type="text" formControlName="areai" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
-                <input matInput type="text" formControlName="totalarea"
+                <input matInput type="number" formControlName="totalarea"
                     (keyup)="foot_to_meter_conversion_ekun_foot()" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="areap1" readonly/>
+                <input matInput type="number" formControlName="areap1" readonly />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="areai1" readonly/>
+                <input matInput type="number" formControlName="areai1" readonly />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.मिटर)</mat-label>
-                <input matInput type="text" formControlName="totalarea1" readonly/>
+                <input matInput type="number" formControlName="totalarea1" readonly />
             </mat-form-field>
             <!-- </div>
         <div class="form-row"> -->
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
-                <input matInput type="text" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">आकारणी दर</mat-label>
-                <input matInput type="text" formControlName="levyrate" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="levyrate" (keyup)="foot_to_meter_conversion()" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -88,7 +88,7 @@
                     क्षेत्रफळ(चौ.
                     मीटर) X जमिनीचे वार्षिक मुल्य जमिनीचे भांडवली मुल्य
                     =Label</mat-label>
-                <input matInput type="text" formControlName="capital" readonly/>
+                <input matInput type="number" formControlName="capital" readonly />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -96,7 +96,7 @@
                 <mat-label class="text-bold">कर आकारणी = जमिनीचे भांडवली मुल्य X आकारणी
                     दर
                     /१००० कर आकारणी =Label</mat-label>
-                <input matInput type="text" formControlName="taxation" readonly/>
+                <input matInput type="number" formControlName="taxation" readonly />
             </mat-form-field>
         </div>
     </mat-dialog-content>
@@ -113,8 +113,7 @@
         <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
             [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
-            (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" :
-            "जतन
-            करा"}}</button>
+            (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" : "जतन करा"}}</button>
+        
     </mat-dialog-actions>
 </form>

@@ -67,3 +67,37 @@
   color: #fff;
 }
 
+.custom-red {
+  background-color: #f14a4a !important; /* Custom Blue */
+  color: white !important;
+}
+
+::ng-deep .mat-header-row {
+  background-color: #e3f2fd; /* Light blue */
+}
+
+::ng-deep .mat-header-cell {
+  color: #0d47a1; /* Dark blue */
+  font-weight: 600;
+}
+
+.custom-header {
+  background-color: #214162; /* Light red background */
+  color:#fff;
+}
+
+::ng-deep .custom-header .mat-header-cell {
+  color: #b71c1c;       /* Deep red text */
+  font-weight: bold;
+}
+
+
+input.no-spinner::-webkit-outer-spin-button,
+  input.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input.no-spinner {
+    -moz-appearance: textfield; /* Firefox */
+  }

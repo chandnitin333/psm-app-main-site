@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import Util from '../../../utils/utils';
@@ -24,6 +24,8 @@ export class BuildingKarAakaraniComponent {
   yearId: number = 0;
   YearName: string = '';
   is_edit: boolean = false;
+  orginal_edit: boolean = false; // Flag to check if orginal_edit is passed
+  original_new_user_id : string = '';
 
   BuildingkarModal = new FormGroup({
     milkat_vapar_id: new FormControl<number | null>(null),
@@ -53,21 +55,26 @@ export class BuildingKarAakaraniComponent {
     private NodaniService: NodaniService,
     private util: Util,
     private apiService: ApiService,
+    private route: ActivatedRoute
   ) {
     console.log('Received data in kundan:', this.data);
   }
   
   ngOnInit(): void {
     this.userDetails = this.apiService.getDecodedToken();
+    this.route.queryParams.subscribe(params => {
+      this.original_new_user_id = params['id'];
+      console.log('Query ID==============:', this.original_new_user_id);
+    });
     console.log('userDetails', this.userDetails);
     this.loadMalmattechePrakarDDL();
     this.loadMalmattecheVarnanDDL();
     this.loadBandkamachaMajlaDDL();
     this.loadYearIdYearName();
-
+    this.orginal_edit = this.data.orginal_edit || false; // Check if orginal_edit is passed
     if(this.data.construction_id!= ""){
       this.is_edit = true;
-      this.editbandkamKarAkarnModal(Number(this.data.construction_id));
+      this.editbandkamKarAkarnModal(Number(this.data.construction_id), this.orginal_edit);
     }
   }
 
@@ -131,6 +138,16 @@ export class BuildingKarAakaraniComponent {
           // console.log('Bharank Value:', bharankValue);
           this.BuildingkarModal.get('annual_cost')?.setValue(anualCost || 0);
           this.BuildingkarModal.get('levyrate')?.setValue(levyrate || 0);
+
+          let one_cost = Number(this.BuildingkarModal.value.depreciation) * Number(this.BuildingkarModal.value.totalarea1) * Number(this.BuildingkarModal.value.weighted) * Number(this.BuildingkarModal.value.annual_cost);
+          console.log('one_cost:', one_cost);
+          const convrt_one = parseFloat((one_cost).toFixed(2));
+          this.BuildingkarModal.get('one')?.setValue(convrt_one || 0);
+
+          let two_cal = one_cost * Number(this.BuildingkarModal.value.levyrate);
+          let final_two_calcualtion = parseFloat((two_cal / 1000).toFixed(2));
+          console.log('final_two_calcualtion:', final_two_calcualtion);
+          this.BuildingkarModal.get('two')?.setValue(final_two_calcualtion || 0);
         }
       });
   }
@@ -237,59 +254,118 @@ export class BuildingKarAakaraniComponent {
         random_number:localStorage.getItem('randomNumber'),
         token: localStorage.getItem('token'),
       };
-      this.NodaniService.addBuildingkarForm(params).subscribe({
-        next: (res: any) => {
-          console.log('save Bandkam kar aakarni', res);
-          if (res.status == 201) {
-            console.log('inside', res);
-            this.toastr.success(res.message, 'Success');
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error adding Bandkam kar aakarni form:', err);
-          this.toastr.error('There was an error adding the Bandkam kar aakarni form.', 'Error');
-        },
-      });
+      if(this.orginal_edit == true) {
+        params.newuser_id = String(this.original_new_user_id); // Set new user ID from query params 
+        console.log('Params for original edit:', params);
+        this.NodaniService.addBuildingkarFormI_original_table(params).subscribe({
+          next: (res: any) => {
+            console.log('save Bandkam kar aakarni', res);
+            if (res.status == 201) {
+              console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error adding Bandkam kar aakarni form:', err);
+            this.toastr.error('There was an error adding the Bandkam kar aakarni form.', 'Error');
+          },
+        });
+      }else{
+        params.newuser_id = '';
+        this.NodaniService.addBuildingkarForm(params).subscribe({
+          next: (res: any) => {
+            console.log('save Bandkam kar aakarni', res);
+            if (res.status == 201) {
+              console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error adding Bandkam kar aakarni form:', err);
+            this.toastr.error('There was an error adding the Bandkam kar aakarni form.', 'Error');
+          },
+        });
+      }
+      
     } else {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
   }
-  editbandkamKarAkarnModal(id: number) {
-   this.NodaniService.editbandkamKarAakaraniModal(id).subscribe({
-      next: (res: any) => {
-        console.log('editbandkamKarAakaraniModal', res);
-        if(res.data.length > 0){
-          this.BuildingkarModal.patchValue({
-              milkat_vapar_id: Number(res?.data[0]?.MILKAT_VAPAR_ID),
-              malmatta_id: Number(res?.data[0]?.MALMATTA_ID),
-              vaparache_prakar: res?.data[0]?.VAPARACHE_PRAKAR,
-              manoramaster_id: Number(res?.data[0]?.FLOOR_ID),
-              areap: res?.data[0]?.AREAP,
-              areai: res?.data[0]?.AREAI,
-              totalarea: res?.data[0]?.TOTALAREA,
-              areap1: res?.data[0]?.AREAP1,
-              areai1: res?.data[0]?.AREAI1,
-              totalarea1: res?.data[0]?.TOTALAREA1,
-              lifespan: Number(res?.data[0]?.LIFESPAN),
-              constructing: Number(res?.data[0]?.CONSTRUCTING),
-              depreciation: res?.data[0]?.DEPRECIATION,
-              weighted: res?.data[0]?.WEIGHTTAGE,
-              annual_cost: res?.data[0]?.ANNUALCOST,
-              levyrate: res?.data[0]?.LEVYRATE,
-              one: res?.data[0]?.ONE,
-              two: res?.data[0]?.TWO
-          });
+  editbandkamKarAkarnModal(id: number, orginal_edit:boolean = false) {
+    if( orginal_edit ){
+      this.NodaniService.editbandkamKarAakaraniModal_originalEdit(id).subscribe({
+        next: (res: any) => {
+          console.log('editbandkamKarAakaraniModal_originalEdit', res);
+          if(res.data.length > 0){
+            this.BuildingkarModal.patchValue({
+                milkat_vapar_id: Number(res?.data[0]?.MILKAT_VAPAR_ID),
+                malmatta_id: Number(res?.data[0]?.MALMATTA_ID),
+                vaparache_prakar: res?.data[0]?.VAPARACHE_PRAKAR,
+                manoramaster_id: Number(res?.data[0]?.FLOOR_ID),
+                areap: res?.data[0]?.AREAP,
+                areai: res?.data[0]?.AREAI,
+                totalarea: res?.data[0]?.TOTALAREA,
+                areap1: res?.data[0]?.AREAP1,
+                areai1: res?.data[0]?.AREAI1,
+                totalarea1: res?.data[0]?.TOTALAREA1,
+                lifespan: Number(res?.data[0]?.LIFESPAN),
+                constructing: Number(res?.data[0]?.CONSTRUCTING),
+                depreciation: res?.data[0]?.DEPRECIATION,
+                weighted: res?.data[0]?.WEIGHTTAGE,
+                annual_cost: res?.data[0]?.ANNUALCOST,
+                levyrate: res?.data[0]?.LEVYRATE,
+                one: res?.data[0]?.ONE,
+                two: res?.data[0]?.TWO
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching bankam kar aakarni data:', err);
+          this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
         }
-      },
-      error: (err) => {
-        console.error('Error fetching bankam kar aakarni data:', err);
-        this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
-      }
-    });
+      });
+    }else{
+      this.NodaniService.editbandkamKarAakaraniModal(id).subscribe({
+        next: (res: any) => {
+          console.log('editbandkamKarAakaraniModal', res);
+          if(res.data.length > 0){
+            this.BuildingkarModal.patchValue({
+                milkat_vapar_id: Number(res?.data[0]?.MILKAT_VAPAR_ID),
+                malmatta_id: Number(res?.data[0]?.MALMATTA_ID),
+                vaparache_prakar: res?.data[0]?.VAPARACHE_PRAKAR,
+                manoramaster_id: Number(res?.data[0]?.FLOOR_ID),
+                areap: res?.data[0]?.AREAP,
+                areai: res?.data[0]?.AREAI,
+                totalarea: res?.data[0]?.TOTALAREA,
+                areap1: res?.data[0]?.AREAP1,
+                areai1: res?.data[0]?.AREAI1,
+                totalarea1: res?.data[0]?.TOTALAREA1,
+                lifespan: Number(res?.data[0]?.LIFESPAN),
+                constructing: Number(res?.data[0]?.CONSTRUCTING),
+                depreciation: res?.data[0]?.DEPRECIATION,
+                weighted: res?.data[0]?.WEIGHTTAGE,
+                annual_cost: res?.data[0]?.ANNUALCOST,
+                levyrate: res?.data[0]?.LEVYRATE,
+                one: res?.data[0]?.ONE,
+                two: res?.data[0]?.TWO
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching bankam kar aakarni data:', err);
+          this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
+        }
+      });
+    }
+   
   }
 
   update_bandkam_form(){
@@ -314,23 +390,44 @@ export class BuildingKarAakaraniComponent {
         one: this.BuildingkarModal.value.one,
         two: this.BuildingkarModal.value.two
       };
-      this.NodaniService.updateBandkamKarModal(params, Number(this.data.construction_id)).subscribe({
-        next: (res: any) => {
-          console.log('Update Bandkam kar aakarni', res);
-          if (res.status == 200) {
-            console.log('inside', res);
-            this.toastr.success(res.message, 'Success');
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error updating Bandkam kar aakarni form:', err);
-          this.toastr.error('There was an error updating the Bandkam kar aakarni form.', 'Error');
-        },
-      });
+      if(this.orginal_edit == true) {
+        this.NodaniService.updateBandkamKarModal_From_original_table(params, Number(this.data.construction_id)).subscribe({
+            next: (res: any) => {
+              console.log('Update Bandkam kar aakarni', res);
+              if (res.status == 200) {
+                console.log('inside', res);
+                this.toastr.success(res.message, 'Success');
+                // this.loginSuccess = false;
+              } else {
+                this.toastr.warning(res.message, 'Warning');
+              }
+              // this.isLoading = false;
+            },
+            error: (err: Error) => {
+              console.error('Error updating Bandkam kar aakarni form:', err);
+              this.toastr.error('There was an error updating the Bandkam kar aakarni form.', 'Error');
+            },
+          });
+      }else{
+          this.NodaniService.updateBandkamKarModal(params, Number(this.data.construction_id)).subscribe({
+            next: (res: any) => {
+              console.log('Update Bandkam kar aakarni', res);
+              if (res.status == 200) {
+                console.log('inside', res);
+                this.toastr.success(res.message, 'Success');
+                // this.loginSuccess = false;
+              } else {
+                this.toastr.warning(res.message, 'Warning');
+              }
+              // this.isLoading = false;
+            },
+            error: (err: Error) => {
+              console.error('Error updating Bandkam kar aakarni form:', err);
+              this.toastr.error('There was an error updating the Bandkam kar aakarni form.', 'Error');
+            },
+          });
+      }
+      
     } else {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }

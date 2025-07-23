@@ -2,17 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import Util from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { NodaniService } from '../../../services/nodani.service';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-manora-kar-aakarni',
   standalone: true,
-  imports: [LayoutModule,ReactiveFormsModule,CommonModule,RouterLink],
+  imports: [LayoutModule,ReactiveFormsModule,CommonModule,RouterLink,NgxMaskDirective],
   templateUrl: './manora-kar-aakarni.component.html',
   styleUrl: './manora-kar-aakarni.component.css'
 })
@@ -24,6 +25,8 @@ export class ManoraKarAakarniComponent {
   yearId: number = 0;
   YearName: string = '';  
   is_edit: boolean = false;
+  orginal_edit:boolean = false;
+  original_new_user_id: string = '';
 
   manoraKarForm = new FormGroup({
     milkat_vapar_id: new FormControl<number | null>(null),
@@ -47,19 +50,25 @@ export class ManoraKarAakarniComponent {
     private NodaniService: NodaniService,
     private util: Util,
     private apiService: ApiService,
+    private route: ActivatedRoute
   ) {
     console.log('Received data in kundan:', this.data);
   }
   ngOnInit(): void {
     this.userDetails = this.apiService.getDecodedToken();
+    this.route.queryParams.subscribe(params => {
+      this.original_new_user_id = params['id'];
+      console.log('Query ID==============:', this.original_new_user_id);
+    });
     console.log('userDetails', this.userDetails);
     this.loadMalmattechePrakarDDL();
     this.loadMalmattecheVarnanDDL();
     this.loadManoracheBhagDDL();
     this.loadYearIdYearName();
+    this.orginal_edit = this.data.orginal_edit || false; // Check if orginal_edit is passed
     if(this.data.tax_payer_id!= ""){
       this.is_edit = true;
-      this.editManoraKarAakarni(Number(this.data.tax_payer_id));
+      this.editManoraKarAakarni(Number(this.data.tax_payer_id), this.orginal_edit);
     }
   }
 
@@ -150,53 +159,105 @@ export class ManoraKarAakarniComponent {
         random_number:localStorage.getItem('randomNumber'),
         token: localStorage.getItem('token'),
       };
-      this.NodaniService.addManoraForm(params).subscribe({
-        next: (res: any) => {
-          console.log('save Manora kar aakarni', res);
-          if (res.status == 201) {
-            // console.log('inside', res);
-            this.toastr.success(res.message, 'Success');
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error adding manora kar form:', err);
-          this.toastr.error('There was an error adding the manora kar form.', 'Error');
-        },
-      });
+      if(this.orginal_edit == true) {
+        params.newuser_id = String(this.original_new_user_id); // Set new user ID from query params 
+        console.log('Params for original edit:', params);
+        this.NodaniService.addManoraForm_from_original_table(params).subscribe({
+          next: (res: any) => {
+            console.log('save Manora kar aakarni', res);
+            if (res.status == 201) {
+              // console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error adding manora kar form:', err);
+            this.toastr.error('There was an error adding the manora kar form.', 'Error');
+          },
+        });
+      }else{
+        params.newuser_id = ""; // Set new user ID from query params
+        this.NodaniService.addManoraForm(params).subscribe({
+          next: (res: any) => {
+            console.log('save Manora kar aakarni', res);
+            if (res.status == 201) {
+              // console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error adding manora kar form:', err);
+            this.toastr.error('There was an error adding the manora kar form.', 'Error');
+          },
+        });
+      }
     } else {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
   }
-  editManoraKarAakarni(id: number) {
-    this.NodaniService.editmanoraKarAakaraniModal(id).subscribe({
-      next: (res: any) => {
-        console.log('editmanoraKarAakaraniModal', res);
-        if(res.data.length > 0){
-          this.manoraKarForm.patchValue({
-              milkat_vapar_id: Number(res?.data[0].MILKAT_VAPAR_ID),
-              malmatta_id: Number(res?.data[0].MALMATTA_ID),
-              vaparache_prakar: res?.data[0].VAPARACHE_PRAKAR,
-              manoramaster_id: Number(res?.data[0].MANORAMASTER_ID),
-              areap: res?.data[0].AREAP,
-              areai: res?.data[0].AREAI,
-              totalarea: res?.data[0].TOTALAREA,
-              areap1: res?.data[0].AREAP1,
-              areai1: res?.data[0].AREAI1,
-              totalarea1: res?.data[0].TOTALAREA1,
-              levyrate: res?.data[0].CAPITAL,
-              karAkarani: res?.data[0].TAXATION,
-          });
-        }
-      },
-      error: (err) => {
-        console.error('Error fetching bankam kar aakarni data:', err);
-        this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
-      }
-    });
+  editManoraKarAakarni(id: number, orginal_edit: boolean = false) {
+    if(orginal_edit){
+      this.NodaniService.editmanoraKarAakaraniModal_from_original_edit(id).subscribe({
+          next: (res: any) => {
+            console.log('editmanoraKarAakaraniModal_from_original_edit', res);
+            if(res.data.length > 0){
+              this.manoraKarForm.patchValue({
+                  milkat_vapar_id: Number(res?.data[0].MILKAT_VAPAR_ID),
+                  malmatta_id: Number(res?.data[0].MALMATTA_ID),
+                  vaparache_prakar: res?.data[0].VAPARACHE_PRAKAR,
+                  manoramaster_id: Number(res?.data[0].MANORAMASTER_ID),
+                  areap: res?.data[0].AREAP,
+                  areai: res?.data[0].AREAI,
+                  totalarea: res?.data[0].TOTALAREA,
+                  areap1: res?.data[0].AREAP1,
+                  areai1: res?.data[0].AREAI1,
+                  totalarea1: res?.data[0].TOTALAREA1,
+                  levyrate: res?.data[0].CAPITAL,
+                  karAkarani: res?.data[0].TAXATION,
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching bankam kar aakarni data:', err);
+            this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
+          }
+        });
+    }else{
+        this.NodaniService.editmanoraKarAakaraniModal(id).subscribe({
+          next: (res: any) => {
+            console.log('editmanoraKarAakaraniModal', res);
+            if(res.data.length > 0){
+              this.manoraKarForm.patchValue({
+                  milkat_vapar_id: Number(res?.data[0].MILKAT_VAPAR_ID),
+                  malmatta_id: Number(res?.data[0].MALMATTA_ID),
+                  vaparache_prakar: res?.data[0].VAPARACHE_PRAKAR,
+                  manoramaster_id: Number(res?.data[0].MANORAMASTER_ID),
+                  areap: res?.data[0].AREAP,
+                  areai: res?.data[0].AREAI,
+                  totalarea: res?.data[0].TOTALAREA,
+                  areap1: res?.data[0].AREAP1,
+                  areai1: res?.data[0].AREAI1,
+                  totalarea1: res?.data[0].TOTALAREA1,
+                  levyrate: res?.data[0].CAPITAL,
+                  karAkarani: res?.data[0].TAXATION,
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching bankam kar aakarni data:', err);
+            this.toastr.error('There was an error fetching the bankam kar aakarni data.', 'Error');
+          }
+        });
+    }
+    
   }
   update_manora_form(){
     if (!this.manoraKarForm.invalid) {
@@ -214,23 +275,44 @@ export class ManoraKarAakarniComponent {
         levyrate: this.manoraKarForm.value.levyrate,
         karAkarani: this.manoraKarForm.value.karAkarani,
       };
-      this.NodaniService.updateManoraKarModal(params, this.data.tax_payer_id).subscribe({
-        next: (res: any) => {
-          console.log('update Manora kar aakarni', res);
-          if (res.status == 200) {
-            // console.log('inside', res);
-            this.toastr.success(res.message, 'Success');
-            // this.loginSuccess = false;
-          } else {
-            this.toastr.warning(res.message, 'Warning');
-          }
-          // this.isLoading = false;
-        },
-        error: (err: Error) => {
-          console.error('Error updating manora kar form:', err);
-          this.toastr.error('There was an error updating the manora kar form.', 'Error');
-        },
-      });
+      if(this.orginal_edit == true) {
+        this.NodaniService.updateManoraKarModalFromOriginalTable(params, this.data.tax_payer_id).subscribe({
+          next: (res: any) => {
+            console.log('update Manora kar aakarni', res);
+            if (res.status == 200) {
+              // console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error updating manora kar form:', err);
+            this.toastr.error('There was an error updating the manora kar form.', 'Error');
+          },
+        });
+      }else{
+        this.NodaniService.updateManoraKarModal(params, this.data.tax_payer_id).subscribe({
+          next: (res: any) => {
+            console.log('update Manora kar aakarni', res);
+            if (res.status == 200) {
+              // console.log('inside', res);
+              this.toastr.success(res.message, 'Success');
+              // this.loginSuccess = false;
+            } else {
+              this.toastr.warning(res.message, 'Warning');
+            }
+            // this.isLoading = false;
+          },
+          error: (err: Error) => {
+            console.error('Error updating manora kar form:', err);
+            this.toastr.error('There was an error updating the manora kar form.', 'Error');
+          },
+        });
+      }
+      
     } else {
       this.toastr.warning('Please fill all required fields.', 'warning');
     }
