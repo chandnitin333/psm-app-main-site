@@ -5,7 +5,7 @@
         <div class="form-row mt-3">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank" mask="0000000000000000"
+                <input matInput type="text" formControlName="annu_kramank" mask="0*"
                     placeholder="Enter अनु. क्रमांक" />
             </mat-form-field>
 
@@ -15,7 +15,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" formControlName="ward_kramank" mask="00000"
+                <input matInput type="text" formControlName="ward_kramank" mask="0*"
                     placeholder="Enter वॉर्ड क्रमांक" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
@@ -34,7 +34,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वोटर कार्ड नं.</mat-label>
                 <input matInput type="text" formControlName="voter_card_number" [mask]="'AAA0000000'"
-                     placeholder="Enter वोटर कार्ड नं." (input)="toUpperCase($event)" />
+                    placeholder="Enter वोटर कार्ड नं." (input)="toUpperCase($event)" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मोबाईल नं.</mat-label>
