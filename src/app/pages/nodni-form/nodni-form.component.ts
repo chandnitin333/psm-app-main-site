@@ -321,7 +321,10 @@ resetSelection() {
             this.toastr.success(res.message, 'Success');
             // this.loginSuccess = false;
             this.reset();
-          } else {
+          }else if (res.status == 400) {
+            this.toastr.warning(res.message, 'Warning');
+          }
+          else {
             this.toastr.warning(res.message, 'Warning');
           }
           // this.isLoading = false;
