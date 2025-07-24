@@ -45,22 +45,23 @@ import { ToastrService } from 'ngx-toastr';
             required
           />
         </mat-form-field>
+         <mat-dialog-actions align="end" class="dialog-actions">
+            <button mat-button (click)="onCancel()" class="cancel-button">
+              Cancel
+            </button>
+            <button
+              mat-button
+              color="primary"
+              (click)="onSubmit()"
+              class="submit-button"
+            >
+              Submit
+            </button>
+          </mat-dialog-actions>
       </form>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end" class="dialog-actions">
-      <button mat-button (click)="onCancel()" class="cancel-button">
-        Cancel
-      </button>
-      <button
-        mat-button
-        color="primary"
-        (click)="onSubmit()"
-        class="submit-button"
-      >
-        Submit
-      </button>
-    </mat-dialog-actions>
+   
   `,
   standalone: true,
   styles: `/* Styling the dialog title */
