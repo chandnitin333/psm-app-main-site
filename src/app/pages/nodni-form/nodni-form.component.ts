@@ -808,6 +808,7 @@ resetSelection() {
       this.getKhulaBhukhandList();
       this.getManoraKarAakaraniList();
       this.nodaniForm.reset();
+      this.getOtherTaxCalculationApi();
     }
     async reset_tables(api_url:any, params:any) {
       this.NodaniService.resetTableApis(api_url,params).subscribe({
