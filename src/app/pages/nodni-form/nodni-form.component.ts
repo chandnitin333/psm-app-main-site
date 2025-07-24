@@ -1218,8 +1218,8 @@ resetSelection() {
             // console.log('inside', res);
             this.toastr.success(res.message, 'Success');
             // this.loginSuccess = false;
-           this.router.navigate(['/nodni-form']);
-           this.reset();
+            this.router.navigate(['/nodni-form']);
+            window.location.reload();
           } else {
             this.toastr.warning(res.message, 'Warning');
           }
