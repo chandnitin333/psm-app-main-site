@@ -144,8 +144,9 @@ ngOnInit(){
     this.edit_nodni_form(this.from_edit);
   }
 
-  console.log("is_edit==",this.is_edit);
-  console.log("this.from_edit==",this.from_edit);
+  // console.log("is_edit==",this.is_edit);
+  // console.log("this.from_edit==",this.from_edit);
+  // console.log("Nodni form onload")
 }
 resetSelection() {
   this.nodaniForm.get('vanijya_prakar_radio')?.setValue('');
@@ -1218,8 +1219,8 @@ resetSelection() {
             // console.log('inside', res);
             this.toastr.success(res.message, 'Success');
             // this.loginSuccess = false;
-            this.router.navigate(['/nodni-form']);
-            window.location.reload();
+            this.router.navigate(['/customer']);
+            // window.location.reload();
           } else {
             this.toastr.warning(res.message, 'Warning');
           }
