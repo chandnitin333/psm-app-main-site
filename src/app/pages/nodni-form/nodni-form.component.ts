@@ -1219,6 +1219,7 @@ resetSelection() {
             this.toastr.success(res.message, 'Success');
             // this.loginSuccess = false;
            this.router.navigate(['/nodni-form']);
+           this.reset();
           } else {
             this.toastr.warning(res.message, 'Warning');
           }
