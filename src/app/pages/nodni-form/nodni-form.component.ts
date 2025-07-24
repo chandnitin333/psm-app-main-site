@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ToastrService } from 'ngx-toastr';
 import { LayoutModule } from '../../components/layout/layout.module';
@@ -113,7 +113,8 @@ constructor(
     private toastr: ToastrService,
     private NodaniService: NodaniService,
     private util: Util,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 // readonly panelOpenState = signal(false);
 ngOnInit(){
@@ -1217,7 +1218,7 @@ resetSelection() {
             // console.log('inside', res);
             this.toastr.success(res.message, 'Success');
             // this.loginSuccess = false;
-            window.location.reload();
+           this.router.navigate(['/nodni-form']);
           } else {
             this.toastr.warning(res.message, 'Warning');
           }
