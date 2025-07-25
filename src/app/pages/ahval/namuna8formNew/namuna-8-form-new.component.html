@@ -25,7 +25,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
-                <mat-select name="ward_number">
+                <mat-select name="year_from">
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>
@@ -40,7 +40,7 @@
                     <mat-option value="2024">2024</mat-option>
                     <mat-option value="2025">2025</mat-option>
                 </mat-select> -->
-                <mat-select name="ward_number">
+                <mat-select name="year_to">
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>

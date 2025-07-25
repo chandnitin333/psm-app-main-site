@@ -50,4 +50,10 @@ export class CustomerService {
     return this.api.get(`get-namuna-8-sarkari/${new_user_id}`);
   }
 
+
+  // ---------------------------------- tax generation apis----------------------------
+  getTaxGenerationRecords(params: any) {
+    return this.api.post(`get-tax-generation`, params);
+  }
+
 }
