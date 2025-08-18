@@ -54,5 +54,6 @@ export const routes: Routes = [
     {path: 'ward-wise-toilet-list', loadComponent: () => import('./pages/ahval/toilet-yadi/ward-wise-toilet-list/ward-wise-toilet-list.component').then(m => m.WardWiseToiletListComponent)},
 
     {path: 'malmatta-darkahchi-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent)},
+    {path: 'namuna-10-kar-vasuli', loadComponent: () => import('./pages/customer-vasuli/namuna-10-vasuli/namuna-10-vasuli.component').then(m => m.Namuna10VasuliComponent)},
 
 ];

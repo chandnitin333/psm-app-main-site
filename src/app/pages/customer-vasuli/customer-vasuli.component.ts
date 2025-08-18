@@ -132,9 +132,6 @@ export class CustomerVasuliComponent {
         }
     });
   }
-  onPreview(element: any) {
-    console.log('onPreview', element);
-  }
 
   setPageData(event: PageEvent): void {
     const startIndex = event.pageIndex * event.pageSize;
@@ -258,5 +255,9 @@ export class CustomerVasuliComponent {
         console.log('Login dialog was closed without submission');
       }
     });
+  }
+  onPreview(element: any) {
+    console.log('onPreview', element);
+    this.router.navigate(['/namuna-10-kar-vasuli'], { state: { name: 'Namuna 10 vasuli', value: element.VASULI_ID } });
   }
 }

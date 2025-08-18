@@ -169,20 +169,7 @@ export class VasuliComponent {
     }
 
     SaveCustomerVasuli() {
-      // console.log("kundan", this.customerVasuliForm.value)
       const formValue = this.customerVasuliForm.value;
-      // if (formValue.ghruh_date) {
-      //   const ghruhDate = new Date(formValue.ghruh_date);
-      //   if (!isNaN(ghruhDate.getTime())) {
-      //     formValue.ghruh_date = this.formatDate(ghruhDate) as unknown as Date; // Cast to Date type
-      //   }
-      // }
-      // if (formValue.pavti_date) {
-      //   const pavtiDate = new Date(formValue.pavti_date);
-      //   if (!isNaN(pavtiDate.getTime())) {
-      //     formValue.pavti_date = this.formatDate(pavtiDate) as unknown as Date; // Cast to Date type
-      //   }
-      // }
       
       let params = {
         user_id: this.userDetails.userId,
@@ -271,7 +258,6 @@ export class VasuliComponent {
               newuser_id: data[0].NEWUSER_ID,
               year_id: Number(data[0].YEAR_ID),
               year_id1: data[0].YEAR_ID1,
-              // year_id2: data[0].YEAR_ID1,
               anu_kramank: data[0].ANNU_KRAMANK,
               malmatta_number: data[0].MALMATTA_NUMBER,
               vard_number: data[0].VARD_NUMBER,
@@ -336,24 +322,11 @@ export class VasuliComponent {
       const col3Value = this.customerVasuliForm.get(element.col3)?.value || 0;
       const total = (Number(col1Value) + Number(col2Value)) - Number(col3Value);
       this.customerVasuliForm.get(element.col4)?.setValue(total);
-    
+    this.calculateSums();
    }
 
    updateCustomerVasuli(){
     const formValue = this.customerVasuliForm.value;
-      // if (formValue.ghruh_date) {
-      //   const ghruhDate = new Date(formValue.ghruh_date);
-      //   if (!isNaN(ghruhDate.getTime())) {
-      //     formValue.ghruh_date = this.formatDate(ghruhDate) as unknown as Date; // Cast to Date type
-      //   }
-      // }
-      // if (formValue.pavti_date) {
-      //   const pavtiDate = new Date(formValue.pavti_date);
-      //   if (!isNaN(pavtiDate.getTime())) {
-      //     formValue.pavti_date = this.formatDate(pavtiDate) as unknown as Date; // Cast to Date type
-      //   }
-      // }
-      // console.log(formValue);
       let params = {
         user_id: this.userDetails.userId,
         newuser_id: formValue.newuser_id,
@@ -424,4 +397,31 @@ export class VasuliComponent {
         },
       });
    }
+
+  calculateSums() {
+    const sums = {
+      col1: 0,
+      col2: 0,
+      col3: 0,
+      col4: 0
+    };
+
+    for (const detail of this.karDetails) {
+      if (detail.col1 !== 'date' && detail.label !== 'एकूण') {
+        sums.col1 += Number(this.customerVasuliForm.get(detail.col1 || '')?.value || 0);
+        sums.col2 += Number(this.customerVasuliForm.get(detail.col2 || '')?.value || 0);
+        sums.col3 += Number(this.customerVasuliForm.get(detail.col3 || '')?.value || 0);
+        sums.col4 += Number(this.customerVasuliForm.get(detail.col4 || '')?.value || 0);
+      }
+    }
+
+    // Update the last record for 'एकूण'
+    const totalDetail = this.karDetails.find(detail => detail.label === 'एकूण');
+    if (totalDetail) {
+      this.customerVasuliForm.get(totalDetail.col1 || '')?.setValue(sums.col1);
+      this.customerVasuliForm.get(totalDetail.col2 || '')?.setValue(sums.col2);
+      this.customerVasuliForm.get(totalDetail.col3 || '')?.setValue(sums.col3);
+      this.customerVasuliForm.get(totalDetail.col4 || '')?.setValue(sums.col4);
+    }
+  }
 }

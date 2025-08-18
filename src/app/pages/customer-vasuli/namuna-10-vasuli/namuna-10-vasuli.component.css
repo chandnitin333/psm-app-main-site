@@ -1,0 +1,119 @@
+table {
+    font-size: 12px;
+}
+.buttonPdf {
+    margin-left: -100px;
+}
+@media only screen and (max-width: 600px) {
+    .buttonPdf {
+        margin-left: 0px;
+    }
+}
+
+/* PRINT PAGE SETTINGS */
+@page {
+    size: A4 portrait;  /* You can change to: legal portrait */
+    margin: 20mm 25mm;  /* top-bottom | left-right */
+}
+
+.table-bordered > tbody > tr > td {
+    width: 5%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center !important;
+}
+
+.heading {
+    text-align: center;
+    font-size: 16px;
+    page-break-before: always;
+    page-break-after: avoid;
+}
+
+.font15 {
+    font-size: 12px;
+}
+
+.left {
+    float: left;
+}
+.center {
+    text-align: center;
+}
+.right {
+    float: right;
+}
+.borderDouble {
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf {
+    float: right;
+    padding: 3px 25px;
+}
+
+@media only screen and (max-width: 600px) {
+    .padding20 {
+        padding: 15px;
+    }
+    .left {
+        float: initial;
+    }
+    .center {
+        text-align: initial;
+    }
+    .right {
+        float: initial;
+    }
+}
+
+.san {
+    text-align: center;
+    font-size: 14px;
+    line-height: 0.4;
+}
+
+.padding20 {
+    padding: 20px;
+}
+
+.font15, .san, .right {
+    font-weight: bold;
+}
+
+/* AVOID BREAKING TABLES */
+table, figure {
+    page-break-inside: avoid;
+}
+
+/* PRINT CUSTOMIZATION */
+@media print {
+    .heading {
+        padding-top: 120px !important;
+    }
+    .table-bordered > thead > tr > th, .font15 {
+        font-size: 10pt;
+    }
+    .table-bordered > tbody > tr > td {
+        font-size: 10pt;
+        padding: 7px 3px !important;
+    }
+    .table-content {
+        margin-top: 120px;
+    }
+    .font15, .padding20 {
+        font-weight: bold;
+        font-size: medium;
+    }
+    .center.tahsil { 
+        text-align: unset; 
+        margin-left: 40% !important;
+    }
+    .font15.right, .table {
+        margin-top: -17pt !important;
+    }
+}
