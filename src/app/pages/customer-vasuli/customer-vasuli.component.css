@@ -4,12 +4,22 @@
   background-color: #fff;
 }
 
-.title {
+/* .title {
   font-size: 20px;
   color: white;
   background-color: #214162;
   padding: 10px;
   text-align: center;
+} */
+.title {
+  font-size: 20px;
+  color: white;
+  background-color: #214162;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center align the title text */
+  position: relative;
 }
 
 .form-grid {
@@ -50,3 +60,17 @@
     flex-direction: unset !important;
 } */
 
+
+.title-button {
+  position: relative !important;
+  right: 0 !important;
+  color: #fff !important;
+}
+.title-button:hover {
+  border-color: #fff !important;
+}
+
+.title-text {
+  text-align: center;
+  flex: 1; 
+}

@@ -8,8 +8,7 @@
             <input type="hidden" formControlName="user_id" name="user_id" />
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank"
-                    title="अनु. क्रमांक" />
+                <input matInput type="text" formControlName="annu_kramank" title="अनु. क्रमांक" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
@@ -17,7 +16,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="number" formControlName="ward_no" min="0"  />
+                <input matInput type="number" formControlName="ward_no" min="0" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
@@ -48,12 +47,10 @@
         </div>
 
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn"
-                style="margin-right: 10px"
+            <button mat-raised-button color="primary" class="submit-btn" style="margin-right: 10px"
                 (click)="fetchData()">Search</button>
             <button mat-raised-button color="danger" class="btn-danger"
-                style="background-color: rgb(207, 58, 58); color:#fff"
-                (click)="resetData()">Reset</button>
+                style="background-color: rgb(207, 58, 58); color:#fff" (click)="resetData()">Reset</button>
         </div>
     </form>
     <div class="table-responsive mt-4">
@@ -71,6 +68,3 @@
 
     </div>
 </mat-card>
-
-
-

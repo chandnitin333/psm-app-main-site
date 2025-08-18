@@ -56,4 +56,24 @@ export class CustomerService {
     return this.api.post(`get-tax-generation`, params);
   }
 
+  // ------------------customer Vasuli -------------------
+  fetchCustomersVasuliList(params: any) {
+    return this.api.post('search-customer-vasuli', params);
+  }
+  addCustomerVasuli(params: any) {
+    return this.api.post(`save-customer-vasuli`, params);
+  }
+  getVasuliByid(id: number) {
+    return this.api.get(`get-customer-vasuli-by-id/${id}`);
+  }
+
+  updateCustomerVasuli(params: any, id:any) {
+    return this.api.put(`update-customer-vasuli-by-id/${id}`, params);
+  }
+
+  deleteCustomerVasuli(id: number) {
+    return this.api.delete(`delete-customer-vasuli-by-id/${id}`);
+  }
+  
+
 }
