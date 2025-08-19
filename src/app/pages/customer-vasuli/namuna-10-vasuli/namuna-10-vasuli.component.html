@@ -30,7 +30,7 @@
 
         </div>
     </div>
-    <br>
+    
 
     <div>
 
@@ -114,7 +114,8 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td>सन {{ currentYear }} ते {{ currentYear + 1 }} करीत खाली नमूद केलेल्या रकमा कर दाखल प्राप्त झाली आहे </td>
+                                <td>सन {{ currentYear }} ते {{ currentYear + 1 }} करीत खाली नमूद केलेल्या रकमा कर दाखल
+                                    प्राप्त झाली आहे </td>
                             </tr>
                         </tbody>
                     </table>
@@ -137,78 +138,71 @@
                         <tbody>
                             <tr>
                                 <td>गृहकर व भूमीकर </td>
-                                <td>0 </td>
-                                <td>1716.96 </td>
-                                <td>1700 </td>
-                                <th>16.96 </th>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_MAGIL_KAR}}</td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_CHALU_KAR}}</td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.GHRUH_BHUMIKAR_SHILLAK_RAKKAM}} </th>
                             </tr>
                             <tr>
                                 <td>दिवाबत्ती / वीज कर </td>
-                                <td>0 </td>
-                                <td>100 </td>
-                                <td>100 </td>
-                                <th>0.00 </th>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.VIZ_DIVABATTI_SHILLAK_RAKKAM}} </th>
                             </tr>
                             <tr>
                                 <td>आरोग्य रक्षण कर </td>
-                                <td>0 </td>
-                                <td>100 </td>
-                                <td>100 </td>
-                                <th>0.00 </th>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.AAROGYA_RAKSHAN_SHILLAK_RAKKAM}} </th>
                             </tr>
                             <tr>
                                 <td> सफाई कर</td>
-                                <td>0 </td>
-                                <td>0 </td>
-                                <td> </td>
-                                <th> </th>
+                                <td>{{ namuna_10_data?.SAFAI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAFAI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAFAI_JAMMA_KELELI_RAKKAM}}</td>
+                                <th>{{ namuna_10_data?.SAFAI_SHILLAK_RAKKAM}}</th>
                             </tr>
                             <tr>
                                 <td> सामान्य पाणी कर </td>
-                                <td>0 </td>
-                                <td>0 </td>
-                                <td> </td>
-                                <th> </th>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_JAMMA_KELELI_RAKKAM}}</td>
+                                <th>{{ namuna_10_data?.SAMNAYA_PANI_SHILLAK_RAKKAM}} </th>
                             </tr>
                             <tr>
                                 <td> विशेष पाणी कर</td>
-                                <td>0 </td>
-                                <td>750 </td>
-                                <td>00 </td>
-                                <th>750.00 </th>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.VISHESH_PANI_SHILLAK_RAKKAM}} </th>
                             </tr>
                             <tr>
                                 <td>एकूण रक्कम</td>
-                                <td>0 </td>
-                                <td>2666.96 </td>
-                                <td>1900.00 </td>
-                                <th>766.96 </th>
+                                <td>{{ namuna_10_data?.EKUN_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.EKUN_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.EKUN_SHILLAK_RAKKAM}} </th>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
-
-
-
     <div>
-        <p style="text-align: center;">भरलेली रक्कम अक्षरी :- अठराशे रुपय फक्त </p>
+        <p style="text-align: center;">भरलेली रक्कम अक्षरी :- {{ akshariRs }} </p>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <span class="left"><br><b>दिनांक :- 8/18/2025 </b></span>
+            <span class="left"><br><b>दिनांक :- {{ currentDate | date:'MM/dd/yyyy' }} </b></span>
         </div>
         <div class="col-md-4 center">
             <span class="font15 "> </span>
         </div>
         <div class="col-md-4">
-            <span class="right"><b><br>प्राप्त करता ग्रामपंचायत कार्यालय <br>सही व शिक्का </b></span>
+            <span class="right" style=""><b><br>प्राप्त करता ग्रामपंचायत कार्यालय सही व शिक्का </b></span>
         </div>
     </div>
     <br><br>

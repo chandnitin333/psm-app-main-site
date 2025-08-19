@@ -232,10 +232,69 @@ export class Util {
         }
         return true;
     }
+    
+
+}
+export default Util;
+// utils.ts
+export function numberToMarathiWords(num: number): string {
+  if (num === 0) return "शून्य रुपये फक्त";
+
+  const ones: { [key: number]: string } = {
+    1: "एक", 2: "दोन", 3: "तीन", 4: "चार", 5: "पाच",
+    6: "सहा", 7: "सात", 8: "आठ", 9: "नऊ", 10: "दहा",
+    11: "अकरा", 12: "बारा", 13: "तेरा", 14: "चौदा",
+    15: "पंधरा", 16: "सोळा", 17: "सतरा", 18: "अठरा", 19: "एकोणीस"
+  };
+
+  const tens: { [key: number]: string } = {
+    20: "वीस", 30: "तीस", 40: "चाळीस", 50: "पन्नास",
+    60: "साठ", 70: "सत्तर", 80: "ऐंशी", 90: "नव्वद"
+  };
+
+  const scales = ["", "हजार", "लाख", "कोटी"];
+
+  function twoDigitToWords(n: number): string {
+    if (n === 0) return "";
+    if (n < 20) return ones[n];
+    const t = Math.floor(n / 10) * 10;
+    const o = n % 10;
+    return tens[t] + (o ? " " + ones[o] : "");
+  }
+
+  function threeDigitToWords(n: number): string {
+    let str = "";
+    const hundreds = Math.floor(n / 100);
+    const remainder = n % 100;
+    if (hundreds > 0) str += (ones[hundreds] || "") + "शे ";
+    if (remainder > 0) str += twoDigitToWords(remainder);
+    return str.trim();
+  }
+
+  let parts: number[] = [];
+  parts.push(num % 1000);
+  num = Math.floor(num / 1000);
+
+  while (num > 0) {
+    parts.push(num % 100);
+    num = Math.floor(num / 100);
+  }
+
+  let words = "";
+  for (let i = parts.length - 1; i >= 0; i--) {
+    if (parts[i] !== 0) {
+      if (i === 0) {
+        words += threeDigitToWords(parts[i]) + " ";
+      } else {
+        words += twoDigitToWords(parts[i]) + " " + scales[i] + " ";
+      }
+    }
+  }
+
+  return words.trim() + " रुपये फक्त";
 }
 
 
 
 
 
-export default Util;

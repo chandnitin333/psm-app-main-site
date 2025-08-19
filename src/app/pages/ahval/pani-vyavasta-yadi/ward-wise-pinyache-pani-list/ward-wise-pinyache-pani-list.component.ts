@@ -50,9 +50,11 @@ get_adhar_ward_wise_list(){
 
           const options = {
             filename: fileName,
-            html2canvas: {},
-            jsPDF: { orientation: 'landscape' },
-            avoidPageBreak: true
+            margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
           };
 
           html2pdf()
@@ -70,11 +72,13 @@ get_adhar_ward_wise_list(){
       const fileName = `पाणी_व्यवस्था_यादी_${currentDate}.pdf`;
 
       // Generate PDF and open in a new browser tab
-      const options = {
+     const options = {
         filename: fileName,
-        html2canvas: {},
-        jsPDF: { orientation: 'landscape' }, // Set orientation to 'landscape'
-        avoidPageBreak: true // Avoid page breaks
+        margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       html2pdf()

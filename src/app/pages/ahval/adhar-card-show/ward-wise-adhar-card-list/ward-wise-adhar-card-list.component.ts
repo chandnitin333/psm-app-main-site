@@ -43,58 +43,111 @@ get_adhar_ward_wise_list(){
     }
 
   downloadPDF() {
-        const element = document.getElementById('contentToExport');
-        if (element) {
-          const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
+  const element = document.getElementById('contentToExport');
+  if (element) {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
 
-          const options = {
-            filename: fileName,
-            html2canvas: {},
-            jsPDF: { orientation: 'landscape' },
-            avoidPageBreak: true
-          };
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
 
-          html2pdf()
-            .set(options)
-            .from(element)
-            .toPdf()
-            .save(); // Save the PDF directly
-        }
-      }
- 
-  downloadAndPreviewPDF() {
-    const element = document.getElementById('contentToExport');
-    if (element) {
-      const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
+    const options = {
+      filename: fileName,
+      margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
 
-      // Generate PDF and open in a new browser tab
-      const options = {
-        filename: fileName,
-        html2canvas: {},
-        jsPDF: { orientation: 'landscape' }, // Set orientation to 'landscape'
-        avoidPageBreak: true // Avoid page breaks
-      };
-
-      html2pdf()
-        .set(options)
-        .from(element)
-        .toPdf()
-        .get('pdf')
-        .then((pdf: any) => {
-          const blob = pdf.output('blob'); // Get the PDF as a blob
-          const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
-
-          // Open the blob URL in a new tab
-          const previewWindow = window.open(blobURL, '_blank');
-
-          // Add a delay before attempting to print
-          setTimeout(() => {
-            // Attempt to automatically open the print dialog
-            previewWindow?.print();
-          }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
-        });
-    }
+    html2pdf()
+      .set(options)
+      .from(element)
+      .save();
   }
+}
+
+ 
+  // downloadAndPreviewPDF1() {
+  //   const element = document.getElementById('contentToExport');
+  //   if (element) {
+  //     const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  //     const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
+
+  //     // Generate PDF and open in a new browser tab
+  //     const options = {
+  //       filename: fileName,
+  //       html2canvas: {},
+  //       jsPDF: { orientation: 'landscape' }, // Set orientation to 'landscape'
+  //       avoidPageBreak: true // Avoid page breaks
+  //     };
+
+  //     html2pdf()
+  //       .set(options)
+  //       .from(element)
+  //       .toPdf()
+  //       .get('pdf')
+  //       .then((pdf: any) => {
+  //         const blob = pdf.output('blob'); // Get the PDF as a blob
+  //         const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+
+  //         // Open the blob URL in a new tab
+  //         const previewWindow = window.open(blobURL, '_blank');
+
+  //         // Add a delay before attempting to print
+  //         setTimeout(() => {
+  //           // Attempt to automatically open the print dialog
+  //           previewWindow?.print();
+  //         }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
+  //       });
+  //   }
+  // }
+  downloadAndPreviewPDF() {
+  const element = document.getElementById('contentToExport');
+  if (element) {
+    const currentDate = new Date().toLocaleString('en-US', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit' 
+    });
+    const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
+
+    // Generate PDF and open in a new browser tab
+    const options = {
+      filename: fileName,
+      margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf()
+      .set(options)
+      .from(element)
+      .toPdf()
+      .get('pdf')
+      .then((pdf: any) => {
+        const blob = pdf.output('blob'); // Get the PDF as a blob
+        const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+
+        // Open the blob URL in a new tab
+        const previewWindow = window.open(blobURL, '_blank');
+
+        // Add a delay before attempting to print
+        setTimeout(() => {
+          previewWindow?.print();
+        }, 700); // delay to ensure the PDF is fully loaded
+      });
+  }
+}
+
 }

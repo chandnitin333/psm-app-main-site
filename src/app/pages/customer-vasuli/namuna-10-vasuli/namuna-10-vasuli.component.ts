@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { CustomerService } from '../../../services/customer.service';
 import { ApiService } from '../../../services/api.service';
+import {numberToMarathiWords} from '../../../utils/utils';
 
 @Component({
   selector: 'app-namuna-10-vasuli',
@@ -16,7 +17,9 @@ export class Namuna10VasuliComponent {
 receivedData: any;
 namuna_10_data: any;
 userDetails: any = [];
+akshariRs:string = '';
 currentYear: number = new Date().getFullYear();
+currentDate: Date = new Date();
 
   constructor(private router: Router, private customerService: CustomerService,private apiService: ApiService,) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
@@ -26,13 +29,16 @@ currentYear: number = new Date().getFullYear();
 ngOnInit() {
   this.userDetails = this.apiService.getDecodedToken();
   this.get_namuna_10_vasuli_data();
-  console.log('userDetails', this.userDetails);
+  console.log('userDetails total', this.namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM);
+
+  
 }
 get_namuna_10_vasuli_data(){
   this.customerService.getVasuliByid(this.receivedData.value).subscribe({
     next: (res: any) => {
       this.namuna_10_data = res.data[0];
       console.log('Namuna 10 Data:', this.namuna_10_data);
+      this.akshariRs = numberToMarathiWords(this.namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM)
     },
     error: (err: Error) => {
       console.error('Error getting for namuna 10 Vasuli:', err);
