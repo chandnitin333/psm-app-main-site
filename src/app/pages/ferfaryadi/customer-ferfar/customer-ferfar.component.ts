@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { LayoutModule } from '../../../components/layout/layout.module';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { DateFormatDirective } from '../../../directive/date-format.directive';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
-import { AdharListService } from '../../../services/adhar-list.service';
-import { CustomerService } from '../../../services/customer.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LayoutModule } from '../../../components/layout/layout.module';
+import { DateFormatDirective } from '../../../directive/date-format.directive';
+import { AdharListService } from '../../../services/adhar-list.service';
 import { ApiService } from '../../../services/api.service';
+import { CustomerService } from '../../../services/customer.service';
 
 @Component({
   selector: 'app-customer-ferfar',
@@ -263,7 +263,6 @@ ngOnInit(): void {
         }
         this.customerService.fetchDataAnuNo_wardNo(params).subscribe({
           next: (res: any) => {
-            // console.log('res------------', res);
             if (res?.status === 200) {
               const data = res?.data;
               
