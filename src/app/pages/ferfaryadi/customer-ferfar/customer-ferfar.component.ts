@@ -265,7 +265,6 @@ ngOnInit(): void {
           next: (res: any) => {
             if (res?.status === 200) {
               const data = res?.data;
-              
               this.addCustomerFerfar.patchValue({
                 newuser_id: data[0].NEWUSER_ID,
                 anu_kramak: data[0].ANNU_KRAMANK,
