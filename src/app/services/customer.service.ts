@@ -74,6 +74,36 @@ export class CustomerService {
   deleteCustomerVasuli(id: number) {
     return this.api.delete(`delete-customer-vasuli-by-id/${id}`);
   }
-  
 
+  // ------------------ फेरफार यादी (Ferfar Yadi) ------------------
+  fetchFerfarYadiList(params: any) {
+    return this.api.post('search-ferfar-yadi', params);
+  }
+  getFerfarNamunaYadiDDL() {
+    return this.api.get('ferfar-namuna-yadi-ddl');
+  }
+  getGrampanchaytDDL() {
+    return this.api.get('ferfar-panchayat-list-ddl');
+  }
+   addFerfarYadi(params: any) {
+    return this.api.post(`add-new-ferfar-yadi`, params);
+  }
+   getFerfarByid(id: number) {
+    return this.api.get(`get-ferfar-yadi-by-id/${id}`);
+  }
+  updateFerfar(params: any, id:any) {
+    return this.api.put(`update-ferfar-yadi-by-id/${id}`, params);
+  }
+  deleteCustomerFerfar(param: any, id: number) {
+    return this.api.put(`delete-ferfar-yadi-by-id/${id}`, param);
+  }
+  fetchDataAnuNo_wardNo(params: any) {
+    return this.api.post(`get-customer-by-annu-id-ward-no`, params);
+  }
+  fetchMagilKarData(params: any) {
+    return this.api.post(`get-magil-kar-data`, params);
+  }
+  fetchChaluKarData(params: any) {
+    return this.api.post(`get-chalu-kar-data`, params);
+  }
 }

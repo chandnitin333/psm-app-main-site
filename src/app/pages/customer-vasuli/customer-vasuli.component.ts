@@ -95,7 +95,7 @@ export class CustomerVasuliComponent {
 
    onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
-    // this.fetchData();
+    this.fetchData();
   }
  onEdit(element: any) {
     const status = 'edit';

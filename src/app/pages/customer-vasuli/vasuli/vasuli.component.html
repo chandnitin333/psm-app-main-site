@@ -11,7 +11,7 @@
         <div class="form-row">
             <mat-form-field appearance="outline">
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
-                <mat-select formControlName="year_id">
+                <mat-select formControlName="year_id"> 
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>
@@ -34,7 +34,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" formControlName="vard_number" />
+                <input matInput type="text" formControlName="vard_number" (change)="fetCustomerData()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>

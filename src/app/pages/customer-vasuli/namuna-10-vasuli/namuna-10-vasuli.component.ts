@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { CustomerService } from '../../../services/customer.service';
 import { ApiService } from '../../../services/api.service';
-import {numberToMarathiWords} from '../../../utils/utils';
+import { numberToMarathiWords } from '../../../utils/utils';
 
 @Component({
   selector: 'app-namuna-10-vasuli',

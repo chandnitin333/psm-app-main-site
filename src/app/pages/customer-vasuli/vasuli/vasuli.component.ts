@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
 import Util from '../../../utils/utils';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vasuli',
@@ -24,6 +25,7 @@ export class VasuliComponent {
   userDetails: any = [];
   yearOptions: { YEAR_ID: string; YEAR_NAME: string }[] = [];
   from_edit: number | undefined;
+  currentYear = new Date().getFullYear();
 
     customerVasuliForm = new FormGroup({
       user_id: new FormControl<number | null>(null),
@@ -78,6 +80,7 @@ export class VasuliComponent {
       ekun_chalu_kar: new FormControl<number | null>(null),
       ekun_jamma_rakkam: new FormControl<number | null>(null),
       ekun_shillak_rakkam: new FormControl<number | null>(null),
+      RNO: new FormControl<number | null>(null),
     });
     dailyKarVasuliYadi = [
             { label: 'खातेधारकाचे नाव', name: 'homeuser_name' },
@@ -136,6 +139,7 @@ export class VasuliComponent {
         console.log('res', res);
          this.yearOptions = res?.data;
         //  console.log('yearOptions', this.yearOptions);
+        
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -424,4 +428,156 @@ export class VasuliComponent {
       this.customerVasuliForm.get(totalDetail.col4 || '')?.setValue(sums.col4);
     }
   }
+  fetCustomerData(){
+      
+          const params = {
+            ward_no: this.customerVasuliForm.value.vard_number,
+            annu_no: this.customerVasuliForm.value.anu_kramank,
+            user_id: this.userDetails.userId,
+          }
+          this.customerService.fetchDataAnuNo_wardNo(params).subscribe({
+            next: (res: any) => {
+              if (res?.status === 200) {
+                const data = res?.data;
+                // console.log('res------------>>>>>', data);
+                    this.customerVasuliForm.patchValue({
+                      newuser_id: data[0].NEWUSER_ID,
+                      anu_kramank: data[0].ANNU_KRAMANK,
+                      malmatta_number: data[0].MALMATTA_NUMBER,
+                      vard_number: data[0].VARD_NUMBER,
+                      plot_no: data[0].PLOT_NO,
+                      khasara_kramank: data[0].KHASARA_KRAMANK,
+                      survey_kramank: data[0].SURVEY_KRAMANK,
+                      homeuser_name: data[0].HOMEUSER_NAME,
+                      bhogatwar_name: data[0].BHOGATWARGARACHE_NAME,
+                      address: data[0].ADDRESS_NAGAR_SOCIETY,
+                      year_id: Number(data[0].YEARS_ID)-1,
+                      RNO: data[0].RNO
+                    });
+                    this.customerVasuliForm.get('year_id')?.valueChanges.pipe(
+                      debounceTime(1000) // Add debounce time here
+                    ).subscribe((selectedYearId) => {
+                      if (selectedYearId !== null && selectedYearId !== undefined) {
+                        this.setNextYear(Number(selectedYearId));
+                      }
+                    });
+                    this.callMaginKarAPI();
+                    this.callChaluKarAPI();
+               
+               
+              }
+            },
+          })
+      }
+
+    callMaginKarAPI(){
+      const params = {
+          rno: this.customerVasuliForm.value.RNO,
+          vard_no: this.customerVasuliForm.value.vard_number,
+          new_user_id: this.customerVasuliForm.value.newuser_id,
+          year_id: this.customerVasuliForm.value.year_id,
+          user_id: this.userDetails.userId,
+        }
+        this.customerService.fetchMagilKarData(params).subscribe({
+          next: (res: any) => {
+            if (res?.status === 200) {
+              const data = res?.data;
+              for (const detail of this.karDetails) {
+                
+                if (detail.label === 'गृहकर व भूमीकर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].BHUMI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'वीज दिवाबत्ती कर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].DIVA_BATTI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'आरोग्य रक्षण कर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].AAROGYA_RAKSHAN_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'सफाई कर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].SAFAI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'सामान्य पाणी कर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].SAMANYA_PANI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'विशेष पाणी कर') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].VISHESH_PANI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'नोटीस फी') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].NOTICE_FEES);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'इतर फी') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].ETAR_FEES);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'एकूण') {
+                  this.customerVasuliForm.get(detail.col1)?.setValue(data[0].TOTAL);
+                  this.updateCol4(detail);
+                }
+              }
+            }
+          },
+        })
+    }
+    callChaluKarAPI(){
+      const params = {
+          rno: this.customerVasuliForm.value.RNO,
+          vard_no: this.customerVasuliForm.value.vard_number,
+          new_user_id: this.customerVasuliForm.value.newuser_id,
+          year_id: this.customerVasuliForm.value.year_id,
+          user_id: this.userDetails.userId,
+        }
+        this.customerService.fetchChaluKarData(params).subscribe({
+          next: (res: any) => {
+            if (res?.status === 200) {
+              const data = res?.data;
+              for (const detail of this.karDetails) {
+                
+                if (detail.label === 'गृहकर व भूमीकर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].BHUMI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'वीज दिवाबत्ती कर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].DIVA_BATTI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'आरोग्य रक्षण कर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].AAROGYA_RAKSHAN_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'सफाई कर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].SAFAI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'सामान्य पाणी कर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].SAMANYA_PANI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'विशेष पाणी कर') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].VISHESH_PANI_KAR);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'नोटीस फी') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].NOTICE_FEES);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'इतर फी') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].ETAR_FEES);
+                  this.updateCol4(detail);
+                }
+                if (detail.label === 'एकूण') {
+                  this.customerVasuliForm.get(detail.col2)?.setValue(data[0].TOTAL);
+                  this.updateCol4(detail);
+                }
+              }
+            }
+          },
+        })
+    }
 }
