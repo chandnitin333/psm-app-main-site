@@ -19,4 +19,11 @@ export class MalmattaGrahakYadiService {
     return this.api.post(`malmatta-darkachi-yadi-list`, params);
   }
 
+   khulaBhukhandDarkachiYadi(params: any) {
+    return this.api.post(`malmatta-grahak-yadi-khula-bhukhand`, params);
+  }
+  malmatta_grahak_yadi_ghar_karni(params: any) {
+    return this.api.post(`malmatta-grahak-yadi-ghar-karni`, params);
+  }
+
 }

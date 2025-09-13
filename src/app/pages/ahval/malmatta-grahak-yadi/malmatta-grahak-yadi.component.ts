@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { AdharListService } from '../../../services/adhar-list.service';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../services/customer.service';
 
 @Component({
@@ -34,6 +34,7 @@ export class MalmattaGrahakYadiComponent {
     // console.log('Received data in SillakjodaComponent:', this.data);
   }
   ngOnInit(): void {
+      // console.log("kundan-----------------> this.malmattaGrahakYadiForm.value", this.malmattaGrahakYadiForm.value);
       this.loadWardNumber();
       this.loadYearOptions();
       // this.malmattaGrahakYadiForm.get('year')?.valueChanges.subscribe((selectedYearId) => {
@@ -41,6 +42,10 @@ export class MalmattaGrahakYadiComponent {
       //     this.setNextYear(Number(selectedYearId));
       //   }
       // });
+      sessionStorage.removeItem('malmattaForm');
+      sessionStorage.removeItem('KhulaBhukhandForm');
+      sessionStorage.removeItem('GharKarLavaychAheForm');
+      
   }
   loadYearOptions(): void {
     this.customerService.getDropdownYearsList().subscribe({
@@ -87,13 +92,17 @@ export class MalmattaGrahakYadiComponent {
     });
   }
   get_malmatta_grahak_yadi(){
+    
     if(this.malmattaGrahakYadiForm.value.yadi == "yadi"){
-      console.log('Selected option:', this.malmattaGrahakYadiForm.value.yadi);
-      this.router.navigate(['/malmatta-darkahchi-yadi-list'], { state: { value: this.malmattaGrahakYadiForm.value} });
-    } else if(this.malmattaGrahakYadiForm.value.yadi == "yadi") {
-
-    } else if(this.malmattaGrahakYadiForm.value.yadi == "yadi") {
-
+      sessionStorage.setItem('malmattaForm', btoa(JSON.stringify(this.malmattaGrahakYadiForm.value)));
+      this.router.navigate(['/malmatta-darkahchi-yadi-list']);
+    } else if(this.malmattaGrahakYadiForm.value.yadi == "khula") {
+      
+      sessionStorage.setItem('KhulaBhukhandForm', btoa(JSON.stringify(this.malmattaGrahakYadiForm.value)));
+      this.router.navigate(['/malmatta-khula-bhukhand-yadi-list']);
+    } else if(this.malmattaGrahakYadiForm.value.yadi == "ghar") {
+      sessionStorage.setItem('GharKarLavaychAheForm', btoa(JSON.stringify(this.malmattaGrahakYadiForm.value)));
+      this.router.navigate(['/ghar-kar-lavaych-ahe-list']);
     }
     // this.router.navigate(['/ward-wise-pinyache-pani-list'], { state: { value: event.value} });
   }

@@ -1,1 +1,37 @@
-<p>addview-pdf works!</p>
+<mat-card class="form-panel">
+    <mat-card-title class="title">पीडीएफ जोडा / डाउनलोड करा</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid" enctype="multipart/form-data">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">फाईल नाव</mat-label>
+                <input matInput type="text" name="file_name" id="file_name" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full form-field">
+                <mat-label>पीडीएफ अपलोड करा</mat-label>
+                <input type="file" hidden (change)="onFileSelected($event)" #fileInput name="data_file" id="data_file">
+                <input matInput placeholder="Choose file" [value]="fileName" readonly>
+                <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="submit-btn" (click)="submitPDF()">Submit</button>
+        </div>
+    </form>
+    <div class="table-responsive mt-4">
+
+        <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
+            [currentPage]="currentPage" [isEdit]="false" [isDelete]="false" [isView]="false" [isPrint]="false"
+            [isDownload]="true" [isPreview]="false" [isKar]="false"
+            (downloadEvent)="onDownload($event)"></app-mat-data-table>
+        <app-custom-pagination *ngIf="dataSource && dataSource.data.length > 0" [length]="totalItems"
+            [pageSize]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)">
+        </app-custom-pagination>
+    </div>
+    <div>
+
+    </div>
+</mat-card>

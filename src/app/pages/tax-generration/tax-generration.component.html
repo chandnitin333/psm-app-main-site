@@ -24,9 +24,6 @@
 
             <mat-form-field appearance="outline">
                 <mat-label class="text-bold">ते (To)</mat-label>
-                <!-- <mat-select [(value)]="toYearSelected" disabled>
-                    <mat-option value="2025">2025</mat-option>
-                </mat-select> -->
                 <input type="hidden" formControlName="to" readonly />
                 <input matInput type="text" formControlName="to1" readonly />
             </mat-form-field>
@@ -35,61 +32,6 @@
         </div>
     </form>
     <div class="row mt-2">
-        <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
-
-            <ng-container matColumnDef="from_year">
-                <th mat-header-cell *matHeaderCellDef> From Year </th>
-                <td mat-cell *matCellDef="let element"> {{element.from_year}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="to_year">
-                <th mat-header-cell *matHeaderCellDef> To Year </th>
-                <td mat-cell *matCellDef="let element"> {{element.to_year}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="khatedharak_name">
-                <th mat-header-cell *matHeaderCellDef> खातेधारकाचे नाव </th>
-                <td mat-cell *matCellDef="let element"> {{element.khatedharak_name}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="gruhkar_bhumikar">
-                <th mat-header-cell *matHeaderCellDef> गृहकर व भूमीकर </th>
-                <td mat-cell *matCellDef="let element"> {{element.gruhkar_bhumikar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="vij_divabatti_kar">
-                <th mat-header-cell *matHeaderCellDef> विज /दिवाबत्ती कर </th>
-                <td mat-cell *matCellDef="let element"> {{element.vij_divabatti_kar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="aarogya_rakshan_kar">
-                <th mat-header-cell *matHeaderCellDef> आरोग्य रक्षण कर </th>
-                <td mat-cell *matCellDef="let element"> {{element.aarogya_rakshan_kar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="safae_kar">
-                <th mat-header-cell *matHeaderCellDef> सफाई कर </th>
-                <td mat-cell *matCellDef="let element"> {{element.safae_kar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="samanya_pani_kar">
-                <th mat-header-cell *matHeaderCellDef> सामान्य पानी क़र </th>
-                <td mat-cell *matCellDef="let element"> {{element.samanya_pani_kar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="vises_pani_kar">
-                <th mat-header-cell *matHeaderCellDef> विशेष पाणी कर </th>
-                <td mat-cell *matCellDef="let element"> {{element.vises_pani_kar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef> एकूण </th>
-                <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table> -->
         <div class="table-responsive mt-4">
 
             <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"

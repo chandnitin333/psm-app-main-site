@@ -6,6 +6,7 @@ import { ApiService } from './api.service';
 })
 export class CustomerService {
   constructor(private api: ApiService) {}
+  
 
   fetchCustomersList(params: any) {
     return this.api.post('search-customer-in-malmatta-nodni', params);
@@ -106,4 +107,12 @@ export class CustomerService {
   fetchChaluKarData(params: any) {
     return this.api.post(`get-chalu-kar-data`, params);
   }
+  uploadPdf(params: any) {
+    return this.api.post(`add-ferfar-yadi-pdf`, params);
+  }
+  pefFerfarList(params: any) {
+    return this.api.post('pdf-ferfar-yadi', params);
+  }
+
+  
 }

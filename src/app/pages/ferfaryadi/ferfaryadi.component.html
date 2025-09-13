@@ -69,7 +69,7 @@
         <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
             [currentPage]="currentPage" [isEdit]="true" [isDelete]="true" [isView]="false" [isPrint]="false"
             [isDownload]="true" [isPreview]="false" [isKar]="false" (editEvent)="onEdit($event)"
-            (deleteEvent)="onDelete($event)" (downloadPDF)="onDownload($event)"></app-mat-data-table>
+            (deleteEvent)="onDelete($event)" (downloadEvent)="onDownload($event)"></app-mat-data-table>
         <app-custom-pagination *ngIf="dataSource && dataSource.data.length > 0" [length]="totalItems"
             [pageSize]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)">
         </app-custom-pagination>

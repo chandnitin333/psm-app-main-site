@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { MalmattaGrahakYadiService } from '../../../../services/malmatta-grahak-yadi.service';
 
@@ -17,23 +17,27 @@ export class MalmattaDharkachiYadiComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService,) {
-    this.receivedData = this.router.getCurrentNavigation()?.extras.state;
-    // this.ward_number = this.receivedData.value;
-    console.log('Namuna81Component: Received Data via Router', this.receivedData.value);
+  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute) {
+    const encoded = sessionStorage.getItem('malmattaForm');
+    if (encoded) {
+      this.receivedData = JSON.parse(atob(encoded));
+    }else{
+      this.router.navigate(['/malmatta-grahak-yadi']);
+    }
+    // console.log('Namuna81Component: Received Data via Router', this.receivedData);
   }
 
    ngOnInit() {
-      this.get_adhar_ward_wise_list();
+      this.get_malmatta_dharkachi_yadi_list();
       
 
   }
-  get_adhar_ward_wise_list(){
+  get_malmatta_dharkachi_yadi_list(){
     const param = {
-                "ward": this.receivedData.value.ward_nos,
-                "year": this.receivedData.value.year,
-                "start": this.receivedData.value.start,
-                "end": this.receivedData.value.end
+                "ward": this.receivedData.ward_nos,
+                "year": this.receivedData.year,
+                "start": this.receivedData.start,
+                "end": this.receivedData.end
             }
     this.grahakYadiService.malmattaDarkachiYadi(param).subscribe({
       next: (res: any) => {
@@ -56,41 +60,57 @@ export class MalmattaDharkachiYadiComponent {
     }
 
   downloadPDF() {
-        const element = document.getElementById('contentToExport');
-        if (element) {
-          const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_${currentDate}.pdf`;
-
-          const options = {
-            filename: fileName,
-            margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-          };
-
-          html2pdf()
-            .set(options)
-            .from(element)
-            .toPdf()
-            .save(); // Save the PDF directly
-        }
-      }
- 
-  downloadAndPreviewPDF() {
     const element = document.getElementById('contentToExport');
     if (element) {
-      const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_${currentDate}.pdf`;
+      // Apply compact table style
+      element.classList.add('pdf-export-style');
 
-      // Generate PDF and open in a new browser tab
+      const currentDate = new Date().toLocaleString('en-US', {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_मालमत्ता_धारकाची_यादी_${currentDate}.pdf`;
+
       const options = {
         filename: fileName,
-        margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+        margin: [15, 15, 15, 15],
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf()
+        .set(options)
+        .from(element)
+        .toPdf()
+        .save()
+        .then(() => {
+          // Clean up: remove the class after saving
+          element.classList.remove('pdf-export-style');
+        });
+    }
+  }
+
+ 
+    downloadAndPreviewPDF() {
+    const element = document.getElementById('contentToExport');
+    if (element) {
+      // Temporarily apply print-specific styles
+      element.classList.add('pdf-export-style');
+
+      const currentDate = new Date().toLocaleString('en-US', { 
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+      });
+      const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_मालमत्ता_धारकाची_यादी_${currentDate}.pdf`;
+
+      const options = {
+        filename: fileName,
+        margin: [15, 15, 15, 15],
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
@@ -100,17 +120,16 @@ export class MalmattaDharkachiYadiComponent {
         .toPdf()
         .get('pdf')
         .then((pdf: any) => {
-          const blob = pdf.output('blob'); // Get the PDF as a blob
-          const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+          // remove style class after export
+          element.classList.remove('pdf-export-style');
 
-          // Open the blob URL in a new tab
+          const blob = pdf.output('blob');
+          const blobURL = URL.createObjectURL(blob);
           const previewWindow = window.open(blobURL, '_blank');
 
-          // Add a delay before attempting to print
           setTimeout(() => {
-            // Attempt to automatically open the print dialog
             previewWindow?.print();
-          }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
+          }, 500);
         });
     }
   }

@@ -252,6 +252,6 @@ onPageChange(event: PageEvent): void {
   }
   onDownload(element: any) {
     console.log('onPreview', element);
-    this.router.navigate(['/namuna-10-kar-vasuli'], { state: { name: 'Namuna 10 vasuli', value: element.VASULI_ID } });
+    this.router.navigate(['/add-download-pdf-ferfar'], { state: { name: 'Namuna 10 vasuli', value: element.FERFAR_ID } });
   }
 }

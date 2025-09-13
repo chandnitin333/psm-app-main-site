@@ -28,6 +28,16 @@ export class ApiService {
       })
     );
   }
+  postFormData<T>(endpoint: string, formData: any): Observable<T> {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    return this.http
+      .post<T>(`${this.baseUrl}/${endpoint}`, formData, {
+        headers: headers,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
 
   put<T>(endpoint: string, data: any): Observable<T> {

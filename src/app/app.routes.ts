@@ -55,5 +55,9 @@ export const routes: Routes = [
 
     {path: 'malmatta-darkahchi-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent)},
     {path: 'namuna-10-kar-vasuli', loadComponent: () => import('./pages/customer-vasuli/namuna-10-vasuli/namuna-10-vasuli.component').then(m => m.Namuna10VasuliComponent)},
+    {path: 'add-download-pdf-ferfar', loadComponent: () => import('./pages/ferfaryadi/addview-pdf/addview-pdf.component').then(m => m.AddviewPdfComponent)},
+
+    {path: 'malmatta-khula-bhukhand-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-khula-bhukhand/malmatta-grahak-yadi-khula-bhukhand.component').then(m => m.MalmattaGrahakYadiKhulaBhukhandComponent)},
+    {path: 'ghar-kar-lavaych-ahe-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-ghar-kar/malmatta-grahak-yadi-ghar-kar.component').then(m => m.MalmattaGrahakYadiGharKarComponent)},
 
 ];
