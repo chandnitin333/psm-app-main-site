@@ -28,16 +28,28 @@ export class ApiService {
       })
     );
   }
-  postFormData<T>(endpoint: string, formData: any): Observable<T> {
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-    return this.http
-      .post<T>(`${this.baseUrl}/${endpoint}`, formData, {
-        headers: headers,
-      })
-      .pipe(catchError(this.handleError));
-  }
+  async postFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`${this.baseUrl}/${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // ⚠️ Do NOT set 'Content-Type'; browser handles multipart boundary
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error ${response.status}: ${errorText}`);
+        }
+
+        const data: T = await response.json();
+        return data;
+    }
+
+
 
 
   put<T>(endpoint: string, data: any): Observable<T> {
