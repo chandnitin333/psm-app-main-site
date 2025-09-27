@@ -114,8 +114,8 @@ export class CustomerService {
   fetchChaluKarData(params: any) {
     return this.api.post(`get-chalu-kar-data`, params);
   }
-  uploadPdf(params: any) {
-    return this.api.postFormData(`add-ferfar-yadi-pdf`, params);
+  uploadPdf(params: FormData) {
+    return from(this.api.postFormData(`add-ferfar-yadi-pdf`, params));
   }
   pefFerfarList(params: any) {
     return this.api.post('pdf-ferfar-yadi', params);
