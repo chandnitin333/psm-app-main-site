@@ -1,71 +1,88 @@
-import { Component, Input } from '@angular/core';
-import { LayoutModule } from '../../../components/layout/layout.module';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LayoutModule } from '../../../components/layout/layout.module';
+import { ITEM_PER_PAGE, PAZE_SIZE } from '../../../constants/common.constant';
 import { CustomPaginationComponent } from '../../../custom-pagination/custom-pagination.component';
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
-import { AdharListService } from '../../../services/adhar-list.service';
-import { Router } from '@angular/router';
-import { CustomerService } from '../../../services/customer.service';
-import { ITEM_PER_PAGE, PAZE_SIZE } from '../../../constants/common.constant';
-import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 import { ApiService } from '../../../services/api.service';
+import { CustomerService } from '../../../services/customer.service';
 
 @Component({
   selector: 'app-addview-pdf',
   standalone: true,
-  imports: [LayoutModule,ToastrModule,
+  imports: [
+    LayoutModule,
+    ToastrModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,CustomPaginationComponent,MatDataTableComponent],
+    CommonModule,
+    CustomPaginationComponent,
+    MatDataTableComponent,
+  ],
   templateUrl: './addview-pdf.component.html',
-  styleUrl: './addview-pdf.component.css'
+  styleUrl: './addview-pdf.component.css',
 })
 export class AddviewPdfComponent {
-  fileName = '';
-  
-  // formData: FormData = new FormData();
-  uploadData: any = []; 
+  fileName: string = '';
+  fileAttachName: string = '';
+
+  uploadData: any = [];
 
   currentPage: number = 1;
   @Input() totalItems!: number;
   @Input() itemsPerPage = ITEM_PER_PAGE;
   dataSource = new MatTableDataSource();
   pagedDataSource = new MatTableDataSource<any>([]);
-
+  selectedFile!: File;
+  formData: FormData = new FormData();
   displayedColumns: any = [
-      { key: '#', value: '#' },
-      { key: 'DISTRICT_NAME', value: 'ज़िला' },
-      { key: 'TALUKA_NAME', value: 'तालुका' },
-      { key: 'PANCHAYAT_NAME', value: 'ग्राम पंचायत' },
-      { key: 'FILE_NAME', value: 'नाव' },
-      { key: 'action', value: 'action'},
-    ];
+    { key: '#', value: '#' },
+    { key: 'DISTRICT_NAME', value: 'ज़िला' },
+    { key: 'TALUKA_NAME', value: 'तालुका' },
+    { key: 'PANCHAYAT_NAME', value: 'ग्राम पंचायत' },
+    { key: 'FILE_NAME', value: 'नाव' },
+    { key: 'action', value: 'action' },
+  ];
 
   uploadPdf = new FormGroup({
     file_name: new FormControl<string | null>(null),
-    uploaded_file: new FormControl<File | null>(null)
+    uploaded_file: new FormControl<File | null>(null),
   });
   receivedData: any;
-  constructor(private apiService: ApiService,  private toastr: ToastrService, private router: Router,private customerService: CustomerService,) {
-      this.receivedData = this.router.getCurrentNavigation()?.extras.state;
-      console.log('Received data in SillakjodaComponent:', this.receivedData.value);
-      if(this.receivedData === undefined || this.receivedData === null){
-        // this.toastr.error('No data received');
-        this.router.navigate(['/ferfar-yadi']); // Redirect to the previous page
-
-      }
+  constructor(
+    private apiService: ApiService,
+    private toastr: ToastrService,
+    private router: Router,
+    private customerService: CustomerService
+  ) {
+    this.receivedData = this.router.getCurrentNavigation()?.extras.state;
+    console.log(
+      'Received data in SillakjodaComponent:',
+      this.receivedData.value
+    );
+    if (this.receivedData === undefined || this.receivedData === null) {
+      // this.toastr.error('No data received');
+      this.router.navigate(['/ferfar-yadi']); // Redirect to the previous page
     }
-    ngOnInit(): void {
-      this.fetchData();
-    }
-    fetchData(): void {
-   this.customerService
+  }
+  ngOnInit(): void {
+    this.fetchData();
+  }
+  fetchData(): void {
+    this.customerService
       .pefFerfarList({
         page_number: this.currentPage,
-        ferfar_id: this.receivedData.value
+        ferfar_id: this.receivedData.value,
       })
       .subscribe({
         next: (res: any) => {
@@ -85,74 +102,68 @@ export class AddviewPdfComponent {
       });
   }
 
-    onPageChange(event: PageEvent): void {
-      this.currentPage = event.pageIndex;
-      // this.getTaxGenerationRecords();
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    // this.getTaxGenerationRecords();
+  }
+  setPageData(event: PageEvent): void {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.pagedDataSource.data = this.dataSource.data.slice(
+      startIndex,
+      endIndex
+    );
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.selectedFile = input.files[0];
+      this.fileName = this.selectedFile.name;
     }
-    setPageData(event: PageEvent): void {
-      const startIndex = event.pageIndex * event.pageSize;
-      const endIndex = startIndex + event.pageSize;
-      this.pagedDataSource.data = this.dataSource.data.slice(
-        startIndex,
-        endIndex
-      );
+  }
+
+  submitPDF() {
+    if (!this.selectedFile) {
+      this.toastr.error('Please select a PDF file');
+      return;
     }
 
+    // Create new FormData
+    // const formData = new FormData();
 
+    // Append PDF file with explicit content type
+    this.formData.append(
+      'upload_pdf',
+      this.selectedFile,
+      this.selectedFile.name
+    );
 
+    // Append other text fields
+    this.formData.append('name', this.fileAttachName || '');
+    this.formData.append(
+      'ferfar_id',
+      this.receivedData.value?.toString() || ''
+    );
 
-    onFileSelected(event: Event) {
-      const input = event.target as HTMLInputElement;
-      if (!input.files?.length) return;
+    // If you have additional fields, append them here
+    // formData.append('district_id', '1');
+    // formData.append('taluka_id', '3');
 
-      const file = input.files[0];
-      this.fileName = file.name;
-
-      // Example: send to API
-      // console.log('Selected file:', file);
-    }
-
-    submitPDF(){
-      // const formData = {
-      //   name: this.uploadPdf.get('file_name')?.value || '',
-      //   upload_pdf: 
-      //   ferfar_id: this.receivedData.value
-      // }
-
-    //   this.customerService.uploadPdf(formData).subscribe({
-    //     next: (response) => {
-    //       console.log('PDF upload response:', response);
-    //       // this.toastr.success('PDF uploaded successfully');
-    //       // Handle successful response
-    //     },
-    //     error: (error) => {
-    //       this.toastr.error('Error uploading PDF');
-    //       // Handle error response
-    //     }
-    //   });
-
-
-    const formData = new FormData();
-    const fileInput: any = document.getElementById('data_file');
-    const pdf_name: any = document.getElementById('file_name');  // Get file input
-    const file = fileInput?.files[0];
-    formData.set('upload_pdf', file);
-    formData.set('name', pdf_name.value);
-    formData.set('ferfar_id', this.receivedData.value);
-    console.log('Form Data:',formData);
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
+    // Send request
+    this.customerService.uploadPdf(this.formData).subscribe({
+      next: (res) => {
+        console.log('Upload success:', res);
+        this.toastr.success('PDF uploaded successfully');
+      },
+      error: (err) => {
+        console.error('Upload error:', err);
+        this.toastr.error('Error uploading PDF');
+      },
     });
-    // this.apiService.postFormData('add-ferfar-yadi-pdf', formData).subscribe({
-    this.customerService.uploadPdf(formData).subscribe({
-      next: (res: any) => {
-        console.log('PDF upload response===============>', res);
+  }
 
-      }
-    });
-    }
-
-  onDownload(element:any){
+  onDownload(element: any) {
     console.log('onDownload', element);
   }
   //   submitPDF() {
@@ -169,8 +180,8 @@ export class AddviewPdfComponent {
 
   //   // 👇 Proper key-value pairs
   //   formData.append("upload_pdf", file, file.name);
-  //   formData.append("name", pdfNameInput?.value || "");  
-  //   formData.append("ferfar_id", this.receivedData?.value || "");  
+  //   formData.append("name", pdfNameInput?.value || "");
+  //   formData.append("ferfar_id", this.receivedData?.value || "");
 
   //   // Debug print
   //   formData.forEach((value, key) => console.log(key, "=>", value));
@@ -184,6 +195,4 @@ export class AddviewPdfComponent {
   //     }
   //   });
   // }
-
-
 }
