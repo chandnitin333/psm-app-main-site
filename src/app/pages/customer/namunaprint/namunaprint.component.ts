@@ -34,7 +34,11 @@ export class NamunaprintComponent {
         this.router.navigate(['/namuna-9-1'], { state: { name: 'Namuna 9.1', value: this.data.NEWUSER_ID, ward_no: this.data.VARD_NUMBER } });
     } else if(event.value == 'नमुना 8 सरकारी'){
         this.router.navigate(['/namuna-8-sarkari'], { state: { name: 'Namuna 8.sarkari', value: this.data.NEWUSER_ID } });
-    }
+    } else if(event.value == 'नमुना 8 New Version'){
+        this.router.navigate(['/namuna-8-new-version-customer-page'], { state: { name: 'Namuna 8 New Version', value: this.data.NEWUSER_ID } });
+    } 
+
+    
     this.dialogRef.close();
   }
 

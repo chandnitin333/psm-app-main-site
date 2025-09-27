@@ -64,6 +64,10 @@
                             class="text-secondary">
                             <mat-icon>remove_red_eye</mat-icon>
                         </button>
+
+                        <button mat-icon-button matTooltip="Images" (click)="image(element)" *ngIf="isImage" class="text-secondary">
+                            <mat-icon>image</mat-icon>
+                        </button>
                     </td>
 
                 </ng-container>

@@ -2,11 +2,11 @@
     <mat-card-title class="title">नमुना ८</mat-card-title>
     <mat-divider></mat-divider>
 
-    <form class="form-grid">
+    <form class="form-grid" [formGroup]="namuna8Form">
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">नमुना</mat-label>
-                <mat-select>
+                <mat-select (selectionChange)="showYwarToYear($event)" formControlName="namuna">
                     <mat-option value="Namuna8anukramanika">नमुना ८- अनुक्रमणिका</mat-option>
                     <mat-option value="namuna8">नमुना ८</mat-option>
                     <mat-option value="namuna8New">नमुना ८ New</mat-option>
@@ -17,7 +17,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वार्ड नं. (Ward No)</mat-label>
-                <mat-select name="ward_number">
+                <mat-select name="ward_number" formControlName="ward_no">
                     <mat-option *ngFor="let item of wardOptions" [value]="item.label">
                         {{ item.value }}
                     </mat-option>
@@ -25,7 +25,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
-                <mat-select name="year_from">
+                <mat-select name="year_from" formControlName="year">
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>
@@ -40,25 +40,36 @@
                     <mat-option value="2024">2024</mat-option>
                     <mat-option value="2025">2025</mat-option>
                 </mat-select> -->
-                <mat-select name="year_to">
+                <mat-select name="year_to" formControlName="to">
                     <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
                         {{ year.YEAR_NAME }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field" *ngIf="yearToYear">
+                <mat-label class="text-bold">Year</mat-label>
+                <input matInput type="number" min="0" formControlName="year1" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field" *ngIf="yearToYear">
+                <mat-label class="text-bold">To Year</mat-label>
+                <input matInput type="number" min="0" formControlName="toYear1" />
+            </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">Start</mat-label>
-                <input matInput type="number" min="0" />
+                <input matInput type="number" min="0" formControlName="start" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">End</mat-label>
-                <input matInput type="number" min="0" />
+                <input matInput type="number" min="0" formControlName="end" />
             </mat-form-field>
 
         </div>
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+            <button mat-raised-button color="primary" class="submit-btn"
+                (click)="get_Namuna8()">Submit</button>
         </div>
     </form>
 </mat-card>

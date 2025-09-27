@@ -47,6 +47,8 @@ export const routes: Routes = [
     {path: 'namuna-8-1', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component)},
     {path: 'namuna-9-1', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component)},
     {path: 'namuna-8-sarkari', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent)},
+    {path: 'namuna-8-new-version-customer-page', loadComponent: () => import('./pages/customer/namuna-8-new-version-customer-page/namuna-8-new-version-customer-page.component').then(m => m.Namuna8NewVersionCustomerPageComponent)},   
+    
 
     {path: 'ward-wise-adhar-list', loadComponent: () => import('./pages/ahval/adhar-card-show/ward-wise-adhar-card-list/ward-wise-adhar-card-list.component').then(m => m.WardWiseAdharCardListComponent)},
     {path: 'ward-wise-mobile-no-list', loadComponent: () => import('./pages/ahval/mobile-number/ward-wise-mobile-no-list/ward-wise-mobile-no-list.component').then(m => m.WardWiseMobileNoListComponent)},
@@ -59,5 +61,9 @@ export const routes: Routes = [
 
     {path: 'malmatta-khula-bhukhand-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-khula-bhukhand/malmatta-grahak-yadi-khula-bhukhand.component').then(m => m.MalmattaGrahakYadiKhulaBhukhandComponent)},
     {path: 'ghar-kar-lavaych-ahe-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-ghar-kar/malmatta-grahak-yadi-ghar-kar.component').then(m => m.MalmattaGrahakYadiGharKarComponent)},
+
+    {path: 'namuna-8-anukramika-list', loadComponent: () => import('./pages/ahval/namuna8formNew/anukramika/anukramika.component').then(m => m.AnukramikaComponent) },
+    {path: 'namuna-8-ward-new-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna8ward-new/namuna8ward-new.component').then(m => m.Namuna8wardNewComponent) },
+    {path:'get-namuna-8-1-single-vard-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna81-single-ward/namuna81-single-ward.component').then(m => m.Namuna81SingleWardComponent) },
 
 ];

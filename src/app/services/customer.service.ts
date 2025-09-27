@@ -51,6 +51,13 @@ export class CustomerService {
     return this.api.get(`get-namuna-8-sarkari/${new_user_id}`);
   }
 
+  getNamuna_8_new_version_data(params: any) {
+    // return this.api.get(` get-namuna-8-1-single-vard/${new_user_id}`);
+    return this.api.post(`get-namuna-8-1-single-vard`, params);
+  }
+
+ 
+
 
   // ---------------------------------- tax generation apis----------------------------
   getTaxGenerationRecords(params: any) {

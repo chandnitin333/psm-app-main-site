@@ -21,6 +21,7 @@ import Util from '../../utils/utils';
 import { NamunaprintComponent } from './namunaprint/namunaprint.component';
 import { SillakjodaComponent } from './sillakjoda/sillakjoda.component';
 import { Router } from '@angular/router';
+import { CustomerImageUploadComponent } from './customer-image-upload/customer-image-upload.component';
 
 @Component({
   selector: 'app-customer',
@@ -400,6 +401,10 @@ export class CustomerComponent {
     // console.log('Previous Tax:', element);
     this.openModal(element);
   }
+  onImage(element: any) {
+    // console.log('Image:', element);
+    this.openModalForImageUpload(element);
+  }
 
   openModal(element:any): void {
     const dialogRef = this.dialog.open(SillakjodaComponent, {
@@ -416,6 +421,18 @@ export class CustomerComponent {
   openPrintModal(element:any): void {
     const dialogRef = this.dialog.open(NamunaprintComponent, {
       width: '400px', // Adjust size
+      data: element,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Modal Data:', result);
+      }
+    });
+  }
+  openModalForImageUpload(element:any): void {
+    const dialogRef = this.dialog.open(CustomerImageUploadComponent, {
+      width: '600px', // Adjust size
       data: element,
     });
 

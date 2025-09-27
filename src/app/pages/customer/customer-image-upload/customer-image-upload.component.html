@@ -1,0 +1,28 @@
+<form enctype="multipart/form-data">
+    <h2 mat-dialog-title class="text-center text-bold bg-color">Customer Image Upload</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="form-row mt-4">
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">खातेधारकाचे नाव</mat-label>
+                <input matInput type="text" [value]="data.HOMEUSER_NAME" readonly/>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <label class="text-bold">Image Upload</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        </div>
+        <div class="form-row">
+            <!-- <div class="col-md-4"></div> -->
+            <div *ngIf="selectedImage" class="preview-container">
+                <img [src]="selectedImage" alt="Image Preview" class="image-preview" />
+            </div>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button mat-dialog-close class="custom-red">Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+    </mat-dialog-actions>
+
+</form>

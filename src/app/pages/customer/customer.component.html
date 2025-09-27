@@ -57,10 +57,10 @@
 
         <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
             [currentPage]="currentPage" [isEdit]="true" [isDelete]="true" [isView]="false" [isPrint]="true"
-            [isDownload]="false" [isPreview]="false" [isKar]="true" (editEvent)="onEdit($event)"
+            [isDownload]="false" [isPreview]="false" [isKar]="true" [isImage]="true" (editEvent)="onEdit($event)"
             (deleteEvent)="onDelete($event)" (viewEvent)="onView($event)" (printEvent)="onPrint($event)"
             (downloadEvent)="onDownload($event)" (previewEvent)="onPreview($event)"
-            (prevTaxEvent)="onPrevTax($event)"></app-mat-data-table>
+            (prevTaxEvent)="onPrevTax($event)" (imageEvent)="onImage($event)"></app-mat-data-table>
         <app-custom-pagination [length]="totalItems" [pageSize]="itemsPerPage" [currentPage]="currentPage"
             (pageChange)="onPageChange($event)"> </app-custom-pagination>
     </div>

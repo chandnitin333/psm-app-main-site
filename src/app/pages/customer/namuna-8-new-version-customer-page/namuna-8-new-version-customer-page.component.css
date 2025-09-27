@@ -1,0 +1,202 @@
+/* 
+table{
+    font-size: 12px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 8px;
+    font-size: 13px;
+    line-height:0.5;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    padding: 3px 25px;
+}
+
+
+.san{
+	text-align: center;
+    font-size: 12px;
+	line-height: 0.4;
+}
+
+
+*/
+.nobreak {
+        page-break-inside: avoid;
+    }
+
+    .content-center {
+        text-align: center;
+        margin: auto;
+    }
+
+    .header-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .col-md-3 {
+        flex: 1;
+    }
+
+    .font15 {
+        font-size: 15px;
+    }
+
+    .right {
+        float: right;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+    }
+
+    th, td {
+        border: 1px solid #000;
+        padding: 5px;
+    }
+
+    .header-vertical-top {
+        vertical-align: top;
+    }
+
+    .header-center {
+        text-align: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        white-space: nowrap;
+        min-width: 30px;
+    }
+
+    .summary-table {
+        margin-top: 10px;
+    }
+
+    .footer-notes {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .red-text {
+        color: red;
+    }
+
+    .right{
+        float:right;
+    }
+    .font15, .san, .right{
+        font-weight: bold;
+    }
+    .buttonPdf{
+        float: right;
+        padding: 3px 25px;
+        margin-left: -100px;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        transform: rotate(360deg);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid black;
+        padding: 6px;
+        
+    }
+    h4{
+            font-size: 12px;
+        }
+    table {
+        font-size: 12px;
+    }
+
+    .buttonPdf {
+        margin-left: -100px;
+    }
+
+    .heading:second-child {
+        page-break-after: avoid;
+    }
+
+    .heading {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
+
+    table,
+    figure {
+        page-break-inside: avoid;
+    }
+
+    .table-bordered>tbody>tr>td {
+        width: 5%;
+    }
+
+
+
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  border: 1px solid #000;
+  padding: 2px 4px;        
+  font-size: 9px;        
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;   
+}
+
+.pdf-export-style .landscape-text {
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  white-space: nowrap !important;
+  min-width: 30px;
+}
+
