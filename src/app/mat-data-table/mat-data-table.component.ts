@@ -117,4 +117,9 @@ export class MatDataTableComponent {
   image(element: any) {
     this.imageEvent.emit(element);
   }
+    decodeHtmlEntities(input: string): string {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = input;
+    return txt.value;
+  }
 }
