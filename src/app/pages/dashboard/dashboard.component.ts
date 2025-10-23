@@ -52,8 +52,9 @@ export class DashboardComponent {
     try {
       this.api.post('get-user-activity', { user_id: this.users?.userId }).subscribe({
         next: (res: any) => {
-          console.log('User Activity:', res.data);
-          this.userData = res.data[0] ?? [];
+          // console.log('User Activity:', res.data);
+          this.userData = res.data ?? [];
+          console.log("this.userData----", this.userData)
           this.getMemberList();
         },
         error: (error: HttpErrorResponse) => {
