@@ -43,9 +43,9 @@ export class MatrixMenuComponent {
       { label: 'नमुना 8', icon: 'assignment',  url:'/namuna-8-form-new' },
       { label: 'नमुना 9', icon: 'assignment',  url:'/namuna-9-form-new' },
       { label: 'करांच्या मागणीचे बिल', icon: 'receipt',  url:'/magniche-bill' },
-      { label: 'करांच्या मागणीचे बिल (वार्ड)', icon: 'receipt',  url:'/magniche-bill-ward' },
+      { label: 'करांच्या मागणीचे बिल (वार्ड) New', icon: 'receipt',  url:'/magniche-bill-ward' },
       { label: 'नमुना 10', icon: 'assignment',  url:'/customer-vasuli' },
-      { label: 'इमला कर', icon: 'monetization_on',  url:'/imla-kar-form' },
+      // { label: 'इमला कर', icon: 'monetization_on',  url:'/imla-kar-form' },
       { label: 'इमला कर New', icon: 'monetization_on',  url:'/imla-kar-form-new' },
     ] },
     // { label: 'Certificate', icon: 'military_tech',  url:'', subItems:[

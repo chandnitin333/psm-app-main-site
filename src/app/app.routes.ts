@@ -65,5 +65,24 @@ export const routes: Routes = [
     {path: 'namuna-8-anukramika-list', loadComponent: () => import('./pages/ahval/namuna8formNew/anukramika/anukramika.component').then(m => m.AnukramikaComponent) },
     {path: 'namuna-8-ward-new-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna8ward-new/namuna8ward-new.component').then(m => m.Namuna8wardNewComponent) },
     {path:'get-namuna-8-1-single-vard-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna81-single-ward/namuna81-single-ward.component').then(m => m.Namuna81SingleWardComponent) },
+    {path:'get-namuna-8-images', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-images/namuna-8-images.component').then(m => m.Namuna8ImagesComponent) },
+    {path:'get-namuna-8-ghosvara', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-ghosvara/namuna-8-ghosvara.component').then(m => m.Namuna8GhosvaraComponent) },
+    {path:'get-namuna-8-sarkari-ward', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-sarkari-ward/namuna-8-sarkari-ward.component').then(m => m.Namuna8SarkariWardComponent) },
+
+    {path: 'imla-kar-list', loadComponent: () => import('./pages/ahval/imla-kar-form-new/imlakar-report/imlakar-report.component').then(m => m.ImlakarReportComponent) },
+    {path: 'imla-kar-anukramnika-list', loadComponent: () => import('./pages/ahval/imla-kar-form-new/imlakar-anukramanika/imlakar-anukramanika.component').then(m => m.ImlakarAnukramanikaComponent) },
+
+    {path: 'magniche-bill-ward-report-129-1', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-1/report-129-1.component').then(m => m.Report1291Component) },
+    {path: 'magniche-bill-ward-report-129-2', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
+
+    {path: 'namuna-9-anukramika-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-anukramnika/namuna9-anukramnika.component').then(m => m.Namuna9AnukramnikaComponent) },
+    {path: 'namuna-9-ward-new-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9/namuna9.component').then(m => m.Namuna9Component) },
+    {path: 'get-namuna-9-new', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-new/namuna9-new.component').then(m => m.Namuna9NewComponent) },
+    {path: 'get-namuna-9-ghosvara', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-ghosvara/namuna9-ghosvara.component').then(m => m.Namuna9GhosvaraComponent) },
+
+    // get-namuna-9-ghosvara
+
+
+
 
 ];

@@ -43,7 +43,8 @@ export class AddviewPdfComponent {
   @Input() itemsPerPage = ITEM_PER_PAGE;
   dataSource = new MatTableDataSource();
   pagedDataSource = new MatTableDataSource<any>([]);
-  selectedFile!: File;
+  // selectedFile!: File;
+  selectedFile: File | null = null; // allow null
   formData: FormData = new FormData();
   displayedColumns: any = [
     { key: '#', value: '#' },
@@ -104,7 +105,7 @@ export class AddviewPdfComponent {
 
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
-    // this.getTaxGenerationRecords();
+    this.fetchData();
   }
   setPageData(event: PageEvent): void {
     const startIndex = event.pageIndex * event.pageSize;
@@ -154,7 +155,9 @@ export class AddviewPdfComponent {
     this.customerService.uploadPdf(this.formData).subscribe({
       next: (res) => {
         console.log('Upload success:', res);
+        this.fetchData();
         this.toastr.success('PDF uploaded successfully');
+        this.resetForm();
       },
       error: (err) => {
         console.error('Upload error:', err);
@@ -162,37 +165,58 @@ export class AddviewPdfComponent {
       },
     });
   }
-
-  onDownload(element: any) {
-    console.log('onDownload', element);
+  resetForm() {
+    this.selectedFile = null;
+    this.fileAttachName = '';
+    this.fileName = '';
+    this.formData = new FormData();
   }
-  //   submitPDF() {
-  //   const fileInput = document.getElementById('data_file') as HTMLInputElement;
-  //   const pdfNameInput = document.getElementById('file_name') as HTMLInputElement;
 
-  //   if (!fileInput?.files?.length) {
-  //     console.error("No file selected!");
-  //     return;
-  //   }
+  // onDownload(element: any) {
+  //   // console.log('onDownload', element);
+  //   // console.log('file path', this.apiService.baseUrl + element.R_PATH);
+  //   // const fullUrl = this.apiService.baseUrl + element.R_PATH;
 
-  //   const file = fileInput.files[0];
-  //   const formData = new FormData();
+  //   // const link = document.createElement('a');
+  //   // link.href = fullUrl;
+  //   // link.target = '_blank';
+  //   // link.download = element.R_PATH.split('/').pop() || 'file.pdf';
+  //   // link.click();
+  //    const fullUrl = this.apiService.baseUrl + element.R_PATH;
 
-  //   // 👇 Proper key-value pairs
-  //   formData.append("upload_pdf", file, file.name);
-  //   formData.append("name", pdfNameInput?.value || "");
-  //   formData.append("ferfar_id", this.receivedData?.value || "");
+  //   const link = document.createElement('a');
+  //   link.href = fullUrl;
+  //   link.download = element.R_PATH.split('/').pop() || 'file.pdf';
 
-  //   // Debug print
-  //   formData.forEach((value, key) => console.log(key, "=>", value));
+  //   // Append to body to make it work in Firefox
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link); // remove the link after click
 
-  //   this.customerService.uploadPdf(formData).subscribe({
-  //     next: (res: any) => {
-  //       console.log("✅ PDF upload response:", res);
-  //     },
-  //     error: (err) => {
-  //       console.error("❌ Upload error:", err);
-  //     }
-  //   });
   // }
+  onDownload(element: any) {
+  const fullUrl = this.apiService.baseUrl + element.R_PATH;
+
+  // Fetch the file as blob
+  fetch(fullUrl, {
+    method: 'GET',
+    headers: {
+      // Add auth headers if needed
+    },
+  })
+    .then(res => res.blob())
+    .then(blob => {
+      // Create blob URL
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = element.R_PATH.split('/').pop() || 'file.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url); // cleanup
+    })
+    .catch(err => console.error('Download error:', err));
+}
+
 }

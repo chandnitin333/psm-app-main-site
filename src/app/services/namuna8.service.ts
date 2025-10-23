@@ -21,6 +21,17 @@ export class Namuna8Service {
     return this.api.post(`get-namuna-8-1-single-vard`, params);
   }
 
+  getNamuna8Images(params: any) {
+    return this.api.post(`get-namuna-8-images`, params);
+  }
+
+  getNamuna8ghosvara(params: any) {
+    return this.api.post(`get-namuna-8-ghosvara`, params);
+  }
+
+  getNamuna8sarkariWard(params: any) {
+    return this.api.post(`get-namuna-8-sarkari`, params);
+  }
 
 
 }

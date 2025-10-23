@@ -1,0 +1,240 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+
+    <div class="col-md-12">
+        <div style="break-after:page;" *ngFor="let itemRs3 of reportData?.rs3">
+            <div class="row">
+                <p class="heading">
+                    <b> नमुना ९</b>
+                    <!--	<button type="submit" class="buttonPdf" value="PDF">PDF</button>-->
+                </p>
+
+                <p class="san">सन {{ year }} - {{ end_year }} या वर्षाची आकारणी केलेल्या कराची
+                    मागणी नोंदवही</p>
+
+            </div>
+
+            <div class="row">
+                <span class="font15">वार्ड नं :- 1 </span>
+            </div>
+            <div class="row">
+
+
+                <div class="col-md-4">
+                    <span class="font15 left">ग्रामपंचायत :- {{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME}}
+                    </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15">तहसील :- {{ reportData?.newUserDataDBRs2[0]?.TALUKA_NAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right"> जिल्हा :- {{ reportData?.newUserDataDBRs2[0]?.DISTRICT_NAME}} </span>
+                </div>
+
+
+
+                <div class="pagebr">
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <tbody>
+
+
+
+                                <tr>
+                                    <th rowspan="2">अ.क्र.</th>
+                                    <th rowspan="2">खातेधारकाचे नाव</th>
+                                    <th rowspan="2">मालमत्ता क्र.</th>
+                                    <th rowspan="2">खसरा क्र.</th>
+                                    <th rowspan="2">सर्वे क्र.</th>
+                                    <th rowspan="2">प्लॉट क्र / भुखंड क्र</th>
+                                    <th rowspan="2" style="width:2%;">करांचे नाव</th>
+                                    <th colspan="2">मागणी</th>
+                                    <th rowspan="2">एकूण</th>
+                                    <th rowspan="2">पावती क्र.</th>
+                                    <th rowspan="2" style="width:2%;">करांचे नाव</th>
+                                    <th colspan="2">वसुली</th>
+                                    <th rowspan="2">एकूण</th>
+                                    <th rowspan="2">बाकी</th>
+                                </tr>
+
+                                <tr>
+                                    <td>मागील</td>
+                                    <td>चालू</td>
+                                    <td>मागील</td>
+                                    <td>चालू</td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td rowspan="12">{{ itemRs3?.newUserDataRs3[0]?.ANNU_KRAMANK }}</td>
+                                    <td rowspan="6">{{ itemRs3?.newUserDataRs3[0]?.HOMEUSER_NAME }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.MALMATTA_NUMBER }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.KHASARA_KRAMANK }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.SURVEY_KRAMANK }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.PLOT_NO }}</td>
+
+                                    <td>गृहकर व भूमीकर</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.bhumi }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.BHUMIKAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.b }}</td>
+
+                                    <td rowspan="7">&nbsp;</td>
+                                    <td>गृहकर व भूमीकर</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" colspan="4">{{ itemRs3?.newUserDataRs3[0]?.ADDRESS_NAGAR_SOCIETY }}
+                                    </td>
+                                    <td>दिवाबत्ती/वीज कर</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.diva }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.VIZ_DIVVABATTIKAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.d }}</td>
+                                    <td> दिवाबत्ती/वीज कर </td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+
+                                <tr>
+                                    <td>आरोग्य रक्षण कर </td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.aarogya }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.AAROGYA_RAKSHAN_KAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.e }}</td>
+                                    <td>आरोग्य रक्षण कर</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+
+
+                                    <td>सफाई कर</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.safai }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.SAFAI_KAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.f }}</td>
+                                    <td>सफाई कर</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+
+                                <tr>
+                                    <td>५% सूट (-) </td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.less }}</td>
+                                    <td>0</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.ls }}</td>
+                                    <td>५% सूट (-)</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>५% दंड (+)</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.magilnewpl }}</td>
+                                    <td>0</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.totalnewpl }}</td>
+                                    <td>५% दंड (+)</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="1" colspan="1">भोगवटदाराचे नाव</td>
+                                    <td rowspan="1" colspan="4">मिलकत प्रकार</td>
+                                    <td><b>एकूण </b></td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.s }}</b></td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.a }}</b></td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.j }}</b></td>
+                                    <td><b>एकूण </b></td>
+                                    <td><b>&nbsp;</b></td>
+                                    <td><b>&nbsp;</b></td>
+                                    <td><b>&nbsp;</b></td>
+                                    <td><b>&nbsp;</b></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" colspan="1">{{ itemRs3?.newUserDataRs3[0]?.BHOGATWARGARACHE_NAME }}
+                                    </td>
+                                    <td rowspan="5" colspan="4">{{ itemRs3?.newUserDataRs3[0]?.MILKAR_PRAKAR }}</td>
+                                    <td>सामान्य पाणी कर</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.samanya }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.SAMANYA_PANI_KAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.g }}</td>
+                                    <td rowspan="5">&nbsp;</td>
+                                    <td>सामान्य पाणी कर</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>विशेष पाणी कर</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.vishesh }}</td>
+                                    <td>{{ itemRs3?.newUserDataRs3[0]?.VISHESH_PANI_KAR }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.h }}</td>
+                                    <td>विशेष पाणी कर</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>इत्तर फी</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.etar }} </td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.etar }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.n }}</td>
+                                    <td>इत्तर फी</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>नोटीस फी</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.notice }} </td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.notice }}</td>
+                                    <td>{{ itemRs3?.rs4Data[0]?.alphabets?.o }}</td>
+                                    <td>नोटीस फी</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+
+                                <tr style="font-weight:bold;">
+                                    <td>एकूण मागणी </td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.k }}</b></td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.l }}</b></td>
+                                    <td><b>{{ itemRs3?.rs4Data[0]?.alphabets?.m }}</b></td>
+                                    <td>एकूण मागणी </td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+                <br>
+                <br>
+            </div>
+
+        </div>
+
+
+    </div>

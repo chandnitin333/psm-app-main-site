@@ -28,9 +28,9 @@ export class Namuna8FormNewComponent {
     ward_no: new FormControl<string | null>(null),
     year: new FormControl<string | null>(null),
     to: new FormControl<string | null>(null),
-    // to1: new FormControl<string | null>(null),
-    year1: new FormControl<number | null>(null),
-    toYear1: new FormControl<number | null>(null),
+    to1: new FormControl<string | null>(null),
+    year1: new FormControl<string | null>(null),
+    toYear1: new FormControl<string | null>(null),
     start: new FormControl<number | null>(null),
     end: new FormControl<number | null>(null),
   });
@@ -42,17 +42,38 @@ export class Namuna8FormNewComponent {
   ngOnInit(): void {
       this.loadWardNumber();
       this.loadYearOptions();
-      // this.malmattaGrahakYadiForm.get('year')?.valueChanges.subscribe((selectedYearId) => {
-      //   if (selectedYearId !== null && selectedYearId !== undefined) {
-      //     this.setNextYear(Number(selectedYearId));
-      //   }
-      // });
+      this.namuna8Form.get('year')?.valueChanges.subscribe((selectedYearId) => {
+        if (selectedYearId !== null && selectedYearId !== undefined) {
+          this.setNextYear(Number(selectedYearId));
+        }
+      });
 
       sessionStorage.removeItem('Namuna8anukramanikaForm');
       sessionStorage.removeItem('namuna8wardNewForm');
       sessionStorage.removeItem('namuna81SingleWardForm');
-      
+      sessionStorage.removeItem('namuna8imgaesform');
+      sessionStorage.removeItem('namuna8ghosvara');
+      sessionStorage.removeItem('namuna8sarkari');
   }
+    setNextYear(selectedYearId: number): void {
+      const selectedIndex = this.yearOptions.findIndex((year) => Number(year.YEAR_ID) === Number(selectedYearId));
+
+      if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
+        const nextYear = this.yearOptions[selectedIndex + 1];
+        const nextYear_2 = this.yearOptions[selectedIndex + 2];
+        const nextYear_3 = this.yearOptions[selectedIndex + 3];
+        this.namuna8Form.get('to')?.setValue(nextYear.YEAR_ID); // No error now
+        this.namuna8Form.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
+        this.namuna8Form.get('year1')?.setValue(nextYear_2.YEAR_NAME);
+        this.namuna8Form.get('toYear1')?.setValue(nextYear_3.YEAR_NAME);
+
+      } else {
+        this.namuna8Form.get('to')?.setValue(null); // Handle no next year gracefully
+        this.namuna8Form.get('to1')?.setValue(null); // Handle no next year gracefully
+        this.namuna8Form.get('year1')?.setValue(null);
+        this.namuna8Form.get('toYear1')?.setValue(null);
+      }
+    }
 
   loadWardNumber(): void {
     this.adharListService.getWardNumberList().subscribe({
@@ -105,6 +126,17 @@ export class Namuna8FormNewComponent {
     } else if(this.namuna8Form.value.namuna == "namuna8New") {
       sessionStorage.setItem('namuna81SingleWardForm', btoa(JSON.stringify(this.namuna8Form.value)));
       this.router.navigate(['/get-namuna-8-1-single-vard-list']);
-    }
+    } else if(this.namuna8Form.value.namuna == "namuna8i") {
+      sessionStorage.setItem('namuna8imgaesform', btoa(JSON.stringify(this.namuna8Form.value)));
+      this.router.navigate(['/get-namuna-8-images']);
+    } 
+    else if(this.namuna8Form.value.namuna == "namuna8ghoswara") {
+      sessionStorage.setItem('namuna8ghosvara', btoa(JSON.stringify(this.namuna8Form.value)));
+      this.router.navigate(['/get-namuna-8-ghosvara']);
+    } 
+     else if(this.namuna8Form.value.namuna == "sarkarinamuna8") {
+      sessionStorage.setItem('namuna8sarkari', btoa(JSON.stringify(this.namuna8Form.value)));
+      this.router.navigate(['/get-namuna-8-sarkari-ward']);
+    } 
   }
 }

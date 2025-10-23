@@ -1,0 +1,74 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div class="row">
+        <p class="namna heading">
+
+            <b> नमुना ९ अनुक्रमणिका </b>
+            <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->
+        </p>
+
+    </div>
+
+    <div class="col-md-12 table-content">
+
+        <div class="row">
+
+            <span class="font15">वार्ड नं :- {{ receivedData?.ward_no }} </span>
+
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <span class="font15 left">ग्रामपंचायत :- {{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME}} </span>
+            </div>
+            <div class="col-md-4 center tahsil">
+                <span class="font15">तहसील :- {{ reportData?.newUserDataDBRs2[0]?.TALUKA_NAME}}</span>
+            </div>
+            <div class="col-md-4">
+                <span class="font15 right"> जिल्हा :- {{ reportData?.newUserDataDBRs2[0]?.DISTRICT_NAME}} </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>अ.क्र</th>
+                    <th>मालमत्ता क्र.</th>
+                    <th>वार्ड क्रं.</th>
+                    <th>खातेधारकाचे नाव</th>
+                    <th class="bhagedar">भोगवटदाराचे नाव</th>
+                    <th>पत्ता</th>
+                    <th>एकूण कर</th>
+                    <th>पान नं.</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+                <tr *ngFor="let item of reportData?.rs3">
+                    <td>{{ item?.ANNU_KRAMANK }}</td>
+                    <td>{{ item?.MALMATTA_NUMBER }}</td>
+                    <td>{{ item?.VARD_NUMBER }}</td>
+                    <td>{{ item?.HOMEUSER_NAME }} </td>
+                    <td>{{ item?.BHOGATWARGARACHE_NAME }}</td>
+                    <td>{{ item?.ADDRESS_NAGAR_SOCIETY }}</td>
+                    <td>{{ item?.ANNU_KRAMANKEEKUN_KAR_BHARNA }}</td>
+                    <td>{{ item?.ANNU_KRAMANK }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<br><br><br>

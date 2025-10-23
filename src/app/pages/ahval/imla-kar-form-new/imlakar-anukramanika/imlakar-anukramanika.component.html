@@ -1,0 +1,76 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF</button>
+<button (click)="downloadAndPreviewPDF()" class="hidden-print btn btn-primary"
+    value="PDF">Print</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+    <div class="row">
+
+        <p class="namna heading">
+
+            <b> इमलाकार अनुक्रमणिका </b>
+        </p>
+
+    </div>
+
+
+
+
+
+    <div class="col-md-12 table-content">
+
+        <div class="row">
+
+            <span class="font15">वार्ड नं :- 1 </span>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <span class="font15 left">जिल्हा :- {{ reportData?.newUserDataDBRs2[0]?.DISTRICT_NAME }} </span>
+            </div>
+            <div class="col-md-4 center tahsil">
+                <span class="font15 ">तालुका :- {{ reportData?.newUserDataDBRs2[0]?.TALUKA_NAME }} </span>
+            </div>
+            <div class="col-md-4">
+                <span class="font15 right">ग्रामपंचायत :- {{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME }} </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="table-responsive">
+
+        <table class="table">
+            <thead class="">
+                <tr>
+                    <th>अनु.क्रमांक.</th>
+                    <th>वार्ड क्रमांक.</th>
+
+                    <th>मालमत्ता क्रमांक..</th>
+                    <th>खातेधारकाचे नाव </th>
+                    <th class="bhagedar">भोगवटदाराचे नाव </th>
+                    <th>पत्ता </th>
+                    <th>पान नं.</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let itemRs3 of reportData?.rs3">
+                    <td>{{ itemRs3?.ANNU_KRAMANK }}</td>
+                    <td>{{ itemRs3?.VARD_NUMBER }}</td>
+                    <td>{{ itemRs3?.MALMATTA_NUMBER }}</td>
+                    <td>{{ itemRs3?.HOMEUSER_NAME }} </td>
+                    <td>{{ itemRs3?.BHOGATWARGARACHE_NAME }} </td>
+                    <td>{{ itemRs3?.ADDRESS_NAGAR_SOCIETY }}</td>
+                    <td>{{ itemRs3?.ANNU_KRAMANK }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+</div>

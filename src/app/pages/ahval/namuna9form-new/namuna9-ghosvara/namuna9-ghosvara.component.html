@@ -1,0 +1,226 @@
+<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp;
+<div class="container-fluid" id="contentToExport">
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <p class="heading">
+                <b>गोषवारा नमुना ९</b>
+            </p>
+
+
+            <p class="san"> ग्रामपंचायत :- {{ reportData?.newUserDataDB[0]?.PANCHAYAT_NAME }} तहसील:- {{
+                reportData?.newUserDataDB[0]?.TALUKA_NAME}} जिल्हा :-{{ reportData?.newUserDataDB[0]?.DISTRICT_NAME}}
+            </p>
+
+
+            <p class="san"> सन {{ year }} - {{ end_year }} मागणी गोषवारा</p>
+
+        </div>
+        <div class="row">
+            <span class="font15">वार्ड नं :- {{ receivedData.ward_no }} </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>अनु.क्रमांक</th>
+                            <th>कराचे प्रकार </th>
+                            <th>मागील </th>
+                            <th>चालू </th>
+                            <th>एकुण </th>
+                            <th>चालू खातेदार </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">1</td>
+                            <td class="fontW" style="width:30%;">गृहकर व भुमीकर</td>
+                            <td style="width:15%;">76872.69 </td>
+                            <td style="width:15%;">76872.69</td>
+                            <td style="width:15%;">153745.38</td>
+                            <td style="width:15%;">7</td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">2</td>
+                            <td class="fontW" style="width:30%;">दिवाबत्ती कर </td>
+                            <td style="width:15%;">800</td>
+                            <td style="width:15%;">800</td>
+                            <td style="width:15%;">1600</td>
+                            <td style="width:15%;">8</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">3</td>
+                            <td class="fontW" style="width:30%;">आरोग्य रक्षण कर </td>
+
+                            <td style="width:15%;">800</td>
+                            <td style="width:15%;">800</td>
+                            <td style="width:15%;">1600</td>
+                            <td style="width:15%;">8</td>
+                        </tr>
+
+
+
+                        <tr style="font-weight:bold;">
+                            <td></td>
+                            <td>एकुण</td>
+                            <td style="width:15%;">78472.69</td>
+                            <td style="width:15%;">78472.69</td>
+                            <td style="width:15%;">327466.85</td>
+                            <td style="width:15%;">23</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="fontW" style="width:10%;">4</td>
+                            <td class="fontW" style="width:30%;">औधोगिक कर</td>
+                            <td style="width:15%;">102884.28</td>
+                            <td style="width:15%;">102884.28</td>
+                            <td style="width:15%;">205768.56</td>
+                            <td style="width:15%;">1</td>
+                        </tr>
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">5</td>
+                            <td class="fontW" style="width:30%;">मनोरा</td>
+                            <td style="width:15%;">67637.19</td>
+                            <td style="width:15%;">67637.19</td>
+                            <td style="width:15%;">135274.38</td>
+                            <td style="width:15%;">1</td>
+                        </tr>
+
+                        <tr style="font-weight:bold;">
+                            <td></td>
+                            <td class="fontW">एकुण </td>
+                            <td style="width:15%;">170521.47</td>
+                            <td style="width:15%;">170521.47</td>
+                            <td style="width:15%;">341042.94</td>
+                            <td style="width:15%;">2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+
+                    <tbody>
+
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">6</td>
+                            <td class="fontW" style="width:30%;">सामान्य पाणी कर</td>
+                            <td style="width:15%;">1000</td>
+                            <td style="width:15%;">1200</td>
+                            <td style="width:15%;">2200</td>
+                            <td style="width:15%;">6</td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="fontW" style="width:10%;">7</td>
+                            <td class="fontW" style="width:30%;">विशेष पाणी कर</td>
+                            <td style="width:15%;">2950</td>
+                            <td style="width:15%;">2250</td>
+                            <td style="width:15%;">5200</td>
+                            <td style="width:15%;">3</td>
+                        </tr>
+                        <tr style="font-weight:bold;">
+                            <td></td>
+                            <td class="fontW">एकुण </td>
+
+                            <td style="width:15%;">3950</td>
+                            <td style="width:15%;">3450</td>
+                            <td style="width:15%;">7400</td>
+                            <td style="width:15%;">9</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+
+                    <tbody>
+                        <tr>
+                            <td style="width:40%;">गृहकर व भुमीकर ,दिवाबत्ती कर, आरोग्य रक्षण कर</td>
+                            <td style="width:15%;">78472.69</td>
+                            <td style="width:15%;">78472.69</td>
+                            <td style="width:15%;">327466.85</td>
+                            <td style="width:15%;">23</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="width:40%;">औधोगिक कर, मनोरा</td>
+                            <td style="width:15%;">170521.47</td>
+                            <td style="width:15%;">170521.47</td>
+                            <td style="width:15%;">341042.94</td>
+                            <td style="width:15%;">2</td>
+                        </tr>
+
+
+                        <tr>
+                            <td style="width:40%;">सामान्य पाणी कर, विशेष पाणी कर</td>
+                            <td style="width:15%;">3950</td>
+                            <td style="width:15%;">3450</td>
+                            <td style="width:15%;">7400</td>
+                            <td style="width:15%;">9</td>
+                        </tr>
+
+
+
+                        <tr style="font-weight: bold;">
+                            <td style="width:40%;">एकुण</td>
+                            <td style="width:15%;">252944.16</td>
+                            <td style="width:15%;">252444.16</td>
+                            <td style="width:15%;">675909.79</td>
+                            <td style="width:15%;">9</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <div>
+        <p style="text-align: center;">ग्रामपंचायत मासिक सभा दि. .........../........../............... ठराव क्रं.
+            .............. अन्वेय गृहकर व भूमीकर , दिवाबत्ती कर , आरोग्य रक्षण कर , सफाई कर ,सामान्य पाणी कर व विशेष
+            पाणी कर सन {{ year }} - {{ end_year }} करीत मान्य करण्यात आले आहे. </p>
+    </div>
+
+</div>
+
+<br><br><br>

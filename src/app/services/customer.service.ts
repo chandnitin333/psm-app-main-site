@@ -120,6 +120,6 @@ export class CustomerService {
   pefFerfarList(params: any) {
     return this.api.post('pdf-ferfar-yadi', params);
   }
-
+  
   
 }

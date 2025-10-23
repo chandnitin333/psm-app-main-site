@@ -50,11 +50,21 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field" *ngIf="yearToYear">
                 <mat-label class="text-bold">Year</mat-label>
-                <input matInput type="number" min="0" formControlName="year1" />
+                <!-- <input matInput type="number" min="0" formControlName="year1" /> -->
+                <mat-select name="year_from" formControlName="year1">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_NAME">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field" *ngIf="yearToYear">
                 <mat-label class="text-bold">To Year</mat-label>
-                <input matInput type="number" min="0" formControlName="toYear1" />
+                <!-- <input matInput type="number" min="0" formControlName="toYear1" /> -->
+                <mat-select name="year_from" formControlName="toYear1">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_NAME">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
@@ -68,8 +78,7 @@
 
         </div>
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn"
-                (click)="get_Namuna8()">Submit</button>
+            <button mat-raised-button color="primary" class="submit-btn" (click)="get_Namuna8()">Submit</button>
         </div>
     </form>
 </mat-card>
