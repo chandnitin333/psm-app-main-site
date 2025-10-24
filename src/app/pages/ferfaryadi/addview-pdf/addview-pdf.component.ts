@@ -206,7 +206,6 @@ export class AddviewPdfComponent {
         'Authorization': token ? `Bearer ${token}` : '',
       },
       mode: 'cors',
-      credentials: 'include',
     })
       .then(res => {
         if (!res.ok) {
