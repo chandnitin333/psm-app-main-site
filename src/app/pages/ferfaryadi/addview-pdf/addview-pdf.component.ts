@@ -200,12 +200,14 @@ export class AddviewPdfComponent {
     const fileName = element.R_PATH.split('/').pop() || 'file.pdf';
     const token = this.apiService.getToken();
 
+    // Add referrerpolicy to reduce browser warnings
     fetch(fullUrl, {
       method: 'GET',
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
       },
       mode: 'cors',
+      referrerPolicy: 'no-referrer',
     })
       .then(res => {
         if (!res.ok) {
@@ -214,7 +216,7 @@ export class AddviewPdfComponent {
         return res.blob();
       })
       .then(blob => {
-        // Determine MIME type
+        // Create safe blob with explicit MIME type
         const mimeType = blob.type || 'application/pdf';
         const safeBlob = new Blob([blob], { type: mimeType });
 
@@ -225,6 +227,7 @@ export class AddviewPdfComponent {
         a.href = url;
         a.download = fileName;
         a.setAttribute('rel', 'noopener noreferrer');
+        a.setAttribute('type', mimeType);
 
         document.body.appendChild(a);
         a.click();
