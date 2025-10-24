@@ -139,6 +139,10 @@ export class VasuliComponent {
         console.log('res', res);
          this.yearOptions = res?.data;
         //  console.log('yearOptions', this.yearOptions);
+        const currentYear = new Date().getFullYear();
+          const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
+          const CYID = currentYearObj?.YEAR_ID ?? null;
+          this.customerVasuliForm.get('year_id')?.setValue(Number(CYID));
         
       },
       error: (err: Error) => {
