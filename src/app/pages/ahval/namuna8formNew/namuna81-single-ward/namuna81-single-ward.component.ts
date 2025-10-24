@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Namuna8Service } from '../../../../services/namuna8.service';
 import html2pdf from 'html2pdf.js';
 import { CommonModule } from '@angular/common';
-import { NgxPrintModule } from 'ngx-print'; // Add this import
+import { NgxPrintModule } from 'ngx-print';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-namuna81-single-ward',
@@ -18,7 +19,7 @@ export class Namuna81SingleWardComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute) {
+  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService) {
     const encoded = sessionStorage.getItem('namuna81SingleWardForm');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
@@ -57,83 +58,48 @@ export class Namuna81SingleWardComponent {
   @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        event.preventDefault(); // Prevent default browser print
+        this.printDirect(); // Use direct browser print with our styles
       }
     }
 
-  downloadPDF() {
-    const element = document.getElementById('contentToExport');
-    if (element) {
-      // Apply compact table style
-      element.classList.add('pdf-export-style');
+  // Direct browser print - uses @media print CSS
+  printDirect() {
+    // Add print-specific styles before printing
+    const style = document.createElement('style');
+    style.id = 'print-style';
+    style.innerHTML = `
+      @media print {
+        @page {
+          size: A4 landscape;
+          margin: 5mm;
+        }
+        body * {
+          visibility: hidden;
+        }
+        #contentToExport, #contentToExport * {
+          visibility: visible;
+        }
+        #contentToExport {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+        }
+      }
+    `;
+    document.head.appendChild(style);
 
-      const currentDate = new Date().toLocaleString('en-US', {
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-      });
-      const fileName = `नमुना_८_New_${currentDate}.pdf`;
+    // Print
+    window.print();
 
-      const options = {
-        filename: fileName,
-        margin: [15, 15, 15, 15],
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      html2pdf()
-        .set(options)
-        .from(element)
-        .toPdf()
-        .save()
-        .then(() => {
-          // Clean up: remove the class after saving
-          element.classList.remove('pdf-export-style');
-        });
-    }
+    // Clean up
+    setTimeout(() => {
+      const styleElement = document.getElementById('print-style');
+      if (styleElement) {
+        styleElement.remove();
+      }
+    }, 1000);
   }
 
- 
-    downloadAndPreviewPDF() {
-    const element = document.getElementById('contentToExport');
-    if (element) {
-      // Temporarily apply print-specific styles
-      element.classList.add('pdf-export-style');
-
-      const currentDate = new Date().toLocaleString('en-US', { 
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit' 
-      });
-      const fileName = `नमुना_८_New_${currentDate}.pdf`;
-
-      const options = {
-        filename: fileName,
-        margin: [15, 15, 15, 15],
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      html2pdf()
-        .set(options)
-        .from(element)
-        .toPdf()
-        .get('pdf')
-        .then((pdf: any) => {
-          // remove style class after export
-          element.classList.remove('pdf-export-style');
-
-          const blob = pdf.output('blob');
-          const blobURL = URL.createObjectURL(blob);
-          const previewWindow = window.open(blobURL, '_blank');
-
-          setTimeout(() => {
-            previewWindow?.print();
-          }, 500);
-        });
-    }
-  }
 }
