@@ -120,6 +120,10 @@ export class CustomerService {
   pefFerfarList(params: any) {
     return this.api.post('pdf-ferfar-yadi', params);
   }
+
+  customerUpdate(params: FormData) {
+    return from(this.api.postFormData(`update-customer-image`, params));
+  }
   
   // ---------------------------------- Dashboard APIS ------------------------------//
 
