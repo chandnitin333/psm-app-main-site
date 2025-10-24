@@ -44,41 +44,117 @@ get_namuna_9_1_data(){
       }
     }
 
-  downloadPDF() {
-        const element = document.getElementById('contentToExport');
-        if (element) {
-          const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          const fileName = `नमुना_९_${currentDate}.pdf`;
+  // downloadPDF() {
+  //       const element = document.getElementById('contentToExport');
+  //       if (element) {
+  //         const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  //         const fileName = `नमुना_९_${currentDate}.pdf`;
 
-          const options = {
-            filename: fileName,
-            margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-          };
-          html2pdf()
-            .set(options)
-            .from(element)
-            .toPdf()
-            .save(); // Save the PDF directly
-        }
-      }
+  //         const options = {
+  //           filename: fileName,
+  //           margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+  //           image: { type: 'jpeg', quality: 0.98 },
+  //           html2canvas: { scale: 2 },
+  //           jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+  //           pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  //         };
+  //         html2pdf()
+  //           .set(options)
+  //           .from(element)
+  //           .toPdf()
+  //           .save(); // Save the PDF directly
+  //       }
+  //     }
  
-  downloadAndPreviewPDF() {
+  // downloadAndPreviewPDF() {
+  //   const element = document.getElementById('contentToExport');
+  //   if (element) {
+  //     const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  //     const fileName = `नमुना_९_${currentDate}.pdf`;
+
+  //     // Generate PDF and open in a new browser tab
+  //     const options = {
+  //       filename: fileName,
+  //       margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+  //       image: { type: 'jpeg', quality: 0.98 },
+  //       html2canvas: { scale: 2 },
+  //       jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+  //       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  //     };
+
+  //     html2pdf()
+  //       .set(options)
+  //       .from(element)
+  //       .toPdf()
+  //       .get('pdf')
+  //       .then((pdf: any) => {
+  //         const blob = pdf.output('blob'); // Get the PDF as a blob
+  //         const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+
+  //         // Open the blob URL in a new tab
+  //         const previewWindow = window.open(blobURL, '_blank');
+
+  //         // Add a delay before attempting to print
+  //         setTimeout(() => {
+  //           // Attempt to automatically open the print dialog
+  //           previewWindow?.print();
+  //         }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
+  //       });
+  //   }
+  // }
+
+  downloadPDF() {
     const element = document.getElementById('contentToExport');
     if (element) {
-      const currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      // Apply compact table style
+      element.classList.add('pdf-export-style');
+
+      const currentDate = new Date().toLocaleString('en-US', {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
       const fileName = `नमुना_९_${currentDate}.pdf`;
 
-      // Generate PDF and open in a new browser tab
       const options = {
         filename: fileName,
-        margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+        margin: [15, 15, 15, 15],
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf()
+        .set(options)
+        .from(element)
+        .toPdf()
+        .save()
+        .then(() => {
+          // Clean up: remove the class after saving
+          element.classList.remove('pdf-export-style');
+        });
+    }
+  }
+
+ 
+    downloadAndPreviewPDF() {
+    const element = document.getElementById('contentToExport');
+    if (element) {
+      // Temporarily apply print-specific styles
+      element.classList.add('pdf-export-style');
+
+      const currentDate = new Date().toLocaleString('en-US', { 
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+      });
+      const fileName = `नमुना_९_${currentDate}.pdf`;
+
+      const options = {
+        filename: fileName,
+        margin: [15, 15, 15, 15],
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
@@ -88,17 +164,16 @@ get_namuna_9_1_data(){
         .toPdf()
         .get('pdf')
         .then((pdf: any) => {
-          const blob = pdf.output('blob'); // Get the PDF as a blob
-          const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+          // remove style class after export
+          element.classList.remove('pdf-export-style');
 
-          // Open the blob URL in a new tab
+          const blob = pdf.output('blob');
+          const blobURL = URL.createObjectURL(blob);
           const previewWindow = window.open(blobURL, '_blank');
 
-          // Add a delay before attempting to print
           setTimeout(() => {
-            // Attempt to automatically open the print dialog
             previewWindow?.print();
-          }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
+          }, 500);
         });
     }
   }

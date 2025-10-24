@@ -194,6 +194,7 @@ export class AddviewPdfComponent {
   //   document.body.removeChild(link); // remove the link after click
 
   // }
+  
   onDownload(element: any) {
   const fullUrl = this.apiService.baseUrl + element.R_PATH;
 

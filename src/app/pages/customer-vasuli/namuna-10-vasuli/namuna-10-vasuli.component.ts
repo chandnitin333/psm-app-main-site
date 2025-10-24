@@ -38,7 +38,7 @@ get_namuna_10_vasuli_data(){
     next: (res: any) => {
       this.namuna_10_data = res.data[0];
       console.log('Namuna 10 Data:', this.namuna_10_data);
-      this.akshariRs = numberToMarathiWords(this.namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM)
+      this.akshariRs = numberToMarathiWords(Number(this.namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM))
     },
     error: (err: Error) => {
       console.error('Error getting for namuna 10 Vasuli:', err);

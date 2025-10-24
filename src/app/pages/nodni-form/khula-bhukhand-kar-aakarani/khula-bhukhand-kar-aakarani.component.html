@@ -4,7 +4,7 @@
         <div class="form-row mt-2">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
-                <mat-select formControlName="milkat_vapar_id" id="malmatteche_prakar_DDL">
+                <mat-select formControlName="milkat_vapar_id" id="malmatteche_prakar_DDL" tabindex="1">
                     <mat-option *ngFor="let item of khulaBhukand_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
                         {{ item.MILKAT_VAPAR_NAME }}
                     </mat-option>
@@ -12,7 +12,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
-                <mat-select formControlName="milkat_vapar_id1">
+                <mat-select formControlName="milkat_vapar_id1" tabindex="2">
                     <mat-option *ngFor="let item of khulaBhukand_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
                         {{ item.MILKAT_VAPAR_NAME }}
                     </mat-option>
@@ -20,13 +20,14 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वापर प्रकार</mat-label>
-                <input matInput type="text" formControlName="vaparache_prakar" />
+                <input matInput type="text" formControlName="vaparache_prakar" tabindex="3" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">गावाचे नाव</mat-label>
-                <mat-select (selectionChange)="getGavthanDDL($event.value)" formControlName="gatgrampanchayat_id">
+                <mat-select (selectionChange)="getGavthanDDL($event.value)" formControlName="gatgrampanchayat_id"
+                    tabindex="4">
                     <mat-option value="">Select गाव</mat-option>
                     <mat-option *ngFor="let item of khulaBhukhand_gavacheNav" [value]="item.gatGrampanchayatId">
                         {{ item.gatGrampanchayatName }}
@@ -36,7 +37,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">गावठाण/गावठाण बाहेरचे</mat-label>
                 <mat-select (selectionChange)="getLandAnnualAndAakaraniRateData($event.value)"
-                    formControlName="openplot_id">
+                    formControlName="openplot_id" tabindex="5">
                     <!-- <mat-option value="">Select </mat-option> -->
                     <mat-option *ngFor="let item of khulaBhukhand_gavthanBaherche" [value]="item.openplot_id">
                         {{ item.PRAKAR_NAME }}
@@ -47,11 +48,13 @@
         <div class="form-row"> -->
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()"
+                    tabindex="6" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()"
+                    tabindex="7" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
@@ -75,11 +78,12 @@
         <div class="form-row"> -->
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
-                <input matInput type="number" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()"
+                    tabindex="8" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">आकारणी दर</mat-label>
-                <input matInput type="number" formControlName="levyrate" (keyup)="foot_to_meter_conversion()" />
+                <input matInput type="number" formControlName="levyrate" (keyup)="foot_to_meter_conversion()" tabindex="9" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -113,7 +117,8 @@
         <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
             [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
-            (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" : "जतन करा"}}</button>
-        
+            (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" :
+            "जतन करा"}}</button>
+
     </mat-dialog-actions>
 </form>
