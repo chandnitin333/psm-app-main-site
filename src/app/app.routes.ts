@@ -80,8 +80,12 @@ export const routes: Routes = [
     {path: 'get-namuna-9-new', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-new/namuna9-new.component').then(m => m.Namuna9NewComponent) },
     {path: 'get-namuna-9-ghosvara', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-ghosvara/namuna9-ghosvara.component').then(m => m.Namuna9GhosvaraComponent) },
 
-    // get-namuna-9-ghosvara
-
+    // chalu-khatedar
+    {path: 'chalu-khatedar', loadComponent: () => import('./pages/dashboard/chalu-khatedar/chalu-khatedar.component').then(m => m.ChaluKhatedarComponent) },
+    {path: 'adhikrut', loadComponent: () => import('./pages/dashboard/adhikrut/adhikrut.component').then(m => m.AdhikrutComponent) },
+    {path: 'indira-awas', loadComponent: () => import('./pages/dashboard/indira-awas/indira-awas.component').then(m => m.IndiraAwasComponent) },
+    {path: 'imla-kar', loadComponent: () => import('./pages/dashboard/imla-kar/imla-kar.component').then(m => m.ImlaKarComponent) },
+    {path: 'ghar-kar', loadComponent: () => import('./pages/dashboard/ghar-kar/ghar-kar.component').then(m => m.GharKarComponent) },
 
 
 

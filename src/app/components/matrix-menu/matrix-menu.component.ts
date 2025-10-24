@@ -26,7 +26,13 @@ export class MatrixMenuComponent {
     let user = this.api.getDecodedToken();
     // console.log(user)
     this.userName = `${user?.NAME} ${user?.SURNAME}`;
+    this.checkIsloggedIn();
    
+  }
+  checkIsloggedIn() {
+    if (this.auth.isTokenExpired()) {
+      this.auth.logout();
+    }
   }
   menuItems: MenuItem[] = [
     { label: 'नोंदणी फॉर्म', icon: 'assignment',  url:"/nodni-form", subItems:[ ] },

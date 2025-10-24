@@ -8,11 +8,13 @@ import { CustomPaginationComponent } from '../../custom-pagination/custom-pagina
 import { MatDataTableComponent } from '../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../services/api.service';
 import { LoaderService } from '../../services/loader.service';
+import { AuthService } from '../../services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [LayoutModule, CommonModule, MatDataTableComponent, CustomPaginationComponent],
+  imports: [LayoutModule, CommonModule, MatDataTableComponent, CustomPaginationComponent,RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -37,13 +39,18 @@ export class DashboardComponent {
   currentPage: number = 0;
   isLoad: boolean = false;
 
-  constructor(private api: ApiService, private spinner: LoaderService) { }
+  constructor(private api: ApiService, private spinner: LoaderService,private auth: AuthService) { }
   ngOnInit() {
     this.spinner.show();
     this.token = this.api.getToken();
     this.getUserActivity();
+    this.checkIsloggedIn();
 
-
+  }
+  checkIsloggedIn() {
+    if (this.auth.isTokenExpired()) {
+      this.auth.logout();
+    }
   }
 
   getUserActivity() {

@@ -2,7 +2,7 @@
     <mat-grid-list cols="5" rowHeight="2:1" style="padding: 0px;">
         <mat-grid-tile>
 
-            <a href="javascript:void(0)" class="dashboard-links">
+            <a [routerLink]="['/chalu-khatedar']" class="dashboard-links">
                 <mat-card class="dashboard-cards">
                     <mat-card-content>
                         <h2>{{userData?.chalu_khatedar ?? 0 }}</h2>
@@ -12,7 +12,7 @@
             </a>
         </mat-grid-tile>
         <mat-grid-tile>
-            <a href="javascript:void(0)" class="dashboard-links">
+            <a [routerLink]="['/adhikrut']" class="dashboard-links">
                 <mat-card class="dashboard-cards">
                     <mat-card-content>
                         <h2>{{userData?.adhikrut ?? 0}}</h2>
@@ -22,7 +22,7 @@
             </a>
         </mat-grid-tile>
         <mat-grid-tile>
-            <a href="javascript:void(0)" class="dashboard-links">
+            <a [routerLink]="['/indira-awas']" class="dashboard-links">
                 <mat-card class="dashboard-cards">
                     <mat-card-content>
                         <h2>{{userData?.indira_awas ?? 0}}</h2>
@@ -32,7 +32,7 @@
             </a>
         </mat-grid-tile>
         <mat-grid-tile>
-            <a href="javascript:void(0)" class="dashboard-links">
+            <a [routerLink]="['/imla-kar']" class="dashboard-links">
                 <mat-card class="dashboard-cards">
                     <mat-card-content>
                         <h2>{{userData?.imlakar ?? 0}}</h2>
@@ -42,7 +42,7 @@
             </a>
         </mat-grid-tile>
         <mat-grid-tile>
-            <a href="javascript:void(0)" class="dashboard-links">
+            <a [routerLink]="['/ghar-kar']" class="dashboard-links">
                 <mat-card class="dashboard-cards">
                     <mat-card-content>
                         <h2>{{userData?.ghar_kar ?? 0}}</h2>

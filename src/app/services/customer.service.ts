@@ -121,5 +121,22 @@ export class CustomerService {
     return this.api.post('pdf-ferfar-yadi', params);
   }
   
+  // ---------------------------------- Dashboard APIS ------------------------------//
+
+  fetchChaluKhatedar(params: any) {
+    return this.api.post(`get-chalu-khatedar-list`, params);
+  }
+  fetchAdhikrut(params: any) {
+    return this.api.post(`get-adhikrut-list`, params);
+  }
+  fetchGharKar(params: any) {
+    return this.api.post(`get-ghar-kar-list`, params);
+  }
+  fetchImlakar(params: any) {
+    return this.api.post(`/get-imlakar-list`, params);
+  }
+  fetchIndiraAwas(params: any) {
+    return this.api.post(`/get-indira-awas-list`, params);
+  }
   
 }

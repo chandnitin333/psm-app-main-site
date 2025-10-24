@@ -1,0 +1,15 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">
+        <span class="title-text">घर कर लावायचा आहे</span>
+
+    </mat-card-title>
+    <div class="table-responsive mt-4">
+
+        <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
+            [currentPage]="currentPage" [isEdit]="false" [isDelete]="false" [isView]="false" [isPrint]="false"
+            [isDownload]="false" [isPreview]="false" [isKar]="false" (editEvent)="onEdit($event)"></app-mat-data-table>
+        <app-custom-pagination *ngIf="dataSource && dataSource.data.length > 0" [length]="totalItems"
+            [pageSize]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)">
+        </app-custom-pagination>
+    </div>
+</mat-card>
