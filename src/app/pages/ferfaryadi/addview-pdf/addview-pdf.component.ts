@@ -196,47 +196,53 @@ export class AddviewPdfComponent {
   // }
   
   onDownload(element: any) {
-  const fullUrl = this.apiService.file_baseUrl + element.R_PATH;
-  const fileName = element.R_PATH.split('/').pop() || 'file.pdf';
+    const fullUrl = this.apiService.file_baseUrl + element.R_PATH;
+    const fileName = element.R_PATH.split('/').pop() || 'file.pdf';
+    const token = this.apiService.getToken();
 
-  fetch(fullUrl, {
-    method: 'GET',
-    headers: {
-      // Add auth headers if needed
-    },
-    credentials: 'include',
-  })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.blob();
+    fetch(fullUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': token ? `Bearer ${token}` : '',
+      },
+      mode: 'cors',
+      credentials: 'include',
     })
-    .then(blob => {
-      // Create a safe blob with proper MIME type
-      const safeBlob = new Blob([blob], { type: blob.type || 'application/pdf' });
-      const url = window.URL.createObjectURL(safeBlob);
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Failed to download file: ${res.status}`);
+        }
+        return res.blob();
+      })
+      .then(blob => {
+        // Determine MIME type
+        const mimeType = blob.type || 'application/pdf';
+        const safeBlob = new Blob([blob], { type: mimeType });
 
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = fileName;
-      a.rel = 'noopener';
+        // Create download link
+        const url = window.URL.createObjectURL(safeBlob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = fileName;
+        a.setAttribute('rel', 'noopener noreferrer');
 
-      document.body.appendChild(a);
-      a.click();
+        document.body.appendChild(a);
+        a.click();
 
-      // Cleanup with slight delay to ensure download starts
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 100);
-    })
-    .catch(err => {
-      console.error('Download error:', err);
-      this.toastr.error('Failed to download file. Please try again.', 'Error');
-    });
-}
+        // Cleanup
+        setTimeout(() => {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 150);
+
+        this.toastr.success('File downloaded successfully', 'Success');
+      })
+      .catch(err => {
+        console.error('Download error:', err);
+        this.toastr.error('Failed to download file. Please check your connection.', 'Error');
+      });
+  }
 
 
 
