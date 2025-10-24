@@ -9,7 +9,8 @@ import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '../../../components/layout/layout.module';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-imla-kar',
@@ -19,7 +20,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent,RouterLink],
+    CustomPaginationComponent,RouterLink,ToastrModule],
   templateUrl: './imla-kar.component.html',
   styleUrl: './imla-kar.component.css'
 })
@@ -42,7 +43,9 @@ dataSource = new MatTableDataSource();
     ];
   constructor(
     private apiService: ApiService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -64,7 +67,10 @@ dataSource = new MatTableDataSource();
           })
           .subscribe({
             next: (res: any) => {
-              // console.log("----",res)
+              if(res?.data.length == 0){
+                this.toastr.warning('No records found for Imla Kar.', 'Warning');
+                this.router.navigate(['/dashboard']);
+              }
               this.dataSource = new MatTableDataSource(res?.data ?? []);
               this.totalItems = res?.total_count ?? 0;
               //   this.loginSuccess = false;

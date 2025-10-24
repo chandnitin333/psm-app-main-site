@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-adhikrut',
@@ -19,7 +20,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent,RouterLink],
+    CustomPaginationComponent,RouterLink,ToastrModule],
   templateUrl: './adhikrut.component.html',
   styleUrl: './adhikrut.component.css'
 })
@@ -42,7 +43,9 @@ export class AdhikrutComponent {
     ];
   constructor(
     private apiService: ApiService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -65,6 +68,10 @@ export class AdhikrutComponent {
           .subscribe({
             next: (res: any) => {
               // console.log("----",res)
+              if(res?.data.length == 0){
+                this.toastr.warning('No records found for AdhiKrut.', 'Warning');
+                this.router.navigate(['/dashboard']);
+              }
               this.dataSource = new MatTableDataSource(res?.data ?? []);
               this.totalItems = res?.total_count ?? 0;
               //   this.loginSuccess = false;

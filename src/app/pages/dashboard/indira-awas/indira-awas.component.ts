@@ -9,7 +9,8 @@ import { CustomPaginationComponent } from '../../../custom-pagination/custom-pag
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-indira-awas',
@@ -19,7 +20,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent, RouterLink],
+    CustomPaginationComponent, RouterLink, ToastrModule],
   templateUrl: './indira-awas.component.html',
   styleUrl: './indira-awas.component.css'
 })
@@ -42,7 +43,9 @@ dataSource = new MatTableDataSource();
     ];
   constructor(
     private apiService: ApiService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -64,7 +67,11 @@ dataSource = new MatTableDataSource();
           })
           .subscribe({
             next: (res: any) => {
-              // console.log("----",res)
+              console.log("----",res?.data)
+              if(res?.data.length == 0){
+                this.toastr.warning('No records found for Indira Awas.', 'Warning');
+                this.router.navigate(['/dashboard']);
+              }
               this.dataSource = new MatTableDataSource(res?.data ?? []);
               this.totalItems = res?.total_count ?? 0;
               //   this.loginSuccess = false;

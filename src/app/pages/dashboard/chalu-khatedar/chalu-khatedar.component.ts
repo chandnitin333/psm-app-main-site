@@ -3,13 +3,14 @@ import { Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { ITEM_PER_PAGE, PAZE_SIZE } from '../../../constants/common.constant';
 import { CustomPaginationComponent } from '../../../custom-pagination/custom-pagination.component';
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chalu-khatedar',
@@ -19,7 +20,7 @@ import { CustomerService } from '../../../services/customer.service';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent, RouterLink],
+    CustomPaginationComponent, RouterLink,ToastrModule],
   templateUrl: './chalu-khatedar.component.html',
   styleUrl: './chalu-khatedar.component.css'
 })
@@ -42,7 +43,9 @@ export class ChaluKhatedarComponent {
     ];
   constructor(
     private apiService: ApiService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -64,7 +67,10 @@ export class ChaluKhatedarComponent {
           })
           .subscribe({
             next: (res: any) => {
-              console.log("----",res)
+              if(res?.data.length == 0){
+                this.toastr.warning('No records found for AdhiKrut.', 'Warning');
+                this.router.navigate(['/dashboard']);
+              }
               this.dataSource = new MatTableDataSource(res?.data ?? []);
               this.totalItems = res?.total_count ?? 0;
               //   this.loginSuccess = false;
