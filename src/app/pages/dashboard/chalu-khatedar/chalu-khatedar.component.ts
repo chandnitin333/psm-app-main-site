@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
+import { LayoutModule } from '../../../components/layout/layout.module';
 import { ITEM_PER_PAGE, PAZE_SIZE } from '../../../constants/common.constant';
 import { CustomPaginationComponent } from '../../../custom-pagination/custom-pagination.component';
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LayoutModule } from '../../../components/layout/layout.module';
 
 @Component({
   selector: 'app-chalu-khatedar',
@@ -18,7 +19,7 @@ import { LayoutModule } from '../../../components/layout/layout.module';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent],
+    CustomPaginationComponent, RouterLink],
   templateUrl: './chalu-khatedar.component.html',
   styleUrl: './chalu-khatedar.component.css'
 })

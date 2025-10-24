@@ -9,6 +9,7 @@ import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '../../../components/layout/layout.module';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ghar-kar',
@@ -18,7 +19,7 @@ import { LayoutModule } from '../../../components/layout/layout.module';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent],
+    CustomPaginationComponent,RouterLink],
   templateUrl: './ghar-kar.component.html',
   styleUrl: './ghar-kar.component.css'
 })

@@ -9,6 +9,7 @@ import { CustomPaginationComponent } from '../../../custom-pagination/custom-pag
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../../services/api.service';
 import { CustomerService } from '../../../services/customer.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-indira-awas',
@@ -18,7 +19,7 @@ import { CustomerService } from '../../../services/customer.service';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent],
+    CustomPaginationComponent, RouterLink],
   templateUrl: './indira-awas.component.html',
   styleUrl: './indira-awas.component.css'
 })

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatDataTableComponent } from '../../../mat-data-table/mat-data-table.component';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-adhikrut',
@@ -18,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     CommonModule,
     MatDataTableComponent,
-    CustomPaginationComponent],
+    CustomPaginationComponent,RouterLink],
   templateUrl: './adhikrut.component.html',
   styleUrl: './adhikrut.component.css'
 })

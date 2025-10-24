@@ -14,12 +14,15 @@ import { CustomerService } from '../../../services/customer.service';
     ToastrModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule],
+    CommonModule,ToastrModule],
   templateUrl: './customer-image-upload.component.html',
   styleUrl: './customer-image-upload.component.css'
 })
 export class CustomerImageUploadComponent {
   selectedImage: string | ArrayBuffer | null = null;
+  formData: FormData = new FormData();
+  uploadData: any = [];
+  userDetails:any=[];
   constructor(
       public dialogRef: MatDialogRef<CustomerImageUploadComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
@@ -45,6 +48,26 @@ export class CustomerImageUploadComponent {
 
       reader.readAsDataURL(file);
     }
+  }
+  addUploadData() {
+    this.userDetails = this.apiService.getDecodedToken();
+    const user_id = this.userDetails.userId;
+    const fileInput: any = document.getElementById('data_file');  // Get file input
+    const file = fileInput?.files[0];
+    this.formData.set('customer_image', file, file.name);
+    this.formData.set('user_id', user_id); 
+    this.formData.set('new_user_id', this.data.NEWUSER_ID); 
+    // console.log("data---->>>", this.formData)
+    this.apiService.post('update-customer-image', this.formData).subscribe({
+      next: (res: any) => {
+        if (res.status) {
+          this.toastr.success(res.message, "Success!");
+        } else {
+          this.toastr.error(res.message, "Error!");
+        }
+
+      }
+    });
   }
   
 }

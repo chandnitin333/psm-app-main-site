@@ -10,7 +10,7 @@
         </div>
         <div class="form-row">
             <label class="text-bold">Image Upload</label>
-            <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" id="data_file" name="data_file" [(ngModel)]="uploadData.select_file"/>
         </div>
         <div class="form-row">
             <!-- <div class="col-md-4"></div> -->
@@ -22,7 +22,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="center">
         <button mat-button mat-dialog-close class="custom-red">Cancel</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="addUploadData()">Save</button>
     </mat-dialog-actions>
 
 </form>
