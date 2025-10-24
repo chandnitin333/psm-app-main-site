@@ -196,30 +196,46 @@ export class AddviewPdfComponent {
   // }
   
   onDownload(element: any) {
-    // const baseKK = "http://localhost:4444";
   const fullUrl = this.apiService.file_baseUrl + element.R_PATH;
-  // const fullUrl = baseKK + element.R_PATH;
+  const fileName = element.R_PATH.split('/').pop() || 'file.pdf';
 
-  // Fetch the file as blob
   fetch(fullUrl, {
     method: 'GET',
     headers: {
       // Add auth headers if needed
     },
+    credentials: 'include',
   })
-    .then(res => res.blob())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.blob();
+    })
     .then(blob => {
-      // Create blob URL
-      const url = window.URL.createObjectURL(blob);
+      // Create a safe blob with proper MIME type
+      const safeBlob = new Blob([blob], { type: blob.type || 'application/pdf' });
+      const url = window.URL.createObjectURL(safeBlob);
+
       const a = document.createElement('a');
+      a.style.display = 'none';
       a.href = url;
-      a.download = element.R_PATH.split('/').pop() || 'file.pdf';
+      a.download = fileName;
+      a.rel = 'noopener';
+
       document.body.appendChild(a);
       a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url); // cleanup
+
+      // Cleanup with slight delay to ensure download starts
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 100);
     })
-    .catch(err => console.error('Download error:', err));
+    .catch(err => {
+      console.error('Download error:', err);
+      this.toastr.error('Failed to download file. Please try again.', 'Error');
+    });
 }
 
 
