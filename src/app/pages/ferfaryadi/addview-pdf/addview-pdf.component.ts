@@ -196,7 +196,9 @@ export class AddviewPdfComponent {
   // }
   
   onDownload(element: any) {
-  const fullUrl = this.apiService.baseUrl + element.R_PATH;
+    // const baseKK = "http://localhost:4444";
+  const fullUrl = this.apiService.file_baseUrl + element.R_PATH;
+  // const fullUrl = baseKK + element.R_PATH;
 
   // Fetch the file as blob
   fetch(fullUrl, {
@@ -219,5 +221,8 @@ export class AddviewPdfComponent {
     })
     .catch(err => console.error('Download error:', err));
 }
+
+
+
 
 }
