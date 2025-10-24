@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { AdharListService } from '../../../../services/adhar-list.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ward-wise-mobile-no-list',
@@ -15,7 +16,7 @@ export class WardWiseMobileNoListComponent {
   receivedData : any;
   adharList: any;
   ward_number: any;
-  constructor(private router: Router, private adharListService: AdharListService,) {
+  constructor(private router: Router, private adharListService: AdharListService, private toastr: ToastrService) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
     this.ward_number = this.receivedData.value;
     // console.log('Namuna81Component: Received Data via Router', this.receivedData);
@@ -37,10 +38,49 @@ get_adhar_ward_wise_list(){
    @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        event.preventDefault(); // Prevent default browser print
+        this.printDirect(); // Use direct browser print with our styles
       }
     }
+
+  // Direct browser print - uses @media print CSS
+  printDirect() {
+    // Add print-specific styles before printing
+    const style = document.createElement('style');
+    style.id = 'print-style';
+    style.innerHTML = `
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 5mm;
+        }
+        body * {
+          visibility: hidden;
+        }
+        #contentToExport, #contentToExport * {
+          visibility: visible;
+        }
+        #contentToExport {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Print
+    window.print();
+
+    // Clean up
+    setTimeout(() => {
+      const styleElement = document.getElementById('print-style');
+      if (styleElement) {
+        styleElement.remove();
+      }
+    }, 1000);
+  }
 
   downloadPDF() {
         const element = document.getElementById('contentToExport');
@@ -53,7 +93,7 @@ get_adhar_ward_wise_list(){
             margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, 
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, 
             pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
           };
 
