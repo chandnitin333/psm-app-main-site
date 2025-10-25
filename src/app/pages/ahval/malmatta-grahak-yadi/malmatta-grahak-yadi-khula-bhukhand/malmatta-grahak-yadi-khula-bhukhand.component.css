@@ -6,42 +6,6 @@ table{
 .buttonPdf{
 	margin-left: -100px;
 }
-/* @media only screen and (max-width: 600px) {
-	.buttonPdf{
-		margin-left: 0px;
-	}
-} */
-
-						
-/* .heading:first-child {
-	page-break-after: avoid;
-} */
-
-/* .heading {
-	page-break-before: avoid;
-	page-break-after: always;
-} */
-/* table, figure {
-  page-break-inside: avoid;
-} */
-
-/* .table-bordered > tbody > tr > td{
-	width: 5%;
-} */
-
-
-/* .print-wrapper {
-  padding: 20mm; 
-  background-color: white; 
-} */
-/* .page-break {
-        page-break-after: always;
-        break-after: page;
-    } */
-/* .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
-	vertical-align: middle !important;
-	
-} */
 
 table, th, td {
   border: 1px solid black;
@@ -182,7 +146,7 @@ table, th, td {
 	.font15 {
 		font-size: 11px !important;
 		line-height: 1.3 !important;
-		white-space: nowrap !important;
+		/* white-space: nowrap !important; */
 	}
 
 	.col-md-12 {

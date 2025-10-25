@@ -113,6 +113,7 @@ export class AnukramikaComponent {
             }
             .font15 {
               font-size: 11px !important;
+              white-space: nowrap !important;
             }
             .row {
               margin-bottom: 3px !important;
@@ -132,6 +133,11 @@ export class AnukramikaComponent {
             .col-md-4:nth-child(2) {
               text-align: center !important;
             }
+            .col-md-4.center,
+            .col-md-4.center.tahsil {
+              display: table-cell !important;
+              text-align: center !important;
+            }
             .col-md-4:nth-child(3) {
               text-align: right !important;
             }
@@ -144,8 +150,15 @@ export class AnukramikaComponent {
               text-align: left !important;
             }
             .col-md-4:nth-child(2) span,
-            .col-md-4:nth-child(2) .font15 {
+            .col-md-4:nth-child(2) .font15,
+            .center.tahsil span,
+            .center.tahsil .font15 {
               text-align: center !important;
+              white-space: nowrap !important;
+              display: block !important;
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
             }
             .col-md-4:nth-child(3) span,
             .col-md-4:nth-child(3) .font15 {
@@ -156,9 +169,11 @@ export class AnukramikaComponent {
               text-align: left !important;
               display: block !important;
             }
-            .center {
+            .center,
+            .center.tahsil {
               text-align: center !important;
               display: block !important;
+              margin-left: 0 !important;
             }
             .right {
               float: none !important;
@@ -182,8 +197,10 @@ export class AnukramikaComponent {
             }
             table {
               width: 100% !important;
+              max-width: 100% !important;
               border-collapse: collapse !important;
               margin-top: 5px !important;
+              table-layout: auto !important;
             }
             thead {
               display: table-header-group !important;
@@ -196,8 +213,9 @@ export class AnukramikaComponent {
               padding: 4px 5px !important;
               font-size: 10px !important;
               text-align: center !important;
-              word-wrap: break-word;
+              word-wrap: break-word !important;
               line-height: 1.4 !important;
+              box-sizing: border-box !important;
             }
             th {
               font-weight: bold !important;
