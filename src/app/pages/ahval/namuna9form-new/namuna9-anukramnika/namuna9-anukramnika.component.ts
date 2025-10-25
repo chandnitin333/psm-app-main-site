@@ -61,83 +61,140 @@ export class Namuna9AnukramnikaComponent {
     @HostListener('window:keydown', ['$event'])
       handleKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key === 'p') {
-          event.preventDefault(); // Prevent browser print dialog
-          this.downloadAndPreviewPDF();
+          event.preventDefault(); // Prevent default browser print
+          this.printDirect(); // Use direct browser print with our styles
         }
       }
 
-    downloadPDF() {
-      const element = document.getElementById('contentToExport');
-      if (element) {
-        // Apply compact table style
-        element.classList.add('pdf-export-style');
+    // Direct browser print - uses @media print CSS
+    printDirect() {
+      const printContent = document.getElementById('contentToExport');
+      if (!printContent) return;
 
-        const currentDate = new Date().toLocaleString('en-US', {
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: '2-digit', minute: '2-digit', second: '2-digit'
-        });
-        const fileName = `नमुना_नमुना_९_अनुक्रमणिका_${currentDate}.pdf`;
+      // Clone content for a clean print
+      const printWindow = window.open('', '_blank', 'width=1024,height=768');
+      if (!printWindow) return;
 
-        const options = {
-          filename: fileName,
-          margin: [15, 15, 15, 15],
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
+      // Copy styles
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            return '';
+          }
+        })
+        .join('\n');
 
-        html2pdf()
-          .set(options)
-          .from(element)
-          .toPdf()
-          .save()
-          .then(() => {
-            // Clean up: remove the class after saving
-            element.classList.remove('pdf-export-style');
-          });
-      }
-    }
+      // Write content to print window
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 portrait;
+                margin: 10mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+              }
+              .heading {
+                font-size: 12px !important;
+                margin-bottom: 2px !important;
+                line-height: 1 !important;
+              }
+              .padding20 {
+                margin-bottom: 2px !important;
+                font-size: 10px !important;
+                line-height: 1 !important;
+              }
+              .row {
+                margin-bottom: 2px !important;
+                display: table !important;
+                width: 100% !important;
+              }
+              .font15 {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+              }
+              .table-responsive {
+                margin-top: 3px !important;
+                overflow-x: visible !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 3px !important;
+                margin-bottom: 0 !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 4px !important;
+                word-wrap: break-word;
+                font-size: 11px !important;
+                text-align: center !important;
+                line-height: 1.3 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #fff !important;
+                padding: 5px 4px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+              .col-md-4 {
+                display: table-cell !important;
+                width: 33.33% !important;
+                padding: 2px !important;
+              }
+              .center {
+                text-align: center !important;
+              }
+              .left {
+                text-align: left !important;
+              }
+              .right {
+                text-align: right !important;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+      `);
 
-  
-      downloadAndPreviewPDF() {
-      const element = document.getElementById('contentToExport');
-      if (element) {
-        // Temporarily apply print-specific styles
-        element.classList.add('pdf-export-style');
+      printWindow.document.close();
 
-        const currentDate = new Date().toLocaleString('en-US', { 
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: '2-digit', minute: '2-digit', second: '2-digit' 
-        });
-        const fileName = `नमुना_९_अनुक्रमणिका_${currentDate}.pdf`;
+      // Wait until content fully loads before printing
+      printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
 
-        const options = {
-          filename: fileName,
-          margin: [15, 15, 15, 15],
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
-
-        html2pdf()
-          .set(options)
-          .from(element)
-          .toPdf()
-          .get('pdf')
-          .then((pdf: any) => {
-            // remove style class after export
-            element.classList.remove('pdf-export-style');
-
-            const blob = pdf.output('blob');
-            const blobURL = URL.createObjectURL(blob);
-            const previewWindow = window.open(blobURL, '_blank');
-
-            setTimeout(() => {
-              previewWindow?.print();
-            }, 500);
-          });
-      }
+        // Auto-close after print (optional)
+        setTimeout(() => printWindow.close(), 1000);
+      };
     }
 }
