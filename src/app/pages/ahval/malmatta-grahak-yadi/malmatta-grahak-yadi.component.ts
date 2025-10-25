@@ -37,11 +37,11 @@ export class MalmattaGrahakYadiComponent {
       // console.log("kundan-----------------> this.malmattaGrahakYadiForm.value", this.malmattaGrahakYadiForm.value);
       this.loadWardNumber();
       this.loadYearOptions();
-      // this.malmattaGrahakYadiForm.get('year')?.valueChanges.subscribe((selectedYearId) => {
-      //   if (selectedYearId !== null && selectedYearId !== undefined) {
-      //     this.setNextYear(Number(selectedYearId));
-      //   }
-      // });
+      this.malmattaGrahakYadiForm.get('year')?.valueChanges.subscribe((selectedYearId) => {
+        if (selectedYearId !== null && selectedYearId !== undefined) {
+          this.setNextYear(Number(selectedYearId));
+        }
+      });
       sessionStorage.removeItem('malmattaForm');
       sessionStorage.removeItem('KhulaBhukhandForm');
       sessionStorage.removeItem('GharKarLavaychAheForm');
@@ -63,18 +63,18 @@ export class MalmattaGrahakYadiComponent {
       },
     });
   }
-  // setNextYear(selectedYearId: number): void {
-  //   const selectedIndex = this.yearOptions.findIndex((year) => Number(year.YEAR_ID) === Number(selectedYearId));
+  setNextYear(selectedYearId: number): void {
+    const selectedIndex = this.yearOptions.findIndex((year) => Number(year.YEAR_ID) === Number(selectedYearId));
 
-  //   if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
-  //     const nextYear = this.yearOptions[selectedIndex + 1];
-  //     this.malmattaGrahakYadiForm.get('to')?.setValue(nextYear.YEAR_ID); // No error now
-  //     this.malmattaGrahakYadiForm.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
-  //   } else {
-  //     this.malmattaGrahakYadiForm.get('to')?.setValue(null); // Handle no next year gracefully
-  //     this.malmattaGrahakYadiForm.get('to1')?.setValue(null); // Handle no next year gracefully
-  //   }
-  // }
+    if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
+      const nextYear = this.yearOptions[selectedIndex + 1];
+      this.malmattaGrahakYadiForm.get('to')?.setValue(nextYear.YEAR_ID); // No error now
+      // this.malmattaGrahakYadiForm.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
+    } else {
+      this.malmattaGrahakYadiForm.get('to')?.setValue(null); // Handle no next year gracefully
+      // this.malmattaGrahakYadiForm.get('to1')?.setValue(null); // Handle no next year gracefully
+    }
+  }
 
   loadWardNumber(): void {
     this.adharListService.getWardNumberList().subscribe({

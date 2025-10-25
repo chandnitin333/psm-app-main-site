@@ -44,73 +44,153 @@ get_adhar_ward_wise_list(){
     }
 
   // Direct browser print - uses @media print CSS
+  // 
+  
   printDirect() {
-    // Add print-specific styles before printing
-    const style = document.createElement('style');
-    style.id = 'print-style';
-    style.innerHTML = `
-      @media print {
-        @page {
-          size: A4 portrait;
-          margin: 5mm;
-        }
-        body * {
-          visibility: hidden;
-        }
-        #contentToExport, #contentToExport * {
-          visibility: visible;
-        }
-        #contentToExport {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-        }
+  const printContent = document.getElementById('contentToExport');
+  if (!printContent) return;
+    console.log('printContent', printContent);
+  // Clone content for a clean print
+  const printWindow = window.open('', '_blank', 'width=1024,height=768');
+  if (!printWindow) return;
+
+  // Copy styles
+  const styles = Array.from(document.styleSheets)
+    .map((styleSheet) => {
+      try {
+        return Array.from(styleSheet.cssRules)
+          .map((rule) => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
       }
-    `;
-    document.head.appendChild(style);
+    })
+    .join('\n');
 
-    // Print
-    window.print();
+  // Write content to print window
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Print Preview</title>
+        <style>
+          ${styles}
+          @page {
+            size: A4 portrait;
+            margin: 8mm;
+          }
+          * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .heading {
+            font-size: 12px !important;
+            margin-bottom: 2px !important;
+            line-height: 1 !important;
+          }
+          .padding20 {
+            margin-bottom: 2px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+          }
+          .row {
+            margin-bottom: 2px !important;
+            display: table !important;
+            width: 100% !important;
+          }
+          .font15 {
+            font-size: 9px !important;
+            line-height: 1 !important;
+          }
+          .table-responsive {
+            margin-top: 3px !important;
+            overflow-x: visible !important;
+          }
+          table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-top: 3px !important;
+          }
+          thead {
+            display: table-header-group !important;
+          }
+          tbody {
+            display: table-row-group !important;
+          }
+          th, td {
+            border: 1px solid #000 !important;
+            padding: 2px !important;
+            word-wrap: break-word;
+            font-size: 9px !important;
+            text-align: center !important;
+          }
+          th {
+            font-weight: bold !important;
+            background-color: #f0f0f0 !important;
+            padding: 3px 2px !important;
+          }
+          tr {
+            border: 1px solid #000 !important;
+            page-break-inside: avoid;
+            page-break-after: auto;
+          }
+          .page-break {
+            page-break-before: always;
+          }
+        </style>
+      </head>
+      <body>
+        ${printContent.outerHTML}
+      </body>
+    </html>
+  `);
 
-    // Clean up
-    setTimeout(() => {
-      const styleElement = document.getElementById('print-style');
-      if (styleElement) {
-        styleElement.remove();
-      }
-    }, 1000);
-  }
+  printWindow.document.close();
 
-  downloadPDF() {
-  const element = document.getElementById('contentToExport');
-  if (element) {
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
+  // Wait until content fully loads before printing
+  printWindow.onload = () => {
+    printWindow.focus();
+    printWindow.print();
 
-    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
-    const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
-
-    const options = {
-      filename: fileName,
-      margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, 
-      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-
-    html2pdf()
-      .set(options)
-      .from(element)
-      .save();
-  }
+    // Auto-close after print (optional)
+    setTimeout(() => printWindow.close(), 1000);
+  };
 }
+
+
+//   downloadPDF() {
+//   const element = document.getElementById('contentToExport');
+//   if (element) {
+//     const now = new Date();
+//     const day = String(now.getDate()).padStart(2, '0');
+//     const month = String(now.getMonth() + 1).padStart(2, '0');
+//     const year = now.getFullYear();
+//     const hours = String(now.getHours()).padStart(2, '0');
+//     const minutes = String(now.getMinutes()).padStart(2, '0');
+//     const seconds = String(now.getSeconds()).padStart(2, '0');
+
+//     const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+//     const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
+
+//     const options = {
+//       filename: fileName,
+//       margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+//       image: { type: 'jpeg', quality: 0.98 },
+//       html2canvas: { scale: 2 },
+//       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, 
+//       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+//     };
+
+//     html2pdf()
+//       .set(options)
+//       .from(element)
+//       .save();
+//   }
+// }
 
  
   // downloadAndPreviewPDF1() {

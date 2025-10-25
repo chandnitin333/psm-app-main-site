@@ -93,44 +93,83 @@ export class MalmattaDharkachiYadiComponent {
   }
 
  
-    downloadAndPreviewPDF() {
-    const element = document.getElementById('contentToExport');
-    if (element) {
-      // Temporarily apply print-specific styles
-      element.classList.add('pdf-export-style');
+  //   downloadAndPreviewPDF() {
+  //   const element = document.getElementById('contentToExport');
+  //   if (element) {
+  //     // Temporarily apply print-specific styles
+  //     element.classList.add('pdf-export-style');
 
-      const currentDate = new Date().toLocaleString('en-US', { 
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit' 
-      });
-      const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_मालमत्ता_धारकाची_यादी_${currentDate}.pdf`;
+  //     const currentDate = new Date().toLocaleString('en-US', { 
+  //       year: 'numeric', month: '2-digit', day: '2-digit',
+  //       hour: '2-digit', minute: '2-digit', second: '2-digit' 
+  //     });
+  //     const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_मालमत्ता_धारकाची_यादी_${currentDate}.pdf`;
 
-      const options = {
-        filename: fileName,
-        margin: [15, 15, 15, 15],
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
+  //     const options = {
+  //       filename: fileName,
+  //       margin: [15, 15, 15, 15],
+  //       image: { type: 'jpeg', quality: 0.98 },
+  //       html2canvas: { scale: 2 },
+  //       jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+  //       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  //     };
 
-      html2pdf()
-        .set(options)
-        .from(element)
-        .toPdf()
-        .get('pdf')
-        .then((pdf: any) => {
-          // remove style class after export
-          element.classList.remove('pdf-export-style');
+  //     html2pdf()
+  //       .set(options)
+  //       .from(element)
+  //       .toPdf()
+  //       .get('pdf')
+  //       .then((pdf: any) => {
+  //         // remove style class after export
+  //         element.classList.remove('pdf-export-style');
 
-          const blob = pdf.output('blob');
-          const blobURL = URL.createObjectURL(blob);
-          const previewWindow = window.open(blobURL, '_blank');
+  //         const blob = pdf.output('blob');
+  //         const blobURL = URL.createObjectURL(blob);
+  //         const previewWindow = window.open(blobURL, '_blank');
 
-          setTimeout(() => {
-            previewWindow?.print();
-          }, 500);
-        });
-    }
-  }
+  //         setTimeout(() => {
+  //           previewWindow?.print();
+  //         }, 500);
+  //       });
+  //   }
+  // }
+
+  async downloadAndPreviewPDF() {
+  const element = document.getElementById('contentToExport');
+  if (!element) return;
+
+  element.classList.add('pdf-export-style');
+  const currentDate = new Date().toLocaleString('en-US', {
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+  const fileName = `फेरकर_आकारणी_मुल्यांकन_यादी_${currentDate}.pdf`;
+
+  const options = {
+    filename: fileName,
+    margin: [10, 10, 10, 10],
+    image: { type: 'jpeg', quality: 0.9 },
+    html2canvas: { scale: 1.2, useCORS: true, logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+  };
+
+  // Wait for images
+  const imgs = element.querySelectorAll('img');
+  await Promise.all(Array.from(imgs).map(img => new Promise(res => img.complete ? res(true) : img.onload = () => res(true))));
+
+  html2pdf()
+    .set(options)
+    .from(element)
+    .toPdf()
+    .get('pdf')
+    .then((pdf: any) => {
+      element.classList.remove('pdf-export-style');
+      const blob = pdf.output('blob');
+      const blobURL = URL.createObjectURL(blob);
+      const previewWindow = window.open(blobURL, '_blank');
+      setTimeout(() => previewWindow?.print(), 500);
+    });
+}
+
 }

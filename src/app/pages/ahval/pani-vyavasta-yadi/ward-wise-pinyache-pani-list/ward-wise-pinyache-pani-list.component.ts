@@ -45,42 +45,119 @@ get_adhar_ward_wise_list(){
 
   // Direct browser print - uses @media print CSS
   printDirect() {
-    // Add print-specific styles before printing
-    const style = document.createElement('style');
-    style.id = 'print-style';
-    style.innerHTML = `
-      @media print {
-        @page {
-          size: A4 portrait;
-          margin: 5mm;
-        }
-        body * {
-          visibility: hidden;
-        }
-        #contentToExport, #contentToExport * {
-          visibility: visible;
-        }
-        #contentToExport {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-        }
-      }
-    `;
-    document.head.appendChild(style);
+  const printContent = document.getElementById('contentToExport');
+  if (!printContent) return;
+    console.log('printContent', printContent);
+  // Clone content for a clean print
+  const printWindow = window.open('', '_blank', 'width=1024,height=768');
+  if (!printWindow) return;
 
-    // Print
-    window.print();
-
-    // Clean up
-    setTimeout(() => {
-      const styleElement = document.getElementById('print-style');
-      if (styleElement) {
-        styleElement.remove();
+  // Copy styles
+  const styles = Array.from(document.styleSheets)
+    .map((styleSheet) => {
+      try {
+        return Array.from(styleSheet.cssRules)
+          .map((rule) => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
       }
-    }, 1000);
-  }
+    })
+    .join('\n');
+
+  // Write content to print window
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Print Preview</title>
+        <style>
+          ${styles}
+          @page {
+            size: A4 portrait;
+            margin: 8mm;
+          }
+          * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .heading {
+            font-size: 12px !important;
+            margin-bottom: 2px !important;
+            line-height: 1 !important;
+          }
+          .padding20 {
+            margin-bottom: 2px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+          }
+          .row {
+            margin-bottom: 2px !important;
+            display: table !important;
+            width: 100% !important;
+          }
+          .font15 {
+            font-size: 9px !important;
+            line-height: 1 !important;
+          }
+          .table-responsive {
+            margin-top: 3px !important;
+            overflow-x: visible !important;
+          }
+          table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-top: 3px !important;
+          }
+          thead {
+            display: table-header-group !important;
+          }
+          tbody {
+            display: table-row-group !important;
+          }
+          th, td {
+            border: 1px solid #000 !important;
+            padding: 2px !important;
+            word-wrap: break-word;
+            font-size: 9px !important;
+            text-align: center !important;
+          }
+          th {
+            font-weight: bold !important;
+            background-color: #f0f0f0 !important;
+            padding: 3px 2px !important;
+          }
+          tr {
+            border: 1px solid #000 !important;
+            page-break-inside: avoid;
+            page-break-after: auto;
+          }
+          .page-break {
+            page-break-before: always;
+          }
+        </style>
+      </head>
+      <body>
+        ${printContent.outerHTML}
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+
+  // Wait until content fully loads before printing
+  printWindow.onload = () => {
+    printWindow.focus();
+    printWindow.print();
+
+    // Auto-close after print (optional)
+    setTimeout(() => printWindow.close(), 1000);
+  };
+}
 
   downloadPDF() {
         const element = document.getElementById('contentToExport');
