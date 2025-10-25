@@ -53,9 +53,181 @@ export class AnukramikaComponent {
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
         event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        this.printDirect();
       }
     }
+
+  // Direct browser print - uses @media print CSS with portrait orientation
+  printDirect() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) return;
+
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (!printWindow) return;
+
+    // Copy styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Write content to print window
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Preview</title>
+          <style>
+            ${styles}
+            @page {
+              size: A4 portrait;
+              margin: 15mm 12mm;
+            }
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+            body {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            #contentToExport {
+              width: 100% !important;
+            }
+            .heading {
+              font-size: 14px !important;
+              margin-bottom: 4px !important;
+              padding-top: 0 !important;
+              font-weight: bold !important;
+            }
+            .san {
+              font-size: 12px !important;
+              margin-bottom: 3px !important;
+            }
+            .font15 {
+              font-size: 11px !important;
+            }
+            .row {
+              margin-bottom: 3px !important;
+              display: table !important;
+              width: 100% !important;
+              table-layout: fixed !important;
+            }
+            .col-md-4 {
+              display: table-cell !important;
+              width: 33.33% !important;
+              vertical-align: middle !important;
+              padding: 0 !important;
+            }
+            .col-md-4:nth-child(1) {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) {
+              text-align: center !important;
+            }
+            .col-md-4:nth-child(3) {
+              text-align: right !important;
+            }
+            .col-md-4 span {
+              display: block !important;
+              width: 100% !important;
+            }
+            .col-md-4:nth-child(1) span,
+            .col-md-4:nth-child(1) .font15 {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) span,
+            .col-md-4:nth-child(2) .font15 {
+              text-align: center !important;
+            }
+            .col-md-4:nth-child(3) span,
+            .col-md-4:nth-child(3) .font15 {
+              text-align: right !important;
+            }
+            .left {
+              float: none !important;
+              text-align: left !important;
+              display: block !important;
+            }
+            .center {
+              text-align: center !important;
+              display: block !important;
+            }
+            .right {
+              float: none !important;
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .font15.left {
+              text-align: left !important;
+            }
+            .font15.right {
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .table-responsive {
+              margin-top: 5px !important;
+              overflow-x: visible !important;
+              padding: 0 !important;
+              width: 100% !important;
+            }
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              margin-top: 5px !important;
+            }
+            thead {
+              display: table-header-group !important;
+            }
+            tbody {
+              display: table-row-group !important;
+            }
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 4px 5px !important;
+              font-size: 10px !important;
+              text-align: center !important;
+              word-wrap: break-word;
+              line-height: 1.4 !important;
+            }
+            th {
+              font-weight: bold !important;
+              background-color: #f0f0f0 !important;
+              padding: 5px 5px !important;
+              font-size: 11px !important;
+            }
+            tr {
+              border: 1px solid #000 !important;
+              page-break-inside: avoid !important;
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent.outerHTML}
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+
+    // Wait until content fully loads before printing
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+
+      // Auto-close after print (optional)
+      setTimeout(() => printWindow.close(), 1000);
+    };
+  }
 
   downloadPDF() {
     const element = document.getElementById('contentToExport');

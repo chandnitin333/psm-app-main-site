@@ -130,12 +130,14 @@ export class MalmattaDharkachiYadiComponent {
           .font15 {
             font-size: 11px !important;
             line-height: 1.3 !important;
+            white-space: nowrap !important;
           }
           .left {
             float: none !important;
             text-align: left !important;
             display: block !important;
           }
+          .center,
           .center.tahsil {
             text-align: center !important;
             margin-left: 0 !important;
@@ -143,6 +145,14 @@ export class MalmattaDharkachiYadiComponent {
           }
           .right {
             float: none !important;
+            text-align: right !important;
+            display: block !important;
+            width: 100% !important;
+          }
+          .font15.left {
+            text-align: left !important;
+          }
+          .font15.right {
             text-align: right !important;
             display: block !important;
             width: 100% !important;
@@ -159,17 +169,49 @@ export class MalmattaDharkachiYadiComponent {
           .col-md-4:nth-child(2) {
             text-align: center !important;
           }
+          .col-md-4.center,
+          .col-md-4.center.tahsil {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
           .col-md-4:nth-child(3) {
             text-align: right !important;
           }
           .col-md-4 span {
-            display: inline-block !important;
+            display: block !important;
             width: 100% !important;
+          }
+          .col-md-4:nth-child(1) span,
+          .col-md-4:nth-child(1) .font15 {
+            text-align: left !important;
+          }
+          .col-md-4:nth-child(2) span,
+          .col-md-4:nth-child(2) .font15,
+          .center.tahsil span,
+          .center.tahsil .font15 {
+            text-align: center !important;
+            display: block !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            padding-left: 100px !important;
+          }
+          .col-md-4:nth-child(3) span,
+          .col-md-4:nth-child(3) .font15 {
+            text-align: right !important;
           }
           .col-md-8 {
             display: table-cell !important;
             width: 66.66% !important;
             padding: 0 !important;
+          }
+          .col-md-4 .font15.right,
+          .col-md-4 > span.right {
+            text-align: right !important;
+            display: block !important;
+            width: 100% !important;
           }
           .table-responsive {
             margin-top: 5px !important;

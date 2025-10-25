@@ -130,3 +130,219 @@ table, th, td {
 .pdf-export-style th {
   background: #f2f2f2;         /* light grey header */
 }
+
+
+/* Print styles for portrait A4 */
+@media print {
+	/* Hide buttons and alerts */
+	.hidden-print,
+	.alert,
+	button {
+		display: none !important;
+	}
+
+	/* Set page orientation to portrait with margins */
+	@page {
+		size: A4 portrait;
+		margin: 15mm 12mm; /* top/bottom 15mm, left/right 12mm for user notes */
+	}
+
+	/* Ensure content fits on page */
+	* {
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	p {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	div {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	span {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.container-fluid {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	#contentToExport {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Heading sizes */
+	.heading {
+		font-size: 14px !important;
+		margin-bottom: 4px !important;
+		padding-top: 0 !important;
+		text-align: center !important;
+		font-weight: bold !important;
+	}
+
+	.san {
+		font-size: 12px !important;
+		margin-bottom: 3px !important;
+	}
+
+	.font15 {
+		font-size: 11px !important;
+	}
+
+	.row {
+		margin-bottom: 3px !important;
+	}
+
+	.col-md-4,
+	.col-md-12 {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	.col-md-4 {
+		display: table-cell !important;
+		width: 33.33% !important;
+		vertical-align: middle !important;
+		padding: 0 !important;
+	}
+
+	.col-md-4:nth-child(1) {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) {
+		text-align: center !important;
+	}
+
+	.col-md-4:nth-child(3) {
+		text-align: right !important;
+	}
+
+	/* Make spans inside columns fill width */
+	.col-md-4 span {
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.col-md-4:nth-child(1) span,
+	.col-md-4:nth-child(1) .font15 {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) span,
+	.col-md-4:nth-child(2) .font15 {
+		text-align: center !important;
+	}
+
+	.col-md-4:nth-child(3) span,
+	.col-md-4:nth-child(3) .font15 {
+		text-align: right !important;
+	}
+
+	.row {
+		display: table !important;
+		width: 100% !important;
+		table-layout: fixed !important;
+	}
+
+	.left {
+		float: none !important;
+		text-align: left !important;
+		display: block !important;
+	}
+
+	.center {
+		text-align: center !important;
+		display: block !important;
+	}
+
+	.right {
+		float: none !important;
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Override for font15 class to ensure proper alignment */
+	.font15.left {
+		text-align: left !important;
+	}
+
+	.font15.right {
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Spacing between header and table */
+	.table-responsive {
+		margin-top: 5px !important;
+		overflow-x: visible !important;
+		padding: 0 !important;
+		width: 100% !important;
+	}
+
+	/* Optimize table for printing */
+	table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin-top: 5px !important;
+	}
+
+	thead {
+		display: table-header-group !important;
+	}
+
+	tbody {
+		display: table-row-group !important;
+	}
+
+	th, td {
+		border: 1px solid #000 !important;
+		padding: 4px 5px !important;
+		font-size: 10px !important;
+		text-align: center !important;
+		word-wrap: break-word;
+		line-height: 1.4 !important;
+	}
+
+	th {
+		font-weight: bold !important;
+		background-color: #f0f0f0 !important;
+		padding: 5px 5px !important;
+		font-size: 11px !important;
+	}
+
+	tr {
+		border: 1px solid #000 !important;
+		page-break-inside: avoid !important;
+	}
+
+	/* Prevent page breaks inside important elements */
+	.heading,
+	.row {
+		page-break-inside: avoid !important;
+	}
+
+	/* Ensure no extra margins/padding */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+}
