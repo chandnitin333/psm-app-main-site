@@ -97,7 +97,7 @@ export class Namuna9AnukramnikaComponent {
               ${styles}
               @page {
                 size: A4 portrait;
-                margin: 10mm;
+                margin: 15mm 10mm 12mm 15mm;
               }
               * {
                 margin: 0 !important;
@@ -107,6 +107,12 @@ export class Namuna9AnukramnikaComponent {
               body {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                padding-top: 5mm !important;
+                padding-left: 3mm !important;
+              }
+              .container-fluid {
+                padding-bottom: 8mm !important;
+                padding-top: 3mm !important;
               }
               .heading {
                 font-size: 12px !important;
@@ -129,13 +135,15 @@ export class Namuna9AnukramnikaComponent {
               }
               .table-responsive {
                 margin-top: 3px !important;
+                margin-bottom: 0mm !important;
                 overflow-x: visible !important;
+                padding-bottom: 0mm !important;
               }
               table {
                 width: 100% !important;
                 border-collapse: collapse !important;
                 margin-top: 3px !important;
-                margin-bottom: 0 !important;
+                margin-bottom: 0mm !important;
               }
               thead {
                 display: table-header-group !important;

@@ -61,7 +61,7 @@ export class Namuna9Component {
       handleKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key === 'p') {
           event.preventDefault(); // Prevent browser print dialog
-          this.downloadAndPreviewPDF();
+          this.printDirect();
         }
       }
 
@@ -138,5 +138,164 @@ export class Namuna9Component {
             }, 500);
           });
       }
+    }
+
+    // Direct browser print - uses @media print CSS
+    printDirect() {
+      const printContent = document.getElementById('contentToExport');
+      if (!printContent) return;
+      console.log('printContent', printContent);
+
+      // Clone content for a clean print
+      const printWindow = window.open('', '_blank', 'width=1024,height=768');
+      if (!printWindow) return;
+
+      // Copy styles
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            return '';
+          }
+        })
+        .join('\n');
+
+      // Write content to print window
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 landscape;
+                margin: 8mm 10mm 8mm 10mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding-top: 3mm !important;
+              }
+              .heading {
+                font-size: 18px !important;
+                margin-bottom: 4px !important;
+                line-height: 1.4 !important;
+                text-align: center !important;
+                font-weight: bold !important;
+              }
+              .san {
+                font-size: 14px !important;
+                line-height: 1.4 !important;
+                text-align: center !important;
+                margin-bottom: 4px !important;
+              }
+              .font15 {
+                font-size: 13px !important;
+                line-height: 1.4 !important;
+                font-weight: bold !important;
+                margin-bottom: 3px !important;
+              }
+              .container-fluid {
+                width: 98% !important;
+                display: block !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+              }
+              .row {
+                margin-bottom: 4px !important;
+                display: block !important;
+                width: 100% !important;
+                clear: both !important;
+              }
+              .col-md-12 {
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 3px !important;
+              }
+              .col-md-4 {
+                width: 33.33% !important;
+                float: left !important;
+              }
+              .left {
+                text-align: left !important;
+              }
+              .center {
+                text-align: center !important;
+              }
+              .right {
+                text-align: right !important;
+              }
+              .table-responsive {
+                margin-top: 3px !important;
+                margin-bottom: 0px !important;
+                overflow-x: visible !important;
+              }
+              .pagebr {
+                page-break-after: always !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 3px !important;
+                margin-bottom: 0px !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 5px 4px !important;
+                word-wrap: break-word;
+                font-size: 12px !important;
+                text-align: center !important;
+                line-height: 1.5 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #f0f0f0 !important;
+                padding: 7px 4px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+              }
+              p {
+                font-size: 13px !important;
+                line-height: 1.5 !important;
+                margin: 3px 0 !important;
+                padding: 2px !important;
+              }
+              br {
+                display: none !important;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+      `);
+
+      printWindow.document.close();
+
+      // Wait until content fully loads before printing
+      printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
+
+        // Auto-close after print (optional)
+        setTimeout(() => printWindow.close(), 1000);
+      };
     }
 }

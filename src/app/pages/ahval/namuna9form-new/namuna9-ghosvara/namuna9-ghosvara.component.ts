@@ -238,7 +238,7 @@ receivedData : any;
       handleKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key === 'p') {
           event.preventDefault(); // Prevent browser print dialog
-          this.downloadAndPreviewPDF();
+          this.printDirect();
         }
       }
 
@@ -315,5 +315,151 @@ receivedData : any;
             }, 500);
           });
       }
+    }
+
+    // Direct browser print - uses @media print CSS
+    printDirect() {
+      const printContent = document.getElementById('contentToExport');
+      if (!printContent) return;
+      console.log('printContent', printContent);
+
+      // Clone content for a clean print
+      const printWindow = window.open('', '_blank', 'width=1024,height=768');
+      if (!printWindow) return;
+
+      // Copy styles
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            return '';
+          }
+        })
+        .join('\n');
+
+      // Write content to print window
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 landscape;
+                margin: 8mm 10mm 8mm 10mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding-top: 3mm !important;
+              }
+              .heading {
+                font-size: 16px !important;
+                margin-bottom: 2px !important;
+                line-height: 1.2 !important;
+                text-align: center !important;
+                font-weight: bold !important;
+              }
+              .san {
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+                text-align: center !important;
+                margin-bottom: 2px !important;
+              }
+              .font15 {
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+                font-weight: bold !important;
+                margin-bottom: 3px !important;
+              }
+              .container-fluid {
+                width: 98% !important;
+                display: block !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+              }
+              .row {
+                margin-bottom: 2px !important;
+                display: block !important;
+                width: 100% !important;
+                clear: both !important;
+              }
+              .col-md-12 {
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 2px !important;
+              }
+              .table-responsive {
+                margin-top: 0px !important;
+                margin-bottom: 4px !important;
+                overflow-x: visible !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 0px !important;
+                margin-bottom: 4px !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 3px 4px !important;
+                word-wrap: break-word;
+                font-size: 11px !important;
+                text-align: center !important;
+                line-height: 1.3 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #f0f0f0 !important;
+                padding: 4px 4px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+              }
+              .fontW {
+                font-weight: bold !important;
+              }
+              p {
+                font-size: 11px !important;
+                line-height: 1.3 !important;
+                margin: 2px 0 !important;
+                padding: 1px !important;
+              }
+              div > p:last-child {
+                margin-bottom: 4px !important;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+      `);
+
+      printWindow.document.close();
+
+      // Wait until content fully loads before printing
+      printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
+
+        // Auto-close after print (optional)
+        setTimeout(() => printWindow.close(), 1000);
+      };
     }
 }
