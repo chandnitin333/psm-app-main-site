@@ -38,6 +38,8 @@ export class NamunaprintComponent {
         this.router.navigate(['/namuna-8-new-version-customer-page'], { state: { name: 'Namuna 8 New Version', value: this.data.NEWUSER_ID } });
     } 
 
+    // images vala nhi jhala
+
     
     this.dialogRef.close();
   }

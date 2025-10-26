@@ -70,7 +70,7 @@ export class Report1291Component {
       handleKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key === 'p') {
           event.preventDefault(); // Prevent browser print dialog
-          this.downloadAndPreviewPDF();
+          this.printDirect();
         }
       }
 
@@ -147,5 +147,197 @@ export class Report1291Component {
             }, 500);
           });
       }
+    }
+
+    // Direct browser print - uses @media print CSS
+    printDirect() {
+      const printContent = document.getElementById('contentToExport');
+      if (!printContent) return;
+      console.log('printContent', printContent);
+
+      // Clone content for a clean print
+      const printWindow = window.open('', '_blank', 'width=1024,height=768');
+      if (!printWindow) return;
+
+      // Copy styles
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            return '';
+          }
+        })
+        .join('\n');
+
+      // Write content to print window
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 landscape;
+                margin: 10mm 8mm 8mm 8mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding-top: 5mm !important;
+              }
+              .heading {
+                font-size: 16px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+              }
+              .headingM {
+                font-size: 14px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+              }
+              .san {
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+              }
+              .padding20 {
+                margin-bottom: 3px !important;
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+              }
+              .row {
+                margin-bottom: 3px !important;
+                display: table !important;
+                width: 100% !important;
+              }
+              .container-fluid > .row > .row {
+                page-break-after: always !important;
+                margin-bottom: 0 !important;
+              }
+              .font15 {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+              }
+              .table-responsive {
+                margin-top: 4px !important;
+                overflow-x: visible !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 4px !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 4px 3px !important;
+                word-wrap: break-word;
+                font-size: 11px !important;
+                text-align: center !important;
+                line-height: 1.3 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #f0f0f0 !important;
+                padding: 5px 3px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+              .container-fluid {
+                width: 95% !important;
+                display: block !important;
+                clear: both !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+              }
+              .col-md-6 {
+                width: 49.5% !important;
+                float: left !important;
+                padding: 0 4mm !important;
+                box-sizing: border-box !important;
+              }
+              .dotted-border-right {
+                border-right: 2px dashed #000 !important;
+                margin-right: 0.5% !important;
+                padding-right: 4mm !important;
+              }
+              .col-md-6:last-child {
+                padding-left: 4mm !important;
+              }
+              .col-md-12 {
+                width: 100% !important;
+              }
+              .col-md-4 {
+                width: 33.33% !important;
+                float: left !important;
+              }
+              .sign {
+                text-align: right !important;
+                font-size: 11px !important;
+                margin-top: 8px !important;
+                padding-top: 5px !important;
+              }
+              .tip {
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+                margin-top: 3px !important;
+                padding: 2px 0 !important;
+              }
+              .namna {
+                text-align: center !important;
+                margin-bottom: 4px !important;
+                padding-top: 3px !important;
+              }
+              p {
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+                margin: 3px 0 !important;
+                padding: 2px !important;
+              }
+              .left {
+                text-align: left !important;
+              }
+              .center {
+                text-align: center !important;
+              }
+              .right {
+                text-align: right !important;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+      `);
+
+      printWindow.document.close();
+
+      // Wait until content fully loads before printing
+      printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
+
+        // Auto-close after print (optional)
+        setTimeout(() => printWindow.close(), 1000);
+      };
     }
 }
