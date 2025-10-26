@@ -34,12 +34,13 @@ export class Report1292Component {
     }
     getReportDataAPI(){
       const param = {
-                  "ward_no": this.receivedData.ward_no,
-                  "year": this.receivedData.year,
-                  "start": this.receivedData.start,
-                  "end": this.receivedData.end,
-                  "from_year": this.receivedData.from_year,
-                  "to_year": this.receivedData.to_year
+                  "ward_no": this.receivedData.ward_no || null,
+                  "year": this.receivedData.year || null,
+                  "start": this.receivedData.start || null,
+                  "end": this.receivedData.end || null,
+                  "from_year": this.receivedData.from_year || null,
+                  "to_year": this.receivedData.to_year || null,
+                  "new_user_id": this.receivedData.new_user_id || null,
               }
       this.apiService.getMagnicheBillReport129_2(param).subscribe({
         next: (res: any) => {
@@ -47,7 +48,7 @@ export class Report1292Component {
           if(this.reportData?.rs3.length === 0 || this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
             // alert('No data found for the selected criteria.');
               this.toastr.error('No data found for the selected criteria.', 'Error');
-              this.router.navigate(['/imla-kar-form-new']);
+              this.router.navigate(['/magniche-bill-ward']);
           }
           this.year = this.reportData?.yearRs42?.YEAR_ID
           this.end_year = Number(this.year) + 1;

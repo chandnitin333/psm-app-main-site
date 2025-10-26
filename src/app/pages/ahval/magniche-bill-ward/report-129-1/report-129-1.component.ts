@@ -22,6 +22,7 @@ export class Report1291Component {
       const encoded = sessionStorage.getItem('magnicheBillWardReport');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
+        console.log('Encoded Data from sessionStorage:', this.receivedData);
       }else{
         if(this.receivedData.new_user_id == null){
           this.router.navigate(['/magniche-bill-ward']);
@@ -38,12 +39,13 @@ export class Report1291Component {
     }
     getReportDataAPI(){
       const param = {
-                  "ward_no": this.receivedData.ward_no,
-                  "year": this.receivedData.year,
-                  "start": this.receivedData.start,
-                  "end": this.receivedData.end,
-                  "from_year": this.receivedData.from_year,
-                  "to_year": this.receivedData.to_year
+                  "ward_no": this.receivedData.ward_no || null,
+                  "year": this.receivedData.year || null,
+                  "start": this.receivedData.start || null,
+                  "end": this.receivedData.end || null,
+                  "from_year": this.receivedData.from_year || null,
+                  "to_year": this.receivedData.to_year || null,
+                  "new_user_id": this.receivedData.new_user_id || null,
               }
       this.apiService.getMagnicheBillReport129_1(param).subscribe({
         next: (res: any) => {
@@ -51,15 +53,15 @@ export class Report1291Component {
           if(this.reportData?.rs3.length === 0 || this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
             // alert('No data found for the selected criteria.');
               this.toastr.error('No data found for the selected criteria.', 'Error');
-                if(this.receivedData.new_user_id == null){
-                  this.router.navigate(['/magniche-bill-ward']);
-                }else{
+                // if(this.receivedData.new_user_id == null){
+                //   this.router.navigate(['/magniche-bill-ward']);
+                // }else{
                   this.router.navigate(['/magniche-bill']);
-                }
+                // }
           }
           this.year = this.reportData?.yearRs42?.YEAR_ID
           this.end_year = Number(this.year) + 1;
-          // console.log('Reponse Data---:', this.reportData);
+          console.log('Reponse Data---:', this.reportData);
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);

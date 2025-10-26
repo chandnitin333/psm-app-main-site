@@ -123,12 +123,12 @@ export class MagnicheBillWardComponent {
       if(formValues.start!== null && formValues.end !== null && formValues.year !== null && formValues.to !== null && formValues.bharna !== null){
           const reportData = {
             ...formValues,
-            new_user_id: null,
-            ward_no: element,
+            new_user_id: element,
+            ward_no: null,
             start_date: this.getDate(formValues.start_date),
             end_date: this.getDate(formValues.end_date),
           };
-          console.log('Generating report for ward:', reportData);
+          // console.log('Generating report for ward:', reportData);
           
         const encoded = btoa(JSON.stringify(reportData));
         sessionStorage.setItem('magnicheBillWardReport', encoded);
