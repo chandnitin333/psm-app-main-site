@@ -30,12 +30,12 @@ import { ToastrService } from 'ngx-toastr';
 
     <mat-dialog-content>
       <form (ngSubmit)="onSubmit()" class="login-form mt-2">
-        <mat-form-field appearance="outline" class="input-field">
+        <mat-form-field appearance="outline" class="input-field  mt-2">
           <mat-label>Username</mat-label>
           <input matInput [(ngModel)]="username" name="username" required />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="input-field">
+        <mat-form-field appearance="outline" class="input-field ">
           <mat-label>Password</mat-label>
           <input
             matInput
