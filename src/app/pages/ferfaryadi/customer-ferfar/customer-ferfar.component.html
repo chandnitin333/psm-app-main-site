@@ -46,13 +46,14 @@
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
                 <input matInput type="text" formControlName="anu_kramak" />
             </mat-form-field>
-        </div>
-        <div class="form-row">
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
                 <input matInput type="text" formControlName="malmatta_number" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
+
+
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
                 <input matInput type="text" formControlName="vard_number" (keyup)="fetCustomerData()" />
@@ -69,10 +70,6 @@
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
                 <input matInput type="text" formControlName="survey_number" />
             </mat-form-field>
-        </div>
-        <div class="form-row">
-
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मासिक सभा क्रमांक</mat-label>
                 <input matInput type="text" formControlName="masik_sabha_no" />
@@ -81,6 +78,11 @@
                 <mat-label class="text-bold">ठराव क्रमांक</mat-label>
                 <input matInput type="text" formControlName="tharav_no" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
+
+
+
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">दिनांक.</mat-label>
                 <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy"
@@ -97,10 +99,6 @@
                 <mat-label class="text-bold">नाव लिहून घेणारा</mat-label>
                 <input matInput type="text" formControlName="nav_lihun_ghenara" />
             </mat-form-field>
-
-        </div>
-        <div class="form-row">
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सचिव</mat-label>
                 <input matInput type="text" formControlName="sachiv" />
@@ -115,7 +113,10 @@
                 <input matInput type="text" formControlName="up_sarpanch" />
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="form-field">
+        </div>
+        <div class="form-row">
+
+            <mat-form-field appearance="outline" class="form-field-50">
                 <mat-label class="text-bold">शेरा/ टीप </mat-label>
                 <input matInput type="text" formControlName="shera_or_tip" />
             </mat-form-field>

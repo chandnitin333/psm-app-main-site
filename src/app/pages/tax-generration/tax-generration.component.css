@@ -53,8 +53,8 @@
 
 .form-field {
   flex: 1 1 calc(20% - 10px); /* 5 columns */
-  min-width: 160px;
-  max-width: 250px;
+  min-width: 200px;
+  max-width: 100%;
 }
 
 .submit-row {

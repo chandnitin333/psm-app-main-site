@@ -74,19 +74,19 @@
             <h6>चतुसिमा</h6>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">पूर्वेस</mat-label>
-                <input matInput type="text" formControlName="purves" />
+                <input matInput type="text" formControlName="purves " />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">पश्चिमेस</mat-label>
                 <input matInput type="text" formControlName="paschimes" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">उत्तरेस</mat-label>
                 <input matInput type="text" formControlName="uttares" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">दक्षिणेस</mat-label>
                 <input matInput type="text" formControlName="dakshines" />
             </mat-form-field>
@@ -177,24 +177,24 @@
             <h6 class="mt-3">एकूण जागेची क्षेत्रफळ</h6>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">लांबी</mat-label>
                 <input matInput type="number" formControlName="lambi" (keyup)="calculationLambiRundi($event)"
                     class="no-spinner" />
             </mat-form-field>
             <span class="star_equal">*</span>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field  form-field-44">
                 <mat-label class="text-bold">रूंदी</mat-label>
                 <input matInput type="number" formControlName="rundi" (keyup)="calculationLambiRundi($event)"
                     class="no-spinner" />
             </mat-form-field>
             <span class="star_equal">=</span>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस फूट)</mat-label>
                 <input matInput type="number" formControlName="shetrafadh_foot"
                     (keyup)="calculationLambiSquareMeter($event)" class="no-spinner" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस मीटर)</mat-label>
                 <input matInput type="number" formControlName="shetrafadh_meter" class="no-spinner" />
             </mat-form-field>
@@ -589,7 +589,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="karanchi_nav">
-                            <th mat-header-cell *matHeaderCellDef class="karTable" ><b> करांचे नाव</b> </th>
+                            <th mat-header-cell *matHeaderCellDef class="karTable"><b> करांचे नाव</b> </th>
                             <td mat-cell *matCellDef="let element"> {{element.karanchi_nav}} </td>
                         </ng-container>
 
@@ -660,25 +660,25 @@
         </div>
         <hr>
         <div class="form-row mt-2">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
                 <input matInput type="number" formControlName="gruhkar_bhumikar_from_tax_payble" class="no-spinner" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">चालू कर</mat-label>
                 <input matInput type="number" formControlName="chalu_kar" class="no-spinner" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">मागील बाकी</mat-label>
                 <input matInput type="number" formControlName="magil_kar" readonly class="no-spinner" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">एकूण कर भरणा</mat-label>
                 <input matInput type="number" formControlName="ekun_kar_bharna" class="no-spinner" />
             </mat-form-field>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field form-field-80">
+            <mat-form-field appearance="outline" class="form-field form-field-100">
                 <mat-label class="text-bold">मागाहून घट किंवा बदल झाल्याच्या बाबतीत आदेशाचा उल्लेख धरून
                     शेरे:</mat-label>
                 <input matInput type="text" formControlName="magahun_ghat_kiva_badal" />

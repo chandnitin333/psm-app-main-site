@@ -30,17 +30,19 @@
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
                 <input matInput type="text" formControlName="survey_no" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">खातेदाराचे नाव</mat-label>
                 <input matInput type="text" formControlName="khate_dharkache_name"
                     (keypress)="keyDownText($event,'khate_dharkache_name')" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
                 <input matInput type="text" formControlName="bhogvat_dharak_name"
                     (keypress)="keyDownText($event,'bhogvat_dharak_name')" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">पत्ता</mat-label>
                 <input matInput type="text" formControlName="address" (keypress)="keyDownText($event,'address')" />
             </mat-form-field>
@@ -59,8 +61,8 @@
             [currentPage]="currentPage" [isEdit]="true" [isDelete]="true" [isView]="false" [isPrint]="true"
             [isDownload]="false" [isPreview]="false" [isKar]="true" [isImage]="true" (editEvent)="onEdit($event)"
             (deleteEvent)="onDelete($event)" (viewEvent)="onView($event)" (printEvent)="onPrint($event)"
-            (downloadEvent)="onDownload($event)" (previewEvent)="onPreview($event)"
-            (prevTaxEvent)="onPrevTax($event)" (imageEvent)="onImage($event)"></app-mat-data-table>
+            (downloadEvent)="onDownload($event)" (previewEvent)="onPreview($event)" (prevTaxEvent)="onPrevTax($event)"
+            (imageEvent)="onImage($event)"></app-mat-data-table>
         <app-custom-pagination [length]="totalItems" [pageSize]="itemsPerPage" [currentPage]="currentPage"
             (pageChange)="onPageChange($event)"> </app-custom-pagination>
     </div>

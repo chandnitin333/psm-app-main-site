@@ -34,22 +34,27 @@
 }
 
 .form-field {
-  flex: 1 1 calc(20% - 10px); /* 5 columns per row */
-  min-width: 160px;
+  flex: 1 1 calc(5% - 10px); /* 5 columns per row */
+  min-width: 100px;
   max-width: 250px;
 }
 
 /* Custom field widths for specific layouts */
 .form-field-33 {
   flex: 1 1 calc(33.333% - 10px) !important; /* 3 columns per row */
-  min-width: 200px;
-  max-width: 400px;
+  min-width: 230px;
+  max-width: 100%;
+}
+.form-field-44 {
+  flex: 1 1 calc(20% - 10px) !important; /* 3 columns per row */
+  min-width: 150px;
+  max-width: 100%;
 }
 
 .form-field-50 {
   flex: 1 1 calc(50% - 10px) !important; /* 2 columns per row */
   min-width: 250px;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .form-field-80 {

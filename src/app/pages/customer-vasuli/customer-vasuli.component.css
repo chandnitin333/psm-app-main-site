@@ -12,7 +12,7 @@
   color: #ffffff;
 }
 .form-field-50 {
-  flex: 1 1 calc(50% - 10px) !important; /* 2 columns per row */
+  flex: 1 1 calc(30% - 10px) !important; /* 2 columns per row */
   min-width: 250px;
   max-width: 600px;
 }
@@ -52,7 +52,7 @@
 }
 
 .form-field {
-  flex: 1 1 calc(20% - 10px); /* 5 columns */
+  flex: 1 1 calc(10% - 10px); /* 5 columns */
   min-width: 160px;
   max-width: 250px;
 }

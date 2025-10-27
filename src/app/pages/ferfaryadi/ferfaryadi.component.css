@@ -32,10 +32,16 @@
 }
 
 .form-field {
-  flex: 1 1 calc(20% - 10px); /* 5 columns */
+  flex: 1 1 calc(10% - 10px); /* 5 columns */
   min-width: 160px;
   max-width: 250px;
 }
+.form-field-50 {
+  flex: 1 1 calc(25% - 10px) !important; /* 2 columns per row */
+  min-width: 250px;
+  max-width: 600px;
+}
+
 
 .submit-row {
   text-align: center;
