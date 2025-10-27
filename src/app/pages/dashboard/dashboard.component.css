@@ -621,7 +621,7 @@
 
 ::ng-deep .info-tabs .mat-mdc-tab-label-active {
   color: white !important;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 ::ng-deep .info-tabs .mat-mdc-tab .mdc-tab__text-label {
