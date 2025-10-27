@@ -3,7 +3,18 @@
 }
 .sidenav {
   width: 250px;
+  /* Hide scrollbar but keep scroll functionality */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidenav::-webkit-scrollbar {
+  display: none;
+}
+
 .content {
   padding: 20px;
 }
