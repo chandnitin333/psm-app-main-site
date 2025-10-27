@@ -5,8 +5,7 @@
         <div class="form-row mt-3">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank" mask="0*"
-                    placeholder="Enter अनु. क्रमांक" />
+                <input matInput type="text" formControlName="annu_kramank" mask="0*" placeholder="Enter अनु. क्रमांक" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
@@ -38,37 +37,35 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मोबाईल नं.</mat-label>
-                <input matInput type="text" placeholder="Enter 10-digit mobile number"
-                    formControlName="mobile_number" class="no-spinner" />
+                <input matInput type="text" placeholder="Enter 10-digit mobile number" formControlName="mobile_number"
+                    class="no-spinner" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
-                <input matInput type="text" formControlName="aadhar_card_number" 
+                <input matInput type="text" formControlName="aadhar_card_number"
                     placeholder="Enter 12-digit Aadhar card number" />
             </mat-form-field>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">घर मालकाचे नाव</mat-label>
                 <input matInput type="text" formControlName="ghar_malkache_nav" />
             </mat-form-field>
-        </div>
-        <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">पत्नी/मुलाचे नाव श्री/श्रीमती</mat-label>
                 <input matInput type="text" formControlName="patni_mulache_nav" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
                 <input matInput type="text" formControlName="bhogvat_dharkache_nav" />
             </mat-form-field>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">पत्ता:नगर/ले-आउट/सोसायटी :</mat-label>
                 <input matInput type="text" formControlName="patta_nagar_layout" />
             </mat-form-field>
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">कायमचा पत्ता</mat-label>
                 <input matInput type="text" formControlName="kaymacha_patta" />
             </mat-form-field>
@@ -581,7 +578,7 @@
                     <table mat-table [dataSource]="otherTaxTableData" id="othertaxTable">
 
                         <ng-container matColumnDef="nivada">
-                            <th mat-header-cell *matHeaderCellDef> <b>निवडा</b> </th>
+                            <th mat-header-cell *matHeaderCellDef class="karTable"> <b>निवडा</b> </th>
                             <td mat-cell *matCellDef="let element">
                                 <section class="example-section">
                                     <mat-checkbox class="example-margin" [id]="element.checked_id"
@@ -592,12 +589,12 @@
                         </ng-container>
 
                         <ng-container matColumnDef="karanchi_nav">
-                            <th mat-header-cell *matHeaderCellDef><b> करांचे नाव</b> </th>
+                            <th mat-header-cell *matHeaderCellDef class="karTable" ><b> करांचे नाव</b> </th>
                             <td mat-cell *matCellDef="let element"> {{element.karanchi_nav}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="kar_dar">
-                            <th mat-header-cell *matHeaderCellDef><b> कर दर </b></th>
+                            <th mat-header-cell *matHeaderCellDef class="karTable"><b> कर दर </b></th>
                             <td mat-cell *matCellDef="let element">
                                 <input matInput type="text" style="width: 40%; height: 40px;" [id]="element.key"
                                     [value]="element.value" (keyup)="insertKarDar($event)" readonly />
@@ -615,9 +612,9 @@
                 <h6 class="mt-3"><strong>मालमत्ता कर गणना (Property Tax Calculation):</strong></h6>
                 <hr>
                 <div class="row">
-                    <mat-form-field appearance="outline" class="form-field">
+                    <mat-form-field appearance="outline" class="form-field kk">
                         <mat-label class="text-bold">उर्वरित खाली जागा (चौरस फूट)</mat-label>
-                        <input matInput type="number" formControlName="urvarit_khali_jaga_feet" class="no-spinner" />
+                        <input matInput type="number" formControlName="urvarit_khali_jaga_feet" class="no-spinner " />
                     </mat-form-field>
                 </div>
                 <div class="form-row mt-2">
@@ -681,7 +678,7 @@
             </mat-form-field>
         </div>
         <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
+            <mat-form-field appearance="outline" class="form-field form-field-80">
                 <mat-label class="text-bold">मागाहून घट किंवा बदल झाल्याच्या बाबतीत आदेशाचा उल्लेख धरून
                     शेरे:</mat-label>
                 <input matInput type="text" formControlName="magahun_ghat_kiva_badal" />
