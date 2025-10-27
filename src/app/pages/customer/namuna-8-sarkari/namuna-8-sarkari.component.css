@@ -130,35 +130,160 @@ table, th, td {
 	font-weight: bold;
 }
 
+/* Print instruction alert styles */
+.print-instruction-alert {
+  margin-top: 10px;
+  font-size: 11px;
+  padding: 8px 12px;
+}
 
-@media print
- {
-	.right{
-		font-size: 9pt;
-	}
-	.font15, .san, .right{
-		font-weight: bold;
-	}
-	.san {
-		margin-top: -10px !important;
-	}
-	body, .font15{
-		margin-left: 2px;
-		font-size: 9pt !important;
-	}
-	.table-bordered>tbody>tr>td , .san{
-		font-size: 12px  !important;
-		padding: 0px 0px !important;
-	}
-	.tip{
-		font-size: 8pt !important;
-	}
-	.font15.right{
-		margin-top: -20px;
-	}
-	
-	.table{margin-top: -10px;}
-	.table-bordered > tbody > tr > td{
-		padding: 0px !important;
-	}
- }
+.print-instruction-alert strong {
+  font-size: 12px;
+}
+
+
+@media print {
+  /* Hide buttons and non-essential elements */
+  .hidden-print, button {
+    display: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  /* Reset margins and padding */
+  * {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body {
+    font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #000;
+    background: white;
+  }
+
+  /* Table optimization for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid;
+    font-size: 11px !important;
+    margin: 0 !important;
+  }
+
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 4px 5px !important;
+    font-size: 11px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    line-height: 1.4 !important;
+  }
+
+  th {
+    font-weight: bold !important;
+    background: #f2f2f2 !important;
+    padding: 5px !important;
+  }
+
+  /* Headings */
+  .heading, .namna {
+    text-align: center !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    padding: 3px 0 !important;
+    margin: 0 0 5px 0 !important;
+    line-height: 1.5 !important;
+  }
+
+  .san {
+    text-align: center !important;
+    font-size: 13px !important;
+    padding: 3px 0 !important;
+    margin: 0 0 5px 0 !important;
+    line-height: 1.4 !important;
+  }
+
+  .font15 {
+    font-size: 11px !important;
+    font-weight: bold !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Prevent page breaks inside table rows */
+  tr {
+    page-break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  /* Container and table responsive */
+  .table-responsive {
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .container-fluid {
+    width: 100% !important;
+    padding: 4px !important;
+    margin: 0 !important;
+  }
+
+  .col-md-12 {
+    padding: 3px !important;
+    margin: 0 !important;
+  }
+
+  /* Grid system for print */
+  .row {
+    width: 100% !important;
+    clear: both;
+    padding: 3px 0 !important;
+    margin: 0 0 2px 0 !important;
+    display: table !important;
+  }
+
+  .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .col-md-4 {
+    width: 33.33% !important;
+    float: left;
+    padding: 3px !important;
+  }
+
+  .left {
+    text-align: left !important;
+    float: left;
+  }
+
+  .center {
+    text-align: center !important;
+  }
+
+  .right {
+    text-align: right !important;
+    float: right;
+  }
+
+  br {
+    display: none !important;
+  }
+}

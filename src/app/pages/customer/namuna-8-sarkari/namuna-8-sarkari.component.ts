@@ -41,7 +41,7 @@ get_namuna_8_Sarkari_data(){
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
         event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        this.printDirect();
       }
     }
     
@@ -102,5 +102,207 @@ get_namuna_8_Sarkari_data(){
           }, 500); // 1000ms delay (1 second) to ensure the PDF is fully loaded
         });
     }
+  }
+
+  printDirect() {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      console.error('Unable to open print window');
+      return;
+    }
+
+    const element = document.getElementById('contentToExport');
+    if (!element) {
+      console.error('Element contentToExport not found');
+      return;
+    }
+
+    const clonedContent = element.cloneNode(true) as HTMLElement;
+
+    // Copy all stylesheets
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('\n');
+        } catch (e) {
+          console.warn('Could not access stylesheet:', e);
+          return '';
+        }
+      })
+      .join('\n');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>नमुना ८ सरकारी</title>
+          <style>
+            ${styles}
+
+            /* Print-specific styles */
+            @page {
+              size: A4 landscape;
+              margin: 8mm;
+            }
+
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+
+            body {
+              font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+              color: #000;
+              background: white;
+            }
+
+            #contentToExport {
+              width: 100%;
+              padding: 4px !important;
+              margin: 0 !important;
+            }
+
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              page-break-inside: avoid;
+              font-size: 11px !important;
+              margin: 0 !important;
+            }
+
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 4px 5px !important;
+              font-size: 11px !important;
+              text-align: center !important;
+              vertical-align: middle !important;
+              word-wrap: break-word;
+              line-height: 1.4 !important;
+            }
+
+            th {
+              font-weight: bold !important;
+              background: #f2f2f2 !important;
+              padding: 5px !important;
+            }
+
+            .heading, .namna {
+              text-align: center !important;
+              font-size: 16px !important;
+              font-weight: bold !important;
+              padding: 3px 0 !important;
+              margin: 0 0 5px 0 !important;
+              line-height: 1.5 !important;
+            }
+
+            .san {
+              text-align: center !important;
+              font-size: 13px !important;
+              padding: 3px 0 !important;
+              margin: 0 0 5px 0 !important;
+              line-height: 1.4 !important;
+            }
+
+            .font15 {
+              font-size: 11px !important;
+              font-weight: bold !important;
+              line-height: 1.4 !important;
+            }
+
+            .left {
+              text-align: left !important;
+              float: left;
+            }
+
+            .center {
+              text-align: center !important;
+            }
+
+            .right {
+              text-align: right !important;
+              float: right;
+            }
+
+            .hidden-print, button {
+              display: none !important;
+            }
+
+            thead {
+              display: table-header-group !important;
+            }
+
+            tbody {
+              display: table-row-group !important;
+            }
+
+            tr {
+              page-break-inside: avoid !important;
+            }
+
+            .table-responsive {
+              overflow: visible !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            .col-md-4 {
+              width: 33.33% !important;
+              float: left;
+              padding: 3px !important;
+            }
+
+            .row {
+              width: 100% !important;
+              clear: both;
+              padding: 3px 0 !important;
+              margin: 0 0 2px 0 !important;
+              display: table !important;
+            }
+
+            .row::after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            .container-fluid {
+              padding: 4px !important;
+              margin: 0 !important;
+            }
+
+            .col-md-12 {
+              padding: 3px !important;
+              margin: 0 !important;
+            }
+
+            br {
+              display: none !important;
+            }
+          </style>
+        </head>
+        <body>
+          ${clonedContent.outerHTML}
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+
+    // Wait for content to load before printing
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+
+      // Auto-close window after print
+      setTimeout(() => {
+        printWindow.close();
+      }, 1000);
+    };
   }
 }

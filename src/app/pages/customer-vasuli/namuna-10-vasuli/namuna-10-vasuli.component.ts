@@ -49,7 +49,7 @@ get_namuna_10_vasuli_data(){
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
         event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        this.printDirect();
       }
     }
     
@@ -85,13 +85,13 @@ get_namuna_10_vasuli_data(){
   downloadAndPreviewPDF() {
   const element = document.getElementById('contentToExport');
   if (element) {
-    const currentDate = new Date().toLocaleString('en-US', { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit' 
+    const currentDate = new Date().toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
     });
     const fileName = `नमुना_10_कराबद्दल_पावती_${currentDate}.pdf`;
 
@@ -100,7 +100,7 @@ get_namuna_10_vasuli_data(){
       margin: [20, 20, 20, 20],  // [top, left, bottom, right] margin in mm
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, 
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // prevent table cuts
     };
 
@@ -110,8 +110,8 @@ get_namuna_10_vasuli_data(){
       .toPdf()
       .get('pdf')
       .then((pdf: any) => {
-        const blob = pdf.output('blob'); 
-        const blobURL = URL.createObjectURL(blob); 
+        const blob = pdf.output('blob');
+        const blobURL = URL.createObjectURL(blob);
 
         // Open in new tab
         const previewWindow = window.open(blobURL, '_blank');
@@ -123,5 +123,197 @@ get_namuna_10_vasuli_data(){
       });
   }
 }
+
+  printDirect() {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      console.error('Unable to open print window');
+      return;
+    }
+
+    const element = document.getElementById('contentToExport');
+    if (!element) {
+      console.error('Element contentToExport not found');
+      return;
+    }
+
+    const clonedContent = element.cloneNode(true) as HTMLElement;
+
+    // Copy all stylesheets
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('\n');
+        } catch (e) {
+          console.warn('Could not access stylesheet:', e);
+          return '';
+        }
+      })
+      .join('\n');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>नमुना १० कराबद्दल पावती</title>
+          <style>
+            ${styles}
+
+            /* Print-specific styles */
+            @page {
+              size: A4 portrait;
+              margin: 10mm;
+            }
+
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+
+            body {
+              font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+              color: #000;
+              background: white;
+            }
+
+            #contentToExport {
+              width: 100%;
+              padding: 3px !important;
+            }
+
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              page-break-inside: avoid;
+              font-size: 11px !important;
+              margin: 4px 0 !important;
+            }
+
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 5px 4px !important;
+              font-size: 11px !important;
+              text-align: center !important;
+              vertical-align: middle !important;
+              word-wrap: break-word;
+              line-height: 1.3 !important;
+            }
+
+            th {
+              font-weight: bold !important;
+              background: #f2f2f2 !important;
+            }
+
+            .heading {
+              text-align: center !important;
+              font-size: 15px !important;
+              font-weight: bold !important;
+              padding: 4px 0 !important;
+              margin: 4px 0 !important;
+              line-height: 1.3 !important;
+            }
+
+            .san {
+              text-align: center !important;
+              font-size: 12px !important;
+              padding: 3px 0 !important;
+              margin: 3px 0 !important;
+              line-height: 1.3 !important;
+            }
+
+            .font15 {
+              font-size: 11px !important;
+              font-weight: bold !important;
+              line-height: 1.3 !important;
+            }
+
+            .left {
+              text-align: left !important;
+              float: left;
+            }
+
+            .center {
+              text-align: center !important;
+            }
+
+            .right {
+              text-align: right !important;
+              float: right;
+            }
+
+            .hidden-print, button {
+              display: none !important;
+            }
+
+            thead {
+              display: table-header-group !important;
+            }
+
+            tbody {
+              display: table-row-group !important;
+            }
+
+            tr {
+              page-break-inside: avoid !important;
+            }
+
+            .table-responsive {
+              overflow: visible !important;
+            }
+
+            .container-fluid {
+              padding: 5px !important;
+            }
+
+            .col-md-4 {
+              width: 33.33% !important;
+              float: left;
+            }
+
+            .row {
+              width: 100% !important;
+              clear: both;
+              padding: 3px 0 !important;
+              margin: 2px 0 !important;
+            }
+
+            .row::after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            p {
+              font-size: 11px !important;
+              line-height: 1.3 !important;
+              padding: 3px 0 !important;
+            }
+          </style>
+        </head>
+        <body>
+          ${clonedContent.outerHTML}
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+
+    // Wait for content to load before printing
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+
+      // Auto-close window after print
+      setTimeout(() => {
+        printWindow.close();
+      }, 1000);
+    };
+  }
 
 }

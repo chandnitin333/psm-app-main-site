@@ -1,6 +1,12 @@
-<button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF</button>
+<button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
+  Print / Save as PDF (Perfect Quality)
+</button>&nbsp;
+<!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF</button>
 <button (click)="downloadAndPreviewPDF()" class="hidden-print btn btn-primary"
-    value="PDF">Print</button>&nbsp;&nbsp;&nbsp;
+    value="PDF">Print</button>&nbsp;&nbsp;&nbsp; -->
+<div class="alert alert-warning hidden-print print-instruction-alert">
+  <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+</div>
 <div class="nobreak" id="contentToExport">
     <div class="content-center">
         <h3>नमुना ८ नियम 32 (१)</h3>
