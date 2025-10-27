@@ -86,6 +86,8 @@ export const routes: Routes = [
     {path: 'indira-awas', loadComponent: () => import('./pages/dashboard/indira-awas/indira-awas.component').then(m => m.IndiraAwasComponent) },
     {path: 'imla-kar', loadComponent: () => import('./pages/dashboard/imla-kar/imla-kar.component').then(m => m.ImlaKarComponent) },
     {path: 'ghar-kar', loadComponent: () => import('./pages/dashboard/ghar-kar/ghar-kar.component').then(m => m.GharKarComponent) },
+    {path: 'odogyik', loadComponent: () => import('./pages/dashboard/audogyik/audogyik.component').then(m => m.audogyikComponent) },
+    {path: 'manora', loadComponent: () => import('./pages/dashboard/manora/manora.component').then(m => m.manorakComponent) },
 
 
 

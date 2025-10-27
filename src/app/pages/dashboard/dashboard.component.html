@@ -1,71 +1,169 @@
 <div class="profile-container mb-1">
-    <mat-grid-list cols="5" rowHeight="2:1" style="padding: 0px;">
-        <mat-grid-tile>
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+        <div class="welcome-content">
+            <h1 class="welcome-title">स्वागत आहे, {{users.NAME | titlecase}} {{users.SURNAME | titlecase}}</h1>
+            <!-- <p class="welcome-subtitle">{{users.DISTRICT_NAME}}, {{users.TALUKA_NAME}}</p> -->
+        </div>
+        <div class="welcome-icon">
+            <mat-icon>dashboard</mat-icon>
+        </div>
+    </div>
 
-            <a [routerLink]="['/chalu-khatedar']" class="dashboard-links">
-                <mat-card class="dashboard-cards">
-                    <mat-card-content>
-                        <h2>{{userData?.chalu_khatedar ?? 0 }}</h2>
-                        <h4 class="label-name">चालू खातेदार</h4>
-                    </mat-card-content>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <a [routerLink]="['/adhikrut']" class="dashboard-links">
-                <mat-card class="dashboard-cards">
-                    <mat-card-content>
-                        <h2>{{userData?.adhikrut ?? 0}}</h2>
-                        <h4 class="label-name">अधिकृत</h4>
-                    </mat-card-content>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <a [routerLink]="['/indira-awas']" class="dashboard-links">
-                <mat-card class="dashboard-cards">
-                    <mat-card-content>
-                        <h2>{{userData?.indira_awas ?? 0}}</h2>
-                        <h4 class="label-name">इंदिरा आवास</h4>
-                    </mat-card-content>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <a [routerLink]="['/imla-kar']" class="dashboard-links">
-                <mat-card class="dashboard-cards">
-                    <mat-card-content>
-                        <h2>{{userData?.imlakar ?? 0}}</h2>
-                        <h4 class="label-name">इमलाकर</h4>
-                    </mat-card-content>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <a [routerLink]="['/ghar-kar']" class="dashboard-links">
-                <mat-card class="dashboard-cards">
-                    <mat-card-content>
-                        <h2>{{userData?.ghar_kar ?? 0}}</h2>
-                        <h4 class="label-name">घर कर </h4>
-                        <!-- लावायचा आहे -->
-                    </mat-card-content>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-    </mat-grid-list>
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <a [routerLink]="['/chalu-khatedar']" class="stat-card card-blue">
+            <div class="stat-icon">
+                <mat-icon>people</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.chalu_khatedar ?? 0 }}</h3>
+                <p class="stat-label">चालू खातेदार</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/adhikrut']" class="stat-card card-green">
+            <div class="stat-icon">
+                <mat-icon>verified_user</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.adhikrut ?? 0}}</h3>
+                <p class="stat-label">अधिकृत</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/indira-awas']" class="stat-card card-orange">
+            <div class="stat-icon">
+                <mat-icon>home</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.indira_awas ?? 0}}</h3>
+                <p class="stat-label">इंदिरा आवास</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/imla-kar']" class="stat-card card-purple">
+            <div class="stat-icon">
+                <mat-icon>description</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.imlakar ?? 0}}</h3>
+                <p class="stat-label">इमलाकर</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/ghar-kar']" class="stat-card card-red">
+            <div class="stat-icon">
+                <mat-icon>apartment</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.ghar_kar ?? 0}}</h3>
+                <p class="stat-label">घर कर</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/odogyik']" class="stat-card card-teal">
+            <div class="stat-icon">
+                <mat-icon>factory</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.audyogik ?? 0}}</h3>
+                <p class="stat-label">औद्योगिक</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+
+        <a [routerLink]="['/manora']" class="stat-card card-pink">
+            <div class="stat-icon">
+                <mat-icon>home_work</mat-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{userData?.manora ?? 0}}</h3>
+                <p class="stat-label">मनोरा</p>
+            </div>
+            <div class="stat-trend">
+                <mat-icon>trending_up</mat-icon>
+            </div>
+        </a>
+    </div>
 
     <!-- Profile Section -->
-    <div class="profile-header " style="margin-bottom: 10px; margin-top: 20px;">
-        <div class="profile-image">
-            <img src="../../../assets/profile.png" alt="Profile Picture" />
-            <!-- <button mat-stroked-button class="change-photo-btn">Change Photo</button> -->
+    <div class="modern-profile-card">
+        <div class="profile-background">
+            <div class="profile-pattern"></div>
         </div>
-        <div class="profile-info">
-            <h2>{{users.NAME }} {{users.SURNAME}}</h2>
-            <!-- <h4>8421404047</h4> -->
-            <h6>Username: {{users.USERNAME }}</h6>
-            <p>District: {{users.DISTRICT_NAME}}</p>
-            <!-- <button mat-stroked-button color="primary">Edit Profile</button> -->
+        <div class="profile-content-wrapper">
+            <div class="profile-main">
+                <div class="profile-avatar-wrapper">
+                    <div class="avatar-ring">
+                        <img src="../../../assets/profile.png" alt="Profile Picture" class="profile-img" />
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Online</span>
+                    </div>
+                </div>
+                <div class="profile-info-new">
+                    <div class="name-section">
+                        <h1 class="user-full-name">{{(users.NAME + ' ' + users.SURNAME) | titlecase}}</h1>
+                        <span class="verified-badge">
+                            <mat-icon>verified</mat-icon>
+                        </span>
+                    </div>
+                    <div class="username-tag">
+                        <mat-icon>alternate_email</mat-icon>
+                        <span>{{users.USERNAME}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-location-card">
+                <div class="location-item">
+                    <div class="location-icon-wrapper gradient-blue">
+                        <mat-icon>location_city</mat-icon>
+                    </div>
+                    <div class="location-details">
+                        <span class="location-label">जिल्हा</span>
+                        <span class="location-value">{{users.DISTRICT_NAME}}</span>
+                    </div>
+                </div>
+                <div class="location-divider"></div>
+                <div class="location-item">
+                    <div class="location-icon-wrapper gradient-green">
+                        <mat-icon>map</mat-icon>
+                    </div>
+                    <div class="location-details">
+                        <span class="location-label">तालुका</span>
+                        <span class="location-value">{{users.TALUKA_NAME}}</span>
+                    </div>
+                </div>
+                <div class="location-divider"></div>
+                <div class="location-item">
+                    <div class="location-icon-wrapper gradient-purple">
+                        <mat-icon>account_balance</mat-icon>
+                    </div>
+                    <div class="location-details">
+                        <span class="location-label">पंचायत</span>
+                        <span class="location-value">{{users.PANCHAYAT_NAME}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -86,37 +184,43 @@
 
     </section>
     <!-- Details Section -->
-    <mat-tab-group style="margin-bottom: 10px;">
+    <mat-tab-group class="info-tabs">
         <mat-tab label="महाराष्ट्र ग्रामपंचायत">
             <div class="additional-info">
-                <div class="wrapper">
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <mat-icon
-                                style="  margin-top: -5px; height:80px; width:70px; font-size: 70px ;">location_city</mat-icon>
+                <div class="info-cards-grid">
+                    <div class="info-card info-card-district">
+                        <div class="info-card-header">
+                            <div class="info-icon">
+                                <mat-icon>location_city</mat-icon>
+                            </div>
+                        </div>
+                        <div class="info-card-body">
+                            <h4 class="info-label">जिल्हा</h4>
+                            <h2 class="info-value">{{users.DISTRICT_NAME}}</h2>
+                        </div>
+                    </div>
 
+                    <div class="info-card info-card-taluka">
+                        <div class="info-card-header">
+                            <div class="info-icon">
+                                <mat-icon>map</mat-icon>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h4>जिल्हा</h4>
-                            <h2>{{users.DISTRICT_NAME}}</h2>
-                        </div>
-                    </div>
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <img src="../assets/pngegg.png" alt="Logo" class="logo">
-                        </div>
-                        <div class="content">
-                            <h4>तालुका</h4>
-                            <h2>{{users.TALUKA_NAME}}</h2>
+                        <div class="info-card-body">
+                            <h4 class="info-label">तालुका</h4>
+                            <h2 class="info-value">{{users.TALUKA_NAME}}</h2>
                         </div>
                     </div>
-                    <div class="box box2">
-                        <div class="logo-container">
-                            <img src="../assets/panchayat.png" alt="Logo" class="logo">
+
+                    <div class="info-card info-card-panchayat">
+                        <div class="info-card-header">
+                            <div class="info-icon">
+                                <mat-icon>account_balance</mat-icon>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h4>पंचायत</h4>
-                            <h2>{{users.PANCHAYAT_NAME}}</h2>
+                        <div class="info-card-body">
+                            <h4 class="info-label">पंचायत</h4>
+                            <h2 class="info-value">{{users.PANCHAYAT_NAME}}</h2>
                         </div>
                     </div>
                 </div>
@@ -178,8 +282,41 @@
             </div>
         </mat-tab>
         <mat-tab label="नकाशा (Map)">
-            <div class="timeline-section">
-                <p>Map content goes here...</p>
+            <div class="map-section">
+                <div class="map-header">
+                    <h3 class="map-title">नागपूर विभाग</h3>
+                    <p class="map-subtitle">महाराष्ट्र ग्रामपंचायत क्षेत्र</p>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d238753.12571181353!2d78.89944572639795!3d21.145799991378873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0a5a31ffc39%3A0x9ab2c2b62f4a1e03!2sNagpur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1703001234567!5m2!1sen!2sin"
+                        width="100%" height="500" style="border:0; border-radius: 12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="map-info-cards">
+                    <div class="map-info-item">
+                        <mat-icon>location_on</mat-icon>
+                        <div class="map-info-content">
+                            <span class="map-info-label">केंद्र बिंदू</span>
+                            <span class="map-info-value">नागपूर</span>
+                        </div>
+                    </div>
+                    <div class="map-info-item">
+                        <mat-icon>explore</mat-icon>
+                        <div class="map-info-content">
+                            <span class="map-info-label">विभाग</span>
+                            <span class="map-info-value">महाराष्ट्र</span>
+                        </div>
+                    </div>
+                    <div class="map-info-item">
+                        <mat-icon>my_location</mat-icon>
+                        <div class="map-info-content">
+                            <span class="map-info-label">क्षेत्र</span>
+                            <span class="map-info-value">ग्रामीण</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </mat-tab>
     </mat-tab-group>

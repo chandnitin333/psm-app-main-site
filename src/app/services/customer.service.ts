@@ -142,5 +142,12 @@ export class CustomerService {
   fetchIndiraAwas(params: any) {
     return this.api.post(`/get-indira-awas-list`, params);
   }
+  fetchaudogyik(params: any) {
+    return this.api.post(`/get-audhygik-list`, params);
+  }
+  fetchManaora(params: any) {
+    return this.api.post(`/get-manora-list`, params);
+  }
+  
   
 }

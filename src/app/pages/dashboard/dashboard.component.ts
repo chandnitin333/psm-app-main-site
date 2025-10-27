@@ -20,8 +20,23 @@ import { RouterLink } from '@angular/router';
 })
 export class DashboardComponent {
   token: any = "";
-  userData: any;
-  users: any;
+  userData: any = {
+    chalu_khatedar: 0,
+    adhikrut: 0,
+    indira_awas: 0,
+    imlakar: 0,
+    ghar_kar: 0,
+    audyogik: 0,
+    manora: 0
+  };
+  users: any = {
+    NAME: '',
+    SURNAME: '',
+    USERNAME: '',
+    DISTRICT_NAME: '',
+    TALUKA_NAME: '',
+    PANCHAYAT_NAME: ''
+  };
 
   displayedColumns: { key: string; value: string }[] = [
 
