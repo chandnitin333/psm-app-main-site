@@ -3,7 +3,7 @@
     <mat-divider></mat-divider>
 
     <form class="form-grid">
-        <div class="form-row">
+        <div class="form-row mt-2">
             <!-- File Name Input -->
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">फाईल नाव</mat-label>
@@ -15,7 +15,8 @@
             <mat-form-field appearance="outline" class="w-full form-field">
                 <mat-label>पीडीएफ अपलोड करा</mat-label>
                 <!-- Hidden File Input -->
-                <input type="file" hidden (change)="onFileSelected($event)" #fileInput  id="sachiv_image" name="sachiv_image"/>
+                <input type="file" hidden (change)="onFileSelected($event)" #fileInput id="sachiv_image"
+                    name="sachiv_image" />
 
                 <!-- Visible Text Box Showing File Name -->
                 <input matInput placeholder="Choose file" [value]="fileName" readonly />
@@ -23,7 +24,7 @@
                 <button mat-icon-button matSuffix type="button" (click)="fileInput.click()">
                     <mat-icon>attach_file</mat-icon>
                 </button>
-                
+
             </mat-form-field>
 
             <!-- Submit Button -->

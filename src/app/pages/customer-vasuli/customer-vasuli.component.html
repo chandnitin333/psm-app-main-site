@@ -10,7 +10,7 @@
     <mat-divider></mat-divider>
 
     <form class="form-grid" [formGroup]="customerForm">
-        <div class="form-row">
+        <div class="form-row mt-3">
             <mat-form-field appearance="outline">
                 <input type="hidden" formControlName="user_id" name="user_id" />
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
@@ -26,8 +26,6 @@
                 <input type="hidden" formControlName="to" readonly />
                 <input matInput type="text" formControlName="to1" readonly />
             </mat-form-field>
-        </div>
-        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
                 <input matInput type="text" formControlName="annu_kramank" />
@@ -40,6 +38,9 @@
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
                 <input matInput type="text" formControlName="ward_no" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
+            
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
                 <input matInput type="text" formControlName="plot_no" />

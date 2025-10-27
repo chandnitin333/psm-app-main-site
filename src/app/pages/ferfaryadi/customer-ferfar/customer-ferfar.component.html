@@ -9,7 +9,7 @@
     <mat-divider></mat-divider>
 
     <form class="form-grid" [formGroup]="addCustomerFerfar">
-        <div class="form-row">
+        <div class="form-row mt-2">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">फेरफार नमुना यादी</mat-label>
                 <mat-select formControlName="ferfar_namuna_yadi">
@@ -54,7 +54,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" formControlName="vard_number" (keyup)="fetCustomerData()"/>
+                <input matInput type="text" formControlName="vard_number" (keyup)="fetCustomerData()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
@@ -64,6 +64,8 @@
                 <mat-label class="text-bold">खसरा क्र.</mat-label>
                 <input matInput type="text" formControlName="khasara_number" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
                 <input matInput type="text" formControlName="survey_number" />
@@ -90,12 +92,13 @@
                 <input matInput type="text" formControlName="home_user_name_lihun_denar" />
             </mat-form-field>
 
+
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">नाव लिहून घेणारा</mat-label>
                 <input matInput type="text" formControlName="nav_lihun_ghenara" />
             </mat-form-field>
-        </div>
-        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सचिव</mat-label>
                 <input matInput type="text" formControlName="sachiv" />

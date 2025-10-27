@@ -144,17 +144,17 @@
 }
 
 
-/* Section Headers - Compact Design */
+/* Section Headers - Original Style */
 h3 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white !important;
-  padding: 12px 16px;
-  border-radius: 8px;
+  color: #333 !important;
+  padding: 0;
+  border-radius: 0;
   margin: 0 0 16px 0;
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
-  letter-spacing: 0.5px;
+  box-shadow: none;
+  letter-spacing: normal;
+  background: transparent;
 }
 
 h5 {
@@ -371,12 +371,12 @@ hr + .form-row h6 {
 }
 
 ::ng-deep .mat-mdc-header-row {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: #e3f2fd; /* Light blue - Original */
   min-height: 48px;
 }
 
 ::ng-deep .mat-mdc-header-cell {
-  color: white !important;
+  color: #0d47a1 !important; /* Dark blue - Original */
   font-weight: 600;
   font-size: 13px;
   padding: 12px 8px;
@@ -409,13 +409,14 @@ hr + .form-row h6 {
 }
 
 .custom-header {
-  background-color: #214162;
+  background-color: #214162 !important;
   color: #fff;
 }
 
 ::ng-deep .custom-header .mat-mdc-header-cell {
   color: white !important;
   font-weight: bold;
+  background-color: #214162 !important;
 }
 
 /* Remove spinner from number inputs */
@@ -474,6 +475,40 @@ button:hover mat-icon[fontIcon="refresh"] {
 /* Normal weight for all form labels */
 .text-bold {
   font-weight: 400 !important; /* Normal weight for form labels */
+}
+
+/* Ultra-Compact mat-select (dropdown) styling */
+::ng-deep .form-field .mat-mdc-select {
+  font-size: 13px !important;
+  height: 20px !important;
+  line-height: 20px !important;
+}
+
+::ng-deep .form-field .mat-mdc-select-trigger {
+  height: 20px !important;
+  min-height: 20px !important;
+}
+
+::ng-deep .form-field .mat-mdc-select-value {
+  font-size: 13px !important;
+  line-height: 20px !important;
+  height: 20px !important;
+}
+
+::ng-deep .form-field .mat-mdc-select-value-text {
+  font-size: 13px !important;
+  line-height: 20px !important;
+}
+
+::ng-deep .form-field .mat-mdc-select-arrow-wrapper {
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .form-field .mat-mdc-select-arrow {
+  width: 16px !important;
+  height: 16px !important;
 }
 
 /* But keep bold for section headers */
