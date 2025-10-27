@@ -74,7 +74,7 @@ export class Namuna8ImagesComponent {
       const printContent = document.getElementById('contentToExport');
       if (!printContent) return;
 
-      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      const printWindow = window.open('', '_blank');
       if (!printWindow) return;
 
       // Copy styles
@@ -312,10 +312,13 @@ export class Namuna8ImagesComponent {
       // Wait until content fully loads before printing
       printWindow.onload = () => {
         printWindow.focus();
-        printWindow.print();
 
-        // Auto-close after print (optional)
-        setTimeout(() => printWindow.close(), 1000);
+        // Close window after print dialog is closed (whether printed or canceled)
+        printWindow.onafterprint = () => {
+          printWindow.close();
+        };
+
+        printWindow.print();
       };
     }
 

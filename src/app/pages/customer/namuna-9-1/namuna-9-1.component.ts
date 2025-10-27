@@ -375,12 +375,13 @@ get_namuna_9_1_data(){
     // Wait for content to load before printing
     printWindow.onload = () => {
       printWindow.focus();
-      printWindow.print();
 
-      // Auto-close window after print
-      setTimeout(() => {
+      // Close window after print dialog is closed (whether printed or canceled)
+      printWindow.onafterprint = () => {
         printWindow.close();
-      }, 1000);
+      };
+
+      printWindow.print();
     };
   }
 }

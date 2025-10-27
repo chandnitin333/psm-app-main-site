@@ -149,7 +149,7 @@ export class Report1292Component {
       console.log('printContent', printContent);
 
       // Clone content for a clean print
-      const printWindow = window.open('', '_blank', 'width=1024,height=768');
+      const printWindow = window.open('', '_blank');
       if (!printWindow) return;
 
       // Copy styles
@@ -327,10 +327,13 @@ export class Report1292Component {
       // Wait until content fully loads before printing
       printWindow.onload = () => {
         printWindow.focus();
-        printWindow.print();
 
-        // Auto-close after print (optional)
-        setTimeout(() => printWindow.close(), 1000);
+        // Close window after print dialog is closed (whether printed or canceled)
+        printWindow.onafterprint = () => {
+          printWindow.close();
+        };
+
+        printWindow.print();
       };
     }
 }
