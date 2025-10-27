@@ -62,7 +62,7 @@ export class ImlakarReportComponent {
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {
         event.preventDefault(); // Prevent browser print dialog
-        this.downloadAndPreviewPDF();
+        this.printDirect();
       }
     }
 
@@ -139,5 +139,255 @@ export class ImlakarReportComponent {
           }, 500);
         });
     }
+  }
+
+  // Direct browser print - uses @media print CSS with landscape orientation
+  printDirect() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) return;
+
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (!printWindow) return;
+
+    // Copy styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Write content to print window
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Preview</title>
+          <style>
+            ${styles}
+            @page {
+              size: A4 landscape;
+              margin: 12mm 15mm;
+            }
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            p {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            div {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            span {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .container-fluid {
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            #contentToExport {
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .page-break {
+              page-break-before: always !important;
+              page-break-after: always !important;
+              page-break-inside: avoid !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .page-break:first-child {
+              page-break-before: avoid !important;
+            }
+            .heading {
+              font-size: 15px !important;
+              margin-bottom: 3px !important;
+              line-height: 1.3 !important;
+              padding-top: 0 !important;
+              font-weight: bold !important;
+            }
+            .san {
+              font-size: 12px !important;
+              margin-bottom: 3px !important;
+              line-height: 1.3 !important;
+            }
+            .font15 {
+              font-size: 10px !important;
+              line-height: 1.3 !important;
+              white-space: nowrap !important;
+            }
+            .col-md-12 {
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            .col-md-4 {
+              display: table-cell !important;
+              width: 33.33% !important;
+              vertical-align: middle !important;
+              padding: 0 !important;
+            }
+            .col-md-4:nth-child(1) {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) {
+              text-align: center !important;
+            }
+            .col-md-4:nth-child(3) {
+              text-align: right !important;
+            }
+            .col-md-4 span {
+              display: block !important;
+              width: 100% !important;
+            }
+            .col-md-4:nth-child(1) span,
+            .col-md-4:nth-child(1) .font15 {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) span,
+            .col-md-4:nth-child(2) .font15,
+            .center.tahsil span,
+            .center.tahsil .font15 {
+              text-align: center !important;
+              display: block !important;
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              padding-left: 100px !important;
+            }
+            .col-md-4:nth-child(3) span,
+            .col-md-4:nth-child(3) .font15 {
+              text-align: right !important;
+            }
+            .col-md-8 {
+              display: table-cell !important;
+              width: 66.66% !important;
+              padding: 0 !important;
+            }
+            .col-md-4 .font15.right,
+            .col-md-4 > span.right {
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .row {
+              margin-bottom: 3px !important;
+              display: table !important;
+              width: 100% !important;
+              table-layout: fixed !important;
+            }
+            .left {
+              float: none !important;
+              text-align: left !important;
+              display: block !important;
+            }
+            .center,
+            .center.tahsil {
+              text-align: center !important;
+              margin-left: 0 !important;
+              display: block !important;
+            }
+            .right {
+              float: none !important;
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .font15.left {
+              text-align: left !important;
+            }
+            .font15.right {
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .table-responsive {
+              margin-top: 3px !important;
+              overflow-x: visible !important;
+              padding: 0 !important;
+            }
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              margin: 0 !important;
+              margin-top: 3px !important;
+            }
+            thead {
+              display: table-header-group !important;
+            }
+            tbody {
+              display: table-row-group !important;
+            }
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 3px 3px !important;
+              word-wrap: break-word;
+              font-size: 9px !important;
+              text-align: center !important;
+              line-height: 1.3 !important;
+            }
+            th {
+              font-weight: bold !important;
+              background-color: #f0f0f0 !important;
+              padding: 4px 3px !important;
+              font-size: 10px !important;
+            }
+            tr[style*="font-weight:bold"] td,
+            td b,
+            td strong {
+              font-weight: bold !important;
+            }
+            tr {
+              border: 1px solid #000 !important;
+              page-break-inside: avoid !important;
+            }
+            .heading,
+            .row {
+              page-break-inside: avoid !important;
+            }
+            .page-break {
+              page-break-inside: avoid !important;
+            }
+            table {
+              page-break-inside: avoid !important;
+            }
+            .table-responsive {
+              page-break-inside: avoid !important;
+            }
+            * {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent.outerHTML}
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+
+    // Wait until content fully loads before printing
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+
+      // Auto-close after print (optional)
+      setTimeout(() => printWindow.close(), 1000);
+    };
   }
 }
