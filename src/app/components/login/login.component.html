@@ -50,13 +50,13 @@
                                 <mat-form-field appearance="outline" class="custom-field">
                                     <mat-label>जिल्हा</mat-label>
                                     <mat-icon matPrefix>map</mat-icon>
-                                    <mat-select formControlName="district_id" (selectionChange)="fetchTalukas($event.value)">
+                                    <mat-select formControlName="district_id"
+                                        (selectionChange)="fetchTalukas($event.value)">
                                         <mat-select-trigger>
                                             {{getSelectedDistrictName()}}
                                         </mat-select-trigger>
                                         <mat-option>
-                                            <ngx-mat-select-search
-                                                [(ngModel)]="districtSearchText"
+                                            <ngx-mat-select-search [(ngModel)]="districtSearchText"
                                                 [ngModelOptions]="{standalone: true}"
                                                 placeholderLabel="Search जिल्हा..."
                                                 noEntriesFoundLabel="No जिल्हा found">
@@ -74,19 +74,20 @@
                                 <mat-form-field appearance="outline" class="custom-field">
                                     <mat-label>तालुका</mat-label>
                                     <mat-icon matPrefix>location_city</mat-icon>
-                                    <mat-select formControlName="taluka_id" (selectionChange)="fetchPanchaytList($event.value)">
+                                    <mat-select formControlName="taluka_id"
+                                        (selectionChange)="fetchPanchaytList($event.value)">
                                         <mat-select-trigger>
                                             {{getSelectedTalukaName()}}
                                         </mat-select-trigger>
                                         <mat-option>
-                                            <ngx-mat-select-search
-                                                [(ngModel)]="talukaSearchText"
+                                            <ngx-mat-select-search [(ngModel)]="talukaSearchText"
                                                 [ngModelOptions]="{standalone: true}"
                                                 placeholderLabel="Search तालुका..."
                                                 noEntriesFoundLabel="No तालुका found">
                                             </ngx-mat-select-search>
                                         </mat-option>
-                                        <mat-option *ngFor="let ele of filteredTalukaList" value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
+                                        <mat-option *ngFor="let ele of filteredTalukaList"
+                                            value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="loginForm.get('taluka_id')?.hasError('required')">
@@ -102,8 +103,7 @@
                                             {{getSelectedPanchayatName()}}
                                         </mat-select-trigger>
                                         <mat-option>
-                                            <ngx-mat-select-search
-                                                [(ngModel)]="panchayatSearchText"
+                                            <ngx-mat-select-search [(ngModel)]="panchayatSearchText"
                                                 [ngModelOptions]="{standalone: true}"
                                                 placeholderLabel="Search पंचायत..."
                                                 noEntriesFoundLabel="No पंचायत found">
@@ -130,7 +130,8 @@
                             <mat-form-field appearance="outline" class="custom-field">
                                 <mat-label>Username</mat-label>
                                 <mat-icon matPrefix>person</mat-icon>
-                                <input matInput type="text" formControlName="username" placeholder="Enter your username">
+                                <input matInput type="text" formControlName="username"
+                                    placeholder="Enter your username">
                                 <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
                                     Username is required
                                 </mat-error>
@@ -139,7 +140,8 @@
                             <mat-form-field appearance="outline" class="custom-field">
                                 <mat-label>Password</mat-label>
                                 <mat-icon matPrefix>lock</mat-icon>
-                                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
+                                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                                    placeholder="Enter your password">
                                 <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
                                     <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
@@ -155,12 +157,12 @@
                                 Login
                             </button>
 
-                            <div class="forgot-password">
-                                <a href="#" class="forgot-link">
-                                    <mat-icon>help_outline</mat-icon>
-                                    Forgot Password?
-                                </a>
-                            </div>
+                            <!-- <div class="forgot-password">
+                                    <a href="#" class="forgot-link">
+                                        <mat-icon>help_outline</mat-icon>
+                                        Forgot Password?
+                                    </a>
+                                </div> -->
                         </div>
                     </form>
                 </mat-card-content>
