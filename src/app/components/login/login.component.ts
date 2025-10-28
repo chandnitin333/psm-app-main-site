@@ -47,6 +47,7 @@ export class LoginComponent {
     private _districtSearchText: string = '';
     private _talukaSearchText: string = '';
     private _panchayatSearchText: string = '';
+    currentYear=  new Date().getFullYear();
 
     readonly dialog = inject(MatDialog);
     constructor(private fb: FormBuilder, private spinner: LoaderService, private api: ApiService, private util: Util, private router: Router) {

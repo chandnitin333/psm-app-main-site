@@ -71,6 +71,10 @@ export class Namuna9formNewComponent {
         // console.log('res', res);
          this.yearOptions = res?.data;
         //  console.log('yearOptions', this.yearOptions);
+        const currentYear = new Date().getFullYear();
+          const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
+          const CYID = currentYearObj?.YEAR_ID ?? null;
+          this.namuna9Form.get('year')?.setValue(CYID);
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);

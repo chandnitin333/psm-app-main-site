@@ -61,7 +61,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
                 <input matInput type="number" formControlName="totalarea"
-                    (keyup)="foot_to_meter_conversion_ekun_foot()" />
+                    (keyup)="foot_to_meter_conversion_ekun_foot()" tabindex="8"/>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
@@ -81,12 +81,12 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">जमिनीचे वार्षिक मुल्य</mat-label>
                 <input matInput type="number" formControlName="annualvalue" (keyup)="foot_to_meter_conversion()"
-                    tabindex="8" />
+                    />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">आकारणी दर</mat-label>
                 <input matInput type="number" formControlName="levyrate" (keyup)="foot_to_meter_conversion()"
-                    tabindex="9" />
+                    />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -118,8 +118,8 @@
 
     <mat-dialog-actions align="center">
 
-        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
+        <button mat-button mat-dialog-close class="custom-red" tabindex="10">रद्द करा</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial tabindex="9"
             [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
             (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" :
             "जतन करा"}}</button>

@@ -28,7 +28,7 @@ userDetails: any = [];
 addCustomerFerfar = new FormGroup({
   ferfar_namuna_yadi: new FormControl<Number | null>(null),
   gram_panchayat: new FormControl<Number | null>(null),
-  from_year: new FormControl<Number | null>(null),
+  from_year: new FormControl<string | null>(null),
   to_year: new FormControl<string | null>(null),
   to_year1: new FormControl<string | null>(null),
   newuser_id: new FormControl<string | null>(null),
@@ -108,7 +108,11 @@ ngOnInit(): void {
       next: (res: any) => {
         // console.log('res', res);
          this.yearOptions = res?.data;
-        //  console.log('yearOptions', this.yearOptions);
+        //  console.log('yearOptions-------', this.yearOptions);
+          const currentYear = new Date().getFullYear();
+          const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
+          const CYID = currentYearObj?.YEAR_ID ?? null;
+          this.addCustomerFerfar.get('from_year')?.setValue(CYID);
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -224,7 +228,7 @@ ngOnInit(): void {
             this.addCustomerFerfar.patchValue({
               ferfar_namuna_yadi: Number(data[0].FERFARNAMUNAYADI_ID),
               gram_panchayat: Number(data[0].PANCHAYAT_ID),
-              from_year: Number(data[0].YEAR_ID),
+              from_year: data[0].YEAR_ID,
               to_year: data[0].YEAR_ID1,
               newuser_id: data[0].NEWUSER_ID,
               anu_kramak: data[0].ANNU_KRAMANK,

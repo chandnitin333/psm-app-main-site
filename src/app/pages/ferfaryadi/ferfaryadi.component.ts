@@ -29,8 +29,8 @@ import { LoginDialogComponent } from '../../common-dialog/login-dialog.component
   styleUrl: './ferfaryadi.component.css'
 })
 export class FerfaryadiComponent {
-toYearSelected: string = '2025';
-fromYearSelected: string = '2024';
+// toYearSelected: string = '2025';
+// fromYearSelected: string = '2024';
  userType: string = 'ferfar_user';
   user_id: number | undefined;
   userDetails: any = [];

@@ -5,69 +5,70 @@
         <div class="form-row mt-3">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" formControlName="annu_kramank" mask="0*" placeholder="Enter अनु. क्रमांक" />
+                <input matInput type="text" formControlName="annu_kramank" mask="0*" placeholder="Enter अनु. क्रमांक"
+                    tabindex="1" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
-                <input matInput type="text" formControlName="malmatta_kramank" />
+                <input matInput type="text" formControlName="malmatta_kramank" tabindex="2" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" formControlName="ward_kramank" mask="0*"
-                    placeholder="Enter वॉर्ड क्रमांक" />
+                <input matInput type="text" formControlName="ward_kramank" mask="0*" placeholder="Enter वॉर्ड क्रमांक"
+                    tabindex="3" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
-                <input matInput type="text" formControlName="plot_kramank" />
+                <input matInput type="text" formControlName="plot_kramank" tabindex="4" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खसरा क्र.</mat-label>
-                <input matInput type="text" formControlName="khasara_kramank" />
+                <input matInput type="text" formControlName="khasara_kramank" tabindex="5" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
-                <input matInput type="text" formControlName="survey_kramank" />
+                <input matInput type="text" formControlName="survey_kramank" tabindex="6" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वोटर कार्ड नं.</mat-label>
                 <input matInput type="text" formControlName="voter_card_number" [mask]="'AAA0000000'"
-                    placeholder="Enter वोटर कार्ड नं." (input)="toUpperCase($event)" />
+                    placeholder="Enter वोटर कार्ड नं." (input)="toUpperCase($event)" tabindex="7" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मोबाईल नं.</mat-label>
                 <input matInput type="text" placeholder="Enter 10-digit mobile number" formControlName="mobile_number"
-                    class="no-spinner" />
+                    class="no-spinner" tabindex="8" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">आधार कार्ड नं.</mat-label>
                 <input matInput type="text" formControlName="aadhar_card_number"
-                    placeholder="Enter 12-digit Aadhar card number" />
+                    placeholder="Enter 12-digit Aadhar card number" tabindex="9" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">घर मालकाचे नाव</mat-label>
-                <input matInput type="text" formControlName="ghar_malkache_nav" />
+                <input matInput type="text" formControlName="ghar_malkache_nav" tabindex="10" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">पत्नी/मुलाचे नाव श्री/श्रीमती</mat-label>
-                <input matInput type="text" formControlName="patni_mulache_nav" />
+                <input matInput type="text" formControlName="patni_mulache_nav" tabindex="11" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-33">
                 <mat-label class="text-bold">भोगवटदाराचे नाव</mat-label>
-                <input matInput type="text" formControlName="bhogvat_dharkache_nav" />
+                <input matInput type="text" formControlName="bhogvat_dharkache_nav" tabindex="12" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">पत्ता:नगर/ले-आउट/सोसायटी :</mat-label>
-                <input matInput type="text" formControlName="patta_nagar_layout" />
+                <input matInput type="text" formControlName="patta_nagar_layout" tabindex="13" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">कायमचा पत्ता</mat-label>
-                <input matInput type="text" formControlName="kaymacha_patta" />
+                <input matInput type="text" formControlName="kaymacha_patta" tabindex="14" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -76,19 +77,19 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">पूर्वेस</mat-label>
-                <input matInput type="text" formControlName="purves " />
+                <input matInput type="text" formControlName="purves" tabindex="15" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">पश्चिमेस</mat-label>
-                <input matInput type="text" formControlName="paschimes" />
+                <input matInput type="text" formControlName="paschimes" tabindex="16" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">उत्तरेस</mat-label>
-                <input matInput type="text" formControlName="uttares" />
+                <input matInput type="text" formControlName="uttares" tabindex="17" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">दक्षिणेस</mat-label>
-                <input matInput type="text" formControlName="dakshines" />
+                <input matInput type="text" formControlName="dakshines" tabindex="18" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -97,7 +98,7 @@
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary"
                 formControlName="pinachya_panichi_vyavstha_radio">
-                <mat-radio-button value="हातपंप">हातपंप</mat-radio-button>
+                <mat-radio-button value="हातपंप" tabindex="19">हातपंप</mat-radio-button>
                 <mat-radio-button value="विहिर">विहिर</mat-radio-button>
                 <mat-radio-button value="सार्वजनिक नळ">सार्वजनिक नळ</mat-radio-button>
                 <mat-radio-button value="घरी नळ">घरी नळ</mat-radio-button>
@@ -109,7 +110,7 @@
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="ghari_toilet_radio">
-                <mat-radio-button value="होय">होय</mat-radio-button>
+                <mat-radio-button value="होय" tabindex="20">होय</mat-radio-button>
                 <mat-radio-button value="नाही">नाही</mat-radio-button>
             </mat-radio-group>
         </div>
@@ -121,7 +122,7 @@
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="vanijya_prakar_radio">
-                <mat-radio-button value="औद्योगिक">औद्योगिक</mat-radio-button>
+                <mat-radio-button value="औद्योगिक" tabindex="21">औद्योगिक</mat-radio-button>
                 <mat-radio-button value="मनोरा">मनोरा</mat-radio-button>
             </mat-radio-group>
         </div>
@@ -130,7 +131,7 @@
         </div>
         <div class="form-row">
             <mat-radio-group aria-label="Select an option" color="primary" formControlName="miltkat_prakar_radio">
-                <mat-radio-button value="अधिकृत">अधिकृत</mat-radio-button>
+                <mat-radio-button value="अधिकृत" tabindex="22">अधिकृत</mat-radio-button>
                 <mat-radio-button value="इमलाकर">इमलाकर</mat-radio-button>
                 <mat-radio-button value="घरकुल">घरकुल</mat-radio-button>
                 <mat-radio-button value="घर कर लावायचा आहे">घर कर लावायचा आहे</mat-radio-button>
@@ -180,36 +181,36 @@
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">लांबी</mat-label>
                 <input matInput type="number" formControlName="lambi" (keyup)="calculationLambiRundi($event)"
-                    class="no-spinner" />
+                    class="no-spinner" tabindex="23" />
             </mat-form-field>
             <span class="star_equal">*</span>
             <mat-form-field appearance="outline" class="form-field  form-field-44">
                 <mat-label class="text-bold">रूंदी</mat-label>
                 <input matInput type="number" formControlName="rundi" (keyup)="calculationLambiRundi($event)"
-                    class="no-spinner" />
+                    class="no-spinner" tabindex="24" />
             </mat-form-field>
             <span class="star_equal">=</span>
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस फूट)</mat-label>
                 <input matInput type="number" formControlName="shetrafadh_foot"
-                    (keyup)="calculationLambiSquareMeter($event)" class="no-spinner" />
+                    (keyup)="calculationLambiSquareMeter($event)" class="no-spinner" tabindex="25" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field form-field-44">
                 <mat-label class="text-bold">क्षेत्रफळ (चौरस मीटर)</mat-label>
-                <input matInput type="number" formControlName="shetrafadh_meter" class="no-spinner" />
+                <input matInput type="number" formControlName="shetrafadh_meter" class="no-spinner" readonly />
             </mat-form-field>
         </div>
         <hr />
         <div class="row">
             <div class="d-flex">
-                <button type="button" class="btn col-md-2 custom-header" value="khula_bhukhand"
+                <button type="button" class="btn col-md-2 custom-header" tabindex="26" value="khula_bhukhand"
                     (click)="is_edit ? khula_bhukand_modal('khula_bhukhand', true) : khula_bhukand_modal('khula_bhukhand')">खुला
                     भूखंड कर आकारणी</button>&nbsp;
-                <button type="button" class="btn custom-header col-md-2" value="bandkam_kar_aakarani"
+                <button type="button" class="btn custom-header col-md-2" tabindex="27" value="bandkam_kar_aakarani"
                     (click)="is_edit ? building_kar_aakarani('bandkam_kar_aakarani', true) : building_kar_aakarani('bandkam_kar_aakarani')">बांधकामाची
                     कर
                     आकारणी</button>&nbsp;
-                <button type="button" class="btn custom-header col-md-2" value="manora_kar"
+                <button type="button" class="btn custom-header col-md-2" tabindex="28" value="manora_kar"
                     (click)="is_edit ? manora_kar_aakarani('manora_kar', true) : manora_kar_aakarani('manora_kar')">मनोऱ्याचे
                     कर
                     आकारणी</button>
@@ -582,7 +583,7 @@
                             <td mat-cell *matCellDef="let element">
                                 <section class="example-section">
                                     <mat-checkbox class="example-margin" [id]="element.checked_id"
-                                        [checked]="element.checked"
+                                        [checked]="element.checked" tabindex="29"
                                         (click)="checkedOthertaxTableData($event)"></mat-checkbox>
                                 </section>
                             </td>
@@ -614,42 +615,46 @@
                 <div class="row">
                     <mat-form-field appearance="outline" class="form-field kk">
                         <mat-label class="text-bold">उर्वरित खाली जागा (चौरस फूट)</mat-label>
-                        <input matInput type="number" formControlName="urvarit_khali_jaga_feet" class="no-spinner " />
+                        <input matInput type="number" formControlName="urvarit_khali_jaga_feet" class="no-spinner"
+                            readonly />
                     </mat-form-field>
                 </div>
                 <div class="form-row mt-2">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">जमिनीचे भांडवली मुल्य</mat-label>
-                        <input matInput type="number" formControlName="jaminiche_bhandavali_mulya" class="no-spinner" />
+                        <input matInput type="number" formControlName="jaminiche_bhandavali_mulya" class="no-spinner"
+                            readonly />
                     </mat-form-field>
                     <span class="star_equal">+</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">इमारतीचे भांडवली मुल्य</mat-label>
-                        <input matInput type="number" formControlName="emaratiche_bhandavali_mulya"
-                            class="no-spinner" />
+                        <input matInput type="number" formControlName="emaratiche_bhandavali_mulya" class="no-spinner"
+                            readonly />
                     </mat-form-field>
                     <span class="star_equal">=</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">एकूण भांडवली मुल्य</mat-label>
-                        <input matInput type="number" formControlName="ekun_bhandavli_mulya" class="no-spinner" />
+                        <input matInput type="number" formControlName="ekun_bhandavli_mulya" class="no-spinner"
+                            readonly />
                     </mat-form-field>
                 </div>
                 <div class="form-row">
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">खुला भूखंड कर आकारणी</mat-label>
                         <input matInput type="number" formControlName="khula_bhukand_kar_aakarani_txt"
-                            class="no-spinner" />
+                            class="no-spinner" readonly />
                     </mat-form-field>
                     <span class="star_equal">+</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">इमारतीची कर आकारणी</mat-label>
-                        <input matInput type="number" formControlName="emartiche_kar_akarani_txt" class="no-spinner" />
+                        <input matInput type="number" formControlName="emartiche_kar_akarani_txt" class="no-spinner"
+                            readonly />
                     </mat-form-field>
                     <span class="star_equal">=</span>
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label class="text-bold">गृहकर व भूमीकर</mat-label>
                         <input matInput type="number" formControlName="gruhkar_bhumikar_from_property_tax"
-                            class="no-spinner" />
+                            class="no-spinner" readonly />
                     </mat-form-field>
                 </div>
             </div>
@@ -681,14 +686,15 @@
             <mat-form-field appearance="outline" class="form-field form-field-100">
                 <mat-label class="text-bold">मागाहून घट किंवा बदल झाल्याच्या बाबतीत आदेशाचा उल्लेख धरून
                     शेरे:</mat-label>
-                <input matInput type="text" formControlName="magahun_ghat_kiva_badal" />
+                <input matInput type="text" formControlName="magahun_ghat_kiva_badal" tabindex="30" />
             </mat-form-field>
         </div>
         <div class="submit-row">
-            <a mat-raised-button color="warn" class="custom-red" (click)="reset()">Reset</a> &nbsp;
-            <a mat-raised-button color="primary" class="submit-btn"
-                (click)="(!is_edit)  ? save_nodani_form() : update_nodani_form()">{{(is_edit) ? "बदल करा" : "जतन
-                करा"}}</a>
+            <button mat-raised-button color="warn" class="custom-red" (click)="reset()">Reset</button> &nbsp;
+            <button mat-raised-button color="primary" class="submit-btn"
+                (click)="(!is_edit)  ? save_nodani_form() : update_nodani_form()" tabindex="31">{{(is_edit) ? "बदल करा"
+                : "जतन
+                करा"}}</button>
         </div>
     </mat-card>
 </form>

@@ -23,7 +23,8 @@ export class NamunaprintComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog, private router: Router,
   ) {
-    console.log('Received data in NamunaprintComponent:', this.data.NEWUSER_ID);
+    console.log('Received data in NamunaprintComponent-----:', this.data);
+    sessionStorage.removeItem('namuna8imgaesform');
   }
 
   onSelect(event:any){
@@ -36,9 +37,33 @@ export class NamunaprintComponent {
         this.router.navigate(['/namuna-8-sarkari'], { state: { name: 'Namuna 8.sarkari', value: this.data.NEWUSER_ID } });
     } else if(event.value == 'नमुना 8 New Version'){
         this.router.navigate(['/namuna-8-new-version-customer-page'], { state: { name: 'Namuna 8 New Version', value: this.data.NEWUSER_ID } });
+    } else if(event.value == 'नमुना 8 Images'){
+        let params=
+        {
+            "ward": 0,
+            "year":0,
+            "start": 0,
+            "end":0,
+            "new_user_id":this.data.NEWUSER_ID,
+            "from_year":0,
+            "to_year":0
+        };
+        // params['ward'] = 0;
+        // params['year'] = 0;
+        // params['start'] = 0;
+        // params['end'] = 0;
+        // params['new_user_id'] = this.data.NEWUSER_ID;
+        // params['from_year'] = 0;
+        // params['to_year'] = 0;
+
+        console.log('namuna 8 images params----', JSON.stringify(params));
+        sessionStorage.setItem('namuna8imgaesform', btoa(JSON.stringify(params)));
+        this.router.navigate(['/get-namuna-8-images']);
     } 
 
-    // images vala nhi jhala
+    // images vala nhi jhala नमुना 8 Images
+    // sessionStorage.setItem('namuna8imgaesform', btoa(JSON.stringify(this.namuna8Form.value)));
+    //   this.router.navigate(['/get-namuna-8-images']);
 
     
     this.dialogRef.close();
