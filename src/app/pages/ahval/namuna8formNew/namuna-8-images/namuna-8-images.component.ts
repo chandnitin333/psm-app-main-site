@@ -5,6 +5,7 @@ import html2pdf from 'html2pdf.js';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ImlakarService } from '../../../../services/imlakar.service';
 import { Namuna8Service } from '../../../../services/namuna8.service';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-namuna-8-images',
@@ -19,7 +20,8 @@ export class Namuna8ImagesComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService) {
+    file_baseUrl= "";
+    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private api: ApiService) {
       const encoded = sessionStorage.getItem('namuna8imgaesform');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -31,6 +33,7 @@ export class Namuna8ImagesComponent {
 
     ngOnInit() {
         this.getReportDataAPI();
+        this.file_baseUrl= this.api.file_baseUrl;
 
     }
     getReportDataAPI(){
