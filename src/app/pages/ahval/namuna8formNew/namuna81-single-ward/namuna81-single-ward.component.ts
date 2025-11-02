@@ -36,19 +36,20 @@ export class Namuna81SingleWardComponent {
   }
   getReportDataAPI(){
     const param = {
-                "ward": this.receivedData.ward_no,
-                "year": this.receivedData.year,
-                "start": this.receivedData.start,
-                "end": this.receivedData.end,
-                "from_year": this.receivedData.year1,
-                "to_year": this.receivedData.toYear1
+                "ward": this.receivedData.ward_no || 0,
+                "year": this.receivedData.year || 0,
+                "start": this.receivedData.start || 0,
+                "end": this.receivedData.end || 0,
+                "from_year": this.receivedData.year1 || 0,
+                "to_year": this.receivedData.toYear1 || 0,
+                 "new_user_id":this.receivedData.new_user_id || null,
             }
     this.apiService.getNamuna81SingleWardNew(param).subscribe({
       next: (res: any) => {
         this.reportData = res.data;
         this.year = this.reportData.yearRs42[0].year
         this.end_year = Number(this.year) + 1;
-        console.log('Reponse Data:', this.reportData);
+        console.log('Reponse Data-------------:', this.reportData);
       },
       error: (err: Error) => {
         console.error('Error getting for anukramika list :', err);

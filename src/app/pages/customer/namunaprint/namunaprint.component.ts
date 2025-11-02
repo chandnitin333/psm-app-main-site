@@ -26,7 +26,10 @@ export class NamunaprintComponent {
     console.log('Received data in NamunaprintComponent-----:', this.data);
     sessionStorage.removeItem('namuna8imgaesform');
   }
-
+  ngOnInit() {
+      // Initialization logic here
+      sessionStorage.removeItem('namuna81SingleWardForm');
+    }
   onSelect(event:any){
     console.log('Selected option:', event.value);
     if(event.value === 'नमुना ८'){
@@ -36,7 +39,17 @@ export class NamunaprintComponent {
     } else if(event.value == 'नमुना 8 सरकारी'){
         this.router.navigate(['/namuna-8-sarkari'], { state: { name: 'Namuna 8.sarkari', value: this.data.NEWUSER_ID } });
     } else if(event.value == 'नमुना 8 New Version'){
-        this.router.navigate(['/namuna-8-new-version-customer-page'], { state: { name: 'Namuna 8 New Version', value: this.data.NEWUSER_ID } });
+      let params=
+        {
+            "ward": 0,
+            "year":0,
+            "start": 0,
+            "end":0,
+            "new_user_id":this.data.NEWUSER_ID
+        };
+      sessionStorage.setItem('namuna81SingleWardForm', btoa(JSON.stringify(params)));
+      this.router.navigate(['/get-namuna-8-1-single-vard-list']);
+        // this.router.navigate(['/namuna-8-new-version-customer-page'], { state: { name: 'Namuna 8 New Version', value: this.data.NEWUSER_ID } });
     } else if(event.value == 'नमुना 8 Images'){
         let params=
         {
@@ -56,7 +69,7 @@ export class NamunaprintComponent {
         // params['from_year'] = 0;
         // params['to_year'] = 0;
 
-        console.log('namuna 8 images params----', JSON.stringify(params));
+        // console.log('namuna 8 images params----', JSON.stringify(params));
         sessionStorage.setItem('namuna8imgaesform', btoa(JSON.stringify(params)));
         this.router.navigate(['/get-namuna-8-images']);
     } 

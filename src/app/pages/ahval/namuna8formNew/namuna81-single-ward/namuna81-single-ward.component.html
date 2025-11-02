@@ -9,307 +9,240 @@
     मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
 </div>
 <div class="nobreak" id="contentToExport">
-    <div class="content-center">
-        <h3>नमुना ८ नियम 32 (१)</h3>
-        <h3>सन. 2024-2025 साठी कर आकारणी नोंदवही (वैयक्तिक असेसमेंट उतारा पाहण्याकरीता)</h3>
+    <div *ngFor="let itemRs3 of reportData?.rs3">
+        <div class="content-center">
+            <h3>नमुना ८ नियम 32 (१)</h3>
+            <h3>सन. {{ year }}-{{ end_year }} साठी कर आकारणी नोंदवही (वैयक्तिक असेसमेंट उतारा पाहण्याकरीता)</h3>
 
-        <div class="header-flex">
-            <div class="col-md-3">
-                <span class="font15">ग्रामपंचायत :- न्यू डेमो</span>
+            <div class="header-flex">
+                <div class="col-md-3">
+                    <span class="font15">ग्रामपंचायत :- {{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME }}</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="font15">तालुका :- {{ reportData?.newUserDataDBRs2[0]?.TALUKA_NAME }}</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="font15">जिल्हा :- {{ reportData?.newUserDataDBRs2[0]?.DISTRICT_NAME }}</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="font15">वार्ड क्रमांक:{{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME }} वार्ड नं.
+                        {{ itemRs3?.ANNU_KRAMANK }}</span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <span class="font15">तालुका :- नागपूर ग्रामीण</span>
-            </div>
-            <div class="col-md-3">
-                <span class="font15">जिल्हा :- नागपूर</span>
-            </div>
-            <div class="col-md-3">
-                <span class="font15">वार्ड क्रमांक:न्यू डेमो वार्ड नं. 1</span>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="header-vertical-top" rowspan="2">अ.क्र.</th>
+                        <th class="header-vertical-top landscape-text" rowspan="2">रस्त्याचे नाव गल्लीचे नाव</th>
+                        <th class="header-vertical-top landscape-text" rowspan="2">गट क्र. भूमापन क्र.</th>
+                        <th class="header-vertical-top" rowspan="2">माल <br> मत्ता <br> क्रमांक</th>
+                        <th class="header-vertical-top" rowspan="2">मालकाचे नाव (धारण करणाऱ्याचे नाव)</th>
+                        <th class="header-vertical-top" rowspan="2">भोगवटा करणाऱ्याचे नाव</th>
+                        <th class="header-vertical-top" rowspan="2">मालमत्तेचे वर्णन</th>
+                        <th class="landscape-text" rowspan="2">मिळकत बांधकामाचे वर्ष <br>(मिळकतीचे वयोमान वर्षामध्ये)
+                        </th>
+                        <th class="header-vertical-top" rowspan="2">क्षेत्रफळ चौ मी/ (चौ,फू)</th>
+                        <th class="header-vertical-top" colspan="3">रेडीरेकनर दर प्रति चौ मी</th>
+                        <th class="header-center landscape-text" rowspan="2">घसारा</th>
+                        <th class="header-center landscape-text" rowspan="2">इ. वापरा नुसार भारांक</th>
+                        <th class="header-center landscape-text" rowspan="2">भांडवली मूल्य</th>
+                        <th class="header-center landscape-text" rowspan="2">कराचा दर</th>
+                        <th class="header-vertical-top" colspan="5">वार्षिक कराची रक्कम (रुपयात)</th>
+                        <th class="header-vertical-top" colspan="5">अपीलाचे निकाल व त्यावर केलेले फेरफार</th>
+                        <th class="header-vertical-top" rowspan="2">नंतर वाढ किंवा <br> घट झालेल्या बाबतीत<br>आदेशाच्या
+                            संदर्भात शेरा</th>
+                    </tr>
+                    <tr>
+                        <th class="header-center landscape-text">जमीन</th>
+                        <th class="header-center landscape-text">इमारत</th>
+                        <th class="header-center landscape-text">बांधकाम</th>
+                        <th class="header-vertical-top">इमारत कर</th>
+                        <th class="header-center landscape-text">दिवाबत्ती कर</th>
+                        <th class="header-center landscape-text">आरोग्य कर</th>
+                        <th class="header-center landscape-text">सार्व/खास पा.पट्टी</th>
+                        <th class="header-vertical-top">एकूण</th>
+                        <th class="header-center landscape-text">इमारत कर</th>
+                        <th class="header-center landscape-text">दिवाबत्ती कर</th>
+                        <th class="header-center landscape-text">आरोग्य कर</th>
+                        <th class="header-center landscape-text">सार्व. पा. पट्टी</th>
+                        <th class="header-center landscape-text">एकूण</th>
+                    </tr>
+                    <tr>
+                        <th class="header-center">१</th>
+                        <th class="header-center">२</th>
+                        <th class="header-center">३</th>
+                        <th class="header-center">४</th>
+                        <th class="header-center">५</th>
+                        <th class="header-center">६</th>
+                        <th class="header-center">७</th>
+                        <th class="header-center">८</th>
+                        <th class="header-center">९</th>
+                        <th class="header-center">१०</th>
+                        <th class="header-center">११</th>
+                        <th class="header-center">१२</th>
+                        <th class="header-center">१३</th>
+                        <th class="header-center">१४</th>
+                        <th class="header-center">१५</th>
+                        <th class="header-center">१६</th>
+                        <th class="header-center">१७</th>
+                        <th class="header-center">१८</th>
+                        <th class="header-center">१९</th>
+                        <th class="header-center">२०</th>
+                        <th class="header-center">२१</th>
+                        <th class="header-center">२२</th>
+                        <th class="header-center">२३</th>
+                        <th class="header-center">२४</th>
+                        <th class="header-center">२५</th>
+                        <th class="header-center">२६</th>
+                        <th class="header-center">२७</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">{{ itemRs3?.ANNU_KRAMANK }}</td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{{ itemRs3?.MALMATTA_NUMBER }}</td>
+                        <td>{{ itemRs3?.HOMEUSER_NAME }}</td>
+                        <td>{{ itemRs3?.BHOGATWARGARACHE_NAME }}</td>
+                        <td>{{ itemRs3?.taxationLandRS4[0]?.MILKAT_VAPAR_NAME }}</td>
+                        <td></td>
+                        <td class="text-center">{{ itemRs3?.taxationLandRS4[0]?.TOTALAREA1}} <br> ( {{
+                            itemRs3?.taxationLandRS4[0]?.TOTALAREA}} चौ,फू )</td>
+                        <td class="landscape-text text-center">{{ itemRs3?.taxationLandRS4[0]?.ANNUALVALUE}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="landscape-text text-center">{{ itemRs3?.taxationLandRS4[0]?.CAPITAL}}</td>
+                        <td class="text-center">{{ itemRs3?.taxationLandRS4[0]?.LEVYRATE}}</td>
+                        <td class="text-center">{{ itemRs3?.taxationLandRS4[0]?.TAXATION}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr *ngFor="let itemRs5 of itemRs3?.constructionTaxRS5">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ itemRs5?.DESCRIPTION_NAME }}, {{ itemRs5?.MILKAT_VAPAR_NAME }}, {{
+                            itemRs5?.VAPARACHE_PRAKAR }}, {{ itemRs5?.FLOOR_NAME }}, <br> ( लांबी {{
+                            itemRs5?.AREAP }} x रुंदी {{ itemRs5?.AREAI }})</td>
+                        <td class="text-center">{{ itemRs5?.LIFESPAN }}</td>
+                        <td class="text-center">{{ itemRs5?.TOTALAREA1 }} <br> ( {{ itemRs5?.TOTALAREA }} चौ,फू )</td>
+                        <td></td>
+                        <td></td>
+                        <td class="landscape-text text-center">{{ itemRs5?.ANNUALCOST }}</td>
+                        <td class="text-center">{{ itemRs5?.DEPRECIATION }}</td>
+                        <td class="landscape-text text-center">{{ itemRs5?.WEIGHTTAGE }}</td>
+                        <td class="landscape-text text-center">{{ itemRs5?.ONE }}</td>
+                        <td class="text-center">{{ itemRs5?.LEVYRATE }}</td>
+                        <td class="text-center">{{ itemRs5?.TWO }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let itemRs6 of itemRs3?.taxPayerRS6">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+
+                        <td>
+                            {{ itemRs6?.MILKAT_VAPAR_NAME }} , {{ itemRs6?.VAPARACHE_PRAKAR }} ,
+                            {{ itemRs6?.MANORAMASTER_NAME }} , ( लांबी {{ itemRs6?.AREAP }} x रुंदी {{ itemRs6?.AREAI }}
+                            )
+                        </td>
+                        <td></td>
+                        <td style="text-align:center;">
+                            {{ itemRs6?.TOTALAREA1 }} <br> ( {{ itemRs6?.TOTALAREA }} चौ,फू )
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:center;">
+                            {{ itemRs6?.CAPITAL }}
+                        </td>
+                        <td style="text-align:center;">
+                            {{ itemRs6?.TAXATION }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="summary-table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="header-center">एकूण इमारत कर</th>
+                        <th class="header-center">एकूण दिवाबत्ती कर</th>
+                        <th class="header-center">एकूण आरोग्य कर</th>
+                        <th class="header-center">एकूण पाणीपट्टी</th>
+                        <th class="header-center">एकूण पडसर कर</th>
+                        <th class="header-center">एकूण कराची रक्कम</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">{{ itemRs3?.BHUMIKAR }}</td>
+                        <td class="text-center">{{ itemRs3?.VIZ_DIVVABATTIKAR }}</td>
+                        <td class="text-center">{{ itemRs3?.AAROGYA_RAKSHAN_KAR }}</td>
+                        <td class="text-center">{{ itemRs3?.SAMANYA_PANI_KAR != 0 ? itemRs3?.SAMANYA_PANI_KAR :
+                            itemRs3?.VISHESH_PANI_KAR }}</td>
+                        <td class="text-center">{{ itemRs3?.BHUMIKAR }}</td>
+                        <td class="text-center">{{ itemRs3?.EKUN }}</td>
+                        <td class="text-center">{{ itemRs3?.EEKUN_KAR_BHARNA }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="footer-notes">
+                <h4>1.सदरचा उतारा हा मालकी हक्काचा नसून कर आकारणीचा आहे, सदरच्या उताऱ्यावरून खरेदी विक्रीचा व्यवहार
+                    झालेस
+                    त्यास ग्रामपंचायत जबाबदार राहणार नाही.</h4>
+                <h4>2.शासन परिपत्रक क्र VTM२६०३/ प्र.क्र. २०६८ / पं.रा. ४ दि २० नोव्हेंबर २०२३ नुसार ग्रामीण भागातील
+                    घरांची
+                    नोंदणी पती-पत्नी यांच्या संयुक्त नावे करण्याबाबत निर्देशित करण्यात आलेले आहे.</h4>
+                <h4 class="red-text">3.सदर वैयक्तिक असेसमेंट उतारा पाहण्याकरीता आपणास सादर करण्याकरीता देण्यात आलेला
+                    आहे.
+                </h4>
             </div>
         </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th class="header-vertical-top" rowspan="2">अ.क्र.</th>
-                    <th class="header-vertical-top landscape-text" rowspan="2">रस्त्याचे नाव गल्लीचे नाव</th>
-                    <th class="header-vertical-top landscape-text" rowspan="2">गट क्र. भूमापन क्र.</th>
-                    <th class="header-vertical-top" rowspan="2">माल <br> मत्ता <br> क्रमांक</th>
-                    <th class="header-vertical-top" rowspan="2">मालकाचे नाव (धारण करणाऱ्याचे नाव)</th>
-                    <th class="header-vertical-top" rowspan="2">भोगवटा करणाऱ्याचे नाव</th>
-                    <th class="header-vertical-top" rowspan="2">मालमत्तेचे वर्णन</th>
-                    <th class="landscape-text" rowspan="2">मिळकत बांधकामाचे वर्ष <br>(मिळकतीचे वयोमान वर्षामध्ये)</th>
-                    <th class="header-vertical-top" rowspan="2">क्षेत्रफळ चौ मी/ (चौ,फू)</th>
-                    <th class="header-vertical-top" colspan="3">रेडीरेकनर दर प्रति चौ मी</th>
-                    <th class="header-center landscape-text" rowspan="2">घसारा</th>
-                    <th class="header-center landscape-text" rowspan="2">इ. वापरा नुसार भारांक</th>
-                    <th class="header-center landscape-text" rowspan="2">भांडवली मूल्य</th>
-                    <th class="header-center landscape-text" rowspan="2">कराचा दर</th>
-                    <th class="header-vertical-top" colspan="5">वार्षिक कराची रक्कम (रुपयात)</th>
-                    <th class="header-vertical-top" colspan="5">अपीलाचे निकाल व त्यावर केलेले फेरफार</th>
-                    <th class="header-vertical-top" rowspan="2">नंतर वाढ किंवा <br> घट झालेल्या बाबतीत<br>आदेशाच्या
-                        संदर्भात शेरा</th>
-                </tr>
-                <tr>
-                    <th class="header-center landscape-text">जमीन</th>
-                    <th class="header-center landscape-text">इमारत</th>
-                    <th class="header-center landscape-text">बांधकाम</th>
-                    <th class="header-vertical-top">इमारत कर</th>
-                    <th class="header-center landscape-text">दिवाबत्ती कर</th>
-                    <th class="header-center landscape-text">आरोग्य कर</th>
-                    <th class="header-center landscape-text">सार्व/खास पा.पट्टी</th>
-                    <th class="header-vertical-top">एकूण</th>
-                    <th class="header-center landscape-text">इमारत कर</th>
-                    <th class="header-center landscape-text">दिवाबत्ती कर</th>
-                    <th class="header-center landscape-text">आरोग्य कर</th>
-                    <th class="header-center landscape-text">सार्व. पा. पट्टी</th>
-                    <th class="header-center landscape-text">एकूण</th>
-                </tr>
-                <tr>
-                    <th class="header-center">१</th>
-                    <th class="header-center">२</th>
-                    <th class="header-center">३</th>
-                    <th class="header-center">४</th>
-                    <th class="header-center">५</th>
-                    <th class="header-center">६</th>
-                    <th class="header-center">७</th>
-                    <th class="header-center">८</th>
-                    <th class="header-center">९</th>
-                    <th class="header-center">१०</th>
-                    <th class="header-center">११</th>
-                    <th class="header-center">१२</th>
-                    <th class="header-center">१३</th>
-                    <th class="header-center">१४</th>
-                    <th class="header-center">१५</th>
-                    <th class="header-center">१६</th>
-                    <th class="header-center">१७</th>
-                    <th class="header-center">१८</th>
-                    <th class="header-center">१९</th>
-                    <th class="header-center">२०</th>
-                    <th class="header-center">२१</th>
-                    <th class="header-center">२२</th>
-                    <th class="header-center">२३</th>
-                    <th class="header-center">२४</th>
-                    <th class="header-center">२५</th>
-                    <th class="header-center">२६</th>
-                    <th class="header-center">२७</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center">1</td>
-                    <td>गजानन रामभाऊ केदार</td>
-                    <td></td>
-                    <td>खुला भूखंड</td>
-                    <td></td>
-                    <td class="text-center">20.9 <br> ( 225 चौ,फू )</td>
-                    <td class="landscape-text text-center">5520</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">115368</td>
-                    <td class="text-center">1.5</td>
-                    <td class="text-center">173.05</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>अर्धे पक्के , निवासी , घर , तळ मजला , <br> ( लांबी 25 x रुंदी 25)</td>
-                    <td class="text-center">15</td>
-                    <td class="text-center">58.06 <br> ( 625 चौ,फू )</td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">11616</td>
-                    <td class="text-center">0.75</td>
-                    <td class="landscape-text text-center">1</td>
-                    <td class="landscape-text text-center">505818.72</td>
-                    <td class="text-center">0.6</td>
-                    <td class="text-center">303.49</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>आर सी सी , निवासी , घर , तळ मजला , <br> ( लांबी 15 x रुंदी 30)</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">41.81 <br> ( 450 चौ,फू )</td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">19360</td>
-                    <td class="text-center">0.9</td>
-                    <td class="landscape-text text-center">1</td>
-                    <td class="landscape-text text-center">728497.44</td>
-                    <td class="text-center">1.2</td>
-                    <td class="text-center">874.2</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>इतर पक्के , निवासी , घर , तळ मजला , <br> ( लांबी 15 x रुंदी 20)</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">27.87 <br> ( 300 चौ,फू )</td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">16456</td>
-                    <td class="text-center">0.9</td>
-                    <td class="landscape-text text-center">1</td>
-                    <td class="landscape-text text-center">412765.85</td>
-                    <td class="text-center">0.75</td>
-                    <td class="text-center">309.57</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>कच्चे , निवासी , घर , तळ मजला , <br> ( लांबी 20 x रुंदी 20)</td>
-                    <td class="text-center">20</td>
-                    <td class="text-center">37.16 <br> ( 400 चौ,फू )</td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">6776</td>
-                    <td class="text-center">0.75</td>
-                    <td class="landscape-text text-center">1</td>
-                    <td class="landscape-text text-center">188847.12</td>
-                    <td class="text-center">0.3</td>
-                    <td class="text-center">56.65</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>आर सी सी , निवासी , घर , तळ मजला , <br> ( लांबी 15 x रुंदी 10)</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">13.94 <br> ( 150 चौ,फू )</td>
-                    <td></td>
-                    <td></td>
-                    <td class="landscape-text text-center">19360</td>
-                    <td class="text-center">0.95</td>
-                    <td class="landscape-text text-center">1</td>
-                    <td class="landscape-text text-center">256384.48</td>
-                    <td class="text-center">1.2</td>
-                    <td class="text-center">307.66</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="summary-table">
-            <thead>
-                <tr class="text-center">
-                    <th class="header-center">एकूण इमारत कर</th>
-                    <th class="header-center">एकूण दिवाबत्ती कर</th>
-                    <th class="header-center">एकूण आरोग्य कर</th>
-                    <th class="header-center">एकूण पाणीपट्टी</th>
-                    <th class="header-center">एकूण पडसर कर</th>
-                    <th class="header-center">एकूण कराची रक्कम</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1716.96</td>
-                    <td class="text-center">100</td>
-                    <td class="text-center">100</td>
-                    <td class="text-center">750</td>
-                    <td class="text-center">950</td>
-                    <td class="text-center">2666.96</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="footer-notes">
-            <h4>1.सदरचा उतारा हा मालकी हक्काचा नसून कर आकारणीचा आहे, सदरच्या उताऱ्यावरून खरेदी विक्रीचा व्यवहार झालेस
-                त्यास ग्रामपंचायत जबाबदार राहणार नाही.</h4>
-            <h4>2.शासन परिपत्रक क्र VTM२६०३/ प्र.क्र. २०६८ / पं.रा. ४ दि २० नोव्हेंबर २०२३ नुसार ग्रामीण भागातील घरांची
-                नोंदणी पती-पत्नी यांच्या संयुक्त नावे करण्याबाबत निर्देशित करण्यात आलेले आहे.</h4>
-            <h4 class="red-text">3.सदर वैयक्तिक असेसमेंट उतारा पाहण्याकरीता आपणास सादर करण्याकरीता देण्यात आलेला आहे.
-            </h4>
-        </div>
+        <span class="font15 right">पान नंबर : {{ itemRs3?.ANNU_KRAMANK }}</span>
     </div>
-    <span class="font15 right">पान नंबर : 1</span>
 </div>
 <br><br><br>
