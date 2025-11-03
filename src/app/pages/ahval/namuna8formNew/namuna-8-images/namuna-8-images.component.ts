@@ -50,9 +50,14 @@ export class Namuna8ImagesComponent {
       this.apiService.getNamuna8Images(param).subscribe({
         next: (res: any) => {
           this.reportData = res.data;
-          console.log('Reponse Data---:', this.reportData);
+          // console.log('Reponse Data---:', this.reportData);
           this.year = this.reportData.yearRs42[0].year
           this.end_year = Number(this.year) + 1;
+          if( this.reportData?.from_to_year?.from_year === 0 && this.reportData?.from_to_year?.to_year === 0){
+            this.reportData.from_to_year.from_year = Number(this.year) + 3;
+            this.reportData.from_to_year.to_year = Number(this.year) + 4;
+          }
+          // console.log('Reponse Data-------------:', this.reportData);
           if(this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
             // alert('No data found for the selected criteria.');
               this.toastr.error('No data found for the selected criteria.', 'Error');
