@@ -69,7 +69,7 @@
                                 <td>शौचालय</td>
                                 <td>{{ itemRs3?.SOUNCHALAY}}</td>
                                 <td>मिलकत प्रकार</td>
-                                <td>{{ itemRs3?.MILKAR_PRAKAR}}</td>
+                                <td colspan="3">{{ itemRs3?.MILKAR_PRAKAR || '-' }}</td>
                             </tr>
                             <tr>
                                 <td colspan="2"><b>घरमालकाचे नाव</b> </td>
@@ -79,7 +79,7 @@
                                 <td colspan="3">आधार कार्ड/वोटर कार्ड</td>
                                 <!-- <td colspan="10">256425698941/</td>-->
 
-                                <td colspan="10" rowspan="8">
+                                <td colspan="8" rowspan="8">
                                     <img [src]="itemRs3?.r_path && itemRs3?.r_path.trim() !== ''
                                             ? file_baseUrl + itemRs3.r_path
                                             : '../../../../../assets/no_image.jpg'"
@@ -159,8 +159,8 @@
                                 <td>भारांक </td>
                                 <td>भांडवली मूल्य </td>
                                 <td>आकारणी दर </td>
-                                <td>प्रति रु.१००० च्या भांडवली मूल्यावर</td>
-                                <td colspan="4">कर आकारणी</td>
+                                <td colspan="2">प्रति रु.१००० च्या भांडवली मूल्यावर</td>
+                                <td colspan="3">कर आकारणी</td>
                             </tr>
 
                             <tr *ngFor="let itemRs4 of itemRs3?.taxationLandRS4">
@@ -179,8 +179,8 @@
                                 <td>&nbsp;</td>
                                 <td>{{ itemRs4?.CAPITAL}}</td>
                                 <td>{{ itemRs4?.LEVYRATE}}</td>
-                                <td>{{ itemRs4?.tax1000}}</td>
-                                <td colspan="5">{{ itemRs4?.TAXATION}}</td>
+                                <td colspan="2">{{ itemRs4?.tax1000}}</td>
+                                <td colspan="3">{{ itemRs4?.TAXATION}}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs5 of itemRs3?.constructionTaxRS5">
@@ -198,8 +198,8 @@
                                 <td>{{ itemRs5?.WEIGHTTAGE}}</td>
                                 <td>{{ itemRs5?.ONE}}</td>
                                 <td>{{ itemRs5?.LEVYRATE}}</td>
-                                <td>{{ itemRs5?.cons1000}}</td>
-                                <td colspan="5">{{ itemRs5?.TWO}}</td>
+                                <td colspan="2">{{ itemRs5?.cons1000}}</td>
+                                <td colspan="3">{{ itemRs5?.TWO}}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs6 of itemRs3?.taxPayerRS6">
@@ -217,16 +217,16 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>{{ itemRs6?.CAPITAL}}</td>
-                                <td>&nbsp;</td>
-                                <td colspan="4"> {{ itemRs6?.TAXATION}}</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td colspan="3"> {{ itemRs6?.TAXATION}}</td>
                             </tr>
 
 
                             <tr>
                                 <td colspan="8">कराची रक्क्म</td>
                                 <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
-                                <td colspan="2">गृह व भूमीकर </td>
-                                <td colspan="4">{{ itemRs3?.manoraaddition}}</td>
+                                <td colspan="3">गृह व भूमीकर </td>
+                                <td colspan="3">{{ itemRs3?.manoraaddition}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">वीज</td>
@@ -242,8 +242,8 @@
                                 <td>सफाई कर</td>
                                 <td>सा. पाणी</td>
                                 <td>वि. पाणी</td>
-                                <td>एकूण</td>
-                                <td colspan="4">एकूण कर</td>
+                                <td colspan="2">एकूण</td>
+                                <td colspan="3">एकूण कर</td>
                             </tr>
                             <tr>
                                 <td colspan="2">{{ itemRs3?.VIZ_DIVVABATTIKAR}}</td>
@@ -259,8 +259,8 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td colspan="4">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td colspan="3">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td colspan="2">फेरफार / शेरा</td>
