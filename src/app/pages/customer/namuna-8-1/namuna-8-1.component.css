@@ -50,7 +50,7 @@ table, th, td {
 .heading{
     text-align: center;
     padding-top: 8px;
-    font-size: 13px;
+    font-size: 18px;
     line-height:0.5;
 }
 .font15{
@@ -87,7 +87,7 @@ table, th, td {
 
 .san{
 	text-align: center;
-    font-size: 12px;
+    font-size: 15px;
 	line-height: 0.4;
 }
 
@@ -157,7 +157,7 @@ table, th, td {
   /* Page setup */
   @page {
     size: A4 landscape;
-    margin: 8mm;
+    margin: 30mm 8mm 8mm 8mm !important; /* top 20mm, right 8mm, bottom 8mm, left 8mm */
   }
 
   /* Reset margins and padding */
@@ -181,10 +181,18 @@ table, th, td {
     border-collapse: collapse !important;
     page-break-inside: avoid;
     font-size: 9px !important;
+    border: 1px solid #000 !important;
+  }
+
+  /* Force table cells to display borders */
+  table, table tbody, table tr {
+    border: 1px solid #000 !important;
   }
 
   th, td {
     border: 1px solid #000 !important;
+    border-left: 1px solid #000 !important;
+    border-right: 1px solid #000 !important;
     padding: 2px !important;
     font-size: 9px !important;
     text-align: center !important;
@@ -194,6 +202,14 @@ table, th, td {
   th {
     font-weight: bold !important;
     background: #f2f2f2 !important;
+  }
+
+  /* Ensure vertical lines are visible in header */
+  tbody tr:first-child td {
+    border-left: 1px solid #000 !important;
+    border-right: 1px solid #000 !important;
+    border-top: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
   }
 
   /* Headings */

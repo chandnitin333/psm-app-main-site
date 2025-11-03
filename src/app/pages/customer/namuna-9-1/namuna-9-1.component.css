@@ -157,7 +157,7 @@ table, th, td {
   /* Page setup */
   @page {
     size: A4 landscape;
-    margin: 8mm; /* comfortable margins */
+     margin: 30mm 8mm 8mm 8mm !important; /* top 20mm, right 8mm, bottom 8mm, left 8mm */
   }
 
   /* Reset margins and padding */

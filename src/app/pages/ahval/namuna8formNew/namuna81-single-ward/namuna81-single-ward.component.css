@@ -78,7 +78,7 @@ table, th, td {
     }
 
     th, td {
-        border: 1px solid #000;
+        border: 1px solid #000 !important;
         padding: 5px;
     }
 
@@ -212,7 +212,7 @@ table, th, td {
   /* Set page orientation to landscape and remove browser headers/footers */
   @page {
     size: A4 landscape;
-    margin: 10mm;
+     margin: 30mm 8mm 8mm 8mm !important; /* top 20mm, right 8mm, bottom 8mm, left 8mm */
   }
 
   /* Remove browser default headers and footers */
@@ -245,9 +245,16 @@ table, th, td {
   /* Optimize table for printing */
   table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
     font-size: 8px !important;
     page-break-inside: avoid;
+    border: 1px solid #000 !important;
+  }
+
+  /* Force table cells to display borders */
+  table tbody, table tr {
+    border: none !important;
   }
 
   th, td {
@@ -255,6 +262,25 @@ table, th, td {
     padding: 3px 2px !important;
     font-size: 8px !important;
     word-wrap: break-word;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure vertical lines are visible in header - remove duplicate borders */
+  tbody tr:first-child td:not(:first-child),
+  tbody tr:first-child th:not(:first-child) {
+    border-left: 1px solid #000 !important;
+  }
+
+  tbody tr:first-child td,
+  tbody tr:first-child th {
+    border-top: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
+    border-right: 1px solid #000 !important;
+  }
+
+  tbody tr:first-child td:first-child,
+  tbody tr:first-child th:first-child {
+    border-left: 1px solid #000 !important;
   }
 
   /* Ensure vertical text displays properly */
