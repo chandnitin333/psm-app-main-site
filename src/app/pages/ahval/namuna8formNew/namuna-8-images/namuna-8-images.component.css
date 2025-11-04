@@ -1,6 +1,7 @@
 
 table{
     font-size: 12px;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     /* line-height: 100%; */
 }
 .buttonPdf{
@@ -140,6 +141,7 @@ table, th, td {
 /* Print styles for landscape A4 with page breaks */
 @media print {
 	/* Hide buttons and alerts */
+	
 	.hidden-print,
 	.alert,
 	button {
@@ -162,6 +164,7 @@ table, th, td {
 	body {
 		margin: 0 !important;
 		padding: 0 !important;
+		font-family:  sans-serif !important;
 	}
 
 	/* Remove all default paragraph margins */
@@ -211,7 +214,7 @@ table, th, td {
 
 	/* Heading sizes - balanced for readability and fitting on one page */
 	.heading {
-		font-size: 16.5px !important;
+		font-size: 14.5px !important;
 		margin-bottom: 1px !important;
 		line-height: 1.1 !important;
 		padding-top: 0 !important;
@@ -219,7 +222,7 @@ table, th, td {
 	}
 
 	.san {
-		font-size: 12.5px !important;
+		font-size: 11.5px !important;
 		margin-bottom: 1px !important;
 		line-height: 1.1 !important;
 	}
@@ -358,6 +361,9 @@ table, th, td {
 		margin: 0 !important;
 		margin-top: 0px !important;
 		table-layout: fixed !important;
+		/* font-size: 12px !important; */
+		font-weight: 500;
+		font-family: sans-serif !important;
 	}
 
 	thead {
@@ -370,19 +376,23 @@ table, th, td {
 
 	th, td {
 		border: 1px solid #000 !important;
-		padding: 2px 2px !important;
+		/* padding: 1px 1px !important; */
 		word-wrap: break-word;
-		font-size: 9.5px !important;
+		font-size: 11px !important;
 		text-align: center !important;
-		line-height: 1.1 !important;
+		line-height: 1.2 !important;
 		vertical-align: middle !important;
+		font-weight: 500;
+		font-family: sans-serif !important;
 	}
 
 	th {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
-		padding: 2px 2px !important;
-		font-size: 10.5px !important;
+		padding: 1px 1px !important;
+		font-size: 11px !important;
+		font-weight: 500;
+		font-family: sans-serif !important;
 	}
 
 	/* Ensure मिलकत प्रकार cells display as separate columns in print */
@@ -399,18 +409,18 @@ table, th, td {
 
 	/* Fix for rowspan cells - ensure proper height and spacing */
 	td[rowspan="2"] {
-		padding: 6px 3px !important;
-		line-height: 1.4 !important;
+		/* padding: 3px 3px !important; */
+		/* line-height: 1.5 !important; */
 		vertical-align: middle !important;
 		height: 45px !important;
 		min-height: 45px !important;
-		white-space: normal !important;
+		/* white-space: normal !important; */
 		word-wrap: break-word !important;
 	}
 
 	/* Image cell with rowspan */
 	td[rowspan="8"] {
-		padding: 2px !important;
+		/* padding: 1px !important; */
 		vertical-align: middle !important;
 		height: auto !important;
 	}
@@ -424,12 +434,14 @@ table, th, td {
 		height: 190px !important;
 		max-height: 190px !important;
 		min-height: 190px !important;
-		object-fit: cover !important;
+		object-fit: fill !important;
 		display: block !important;
 		border: 1px solid #ccc !important;
 		background-color: #f9f9f9 !important;
 	}
-
+	.kk{
+		height: 5px !important;
+	}
 	/* Style for no image placeholder */
 	td[rowspan="8"] img[src*="no_image.jpg"],
 	td[colspan="6"][rowspan="8"] img[src*="no_image.jpg"],
@@ -443,7 +455,7 @@ table, th, td {
 	/* Specific fix for rows containing rowspan cells*/
 	tr {
 		height: auto !important;
-		min-height: 25px !important;
+		/* min-height: 25px !important; */
 	}
 
 	/* Force proper height distribution for rows */

@@ -84,7 +84,7 @@
                                 <td colspan="8" rowspan="8">
                                     <img [src]="itemRs3?.r_path && itemRs3?.r_path.trim() !== ''
                                             ? file_baseUrl + itemRs3.r_path
-                                            : '../../../../../assets/no_image.jpg'"
+                                            : '../../../../../assets/no_image.png'"
                                         style="width: 100%; height: 270px;" />
                                 </td>
 
@@ -111,16 +111,17 @@
                             </tr>
                             <tr>
                                 <td colspan="2" rowspan="2">चतुर : सीमा</td>
-                                <td colspan="2">पूर्वेस</td>
-                                <td colspan="3">{{ itemRs3?.PURVA}} </td>
-                                <td colspan="2"> पश्चिमेस</td>
-                                <td colspan="3">{{ itemRs3?.PACHHIM}} </td>
+                                <td colspan="2" class="kk">पूर्वेस</td>
+                                <td colspan="3" class="kk"> पश्चिमेस</td>
+                                <td colspan="2" class="kk">उत्तरेस</td>
+                                <td colspan="3" class="kk">दक्षिणेस</td>
                             </tr>
                             <tr>
-                                <td colspan="2">दक्षिणेस</td>
+                                <td colspan="2">{{ itemRs3?.PURVA}} </td>
+                                <td colspan="3">{{ itemRs3?.PACHHIM}} </td>
+                                <td colspan="2">{{ itemRs3?.UTTAR}} </td>
                                 <td colspan="3">{{ itemRs3?.DAKSIN}} </td>
-                                <td colspan="2">उत्तरेस</td>
-                                <td colspan="3">{{ itemRs3?.UTTAR}} </td>
+
                             </tr>
                             <tr>
                                 <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ</td>
@@ -270,7 +271,8 @@
                             </tr>
                             <tr>
 
-                                <td colspan="15">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार कराची आकारणी करण्यात आली
+                                <td colspan="15">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार
+                                    कराची आकारणी करण्यात आली
                                     आहे.
                                     २) मालकी हक्का बाबाद कसलाही वाद. असल्यास किंव्हा भविष्यात उदभवल्यास तो न्यायालया
                                     मार्फत सोडवावा. ३)न्यायालयाचा निर्णय अर्जदारास व ग्रामपंचायतीला बंधनकारक राहील.

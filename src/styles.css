@@ -4,7 +4,10 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family:  sans-serif !important;
+  -webkit-text-size-adjust: 100% !important;
+      -ms-text-size-adjust: 100% !important;
+          text-size-adjust: 100% !important;
 }
 
 .mat-drawer-container {
