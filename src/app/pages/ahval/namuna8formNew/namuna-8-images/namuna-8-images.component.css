@@ -149,7 +149,7 @@ table, th, td {
 	/* Set page orientation to landscape with balanced margins */
 	@page {
 		size: A4 landscape;
-		margin: 30mm 12mm 12mm 12mm !important; /* Reduced margins to fit content on single page */
+		margin: 30mm 12mm 12mm 20mm !important; /* Reduced margins to fit content on single page */
 	}
 
 	/* Ensure content fits on page */
