@@ -160,10 +160,10 @@
                                 <td>वार्षिक मूल्य </td>
                                 <td>घसारा </td>
                                 <td>भारांक </td>
-                                <td>भांडवली मूल्य </td>
+                                <td colspan="2">भांडवली मूल्य </td>
                                 <td>आकारणी दर </td>
                                 <td colspan="2">प्रति रु.१००० च्या भांडवली मूल्यावर</td>
-                                <td colspan="3">कर आकारणी</td>
+                                <td colspan="2">कर आकारणी</td>
                             </tr>
 
                             <tr *ngFor="let itemRs4 of itemRs3?.taxationLandRS4">
@@ -180,10 +180,10 @@
                                 <td>{{ itemRs4?.ANNUALVALUE}}</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>{{ itemRs4?.CAPITAL}}</td>
+                                <td colspan="2">{{ itemRs4?.CAPITAL}}</td>
                                 <td>{{ itemRs4?.LEVYRATE}}</td>
                                 <td colspan="2">{{ itemRs4?.tax1000}}</td>
-                                <td colspan="3">{{ itemRs4?.TAXATION}}</td>
+                                <td colspan="2">{{ itemRs4?.TAXATION}}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs5 of itemRs3?.constructionTaxRS5">
@@ -199,10 +199,10 @@
                                 <td>{{ itemRs5?.ANNUALCOST}}</td>
                                 <td>{{ itemRs5?.DEPRECIATION}}</td>
                                 <td>{{ itemRs5?.WEIGHTTAGE}}</td>
-                                <td>{{ itemRs5?.ONE}}</td>
+                                <td colspan="2">{{ itemRs5?.ONE}}</td>
                                 <td>{{ itemRs5?.LEVYRATE}}</td>
                                 <td colspan="2">{{ itemRs5?.cons1000}}</td>
-                                <td colspan="3">{{ itemRs5?.TWO}}</td>
+                                <td colspan="2">{{ itemRs5?.TWO}}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs6 of itemRs3?.taxPayerRS6">
@@ -218,18 +218,18 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
                                 <td>{{ itemRs6?.CAPITAL}}</td>
                                 <td colspan="2">&nbsp;</td>
-                                <td colspan="3"> {{ itemRs6?.TAXATION}}</td>
+                                <td colspan="2"> {{ itemRs6?.TAXATION}}</td>
                             </tr>
 
 
                             <tr>
                                 <td colspan="8">कराची रक्क्म</td>
-                                <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
+                                <td colspan="7">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
                                 <td colspan="3">गृह व भूमीकर </td>
-                                <td colspan="3">{{ itemRs3?.manoraaddition}}</td>
+                                <td colspan="2">{{ itemRs3?.manoraaddition}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">वीज</td>
@@ -243,10 +243,10 @@
                                 <td>वीज कर</td>
                                 <td>आरोग्य</td>
                                 <td>सफाई कर</td>
-                                <td>सा. पाणी</td>
+                                <td colspan="2">सा. पाणी</td>
                                 <td>वि. पाणी</td>
                                 <td colspan="2">एकूण</td>
-                                <td colspan="3">एकूण कर</td>
+                                <td colspan="2">एकूण कर</td>
                             </tr>
                             <tr>
                                 <td colspan="2">{{ itemRs3?.VIZ_DIVVABATTIKAR}}</td>
@@ -260,10 +260,10 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td colspan="2">&nbsp;</td>
-                                <td colspan="3">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td colspan="2">फेरफार / शेरा</td>
