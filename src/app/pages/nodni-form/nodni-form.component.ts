@@ -800,9 +800,9 @@ resetSelection() {
     }
     
     reset() {
-      
+
       this.getOtherTaxCalculationApi();
-      
+
       this.nodaniForm.reset();
       this.reset_apis()
       // window.location.reload();
@@ -811,6 +811,14 @@ resetSelection() {
       this.getManoraKarAakaraniList();
       this.nodaniForm.reset();
       this.getOtherTaxCalculationApi();
+
+      // Focus on अनु. क्रमांक field after reset
+      setTimeout(() => {
+        const annuKramankField = document.querySelector('[formcontrolname="annu_kramank"]') as HTMLElement;
+        if (annuKramankField) {
+          annuKramankField.focus();
+        }
+      }, 100);
     }
     async reset_tables(api_url:any, params:any) {
       this.NodaniService.resetTableApis(api_url,params).subscribe({
