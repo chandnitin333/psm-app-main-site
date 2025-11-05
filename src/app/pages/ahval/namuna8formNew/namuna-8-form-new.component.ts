@@ -60,8 +60,8 @@ export class Namuna8FormNewComponent {
 
       if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
         const nextYear = this.yearOptions[selectedIndex + 1];
-        const nextYear_2 = this.yearOptions[selectedIndex + 2];
-        const nextYear_3 = this.yearOptions[selectedIndex + 3];
+        const nextYear_2 = this.yearOptions[selectedIndex + 3];
+        const nextYear_3 = this.yearOptions[selectedIndex + 4];
         this.namuna8Form.get('to')?.setValue(nextYear.YEAR_ID); // No error now
         this.namuna8Form.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
         this.namuna8Form.get('year1')?.setValue(nextYear_2.YEAR_NAME);
