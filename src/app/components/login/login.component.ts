@@ -146,6 +146,18 @@ export class LoginComponent {
 
 
     ngOnInit() {
+        // Check if user is already logged in
+        const token = this.api.getToken();
+        if (token) {
+            // Verify token is valid by trying to decode it
+            const decodedToken = this.api.getDecodedToken();
+            if (decodedToken) {
+                // User is already logged in, redirect to dashboard
+                this.router.navigate(['dashboard']);
+                return;
+            }
+        }
+
         this.fetchDistricts();
     }
 
