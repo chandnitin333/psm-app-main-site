@@ -133,10 +133,17 @@
 
 /* Enhanced Focus Styles for Text Fields - Tab Highlighting */
 ::ng-deep .form-field.mat-focused .mdc-notched-outline__leading,
-::ng-deep .form-field.mat-focused .mdc-notched-outline__notch,
 ::ng-deep .form-field.mat-focused .mdc-notched-outline__trailing {
   border-color: #2196F3 !important;
   border-width: 2px !important;
+}
+
+::ng-deep .form-field.mat-focused .mdc-notched-outline__notch {
+  border-top-color: #2196F3 !important;
+  border-top-width: 2px !important;
+  /* border-bottom: none !important; */
+  border-left: none !important;
+  border-right: none !important;
 }
 
 ::ng-deep .form-field.mat-focused {

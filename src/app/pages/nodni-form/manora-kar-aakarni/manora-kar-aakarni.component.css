@@ -144,10 +144,16 @@
 
 /* Enhanced Focus Styles for Text Fields - Tab Highlighting */
 ::ng-deep mat-form-field.mat-focused .mdc-notched-outline__leading,
-::ng-deep mat-form-field.mat-focused .mdc-notched-outline__notch,
 ::ng-deep mat-form-field.mat-focused .mdc-notched-outline__trailing {
   border-color: #2196F3 !important;
   border-width: 3px !important;
+}
+
+::ng-deep mat-form-field.mat-focused .mdc-notched-outline__notch {
+  border-top-color: #2196F3 !important;
+  border-top-width: 3px !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 /* Fix double-tab issue - Remove focus styling from wrapper elements */
