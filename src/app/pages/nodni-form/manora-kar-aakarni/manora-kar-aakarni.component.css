@@ -142,6 +142,78 @@
   font-weight: 400 !important;
 }
 
+/* Enhanced Focus Styles for Text Fields - Tab Highlighting */
+::ng-deep mat-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep mat-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep mat-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #2196F3 !important;
+  border-width: 3px !important;
+}
+
+/* Fix double-tab issue - Remove focus styling from wrapper elements */
+::ng-deep mat-form-field .mat-mdc-text-field-wrapper:focus,
+::ng-deep mat-form-field .mat-mdc-form-field-flex:focus,
+::ng-deep mat-form-field .mat-mdc-form-field-infix:focus,
+::ng-deep mat-form-field mat-label:focus,
+::ng-deep mat-form-field .mat-mdc-floating-label:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Radio Button Tab Focus Highlighting */
+::ng-deep .mat-mdc-radio-button {
+  transition: all 0.2s ease;
+}
+
+::ng-deep .mat-mdc-radio-button.cdk-keyboard-focused,
+::ng-deep .mat-mdc-radio-button.cdk-focused,
+::ng-deep .mat-mdc-radio-button:focus-within {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3) !important;
+  outline: 2px solid #2196F3 !important;
+  outline-offset: 2px;
+}
+
+/* Checkbox Tab Focus Highlighting */
+::ng-deep .mat-mdc-checkbox {
+  transition: all 0.2s ease;
+}
+
+::ng-deep .mat-mdc-checkbox.cdk-keyboard-focused,
+::ng-deep .mat-mdc-checkbox.cdk-focused,
+::ng-deep .mat-mdc-checkbox:focus-within {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px 0;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3) !important;
+  outline: 2px solid #2196F3 !important;
+  outline-offset: 2px;
+}
+
+/* Button Tab Focus Highlighting */
+.submit-btn:focus,
+.submit-btn:focus-visible,
+.custom-red:focus,
+.custom-red:focus-visible,
+button:focus,
+button:focus-visible {
+  outline: 3px solid #2196F3 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3) !important;
+}
+
+::ng-deep button:focus-visible,
+::ng-deep .mat-mdc-button:focus-visible,
+::ng-deep .mat-mdc-raised-button:focus-visible {
+  outline: 3px solid #2196F3 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3) !important;
+}
+
 ::ng-deep mat-form-field .mat-mdc-form-field-has-label .mat-mdc-floating-label.mat-mdc-floating-label-floating {
   transform: translateY(-22px) scale(0.85) !important;
   font-weight: 400 !important;

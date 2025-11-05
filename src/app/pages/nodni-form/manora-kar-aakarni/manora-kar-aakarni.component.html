@@ -4,7 +4,7 @@
         <div class="form-row mt-4">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्तेचे प्रकार</mat-label>
-                <mat-select formControlName="milkat_vapar_id" tabindex="1">
+                <mat-select formControlName="milkat_vapar_id">
                     <mat-option *ngFor="let item of manora_malmattechePrakar" [value]="item.MILKAT_VAPAR_ID">
                         {{ item.MILKAT_VAPAR_NAME }}
                     </mat-option>
@@ -12,7 +12,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्तेचे वर्णन</mat-label>
-                <mat-select formControlName="malmatta_id" tabindex="2">
+                <mat-select formControlName="malmatta_id">
                     <mat-option *ngFor="let item of manora_malmattecheVarnan" [value]="item.MALMATTA_ID">
                         {{ item.DESCRIPTION_NAME }}
                     </mat-option>
@@ -20,11 +20,11 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वापर प्रकार</mat-label>
-                <input matInput type="text" formControlName="vaparache_prakar" tabindex="3"/>
+                <input matInput type="text" formControlName="vaparache_prakar"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मनोऱ्याचे भाग</mat-label>
-                <mat-select formControlName="manoramaster_id" tabindex="4">
+                <mat-select formControlName="manoramaster_id">
                     <mat-option *ngFor="let item of manora_manoracheBhag" [value]="item.MANORAMASTER_ID">
                         {{ item.MANORAMASTER_NAME }}
                     </mat-option>
@@ -32,18 +32,18 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
-                <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()" tabindex="5"/>
+                <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()"/>
             </mat-form-field>
         </div>
         <div class="form-row">
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
-                <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()" tabindex="6"/>
+                <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
-                <input matInput type="number" formControlName="totalarea" tabindex="7"/>
+                <input matInput type="number" formControlName="totalarea"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
@@ -62,7 +62,7 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="form-field form-field-50">
                 <mat-label class="text-bold">आकारणी दर</mat-label>
-                <input matInput type="number" formControlName="levyrate" (keyup)="getKarAakarani()" tabindex="8"/>
+                <input matInput type="number" formControlName="levyrate" (keyup)="getKarAakarani()"/>
             </mat-form-field>
             <mat-form-field appearance="outline" class=" form-field-50">
                 <mat-label class="text-bold">कर आकारणी = भांडवली मुल्य X आकारणी दर /१०००
@@ -78,9 +78,9 @@
     </div>
     <mat-dialog-actions align="center">
 
-        <button mat-button mat-dialog-close class="custom-red" tabindex="10">रद्द करा</button>
+        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
         <!-- <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save_manora_form()">जतन करा</button> -->
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial tabindex="9"
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
             [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
             (click)="(!is_edit)  ? save_manora_form() : update_manora_form()">{{(is_edit) ? "बदल करा" : "जतन
             करा"}}</button>

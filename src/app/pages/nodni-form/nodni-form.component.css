@@ -125,10 +125,33 @@
   font-size: 11px !important;
 }
 
-/* Focused state */
+/* Focused state - Enhanced Tab Highlighting */
 ::ng-deep .form-field.mat-focused .mat-mdc-floating-label {
   font-size: 11px !important;
   font-weight: 400 !important; /* Normal weight */
+}
+
+/* Enhanced Focus Styles for Text Fields - Tab Highlighting */
+::ng-deep .form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #2196F3 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .form-field.mat-focused {
+  box-shadow: 0 0 0 0px rgba(33, 150, 243, 0.2) !important;
+  border-radius: 4px;
+}
+
+/* Focus visible for keyboard navigation */
+::ng-deep mat-form-field:focus-within {
+  outline: none;
+}
+
+::ng-deep mat-form-field input:focus,
+::ng-deep mat-form-field .mat-mdc-select:focus {
+  outline: none;
 }
 
 /* Label positioning when field has value */
@@ -212,6 +235,7 @@ hr ~ .row {
 
 ::ng-deep .mat-mdc-radio-button {
   margin-bottom: 0;
+  transition: all 0.2s ease;
 }
 
 ::ng-deep .mat-mdc-radio-button .mdc-radio {
@@ -234,6 +258,19 @@ hr ~ .row {
   flex-wrap: wrap;
   gap: 12px;
   padding: 8px 0;
+}
+
+/* Radio Button Tab Focus Highlighting */
+::ng-deep .mat-mdc-radio-button.cdk-keyboard-focused,
+::ng-deep .mat-mdc-radio-button.cdk-focused,
+::ng-deep .mat-mdc-radio-button:focus-within {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3) !important;
+  outline: 2px solid #2196F3 !important;
+  outline-offset: 2px;
 }
 .kk{
   margin-left:-12px !important;
@@ -269,6 +306,24 @@ hr ~ .row {
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Tab Focus Highlighting */
+.btn:focus,
+.btn:focus-visible,
+button:focus,
+button:focus-visible {
+  outline: 3px solid #2196F3 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3) !important;
+}
+
+::ng-deep button:focus-visible,
+::ng-deep .mat-mdc-button:focus-visible,
+::ng-deep .mat-mdc-raised-button:focus-visible {
+  outline: 3px solid #2196F3 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3) !important;
 }
 
 .custom-header.btn {
@@ -438,10 +493,24 @@ input.no-spinner {
 /* Checkbox styling */
 ::ng-deep .mat-mdc-checkbox {
   margin: 0 8px;
+  transition: all 0.2s ease;
 }
 
 ::ng-deep .mat-mdc-checkbox .mdc-checkbox {
   padding: 8px;
+}
+
+/* Checkbox Tab Focus Highlighting */
+::ng-deep .mat-mdc-checkbox.cdk-keyboard-focused,
+::ng-deep .mat-mdc-checkbox.cdk-focused,
+::ng-deep .mat-mdc-checkbox:focus-within {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px 0;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3) !important;
+  outline: 2px solid #2196F3 !important;
+  outline-offset: 2px;
 }
 
 /* Card spacing */

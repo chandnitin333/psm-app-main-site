@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit } from '@angular/core';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,16 +17,19 @@ import { NgxMaskDirective } from 'ngx-mask';
   templateUrl: './manora-kar-aakarni.component.html',
   styleUrl: './manora-kar-aakarni.component.css'
 })
-export class ManoraKarAakarniComponent {
+export class ManoraKarAakarniComponent implements AfterViewInit {
   userDetails: any = [];
   manora_malmattechePrakar: { MILKAT_VAPAR_ID: number; MILKAT_VAPAR_NAME: String }[] = [];
   manora_malmattecheVarnan: { MALMATTA_ID: number; DESCRIPTION_NAME: String }[] = [];
   manora_manoracheBhag: { MANORAMASTER_ID: number; MANORAMASTER_NAME: String }[] = [];
   yearId: number = 0;
-  YearName: string = '';  
+  YearName: string = '';
   is_edit: boolean = false;
   orginal_edit:boolean = false;
   original_new_user_id: string = '';
+
+  // Flag to prevent infinite loops
+  private isFixingTabNavigation: boolean = false;
 
   manoraKarForm = new FormGroup({
     milkat_vapar_id: new FormControl<number | null>(null),
@@ -69,6 +72,98 @@ export class ManoraKarAakarniComponent {
     if(this.data.tax_payer_id!= ""){
       this.is_edit = true;
       this.editManoraKarAakarni(Number(this.data.tax_payer_id), this.orginal_edit);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Fix double-tab issue: Multiple attempts to ensure it works
+    setTimeout(() => {
+      this.fixTabNavigation();
+    }, 100);
+
+    setTimeout(() => {
+      this.fixTabNavigation();
+    }, 300);
+
+    setTimeout(() => {
+      this.fixTabNavigation();
+      this.setupMutationObserver();
+    }, 500);
+  }
+
+  private fixTabNavigation(): void {
+    // Prevent recursive calls
+    if (this.isFixingTabNavigation) {
+      return;
+    }
+
+    this.isFixingTabNavigation = true;
+
+    try {
+      // Get all mat-form-field elements
+      const matFormFields = document.querySelectorAll('mat-form-field');
+
+      matFormFields.forEach((formField: Element) => {
+        // Remove tabindex from the mat-form-field itself
+        (formField as HTMLElement).removeAttribute('tabindex');
+        (formField as HTMLElement).setAttribute('tabindex', '-1');
+
+        // Find all child elements that might be focusable
+        const allChildren = (formField as HTMLElement).querySelectorAll('*');
+        allChildren.forEach((child: Element) => {
+          const tagName = child.tagName.toLowerCase();
+          const classList = child.classList;
+
+          // Skip actual input elements - keep them focusable
+          if (tagName === 'input' ||
+              tagName === 'textarea' ||
+              tagName === 'mat-select' ||
+              classList.contains('mat-mdc-select') ||
+              classList.contains('mat-mdc-select-trigger')) {
+            // Keep these elements focusable - do nothing
+            return;
+          }
+
+          // Remove tabindex from all other elements (wrappers, labels, etc)
+          if ((child as HTMLElement).hasAttribute('tabindex')) {
+            (child as HTMLElement).removeAttribute('tabindex');
+          }
+          (child as HTMLElement).setAttribute('tabindex', '-1');
+        });
+      });
+
+    } finally {
+      // Reset flag after a delay
+      setTimeout(() => {
+        this.isFixingTabNavigation = false;
+      }, 100);
+    }
+  }
+
+  private setupMutationObserver(): void {
+    // Add focus event interceptor to prevent wrapper elements from receiving focus
+    const dialogContent = document.querySelector('mat-dialog-content');
+    if (dialogContent) {
+      dialogContent.addEventListener('focusin', (event: Event) => {
+        const target = event.target as HTMLElement;
+        const tagName = target.tagName.toLowerCase();
+
+        // If the focused element is NOT an input, textarea, mat-select, or mat-select-trigger, redirect focus
+        if (tagName !== 'input' &&
+            tagName !== 'textarea' &&
+            tagName !== 'mat-select' &&
+            !target.classList.contains('mat-mdc-select') &&
+            !target.classList.contains('mat-mdc-select-trigger')) {
+
+          // Find the nearest actual input element
+          const nearestInput = target.querySelector('input, textarea, mat-select, .mat-mdc-select, .mat-mdc-select-trigger') as HTMLElement;
+          if (nearestInput) {
+            event.preventDefault();
+            event.stopPropagation();
+            nearestInput.focus();
+          }
+        }
+      }, true); // Use capture phase
     }
   }
 
