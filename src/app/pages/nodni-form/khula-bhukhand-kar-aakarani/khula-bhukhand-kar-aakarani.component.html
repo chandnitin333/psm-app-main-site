@@ -115,11 +115,11 @@
 
     <mat-dialog-actions align="center">
 
-        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
             [disabled]="data.annu_kramank === null || data.ward_kramank === null || data.annu_kramank === '' || data.ward_kramank === ''"
             (click)="(!is_edit)  ? save_khula_bhukhand_form() : update_khula_bhukhand_form()">{{(is_edit) ? "बदल करा" :
             "जतन करा"}}</button>
+        <button mat-button mat-dialog-close class="custom-red">रद्द करा</button>
 
     </mat-dialog-actions>
 </form>

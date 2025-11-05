@@ -92,6 +92,7 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
     setTimeout(() => {
       this.fixTabNavigation();
       this.setupMutationObserver();
+      this.focusFirstElement();
     }, 500);
   }
 
@@ -104,77 +105,190 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
     this.isFixingTabNavigation = true;
 
     try {
-      // Get all mat-form-field elements
-      const matFormFields = document.querySelectorAll('mat-form-field');
+      const dialogContent = document.querySelector('mat-dialog-content');
+      if (!dialogContent) return;
 
-      matFormFields.forEach((formField: Element) => {
-        // Remove tabindex from the mat-form-field itself
+      // Define custom tab order - only these fields in this specific order
+      const tabOrderFields = [
+        'milkat_vapar_id',        // 1. मालमत्तेचे प्रकार
+        'milkat_vapar_id1',       // 2. मालमत्तेचे वर्णन
+        'vaparache_prakar',       // 3. वापर प्रकार
+        'gatgrampanchayat_id',    // 4. गावाचे नाव
+        'openplot_id',            // 5. गावठाण/गावठाण बाहेरचे
+        'areap',                  // 6. क्षेत्रफळ पु.प.(चौ.फुट)
+        'areai',                  // 7. क्षेत्रफळ उ.द.(चौ.फुट)
+        'totalarea'               // 8. एकूण क्षेत्रफळ (चौ.फुट)
+      ];
+
+      // AGGRESSIVELY remove tabindex from ALL wrapper elements
+      const allMatFormFields = dialogContent.querySelectorAll('mat-form-field');
+      allMatFormFields.forEach((formField: Element) => {
+        // Set wrapper to unfocusable
         (formField as HTMLElement).removeAttribute('tabindex');
         (formField as HTMLElement).setAttribute('tabindex', '-1');
 
-        // Find all child elements that might be focusable
+        // Get ALL children and make them unfocusable except actual inputs/selects
         const allChildren = (formField as HTMLElement).querySelectorAll('*');
         allChildren.forEach((child: Element) => {
           const tagName = child.tagName.toLowerCase();
-          const classList = child.classList;
+          const htmlElement = child as HTMLElement;
 
-          // Skip actual input elements - keep them focusable
-          if (tagName === 'input' ||
-              tagName === 'textarea' ||
-              tagName === 'mat-select' ||
-              classList.contains('mat-mdc-select') ||
-              classList.contains('mat-mdc-select-trigger')) {
-            // Keep these elements focusable - do nothing
+          // Skip actual input and mat-select elements
+          if (tagName === 'input' || tagName === 'mat-select') {
             return;
           }
 
-          // Remove tabindex from all other elements (wrappers, labels, etc)
-          if ((child as HTMLElement).hasAttribute('tabindex')) {
-            (child as HTMLElement).removeAttribute('tabindex');
+          // Remove ALL tabindex attributes from wrapper elements
+          htmlElement.removeAttribute('tabindex');
+          htmlElement.setAttribute('tabindex', '-1');
+
+          // Also remove from specific Material wrapper classes
+          if (htmlElement.classList.contains('mat-mdc-text-field-wrapper') ||
+              htmlElement.classList.contains('mat-mdc-form-field-flex') ||
+              htmlElement.classList.contains('mat-mdc-form-field-infix') ||
+              htmlElement.classList.contains('mdc-notched-outline') ||
+              htmlElement.classList.contains('mat-mdc-select-trigger') ||
+              htmlElement.classList.contains('mat-mdc-select-value')) {
+            htmlElement.removeAttribute('tabindex');
+            htmlElement.setAttribute('tabindex', '-1');
           }
-          (child as HTMLElement).setAttribute('tabindex', '-1');
         });
       });
 
+      // Now set custom tabindex on fields in our specific order
+      let tabIndex = 1;
+      tabOrderFields.forEach((fieldName) => {
+        const inputElement = dialogContent.querySelector(`[formcontrolname="${fieldName}"]`) as HTMLElement;
+        if (inputElement) {
+          inputElement.removeAttribute('tabindex');
+          inputElement.setAttribute('tabindex', tabIndex.toString());
+          tabIndex++;
+        }
+      });
+
+      // Set tabindex=-1 on all other input fields that are NOT in our tab order
+      const allInputs = dialogContent.querySelectorAll('input, mat-select');
+      allInputs.forEach((input: Element) => {
+        const formControlName = (input as HTMLElement).getAttribute('formcontrolname');
+        if (formControlName && !tabOrderFields.includes(formControlName)) {
+          (input as HTMLElement).removeAttribute('tabindex');
+          (input as HTMLElement).setAttribute('tabindex', '-1');
+        }
+      });
+
+      // Set tabindex on buttons - जतन करा first, then रद्द करा
+      const buttons = document.querySelectorAll('mat-dialog-actions button');
+      if (buttons.length >= 2) {
+        // First button is "जतन करा"
+        (buttons[0] as HTMLElement).removeAttribute('tabindex');
+        (buttons[0] as HTMLElement).setAttribute('tabindex', tabIndex.toString());
+        tabIndex++;
+        // Second button is "रद्द करा"
+        (buttons[1] as HTMLElement).removeAttribute('tabindex');
+        (buttons[1] as HTMLElement).setAttribute('tabindex', tabIndex.toString());
+      }
+
     } finally {
-      // Reset flag after a delay
       setTimeout(() => {
         this.isFixingTabNavigation = false;
       }, 100);
     }
   }
 
+  private focusFirstElement(): void {
+    // Focus the first element in tab order when modal opens
+    setTimeout(() => {
+      const dialogContent = document.querySelector('mat-dialog-content');
+      if (dialogContent) {
+        const firstElement = dialogContent.querySelector('[formcontrolname="milkat_vapar_id"]') as HTMLElement;
+        if (firstElement) {
+          firstElement.focus();
+        }
+      }
+    }, 100);
+  }
+
   private setupMutationObserver(): void {
-    // Add focus event interceptor to prevent wrapper elements from receiving focus
+    // Intercept Tab key to manually control focus order
     const dialogContent = document.querySelector('mat-dialog-content');
+    const dialogActions = document.querySelector('mat-dialog-actions');
+
     if (dialogContent) {
-      dialogContent.addEventListener('focusin', (event: Event) => {
-        const target = event.target as HTMLElement;
-        const tagName = target.tagName.toLowerCase();
+      // Define the exact tab order
+      const tabOrderFields = [
+        'milkat_vapar_id',
+        'milkat_vapar_id1',
+        'vaparache_prakar',
+        'gatgrampanchayat_id',
+        'openplot_id',
+        'areap',
+        'areai',
+        'totalarea'
+      ];
 
-        // Check if this is a wrapper element (not an actual input/button)
-        const isWrapperElement =
-          tagName !== 'input' &&
-          tagName !== 'textarea' &&
-          tagName !== 'mat-select' &&
-          tagName !== 'button' &&
-          !target.classList.contains('mat-mdc-select') &&
-          !target.classList.contains('mat-mdc-select-trigger') &&
-          !target.classList.contains('mat-mdc-button') &&
-          !target.classList.contains('mdc-button');
+      // Get all focusable elements in order
+      const getFocusableElements = (): HTMLElement[] => {
+        const elements: HTMLElement[] = [];
 
-        if (isWrapperElement) {
-          // Find the nearest actual input element within this wrapper
-          const nearestInput = target.querySelector('input, textarea, mat-select, .mat-mdc-select, .mat-mdc-select-trigger, button') as HTMLElement;
-          if (nearestInput) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            setTimeout(() => {
-              nearestInput.focus();
-            }, 0);
+        // Add fields in custom order
+        tabOrderFields.forEach(fieldName => {
+          const element = dialogContent.querySelector(`[formcontrolname="${fieldName}"]`) as HTMLElement;
+          if (element) {
+            elements.push(element);
+          }
+        });
+
+        // Add buttons
+        const buttons = dialogActions?.querySelectorAll('button');
+        if (buttons) {
+          buttons.forEach(button => elements.push(button as HTMLElement));
+        }
+
+        return elements;
+      };
+
+      // Intercept Tab keydown
+      const handleTabKey = (event: KeyboardEvent) => {
+        if (event.key === 'Tab') {
+          event.preventDefault(); // Prevent default tab behavior
+
+          const focusableElements = getFocusableElements();
+          const currentElement = document.activeElement as HTMLElement;
+
+          // Find current element index
+          let currentIndex = -1;
+          for (let i = 0; i < focusableElements.length; i++) {
+            if (focusableElements[i] === currentElement ||
+                focusableElements[i].contains(currentElement)) {
+              currentIndex = i;
+              break;
+            }
+          }
+
+          // Calculate next index
+          let nextIndex: number;
+          if (event.shiftKey) {
+            // Shift+Tab - go backwards
+            nextIndex = currentIndex <= 0 ? focusableElements.length - 1 : currentIndex - 1;
+          } else {
+            // Tab - go forwards
+            nextIndex = currentIndex >= focusableElements.length - 1 ? 0 : currentIndex + 1;
+          }
+
+          // Focus next element
+          if (focusableElements[nextIndex]) {
+            focusableElements[nextIndex].focus();
           }
         }
-      }, true); // Use capture phase
+      };
+
+      // Add event listener to dialog content
+      dialogContent.addEventListener('keydown', (event: Event) => handleTabKey(event as KeyboardEvent), true);
+
+      // Also add to dialog actions for buttons
+      if (dialogActions) {
+        dialogActions.addEventListener('keydown', (event: Event) => handleTabKey(event as KeyboardEvent), true);
+      }
     }
   }
 
