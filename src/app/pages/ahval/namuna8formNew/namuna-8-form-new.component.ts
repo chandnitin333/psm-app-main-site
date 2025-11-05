@@ -7,6 +7,7 @@ import { AdharListService } from '../../../services/adhar-list.service';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
 import { MatSelectChange } from '@angular/material/select';
+import { LoaderService } from '../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna-8-form-new',
@@ -35,7 +36,7 @@ export class Namuna8FormNewComponent {
     end: new FormControl<number | null>(null),
   });
 
-   constructor(private adharListService: AdharListService,  private toastr: ToastrService, private router: Router,private customerService: CustomerService,) {
+   constructor(private adharListService: AdharListService,  private toastr: ToastrService, private router: Router,private customerService: CustomerService, private spinner: LoaderService) {
     // console.log('Received data in SillakjodaComponent:', this.data);
   }
 
@@ -76,10 +77,13 @@ export class Namuna8FormNewComponent {
     }
 
   loadWardNumber(): void {
+    this.spinner.show();
+
     this.adharListService.getWardNumberList().subscribe({
       next: (res: any) => {
         // console.log('res', res);
          this.wardOptions = res?.data.ward_number_list;
+         this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -87,10 +91,13 @@ export class Namuna8FormNewComponent {
           'There was an error getting the ward list dropdown.',
           'Error'
         );
+        this.spinner.hide();
       },
     });
   }
   loadYearOptions(): void {
+    this.spinner.show();
+
     this.customerService.getDropdownYearsList().subscribe({
       next: (res: any) => {
         // console.log('res', res);
@@ -100,6 +107,7 @@ export class Namuna8FormNewComponent {
           const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
           const CYID = currentYearObj?.YEAR_ID ?? null;
           this.namuna8Form.get('year')?.setValue(CYID);
+          this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -107,6 +115,7 @@ export class Namuna8FormNewComponent {
           'There was an error getting the year dropdown.',
           'Error'
         );
+        this.spinner.hide();
       },
     });
   }

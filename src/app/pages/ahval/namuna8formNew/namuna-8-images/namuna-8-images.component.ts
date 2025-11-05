@@ -6,6 +6,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ImlakarService } from '../../../../services/imlakar.service';
 import { Namuna8Service } from '../../../../services/namuna8.service';
 import { ApiService } from '../../../../services/api.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna-8-images',
@@ -21,7 +22,7 @@ export class Namuna8ImagesComponent {
     public year: number = 0;
     public end_year: number = 0;
     file_baseUrl= "";
-    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private api: ApiService) {
+    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private api: ApiService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna8imgaesform');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -37,7 +38,10 @@ export class Namuna8ImagesComponent {
 
     }
     getReportDataAPI(){
-      const param =   
+      // Show loader before API call
+      this.spinner.show();
+
+      const param =
               {
                 "ward": this.receivedData.ward_no || 0,
                 "year":this.receivedData.year || 0,
@@ -63,9 +67,15 @@ export class Namuna8ImagesComponent {
               this.toastr.error('No data found for the selected criteria.', 'Error');
               this.router.navigate(['/imla-kar-form-new']);
           }
+
+          // Hide loader after data is loaded
+          this.spinner.hide();
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+
+          // Hide loader on error
+          this.spinner.hide();
         },
       });
     }

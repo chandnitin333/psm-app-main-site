@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Namuna8Service } from '../../../../services/namuna8.service';
 import html2pdf from 'html2pdf.js';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-anukramika',
@@ -17,7 +18,7 @@ export class AnukramikaComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute) {
+  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('Namuna8anukramanikaForm');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
@@ -33,6 +34,8 @@ export class AnukramikaComponent {
 
   }
   getReportDataAPI(){
+    this.spinner.show();
+
     const param = {
                 "ward": this.receivedData.ward_no,
                 "year": this.receivedData.year,
@@ -43,9 +46,11 @@ export class AnukramikaComponent {
       next: (res: any) => {
         this.reportData = res.data;
         console.log('Reponse Data:', this.reportData);
+        this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting for anukramika list :', err);
+        this.spinner.hide();
       },
     });
   }

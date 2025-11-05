@@ -4,6 +4,7 @@ import { Namuna8Service } from '../../../../services/namuna8.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import html2pdf from 'html2pdf.js';
 import { CommonModule } from '@angular/common';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna-8-sarkari-ward',
@@ -18,7 +19,7 @@ export class Namuna8SarkariWardComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna8sarkari');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -33,7 +34,9 @@ export class Namuna8SarkariWardComponent {
 
     }
     getReportDataAPI(){
-      const param =   
+      this.spinner.show();
+
+      const param =
               {
                 "ward": this.receivedData.ward_no,
                 "year":this.receivedData.year,
@@ -51,9 +54,11 @@ export class Namuna8SarkariWardComponent {
               this.router.navigate(['/namuna-8-form-new']);
           }
           console.log('Reponse Data---:', this.reportData);
+          this.spinner.hide();
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+          this.spinner.hide();
         },
       });
     }
