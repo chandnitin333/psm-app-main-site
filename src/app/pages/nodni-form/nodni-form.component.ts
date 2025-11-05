@@ -464,7 +464,14 @@ resetSelection() {
   ngAfterViewInit() {
     // this.getOtherTaxCalculationApi();
     // this.gruhakar_bhumikar_calcuialtion();
-    
+
+    // Auto-focus on अनु. क्रमांक field when component loads
+    setTimeout(() => {
+      const annuKramankField = document.querySelector('[formcontrolname="annu_kramank"]') as HTMLElement;
+      if (annuKramankField) {
+        annuKramankField.focus();
+      }
+    }, 100);
   }
   getKhulaBhukhandList(){
     const params = {
