@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
-import { LayoutModule } from '../../components/layout/layout.module';
-import { MatTableDataSource } from '@angular/material/table';
-import { AdharListService } from '../../services/adhar-list.service';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { CustomerService } from '../../services/customer.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LayoutModule } from '../../components/layout/layout.module';
+import { ITEM_PER_PAGE, PAZE_SIZE } from '../../constants/common.constant';
 import { CustomPaginationComponent } from '../../custom-pagination/custom-pagination.component';
 import { MatDataTableComponent } from '../../mat-data-table/mat-data-table.component';
-import { ITEM_PER_PAGE, PAZE_SIZE } from '../../constants/common.constant';
+import { AdharListService } from '../../services/adhar-list.service';
+import { CustomerService } from '../../services/customer.service';
 
 // export interface PeriodicElement {
 //   from_year: number;
@@ -114,10 +114,10 @@ constructor(private adharListService: AdharListService,  private toastr: ToastrS
         // console.log('res', res);
          this.yearOptions = res?.data;
         //  console.log('yearOptions', this.yearOptions);
-        const currentYear = new Date().getFullYear();
-          const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
-          const CYID = currentYearObj?.YEAR_ID ?? null;
-          this.taxGenerationForm.get('year')?.setValue(CYID);
+        // const currentYear = new Date().getFullYear();
+        //   const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
+        //   const CYID = currentYearObj?.YEAR_ID ?? null;
+        //   this.taxGenerationForm.get('year')?.setValue(CYID);
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
