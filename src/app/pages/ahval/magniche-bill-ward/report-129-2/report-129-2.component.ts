@@ -19,8 +19,10 @@ export class Report1292Component {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
+    isMobileDevice: boolean = false;
     constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('magnicheBillWardReport_2');
+      this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
       }else{
@@ -339,5 +341,222 @@ export class Report1292Component {
 
         printWindow.print();
       };
+    }
+     downloadPDFMobile() {
+      const printContent = document.getElementById('contentToExport');
+      if (!printContent) {
+        this.toastr.error('Content not found', 'Error');
+        return;
+      }
+
+      this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+        timeOut: 0,
+        extendedTimeOut: 0,
+        closeButton: true
+      });
+
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+      const fileName = `imlakar_129_2_${currentDate}.pdf`;
+
+      // Copy all styles
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            return '';
+          }
+        })
+        .join('\n');
+
+      // Create complete HTML with styles
+      const htmlContent = `
+        <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 landscape;
+                margin: 10mm 8mm 8mm 8mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding-top: 5mm !important;
+              }
+              .heading {
+                font-size: 16px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+              }
+              .headingM {
+                font-size: 14px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+              }
+              .san {
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+              }
+              .padding20 {
+                margin-bottom: 3px !important;
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+              }
+              .row {
+                margin-bottom: 3px !important;
+                display: table !important;
+                width: 100% !important;
+              }
+              .container-fluid > .row > .row {
+                page-break-after: always !important;
+                margin-bottom: 0 !important;
+              }
+              .font15 {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+              }
+              .table-responsive {
+                margin-top: 4px !important;
+                overflow-x: visible !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 4px !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 4px 3px !important;
+                word-wrap: break-word;
+                font-size: 11px !important;
+                text-align: center !important;
+                line-height: 1.3 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #f0f0f0 !important;
+                padding: 5px 3px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+              .container-fluid {
+                width: 95% !important;
+                display: block !important;
+                clear: both !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+              }
+              .col-md-6 {
+                width: 49.5% !important;
+                float: left !important;
+                padding: 0 4mm !important;
+                box-sizing: border-box !important;
+              }
+              .dotted-border-right {
+                border-right: 2px dashed #000 !important;
+                margin-right: 0.5% !important;
+                padding-right: 4mm !important;
+              }
+              .col-md-6:last-child {
+                padding-left: 4mm !important;
+              }
+              .col-md-12 {
+                width: 100% !important;
+              }
+              .col-md-4 {
+                width: 33.33% !important;
+                float: left !important;
+              }
+              .sign {
+                text-align: right !important;
+                font-size: 11px !important;
+                margin-top: 8px !important;
+                padding-top: 5px !important;
+              }
+              .tip {
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+                margin-top: 3px !important;
+                padding: 2px 0 !important;
+              }
+              .namna {
+                text-align: center !important;
+                margin-bottom: 4px !important;
+                padding-top: 3px !important;
+              }
+              p {
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+                margin: 3px 0 !important;
+                padding: 2px !important;
+              }
+              .left {
+                text-align: left !important;
+              }
+              .center {
+                text-align: center !important;
+              }
+              .right {
+                text-align: right !important;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+      `;
+
+      // Create a blob from the HTML
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+
+      // Create download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+      link.style.display = 'none';
+      document.body.appendChild(link);
+
+      // Trigger download
+      link.click();
+
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      this.toastr.clear();
+      this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+        timeOut: 8000,
+        closeButton: true
+      });
     }
 }

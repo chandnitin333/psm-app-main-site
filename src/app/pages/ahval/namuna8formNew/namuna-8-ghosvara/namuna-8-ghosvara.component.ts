@@ -19,8 +19,10 @@ export class Namuna8GhosvaraComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
+      isMobileDevice: boolean = false;
     constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna8ghosvara');
+      this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
       }else{
@@ -240,4 +242,195 @@ export class Namuna8GhosvaraComponent {
         printWindow.print();
       };
     }
+    downloadPDFMobile() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: true
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `नमुना_८_ghosvara_${currentDate}.pdf`;
+
+    // Copy all styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Create complete HTML with styles
+    const htmlContent = `
+      <html>
+          <head>
+            <title>Print Preview</title>
+            <style>
+              ${styles}
+              @page {
+                size: A4 portrait;
+                margin: 10mm;
+              }
+              * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+              }
+              .heading {
+                font-size: 12px !important;
+                margin-bottom: 2px !important;
+                line-height: 1 !important;
+              }
+              .padding20 {
+                margin-bottom: 2px !important;
+                font-size: 10px !important;
+                line-height: 1 !important;
+              }
+              .row {
+                margin-bottom: 2px !important;
+                display: table !important;
+                width: 100% !important;
+              }
+              .font15 {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+              }
+              .table-responsive {
+                margin-top: 3px !important;
+                overflow-x: visible !important;
+              }
+              table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 3px !important;
+                margin-bottom: 0 !important;
+              }
+              thead {
+                display: table-header-group !important;
+              }
+              tbody {
+                display: table-row-group !important;
+              }
+              th, td {
+                border: 1px solid #000 !important;
+                padding: 4px !important;
+                word-wrap: break-word;
+                font-size: 11px !important;
+                text-align: center !important;
+                line-height: 1.3 !important;
+              }
+              th {
+                font-weight: bold !important;
+                background-color: #fff !important;
+                padding: 5px 4px !important;
+              }
+              tr {
+                border: 1px solid #000 !important;
+                page-break-inside: avoid;
+                page-break-after: auto;
+              }
+              .bottom-info {
+                font-size: 11px !important;
+                margin-top: 5px !important;
+                padding: 3px !important;
+                line-height: 1.3 !important;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+              /* br tag spacing in print */
+              br {
+                display: block !important;
+                margin: 3px 0 !important;
+                line-height: 3px !important;
+              }
+              /* Hide the spacer column in print */
+              .col-md-1 {
+                display: none !important;
+              }
+              /* Expand col-md-2 to equal width when col-md-1 is hidden */
+              .col-md-2 {
+                display: table-cell !important;
+                width: 20% !important;
+                vertical-align: middle !important;
+                padding: 2px !important;
+                text-align: center !important;
+              }
+              .col-md-4 {
+                display: table-cell !important;
+                width: 33.33% !important;
+                vertical-align: middle !important;
+                padding: 2px !important;
+              }
+              /* Add top padding to signature-row-first (सरपंच तथा अध्यक्ष row) */
+              .signature-row-first {
+                padding-top: 20px !important;
+              }
+              /* Add top padding to first signature row after bottom-info (गसरपंच, सचिव) */
+              .bottom-info ~ br + br + .row {
+                padding-top: 20px !important;
+              }
+              .center {
+                text-align: center !important;
+              }
+              .left {
+                text-align: left !important;
+              }
+              .right {
+                text-align: right !important;
+              }
+            </style>
+          </head>
+          <body>
+            ${printContent.outerHTML}
+          </body>
+        </html>
+    `;
+
+    // Create a blob from the HTML
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    // Trigger download
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    this.toastr.clear();
+    this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+      timeOut: 8000,
+      closeButton: true
+    });
+  }
 }

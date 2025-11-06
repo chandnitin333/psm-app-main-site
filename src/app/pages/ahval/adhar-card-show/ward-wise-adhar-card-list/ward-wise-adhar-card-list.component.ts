@@ -1,12 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
-import { AdharListService } from '../../../../services/adhar-list.service';
-import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AdharListService } from '../../../../services/adhar-list.service';
 import { LoaderService } from '../../../../services/loader.service';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-ward-wise-adhar-card-list',
@@ -325,7 +323,7 @@ downloadPDFMobile() {
   const htmlContent = `
     <html>
       <head>
-        <meta charset="UTF-8">
+        <title>Print Preview</title>
         <style>
           ${styles}
           @page {
@@ -360,20 +358,40 @@ downloadPDFMobile() {
             font-size: 9px !important;
             line-height: 1 !important;
           }
+          .table-responsive {
+            margin-top: 3px !important;
+            overflow-x: visible !important;
+          }
           table {
             width: 100% !important;
             border-collapse: collapse !important;
             margin-top: 3px !important;
           }
+          thead {
+            display: table-header-group !important;
+          }
+          tbody {
+            display: table-row-group !important;
+          }
           th, td {
             border: 1px solid #000 !important;
             padding: 2px !important;
+            word-wrap: break-word;
             font-size: 9px !important;
             text-align: center !important;
           }
           th {
             font-weight: bold !important;
             background-color: #f0f0f0 !important;
+            padding: 3px 2px !important;
+          }
+          tr {
+            border: 1px solid #000 !important;
+            page-break-inside: avoid;
+            page-break-after: auto;
+          }
+          .page-break {
+            page-break-before: always;
           }
         </style>
       </head>

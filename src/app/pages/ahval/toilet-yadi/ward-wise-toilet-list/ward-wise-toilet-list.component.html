@@ -2,6 +2,10 @@
     <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
     </button>
     <!-- <button (click)="downloadAndPreviewPDF()" class="btn btn-primary" value="PDF">
         PDF Preview
@@ -12,7 +16,8 @@
     </button> -->
 </div>
 <div class="hidden-print alert alert-warning" style="margin-bottom: 10px; padding: 8px; font-size: 12px;">
-    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+    मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
 </div>
 <div class="container-fluid" id="contentToExport">
     <div class="row">

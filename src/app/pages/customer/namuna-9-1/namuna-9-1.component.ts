@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { CustomerService } from '../../../services/customer.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-namuna-9-1',
@@ -16,9 +17,10 @@ export class Namuna91Component {
 receivedData: any;
   namuna_9_1_data: any;
   // years: any;
-
-  constructor(private router: Router, private customerService: CustomerService,) {
+isMobileDevice: boolean = false;
+  constructor(private router: Router, private customerService: CustomerService,private toastr: ToastrService) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
+     this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     console.log('Namuna91Component: Received Data via Router', this.receivedData);
   }
 
@@ -383,5 +385,237 @@ get_namuna_9_1_data(){
 
       printWindow.print();
     };
+  }
+
+  downloadPDFMobile() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: true
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `namuna_8_sarkari${currentDate}.pdf`;
+
+    const element = document.getElementById('contentToExport');
+      if (!element) {
+        console.error('Element contentToExport not found');
+        return;
+      }
+
+      const clonedContent = element.cloneNode(true) as HTMLElement;
+    // Copy all styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Create complete HTML with styles
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>नमुना ९</title>
+          <style>
+            ${styles}
+
+            /* Print-specific styles */
+            @page {
+              size: A4 landscape;
+              margin: 8mm; /* comfortable margins */
+            }
+
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+
+            body {
+              font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+              color: #000;
+              background: white;
+            }
+
+            #contentToExport {
+              width: 100%;
+              padding: 4px !important;
+              margin: 0 !important;
+            }
+
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              page-break-inside: avoid;
+              font-size: 11px !important;
+              margin: 0 !important;
+            }
+
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 4px 5px !important;
+              font-size: 11px !important;
+              text-align: center !important;
+              vertical-align: middle !important;
+              word-wrap: break-word;
+              line-height: 1.4 !important;
+            }
+
+            th {
+              font-weight: bold !important;
+              background: #f2f2f2 !important;
+              padding: 5px !important;
+            }
+
+            .heading {
+              text-align: center !important;
+              font-size: 16px !important;
+              font-weight: bold !important;
+              padding: 3px 0 !important;
+              margin: 0 0 5px 0 !important;
+              line-height: 1.5 !important;
+            }
+
+            .san {
+              text-align: center !important;
+              font-size: 13px !important;
+              padding: 3px 0 !important;
+              margin: 0 0 5px 0 !important;
+              line-height: 1.4 !important;
+            }
+
+            .font15 {
+              font-size: 11px !important;
+              font-weight: bold !important;
+              line-height: 1.4 !important;
+            }
+
+            .left {
+              text-align: left !important;
+              float: left;
+            }
+
+            .center {
+              text-align: center !important;
+            }
+
+            .right {
+              text-align: right !important;
+              float: right;
+            }
+
+            .hidden-print, button {
+              display: none !important;
+            }
+
+            thead {
+              display: table-header-group !important;
+            }
+
+            tbody {
+              display: table-row-group !important;
+            }
+
+            tr {
+              page-break-inside: avoid !important;
+            }
+
+            .table-responsive {
+              overflow: visible !important;
+            }
+
+            .col-md-4 {
+              width: 33.33% !important;
+              float: left;
+              padding: 3px !important;
+            }
+
+            .row {
+              width: 100% !important;
+              clear: both;
+              padding: 3px 0 !important;
+              margin: 0 0 2px 0 !important;
+              display: table !important;
+            }
+
+            .row::after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            .container-fluid {
+              padding: 4px !important;
+              margin: 0 !important;
+            }
+
+            .col-md-12 {
+              padding: 3px !important;
+              margin: 0 !important;
+            }
+
+            .table-responsive {
+              overflow: visible !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            br {
+              display: none !important;
+            }
+          </style>
+        </head>
+        <body>
+          ${clonedContent.outerHTML}
+        </body>
+      </html>
+    `;
+
+    // Create a blob from the HTML
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    // Trigger download
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    this.toastr.clear();
+    this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+      timeOut: 8000,
+      closeButton: true
+    });
   }
 }

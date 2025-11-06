@@ -19,8 +19,10 @@ export class Namuna9NewComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
+    isMobileDevice: boolean = false;
     constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna9New');
+      this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
       }else{
@@ -296,5 +298,258 @@ export class Namuna9NewComponent {
 
       printWindow.print();
     };
+  }
+   downloadPDFMobile() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: true
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `namuna9_new_${currentDate}.pdf`;
+
+    // Copy all styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Create complete HTML with styles
+    const htmlContent = `
+      <html>
+        <head>
+          <title>Print Preview</title>
+          <style>
+            ${styles}
+            @page {
+              size: A4 landscape;
+              margin: 10mm 12mm;
+            }
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            p {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            div {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            span {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .container-fluid {
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            #contentToExport {
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .heading {
+              font-size: 14px !important;
+              margin-bottom: 2px !important;
+              line-height: 1.3 !important;
+              padding-top: 0 !important;
+              font-weight: bold !important;
+            }
+            .san {
+              font-size: 11px !important;
+              margin-bottom: 2px !important;
+              line-height: 1.3 !important;
+            }
+            .font15 {
+              font-size: 10px !important;
+              line-height: 1.3 !important;
+              white-space: nowrap !important;
+            }
+            .col-md-12 {
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            .col-md-4 {
+              display: table-cell !important;
+              width: 33.33% !important;
+              vertical-align: middle !important;
+              padding: 0 !important;
+            }
+            .col-md-4:nth-child(1) {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) {
+              text-align: center !important;
+            }
+            .col-md-4:nth-child(3) {
+              text-align: right !important;
+            }
+            .col-md-4 span {
+              display: block !important;
+              width: 100% !important;
+            }
+            .col-md-4:nth-child(1) span,
+            .col-md-4:nth-child(1) .font15 {
+              text-align: left !important;
+            }
+            .col-md-4:nth-child(2) span,
+            .col-md-4:nth-child(2) .font15,
+            .center.tahsil span,
+            .center.tahsil .font15 {
+              text-align: center !important;
+              display: block !important;
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .col-md-4:nth-child(3) span,
+            .col-md-4:nth-child(3) .font15 {
+              text-align: right !important;
+            }
+            .col-md-4 .font15.right,
+            .col-md-4 > span.right {
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .row {
+              margin-bottom: 2px !important;
+              display: table !important;
+              width: 100% !important;
+              table-layout: fixed !important;
+            }
+            .left {
+              float: none !important;
+              text-align: left !important;
+              display: block !important;
+            }
+            .center,
+            .center.tahsil {
+              text-align: center !important;
+              margin-left: 0 !important;
+              display: block !important;
+            }
+            .right {
+              float: none !important;
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .font15.left {
+              text-align: left !important;
+            }
+            .font15.right {
+              text-align: right !important;
+              display: block !important;
+              width: 100% !important;
+            }
+            .table-responsive {
+              margin-top: 3px !important;
+              overflow-x: visible !important;
+              padding: 0 !important;
+            }
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              margin: 0 !important;
+              margin-top: 2px !important;
+            }
+            thead {
+              display: table-header-group !important;
+            }
+            tbody {
+              display: table-row-group !important;
+            }
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 2px 2px !important;
+              word-wrap: break-word;
+              font-size: 9px !important;
+              text-align: center !important;
+              line-height: 1.2 !important;
+            }
+            th {
+              font-weight: bold !important;
+              background-color: #f0f0f0 !important;
+              padding: 3px 2px !important;
+              font-size: 9px !important;
+            }
+            tr {
+              border: 1px solid #000 !important;
+              page-break-inside: avoid !important;
+            }
+            .heading,
+            .row {
+              page-break-inside: avoid !important;
+            }
+            .nobreak {
+              page-break-inside: avoid !important;
+            }
+            table {
+              page-break-inside: auto !important;
+            }
+            * {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent.outerHTML}
+        </body>
+      </html>
+    `;
+
+    // Create a blob from the HTML
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    // Trigger download
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    this.toastr.clear();
+    this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+      timeOut: 8000,
+      closeButton: true
+    });
   }
 }

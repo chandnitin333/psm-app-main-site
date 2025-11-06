@@ -20,8 +20,10 @@ export class Namuna81SingleWardComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
+  isMobileDevice: boolean = false;
   constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('namuna81SingleWardForm');
+    this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
     }else{
@@ -188,5 +190,146 @@ export class Namuna81SingleWardComponent {
       printWindow.print();
     };
   }
+  downloadPDFMobile() {
+    const printContent = document.getElementById('contentToExport');
+    if (!printContent) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
 
+    this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: true
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `namuna81_single_ward_${currentDate}.pdf`;
+
+    // Copy all styles
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('\n');
+
+    // Create complete HTML with styles
+    const htmlContent = `
+      <html>
+        <head>
+          <title>Print Preview</title>
+          <style>
+            ${styles}
+            @page {
+              size: A4 landscape;
+              margin: 8mm;
+            }
+            * {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-sizing: border-box !important;
+            }
+            body {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            .heading {
+              font-size: 12px !important;
+              margin-bottom: 2px !important;
+              line-height: 1 !important;
+            }
+            .padding20 {
+              margin-bottom: 2px !important;
+              font-size: 10px !important;
+              line-height: 1 !important;
+            }
+            .row {
+              margin-bottom: 2px !important;
+              display: table !important;
+              width: 100% !important;
+            }
+            .font15 {
+              font-size: 9px !important;
+              line-height: 1 !important;
+            }
+            .table-responsive {
+              margin-top: 3px !important;
+              overflow-x: visible !important;
+            }
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              margin-top: 3px !important;
+            }
+            thead {
+              display: table-header-group !important;
+            }
+            tbody {
+              display: table-row-group !important;
+            }
+            th, td {
+              border: 1px solid #000 !important;
+              padding: 2px !important;
+              word-wrap: break-word;
+              font-size: 9px !important;
+              text-align: center !important;
+            }
+            th {
+              font-weight: bold !important;
+              background-color: #f0f0f0 !important;
+              padding: 3px 2px !important;
+            }
+            tr {
+              border: 1px solid #000 !important;
+              page-break-inside: avoid;
+              page-break-after: auto;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent.outerHTML}
+        </body>
+      </html>
+    `;
+
+    // Create a blob from the HTML
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    // Trigger download
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    this.toastr.clear();
+    this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+      timeOut: 8000,
+      closeButton: true
+    });
+  }
 }
