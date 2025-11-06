@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { MalmattaGrahakYadiService } from '../../../../services/malmatta-grahak-yadi.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-malmatta-grahak-yadi-khula-bhukhand',
@@ -18,7 +19,7 @@ export class MalmattaGrahakYadiKhulaBhukhandComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute) {
+  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('KhulaBhukhandForm');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
@@ -27,13 +28,15 @@ export class MalmattaGrahakYadiKhulaBhukhandComponent {
     }
     console.log('Namuna81Component: Received Data via Router', this.receivedData);
   }
-  
+
   ngOnInit() {
       this.get_khula_bhukhand_dharkachi_yadi_list();
-      
+
 
   }
   get_khula_bhukhand_dharkachi_yadi_list(){
+    this.spinner.show();
+
     const param = {
                 "ward": this.receivedData.ward_nos,
                 "year": this.receivedData.year,
@@ -46,9 +49,11 @@ export class MalmattaGrahakYadiKhulaBhukhandComponent {
         this.year = this.bindingDataList.yearRs10[0].year
         this.end_year = Number(this.year) + 1;
         console.log('Khula bhukhand dharkachi yadi List:', this.bindingDataList?.rs6[0]?.taxationLandRS4);
+        this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting for Khula bhukhand dharkachi yadi List :', err);
+        this.spinner.hide();
       },
     });
   }

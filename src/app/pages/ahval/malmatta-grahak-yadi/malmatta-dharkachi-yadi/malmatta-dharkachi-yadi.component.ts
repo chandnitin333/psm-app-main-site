@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { MalmattaGrahakYadiService } from '../../../../services/malmatta-grahak-yadi.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-malmatta-dharkachi-yadi',
@@ -17,7 +18,7 @@ export class MalmattaDharkachiYadiComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute) {
+  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('malmattaForm');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
@@ -29,10 +30,12 @@ export class MalmattaDharkachiYadiComponent {
 
    ngOnInit() {
       this.get_malmatta_dharkachi_yadi_list();
-      
+
 
   }
   get_malmatta_dharkachi_yadi_list(){
+    this.spinner.show();
+
     const param = {
                 "ward": this.receivedData.ward_nos,
                 "year": this.receivedData.year,
@@ -45,9 +48,11 @@ export class MalmattaDharkachiYadiComponent {
         this.year = this.malmattaDarkList.yearRs10[0].year
         this.end_year = Number(this.year) + 1;
         console.log('Ward Wise Adhar List:', this.malmattaDarkList);
+        this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting for ward wise adhar list :', err);
+        this.spinner.hide();
       },
     });
   }

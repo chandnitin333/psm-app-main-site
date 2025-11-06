@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { AdharListService } from '../../../../services/adhar-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-ward-wise-mobile-no-list',
@@ -16,7 +17,7 @@ export class WardWiseMobileNoListComponent {
   receivedData : any;
   adharList: any;
   ward_number: any;
-  constructor(private router: Router, private adharListService: AdharListService, private toastr: ToastrService) {
+  constructor(private router: Router, private adharListService: AdharListService, private toastr: ToastrService, private spinner: LoaderService) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
     this.ward_number = this.receivedData.value;
     // console.log('Namuna81Component: Received Data via Router', this.receivedData);
@@ -25,13 +26,17 @@ export class WardWiseMobileNoListComponent {
   this.get_adhar_ward_wise_list();
 }
 get_adhar_ward_wise_list(){
+  this.spinner.show();
+
   this.adharListService.getWard_wise_adhar_list(Number(this.receivedData.value)).subscribe({
     next: (res: any) => {
       this.adharList = res.data;
       console.log('Ward Wise Adhar List:', this.adharList);
+      this.spinner.hide();
     },
     error: (err: Error) => {
       console.error('Error getting for ward wise adhar list :', err);
+      this.spinner.hide();
     },
   });
 }

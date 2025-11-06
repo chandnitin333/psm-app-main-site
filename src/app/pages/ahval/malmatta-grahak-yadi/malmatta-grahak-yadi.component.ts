@@ -6,6 +6,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { AdharListService } from '../../../services/adhar-list.service';
 import { CustomerService } from '../../../services/customer.service';
+import { LoaderService } from '../../../services/loader.service';
 
 @Component({
   selector: 'app-malmatta-grahak-yadi',
@@ -30,7 +31,7 @@ export class MalmattaGrahakYadiComponent {
     start: new FormControl<string | null>(null),
     end: new FormControl<string | null>(null),
   });
-   constructor(private adharListService: AdharListService,  private toastr: ToastrService, private router: Router,private customerService: CustomerService,) {
+   constructor(private adharListService: AdharListService,  private toastr: ToastrService, private router: Router,private customerService: CustomerService, private spinner: LoaderService) {
     // console.log('Received data in SillakjodaComponent:', this.data);
   }
   ngOnInit(): void {
@@ -48,6 +49,8 @@ export class MalmattaGrahakYadiComponent {
       
   }
   loadYearOptions(): void {
+    this.spinner.show();
+
     this.customerService.getDropdownYearsList().subscribe({
       next: (res: any) => {
         // console.log('res', res);
@@ -57,6 +60,7 @@ export class MalmattaGrahakYadiComponent {
           const currentYearObj = this.yearOptions.find((year) => Number(year.YEAR_NAME) === currentYear);
           const CYID = currentYearObj?.YEAR_ID ?? null;
           this.malmattaGrahakYadiForm.get('year')?.setValue(CYID);
+          this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -64,6 +68,7 @@ export class MalmattaGrahakYadiComponent {
           'There was an error getting the year dropdown.',
           'Error'
         );
+        this.spinner.hide();
       },
     });
   }
@@ -81,10 +86,13 @@ export class MalmattaGrahakYadiComponent {
   }
 
   loadWardNumber(): void {
+    this.spinner.show();
+
     this.adharListService.getWardNumberList().subscribe({
       next: (res: any) => {
         // console.log('res', res);
          this.wardOptions = res?.data.ward_number_list;
+         this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting drop down:', err);
@@ -92,6 +100,7 @@ export class MalmattaGrahakYadiComponent {
           'There was an error getting the ward list dropdown.',
           'Error'
         );
+        this.spinner.hide();
       },
     });
   }

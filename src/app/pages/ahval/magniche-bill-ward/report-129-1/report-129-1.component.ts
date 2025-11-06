@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MagnicheBillService } from '../../../../services/magniche-bill.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-report-129-1',
@@ -18,7 +19,7 @@ export class Report1291Component {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('magnicheBillWardReport');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -47,6 +48,7 @@ export class Report1291Component {
                   "to_year": this.receivedData.to_year || null,
                   "new_user_id": this.receivedData.new_user_id || null,
               }
+      this.spinner.show();
       this.apiService.getMagnicheBillReport129_1(param).subscribe({
         next: (res: any) => {
           this.reportData = res.data;
@@ -61,10 +63,12 @@ export class Report1291Component {
           }
           this.year = this.reportData?.yearRs42?.YEAR_ID
           this.end_year = Number(this.year) + 1;
-          console.log('Reponse Data---:', this.reportData);
+          // console.log('Reponse Data---:', this.reportData);
+          this.spinner.hide();
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+          this.spinner.hide();
         },
       });
     }

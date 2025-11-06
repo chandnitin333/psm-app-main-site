@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { MalmattaGrahakYadiService } from '../../../../services/malmatta-grahak-yadi.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-malmatta-grahak-yadi-ghar-kar',
@@ -17,7 +18,7 @@ export class MalmattaGrahakYadiGharKarComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute) {
+  constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('GharKarLavaychAheForm');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -26,13 +27,15 @@ export class MalmattaGrahakYadiGharKarComponent {
       }
       console.log('Received Data via Router---->', this.receivedData);
     }
-  
+
   ngOnInit() {
       this.get_ghar_kar_lavaychi_ahe_yadi_list();
-      
+
 
   }
   get_ghar_kar_lavaychi_ahe_yadi_list(){
+    this.spinner.show();
+
     const param = {
                 "ward": this.receivedData.ward_nos,
                 "year": this.receivedData.year,
@@ -45,9 +48,11 @@ export class MalmattaGrahakYadiGharKarComponent {
         this.year = this.bindingDataList.yearRs10[0].year
         this.end_year = Number(this.year) + 1;
         console.log('Ghar kar lavaychi ahe List:', this.bindingDataList);
+        this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting for Ghar kar lavaychi ahe List :', err);
+        this.spinner.hide();
       },
     });
   }

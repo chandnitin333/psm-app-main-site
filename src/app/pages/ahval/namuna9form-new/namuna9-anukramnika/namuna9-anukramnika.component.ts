@@ -5,6 +5,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import html2pdf from 'html2pdf.js';
 import { Namuna9Service } from '../../../../services/namuna9.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna9-anukramnika',
@@ -19,7 +20,7 @@ export class Namuna9AnukramnikaComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('Namuna9anukramanika');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -34,6 +35,7 @@ export class Namuna9AnukramnikaComponent {
 
     }
     getReportDataAPI(){
+      this.spinner.show();
       const param =   
               {
                 "ward": this.receivedData.ward_no,
@@ -51,10 +53,12 @@ export class Namuna9AnukramnikaComponent {
               this.toastr.error('No data found for the selected criteria.', 'Error');
               this.router.navigate(['/namuna-9-form-new']);
           }
+          this.spinner.hide();
           console.log('Reponse Data---:', this.reportData);
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+          this.spinner.hide();
         },
       });
     }
@@ -208,4 +212,47 @@ export class Namuna9AnukramnikaComponent {
         printWindow.print();
       };
     }
+
+    downloadAndPreviewPDF() {
+  const element = document.getElementById('contentToExport');
+  if (element) {
+    const currentDate = new Date().toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const fileName = `नमुना_९_अनुक्रमणिका_${currentDate}.pdf`;
+
+    // Generate PDF and open in a new browser tab
+    const options = {
+      filename: fileName,
+      margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf()
+      .set(options)
+      .from(element)
+      .toPdf()
+      .get('pdf')
+      .then((pdf: any) => {
+        const blob = pdf.output('blob'); // Get the PDF as a blob
+        const blobURL = URL.createObjectURL(blob); // Create a temporary blob URL
+
+        // Open the blob URL in a new tab
+        const previewWindow = window.open(blobURL, '_blank');
+
+        // Add a delay before attempting to print
+        setTimeout(() => {
+          previewWindow?.print();
+        }, 700); // delay to ensure the PDF is fully loaded
+      });
+  }
+}
 }

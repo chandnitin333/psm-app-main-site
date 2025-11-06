@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImlakarService } from '../../../../services/imlakar.service';
 import html2pdf from 'html2pdf.js';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-imlakar-report',
@@ -18,7 +19,7 @@ export class ImlakarReportComponent {
   ward_number: any;
   public year: number = 0;
   public end_year: number = 0;
-  constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
     const encoded = sessionStorage.getItem('imlakarFormReport');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
@@ -33,6 +34,7 @@ export class ImlakarReportComponent {
 
   }
   getReportDataAPI(){
+    this.spinner.show();
     const param = {
                 "ward_no": this.receivedData.ward_no,
                 "year": this.receivedData.year,
@@ -51,10 +53,12 @@ export class ImlakarReportComponent {
         }
         this.year = this.reportData.yearRs42[0].year
         this.end_year = Number(this.year) + 1;
-        console.log('Reponse Data---:', this.reportData);
+        // console.log('Reponse Data---:', this.reportData);
+        this.spinner.hide();
       },
       error: (err: Error) => {
         console.error('Error getting for anukramika list :', err);
+        this.spinner.hide();
       },
     });
   }

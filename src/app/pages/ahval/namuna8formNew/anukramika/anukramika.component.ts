@@ -23,7 +23,8 @@ export class AnukramikaComponent {
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
     }else{
-      this.router.navigate(['/namuna-8-form-new']);
+      // Use replaceUrl to avoid creating extra history entry
+      this.router.navigate(['/namuna-8-form-new'], { replaceUrl: true });
     }
     console.log('Namuna81Component: Received Data via Router', this.receivedData);
   }
@@ -62,7 +63,7 @@ export class AnukramikaComponent {
       }
     }
 
-  // Direct browser print - uses @media print CSS with portrait orientation
+  // Direct browser print - matches ward-wise-adhar-list style
   printDirect() {
     const printContent = document.getElementById('contentToExport');
     if (!printContent) return;
@@ -92,7 +93,7 @@ export class AnukramikaComponent {
             ${styles}
             @page {
               size: A4 portrait;
-              margin: 15mm 12mm;
+              margin: 8mm;
             }
             * {
               margin: 0 !important;
@@ -103,109 +104,33 @@ export class AnukramikaComponent {
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
             }
-            #contentToExport {
-              width: 100% !important;
-            }
             .heading {
-              font-size: 14px !important;
-              margin-bottom: 4px !important;
-              padding-top: 0 !important;
-              font-weight: bold !important;
-            }
-            .san {
               font-size: 12px !important;
-              margin-bottom: 3px !important;
+              margin-bottom: 2px !important;
+              line-height: 1 !important;
             }
-            .font15 {
-              font-size: 11px !important;
-              white-space: nowrap !important;
+            .padding20 {
+              margin-bottom: 2px !important;
+              font-size: 10px !important;
+              line-height: 1 !important;
             }
             .row {
-              margin-bottom: 3px !important;
+              margin-bottom: 2px !important;
               display: table !important;
               width: 100% !important;
-              table-layout: fixed !important;
             }
-            .col-md-4 {
-              display: table-cell !important;
-              width: 33.33% !important;
-              vertical-align: middle !important;
-              padding: 0 !important;
-            }
-            .col-md-4:nth-child(1) {
-              text-align: left !important;
-            }
-            .col-md-4:nth-child(2) {
-              text-align: center !important;
-            }
-            .col-md-4.center,
-            .col-md-4.center.tahsil {
-              display: table-cell !important;
-              text-align: center !important;
-            }
-            .col-md-4:nth-child(3) {
-              text-align: right !important;
-            }
-            .col-md-4 span {
-              display: block !important;
-              width: 100% !important;
-            }
-            .col-md-4:nth-child(1) span,
-            .col-md-4:nth-child(1) .font15 {
-              text-align: left !important;
-            }
-            .col-md-4:nth-child(2) span,
-            .col-md-4:nth-child(2) .font15,
-            .center.tahsil span,
-            .center.tahsil .font15 {
-              text-align: center !important;
-              white-space: nowrap !important;
-              display: block !important;
-              width: 100% !important;
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-            .col-md-4:nth-child(3) span,
-            .col-md-4:nth-child(3) .font15 {
-              text-align: right !important;
-            }
-            .left {
-              float: none !important;
-              text-align: left !important;
-              display: block !important;
-            }
-            .center,
-            .center.tahsil {
-              text-align: center !important;
-              display: block !important;
-              margin-left: 0 !important;
-            }
-            .right {
-              float: none !important;
-              text-align: right !important;
-              display: block !important;
-              width: 100% !important;
-            }
-            .font15.left {
-              text-align: left !important;
-            }
-            .font15.right {
-              text-align: right !important;
-              display: block !important;
-              width: 100% !important;
+            .font15 {
+              font-size: 9px !important;
+              line-height: 1 !important;
             }
             .table-responsive {
-              margin-top: 5px !important;
+              margin-top: 3px !important;
               overflow-x: visible !important;
-              padding: 0 !important;
-              width: 100% !important;
             }
             table {
               width: 100% !important;
-              max-width: 100% !important;
               border-collapse: collapse !important;
-              margin-top: 5px !important;
-              table-layout: auto !important;
+              margin-top: 3px !important;
             }
             thead {
               display: table-header-group !important;
@@ -215,22 +140,20 @@ export class AnukramikaComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 4px 5px !important;
-              font-size: 10px !important;
+              padding: 2px !important;
+              word-wrap: break-word;
+              font-size: 9px !important;
               text-align: center !important;
-              word-wrap: break-word !important;
-              line-height: 1.4 !important;
-              box-sizing: border-box !important;
             }
             th {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
-              padding: 5px 5px !important;
-              font-size: 11px !important;
+              padding: 3px 2px !important;
             }
             tr {
               border: 1px solid #000 !important;
-              page-break-inside: avoid !important;
+              page-break-inside: avoid;
+              page-break-after: auto;
             }
           </style>
         </head>

@@ -4,6 +4,7 @@ import html2pdf from 'html2pdf.js';
 import { Namuna9Service } from '../../../../services/namuna9.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna9',
@@ -18,7 +19,7 @@ export class Namuna9Component {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna9');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -33,6 +34,7 @@ export class Namuna9Component {
 
     }
     getReportDataAPI(){
+      this.spinner.show();
       const param =   
               {
                 "ward": this.receivedData.ward_no,
@@ -50,9 +52,11 @@ export class Namuna9Component {
               this.toastr.error('No data found for the selected criteria.', 'Error');
               this.router.navigate(['/namuna-9-form-new']);
           }
-          console.log('Reponse Data---:', this.reportData);
+          // console.log('Reponse Data---:', this.reportData);
+          this.spinner.hide();
         },
         error: (err: Error) => {
+          this.spinner.hide();
           console.error('Error getting for anukramika list :', err);
         },
       });

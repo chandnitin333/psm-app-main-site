@@ -4,6 +4,7 @@ import html2pdf from 'html2pdf.js';
 import { ImlakarService } from '../../../../services/imlakar.service';
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-imlakar-anukramanika',
@@ -18,7 +19,7 @@ export class ImlakarAnukramanikaComponent {
     ward_number: any;
     public year: number = 0;
     public end_year: number = 0;
-    constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('imlakaranukramanikaFormReport');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -33,6 +34,7 @@ export class ImlakarAnukramanikaComponent {
 
     }
     getReportDataAPI(){
+      this.spinner.show();
       const param = {
                   "ward": this.receivedData.ward_no
               }
@@ -44,10 +46,12 @@ export class ImlakarAnukramanikaComponent {
               this.toastr.error('No data found for the selected criteria.', 'Error');
               this.router.navigate(['/imla-kar-form-new']);
           }
-          console.log('Reponse Data---:', this.reportData);
+          // console.log('Reponse Data---:', this.reportData);
+          this.spinner.hide();
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+          this.spinner.hide();
         },
       });
     }

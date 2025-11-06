@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Namuna9Service } from '../../../../services/namuna9.service';
 import html2pdf from 'html2pdf.js';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-namuna9-ghosvara',
@@ -102,7 +103,7 @@ receivedData : any;
 
 
 
-    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService) {
+    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
       const encoded = sessionStorage.getItem('namuna9Ghoswara');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
@@ -117,6 +118,7 @@ receivedData : any;
 
     }
     getReportDataAPI(){
+      this.spinner.show();
       const param =   
               {
                 "ward": this.receivedData.ward_no,
@@ -227,10 +229,11 @@ receivedData : any;
 					    this.tt2=this.tt2+this.reportData?.rs10?.total
           }
           
-          
+          this.spinner.hide();
         },
         error: (err: Error) => {
           console.error('Error getting for anukramika list :', err);
+          this.spinner.hide();
         },
       });
     }
