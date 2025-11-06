@@ -284,138 +284,16 @@ get_adhar_ward_wise_list(){
   }
 }
 
-// Mobile PDF Download - Use native print (same as printDirect but with better mobile message)
+// Mobile PDF Download - Use same method as printDirect (most reliable)
 downloadPDFMobile() {
-  const printContent = document.getElementById('contentToExport');
-  if (!printContent) {
-    this.toastr.error('Content not found', 'Error');
-    return;
-  }
+  // Show helpful message for mobile users
+  this.toastr.info('प्रिंट विंडो उघडत आहे... "Save as PDF" निवडा', 'सूचना', {
+    timeOut: 5000,
+    closeButton: true
+  });
 
-  this.toastr.info('प्रिंट विंडो उघडत आहे...', 'कृपया प्रतीक्षा करा');
-
-  // Clone content for a clean print
-  const printWindow = window.open('', '_blank');
-  if (!printWindow) {
-    this.toastr.clear();
-    this.toastr.error('कृपया popup ब्लॉकर बंद करा', 'त्रुटी');
-    return;
-  }
-
-  // Copy styles
-  const styles = Array.from(document.styleSheets)
-    .map((styleSheet) => {
-      try {
-        return Array.from(styleSheet.cssRules)
-          .map((rule) => rule.cssText)
-          .join('');
-      } catch (e) {
-        return '';
-      }
-    })
-    .join('\n');
-
-  // Write content to print window
-  printWindow.document.write(`
-    <html>
-      <head>
-        <title>Print Preview</title>
-        <style>
-          ${styles}
-          @page {
-            size: A4 portrait;
-            margin: 8mm;
-          }
-          * {
-            margin: 0 !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-          }
-          body {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-          }
-          .heading {
-            font-size: 12px !important;
-            margin-bottom: 2px !important;
-            line-height: 1 !important;
-          }
-          .padding20 {
-            margin-bottom: 2px !important;
-            font-size: 10px !important;
-            line-height: 1 !important;
-          }
-          .row {
-            margin-bottom: 2px !important;
-            display: table !important;
-            width: 100% !important;
-          }
-          .font15 {
-            font-size: 9px !important;
-            line-height: 1 !important;
-          }
-          .table-responsive {
-            margin-top: 3px !important;
-            overflow-x: visible !important;
-          }
-          table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            margin-top: 3px !important;
-          }
-          thead {
-            display: table-header-group !important;
-          }
-          tbody {
-            display: table-row-group !important;
-          }
-          th, td {
-            border: 1px solid #000 !important;
-            padding: 2px !important;
-            word-wrap: break-word;
-            font-size: 9px !important;
-            text-align: center !important;
-          }
-          th {
-            font-weight: bold !important;
-            background-color: #f0f0f0 !important;
-            padding: 3px 2px !important;
-          }
-          tr {
-            border: 1px solid #000 !important;
-            page-break-inside: avoid;
-            page-break-after: auto;
-          }
-          .page-break {
-            page-break-before: always;
-          }
-        </style>
-      </head>
-      <body>
-        ${printContent.outerHTML}
-      </body>
-    </html>
-  `);
-
-  printWindow.document.close();
-
-  // Wait until content fully loads before printing
-  printWindow.onload = () => {
-    printWindow.focus();
-
-    // Small delay for mobile devices to render
-    setTimeout(() => {
-      this.toastr.clear();
-      this.toastr.info('प्रिंट डायलॉगमध्ये "Save as PDF" निवडा', 'सूचना', { timeOut: 5000 });
-
-      // Close window after print dialog is closed
-      printWindow.onafterprint = () => {
-        printWindow.close();
-      };
-
-      printWindow.print();
-    }, 500);
-  };
+  // Use the same reliable printDirect method
+  this.printDirect();
 }
 
 }
