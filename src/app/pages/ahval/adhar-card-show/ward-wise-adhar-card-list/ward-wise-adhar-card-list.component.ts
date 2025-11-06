@@ -5,6 +5,8 @@ import { AdharListService } from '../../../../services/adhar-list.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../services/loader.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-ward-wise-adhar-card-list',
@@ -17,9 +19,13 @@ export class WardWiseAdharCardListComponent {
   receivedData : any;
   adharList: any;
   ward_number: any;
+  isMobileDevice: boolean = false;
+
   constructor(private router: Router, private adharListService: AdharListService, private toastr: ToastrService, private spinner: LoaderService) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
     this.ward_number = this.receivedData.value;
+    // Check if mobile device
+    this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     // console.log('Namuna81Component: Received Data via Router', this.receivedData);
   }
   ngOnInit() {
@@ -238,13 +244,13 @@ get_adhar_ward_wise_list(){
   downloadAndPreviewPDF() {
   const element = document.getElementById('contentToExport');
   if (element) {
-    const currentDate = new Date().toLocaleString('en-US', { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit' 
+    const currentDate = new Date().toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
     });
     const fileName = `आधार_कार्ड_व_वोटर_कार्ड_यादी_${currentDate}.pdf`;
 
@@ -254,7 +260,7 @@ get_adhar_ward_wise_list(){
       margin: [15, 15, 15, 15], // top, left, bottom, right (mm)
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, 
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
@@ -276,6 +282,140 @@ get_adhar_ward_wise_list(){
         }, 700); // delay to ensure the PDF is fully loaded
       });
   }
+}
+
+// Mobile PDF Download - Use native print (same as printDirect but with better mobile message)
+downloadPDFMobile() {
+  const printContent = document.getElementById('contentToExport');
+  if (!printContent) {
+    this.toastr.error('Content not found', 'Error');
+    return;
+  }
+
+  this.toastr.info('प्रिंट विंडो उघडत आहे...', 'कृपया प्रतीक्षा करा');
+
+  // Clone content for a clean print
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    this.toastr.clear();
+    this.toastr.error('कृपया popup ब्लॉकर बंद करा', 'त्रुटी');
+    return;
+  }
+
+  // Copy styles
+  const styles = Array.from(document.styleSheets)
+    .map((styleSheet) => {
+      try {
+        return Array.from(styleSheet.cssRules)
+          .map((rule) => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
+      }
+    })
+    .join('\n');
+
+  // Write content to print window
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Print Preview</title>
+        <style>
+          ${styles}
+          @page {
+            size: A4 portrait;
+            margin: 8mm;
+          }
+          * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .heading {
+            font-size: 12px !important;
+            margin-bottom: 2px !important;
+            line-height: 1 !important;
+          }
+          .padding20 {
+            margin-bottom: 2px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+          }
+          .row {
+            margin-bottom: 2px !important;
+            display: table !important;
+            width: 100% !important;
+          }
+          .font15 {
+            font-size: 9px !important;
+            line-height: 1 !important;
+          }
+          .table-responsive {
+            margin-top: 3px !important;
+            overflow-x: visible !important;
+          }
+          table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-top: 3px !important;
+          }
+          thead {
+            display: table-header-group !important;
+          }
+          tbody {
+            display: table-row-group !important;
+          }
+          th, td {
+            border: 1px solid #000 !important;
+            padding: 2px !important;
+            word-wrap: break-word;
+            font-size: 9px !important;
+            text-align: center !important;
+          }
+          th {
+            font-weight: bold !important;
+            background-color: #f0f0f0 !important;
+            padding: 3px 2px !important;
+          }
+          tr {
+            border: 1px solid #000 !important;
+            page-break-inside: avoid;
+            page-break-after: auto;
+          }
+          .page-break {
+            page-break-before: always;
+          }
+        </style>
+      </head>
+      <body>
+        ${printContent.outerHTML}
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+
+  // Wait until content fully loads before printing
+  printWindow.onload = () => {
+    printWindow.focus();
+
+    // Small delay for mobile devices to render
+    setTimeout(() => {
+      this.toastr.clear();
+      this.toastr.info('प्रिंट डायलॉगमध्ये "Save as PDF" निवडा', 'सूचना', { timeOut: 5000 });
+
+      // Close window after print dialog is closed
+      printWindow.onafterprint = () => {
+        printWindow.close();
+      };
+
+      printWindow.print();
+    }, 500);
+  };
 }
 
 }

@@ -104,11 +104,30 @@ export class ApiService {
     return null;
   }
   isLoggedIn() {
-    return this.getToken() !== null;
+    const token = this.getToken();
+    if (!token) return false;
+
+    // Check if token is expired
+    return !this.isTokenExpired();
+  }
+
+  isTokenExpired(): boolean {
+    const decodedToken = this.getDecodedToken();
+    if (!decodedToken || !decodedToken.exp) {
+      return true;
+    }
+
+    // Get current time in seconds
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    // Check if token has expired
+    return decodedToken.exp < currentTime;
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('randomNumber');
+    localStorage.removeItem('rno');
     this.router.navigate(['login']);
   }
 
