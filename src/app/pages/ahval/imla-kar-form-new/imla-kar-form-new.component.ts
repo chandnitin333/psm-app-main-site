@@ -103,18 +103,18 @@ export class ImlaKarFormNewComponent {
 
       if (selectedIndex !== -1 && selectedIndex + 1 < this.yearOptions.length) {
         const nextYear = this.yearOptions[selectedIndex + 1];
-        // const nextYear_2 = this.yearOptions[selectedIndex + 2];
-        // const nextYear_3 = this.yearOptions[selectedIndex + 3];
+        const nextYear_2 = this.yearOptions[selectedIndex + 3];
+        const nextYear_3 = this.yearOptions[selectedIndex + 4];
         this.imlakarForm.get('to')?.setValue(nextYear.YEAR_ID); // No error now
         this.imlakarForm.get('to1')?.setValue(nextYear.YEAR_NAME); // No error now
-        // this.imlakarForm.get('from_year')?.setValue(nextYear_2.YEAR_NAME);
-        // this.imlakarForm.get('to_year')?.setValue(nextYear_3.YEAR_NAME);
+        this.imlakarForm.get('from_year')?.setValue(nextYear_2.YEAR_NAME);
+        this.imlakarForm.get('to_year')?.setValue(nextYear_3.YEAR_NAME);
 
       } else {
         this.imlakarForm.get('to')?.setValue(null); // Handle no next year gracefully
         this.imlakarForm.get('to1')?.setValue(null); // Handle no next year gracefully
-        // this.imlakarForm.get('from_year')?.setValue(null);
-        // this.imlakarForm.get('to_year')?.setValue(null);
+        this.imlakarForm.get('from_year')?.setValue(null);
+        this.imlakarForm.get('to_year')?.setValue(null);
       }
     }
     generate_report(){
