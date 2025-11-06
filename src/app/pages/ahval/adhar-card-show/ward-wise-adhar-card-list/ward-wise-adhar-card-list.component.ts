@@ -284,16 +284,128 @@ get_adhar_ward_wise_list(){
   }
 }
 
-// Mobile PDF Download - Use same method as printDirect (most reliable)
+// Mobile PDF Download - Create blob and trigger direct download
 downloadPDFMobile() {
-  // Show helpful message for mobile users
-  this.toastr.info('प्रिंट विंडो उघडत आहे... "Save as PDF" निवडा', 'सूचना', {
-    timeOut: 5000,
+  const printContent = document.getElementById('contentToExport');
+  if (!printContent) {
+    this.toastr.error('Content not found', 'Error');
+    return;
+  }
+
+  this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+    timeOut: 0,
+    extendedTimeOut: 0,
     closeButton: true
   });
 
-  // Use the same reliable printDirect method
-  this.printDirect();
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+  const fileName = `Adhar_Card_List_${currentDate}.pdf`;
+
+  // Copy all styles
+  const styles = Array.from(document.styleSheets)
+    .map((styleSheet) => {
+      try {
+        return Array.from(styleSheet.cssRules)
+          .map((rule) => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
+      }
+    })
+    .join('\n');
+
+  // Create complete HTML with styles
+  const htmlContent = `
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          ${styles}
+          @page {
+            size: A4 portrait;
+            margin: 8mm;
+          }
+          * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .heading {
+            font-size: 12px !important;
+            margin-bottom: 2px !important;
+            line-height: 1 !important;
+          }
+          .padding20 {
+            margin-bottom: 2px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+          }
+          .row {
+            margin-bottom: 2px !important;
+            display: table !important;
+            width: 100% !important;
+          }
+          .font15 {
+            font-size: 9px !important;
+            line-height: 1 !important;
+          }
+          table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-top: 3px !important;
+          }
+          th, td {
+            border: 1px solid #000 !important;
+            padding: 2px !important;
+            font-size: 9px !important;
+            text-align: center !important;
+          }
+          th {
+            font-weight: bold !important;
+            background-color: #f0f0f0 !important;
+          }
+        </style>
+      </head>
+      <body>
+        ${printContent.outerHTML}
+      </body>
+    </html>
+  `;
+
+  // Create a blob from the HTML
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  // Create download link
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName.replace('.pdf', '.html'); // Download as HTML first
+  link.style.display = 'none';
+  document.body.appendChild(link);
+
+  // Trigger download
+  link.click();
+
+  // Cleanup
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+
+  this.toastr.clear();
+  this.toastr.success('फाईल डाउनलोड झाली! ब्राउझरमध्ये उघडून Print > Save as PDF करा', 'यशस्वी', {
+    timeOut: 8000,
+    closeButton: true
+  });
 }
 
 }
