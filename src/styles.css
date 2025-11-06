@@ -1,10 +1,11 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
 
 html,
 body {
   height: 100%;
   margin: 0;
-  font-family:  sans-serif !important;
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
   -webkit-text-size-adjust: 100% !important;
       -ms-text-size-adjust: 100% !important;
           text-size-adjust: 100% !important;

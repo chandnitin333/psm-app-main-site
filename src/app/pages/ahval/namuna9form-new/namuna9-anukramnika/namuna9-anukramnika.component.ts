@@ -301,8 +301,13 @@ downloadPDFMobile() {
   const htmlContent = `
     <html>
           <head>
-            <title>Print Preview</title>
+            <meta charset="UTF-8">
+            <title>नमुना ९ अनुक्रमणिका</title>
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
             <style>
+              * {
+                font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
+              }
               ${styles}
               @page {
                 size: A4 portrait;

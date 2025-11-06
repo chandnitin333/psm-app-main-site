@@ -94,8 +94,13 @@ export class Namuna8wardNewComponent {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Print Preview</title>
-          <style>
+        <meta charset="UTF-8">
+        <title>Print Preview</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+          * {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
+          }
             ${styles}
             @page {
               size: A4 landscape;
@@ -436,8 +441,13 @@ export class Namuna8wardNewComponent {
     const htmlContent = `
       <html>
         <head>
-          <title>Print Preview</title>
-          <style>
+        <meta charset="UTF-8">
+        <title>Print Preview</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+          * {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
+          }
             ${styles}
             @page {
               size: A4 landscape;

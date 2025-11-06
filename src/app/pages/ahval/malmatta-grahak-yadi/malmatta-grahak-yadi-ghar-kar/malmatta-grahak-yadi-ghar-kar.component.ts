@@ -95,8 +95,13 @@ export class MalmattaGrahakYadiGharKarComponent {
   printWindow.document.write(`
     <html>
       <head>
+        <meta charset="UTF-8">
         <title>Print Preview</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
         <style>
+          * {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
+          }
           ${styles}
           @page {
             size: A4 landscape;
@@ -398,8 +403,13 @@ export class MalmattaGrahakYadiGharKarComponent {
     const htmlContent = `
       <html>
       <head>
+        <meta charset="UTF-8">
         <title>Print Preview</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
         <style>
+          * {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
+          }
           ${styles}
           @page {
             size: A4 landscape;
