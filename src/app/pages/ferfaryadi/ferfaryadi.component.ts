@@ -170,7 +170,7 @@ export class FerfaryadiComponent {
     }
   }
 onPageChange(event: PageEvent): void {
-    this.currentPage = event.pageIndex;
+    this.currentPage = event.pageIndex + 1;
     this.fetchData();
   }
    onEdit(element: any) {

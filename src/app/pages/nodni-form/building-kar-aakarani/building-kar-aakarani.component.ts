@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit } from '@angular/core';
+import { Component, Inject, AfterViewInit, EventEmitter } from '@angular/core';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,7 @@ import { NodaniService } from '../../../services/nodani.service';
   styleUrl: './building-kar-aakarani.component.css'
 })
 export class BuildingKarAakaraniComponent implements AfterViewInit {
+  recordSaved = new EventEmitter<void>();
   building_malmattechePrakar: { MILKAT_VAPAR_ID: number; MILKAT_VAPAR_NAME: String }[] = [];
   building_malmattecheVarnan: { MALMATTA_ID: number; DESCRIPTION_NAME: String }[] = [];
   building_bandkamachaMajla: { FLOOR_ID: number; FLOOR_NAME: String }[] = [];
@@ -479,6 +480,8 @@ export class BuildingKarAakaraniComponent implements AfterViewInit {
             if (res.status == 201) {
               console.log('inside', res);
               this.toastr.success(res.message, 'Success');
+              this.BuildingkarModal.reset();
+              this.recordSaved.emit();
               // this.loginSuccess = false;
             } else {
               this.toastr.warning(res.message, 'Warning');
@@ -498,6 +501,8 @@ export class BuildingKarAakaraniComponent implements AfterViewInit {
             if (res.status == 201) {
               console.log('inside', res);
               this.toastr.success(res.message, 'Success');
+              this.BuildingkarModal.reset();
+              this.recordSaved.emit();
               // this.loginSuccess = false;
             } else {
               this.toastr.warning(res.message, 'Warning');

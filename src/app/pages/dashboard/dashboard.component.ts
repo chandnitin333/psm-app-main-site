@@ -110,7 +110,7 @@ export class DashboardComponent {
     const apiKey = 'AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8'; // You may need to replace this with your actual API key
 
     // Alternative: Using the search-based embed URL (doesn't require API key)
-    const embedUrl = `https://www.google.com/maps?q=${encodeURIComponent(searchQuery)}&output=embed&z=12`;
+    const embedUrl = `https://www.google.com/maps?q=${encodeURIComponent(searchQuery)}&output=embed&z=14`;
 
     this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
@@ -134,7 +134,7 @@ export class DashboardComponent {
 
   onPageChange(event: PageEvent): void {
 
-    this.currentPage = event.pageIndex
+    this.currentPage = event.pageIndex + 1
     this.setPageData(event);
   }
 

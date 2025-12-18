@@ -185,7 +185,7 @@ constructor(private adharListService: AdharListService,  private toastr: ToastrS
     }
   }
    onPageChange(event: PageEvent): void {
-    this.currentPage = event.pageIndex;
+    this.currentPage = event.pageIndex + 1;
     this.getTaxGenerationRecords();
   }
   setPageData(event: PageEvent): void {

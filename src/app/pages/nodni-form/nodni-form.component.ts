@@ -206,6 +206,15 @@ resetSelection() {
       data: params,
     });
 
+    // Subscribe to recordSaved event to refresh table without closing modal
+    dialogRef.componentInstance.recordSaved.subscribe(() => {
+      if(this.is_edit){
+        this.getKhulaBhukhandListOriginalTableList();
+      }else{
+        this.getKhulaBhukhandList();
+      }
+    });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // console.log('Modal Data:', result);
@@ -223,6 +232,15 @@ resetSelection() {
       data: params,
     });
 
+    // Subscribe to recordSaved event to refresh table without closing modal
+    dialogRef.componentInstance.recordSaved.subscribe(() => {
+      if(this.is_edit){
+        this.getBandkamachiKarAkkarniFromOriginalTableList();
+      }else{
+        this.getBandkamachiKarAkkarniList();
+      }
+    });
+
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Modal Data:', result);
       if (result) {
@@ -238,6 +256,15 @@ resetSelection() {
     const dialogRef = this.dialog.open(ManoraKarAakarniComponent, {
       width: '1200px', // Adjust size
       data: params,
+    });
+
+    // Subscribe to recordSaved event to refresh table without closing modal
+    dialogRef.componentInstance.recordSaved.subscribe(() => {
+      if(this.is_edit){
+        this.getManoraKarAakaraniFromOriginalTableList();
+      }else{
+        this.getManoraKarAakaraniList();
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {

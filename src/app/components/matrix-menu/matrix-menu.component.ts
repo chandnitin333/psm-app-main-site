@@ -48,7 +48,7 @@ export class MatrixMenuComponent {
       { label: 'मालमत्ता दुरुस्ती यादी', icon: 'show_chart',  url:'/malmatta-grahak-yadi' },
       { label: 'नमुना 8', icon: 'assignment',  url:'/namuna-8-form-new' },
       { label: 'नमुना 9', icon: 'assignment',  url:'/namuna-9-form-new' },
-      { label: 'करांच्या मागणीचे बिल', icon: 'receipt',  url:'/magniche-bill' },
+      // { label: 'करांच्या मागणीचे बिल', icon: 'receipt',  url:'/magniche-bill' },
       { label: 'करांच्या मागणीचे बिल (वार्ड) New', icon: 'receipt',  url:'/magniche-bill-ward' },
       { label: 'नमुना 10', icon: 'assignment',  url:'/customer-vasuli' },
       // { label: 'इमला कर', icon: 'monetization_on',  url:'/imla-kar-form' },

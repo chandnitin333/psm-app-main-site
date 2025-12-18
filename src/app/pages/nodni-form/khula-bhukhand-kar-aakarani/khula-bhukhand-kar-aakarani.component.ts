@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, AfterViewInit } from '@angular/core';
+import { Component, Inject, AfterViewInit, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -17,6 +17,7 @@ import $ from 'jquery';
   styleUrl: './khula-bhukhand-kar-aakarani.component.css'
 })
 export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
+  recordSaved = new EventEmitter<void>();
   khulaBhukand_malmattechePrakar: { MILKAT_VAPAR_ID: number; MILKAT_VAPAR_NAME: String }[] = [];
   khulaBhukhand_gavacheNav =  [{ gatGrampanchayatId: 0, gatGrampanchayatName: '' }];
   khulaBhukhand_gavthanBaherche: { openplot_id: number; PRAKAR_NAME: string }[] = [];
@@ -431,6 +432,8 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
               if (res.status == 201) {
                 console.log('inside', res);
                 this.toastr.success(res.message, 'Success');
+                this.khulaBhukhandModal.reset();
+                this.recordSaved.emit();
                 // this.loginSuccess = false;
               } else {
                 this.toastr.warning(res.message, 'Warning');
@@ -451,6 +454,8 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
               if (res.status == 201) {
                 console.log('inside', res);
                 this.toastr.success(res.message, 'Success');
+                this.khulaBhukhandModal.reset();
+                this.recordSaved.emit();
                 // this.loginSuccess = false;
               } else {
                 this.toastr.warning(res.message, 'Warning');

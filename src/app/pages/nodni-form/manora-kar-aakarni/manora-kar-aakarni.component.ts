@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit } from '@angular/core';
+import { Component, Inject, AfterViewInit, EventEmitter } from '@angular/core';
 import { LayoutModule } from '../../../components/layout/layout.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import { NgxMaskDirective } from 'ngx-mask';
   styleUrl: './manora-kar-aakarni.component.css'
 })
 export class ManoraKarAakarniComponent implements AfterViewInit {
+  recordSaved = new EventEmitter<void>();
   userDetails: any = [];
   manora_malmattechePrakar: { MILKAT_VAPAR_ID: number; MILKAT_VAPAR_NAME: String }[] = [];
   manora_malmattecheVarnan: { MALMATTA_ID: number; DESCRIPTION_NAME: String }[] = [];
@@ -44,6 +45,7 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
     totalarea1: new FormControl<number | null>(null),
     levyrate: new FormControl<number | null>(null),
     karAkarani: new FormControl<number | null>(null),
+    majla: new FormControl<number | null>(null),
   });
 
   constructor(
@@ -112,7 +114,9 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
         'manoramaster_id',
         'areap',
         'areai',
-        'totalarea'
+        'totalarea',
+        'levyrate',
+        'majla'
       ];
 
       // AGGRESSIVELY remove tabindex from ALL wrapper elements
@@ -217,7 +221,9 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
         'manoramaster_id',       // 4. मनोऱ्याचे भाग
         'areap',                 // 5. क्षेत्रफळ पु.प.(चौ.फुट)
         'areai',                 // 6. क्षेत्रफळ उ.द.(चौ.फुट)
-        'totalarea'              // 7. एकूण क्षेत्रफळ (चौ.फुट)
+        'totalarea',             // 7. एकूण क्षेत्रफळ (चौ.फुट)
+        'levyrate',              // 8. आकारणी दर
+        'majla'                  // 9. मजला
       ];
 
       // Get all focusable elements in order
@@ -347,6 +353,11 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
     this.manoraKarForm.get('karAkarani')?.setValue(Number(total) || 0);
 
   }
+  getKarAakaraniintoDouble(){
+    const cal = ((Number(this.manoraKarForm.value.totalarea)) * Number(this.manoraKarForm.value.levyrate)) * (Number(this.manoraKarForm.value.majla) || 1);
+    const total = cal.toFixed(2) ; 
+    this.manoraKarForm.get('karAkarani')?.setValue(Number(total) || 0);
+  }
 
   save_manora_form(){
     if (!this.manoraKarForm.invalid) {
@@ -365,6 +376,7 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
         totalarea1: this.manoraKarForm.value.totalarea1,
         levyrate: this.manoraKarForm.value.levyrate,
         karAkarani: this.manoraKarForm.value.karAkarani,
+        majla: this.manoraKarForm.value.majla,
         rno: localStorage.getItem('rno'),
         vard_number: this.data.ward_kramank,
         annu_kramank:this.data.anu_kramank,
@@ -382,6 +394,8 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
             if (res.status == 201) {
               // console.log('inside', res);
               this.toastr.success(res.message, 'Success');
+              this.manoraKarForm.reset();
+              this.recordSaved.emit();
               // this.loginSuccess = false;
             } else {
               this.toastr.warning(res.message, 'Warning');
@@ -401,6 +415,8 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
             if (res.status == 201) {
               // console.log('inside', res);
               this.toastr.success(res.message, 'Success');
+              this.manoraKarForm.reset();
+              this.recordSaved.emit();
               // this.loginSuccess = false;
             } else {
               this.toastr.warning(res.message, 'Warning');
@@ -436,6 +452,7 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
                   totalarea1: res?.data[0].TOTALAREA1,
                   levyrate: res?.data[0].CAPITAL,
                   karAkarani: res?.data[0].TAXATION,
+                  majla: res?.data[0].majla,
               });
             }
           },
@@ -462,6 +479,7 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
                   totalarea1: res?.data[0].TOTALAREA1,
                   levyrate: res?.data[0].CAPITAL,
                   karAkarani: res?.data[0].TAXATION,
+                  majla: res?.data[0].majla,
               });
             }
           },
@@ -488,6 +506,7 @@ export class ManoraKarAakarniComponent implements AfterViewInit {
         totalarea1: this.manoraKarForm.value.totalarea1,
         levyrate: this.manoraKarForm.value.levyrate,
         karAkarani: this.manoraKarForm.value.karAkarani,
+        majla: this.manoraKarForm.value.majla,
       };
       if(this.orginal_edit == true) {
         this.NodaniService.updateManoraKarModalFromOriginalTable(params, this.data.tax_payer_id).subscribe({
