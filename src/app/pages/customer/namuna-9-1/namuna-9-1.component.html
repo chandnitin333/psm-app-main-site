@@ -1,5 +1,5 @@
 <button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
-  Print / Save as PDF (Perfect Quality)
+    Print / Save as PDF (Perfect Quality)
 </button>&nbsp;
 <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
     style="font-weight: bold; margin-left: 10px;">
@@ -9,7 +9,8 @@
 <button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
 </button>&nbsp;&nbsp;&nbsp; -->
 <div class="alert alert-warning hidden-print print-instruction-alert">
-  <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+    मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
 </div>
 <div class="container-fluid" id="contentToExport">
     <div class="col-md-12">
@@ -65,10 +66,16 @@
                             <th rowspan="2">प्लॉट क्र.</th>
                             <th rowspan="2" class="width77">करांचे नाव</th>
                             <th colspan="2">मागणी</th>
+                            <th rowspan="2">5% दंड</th>
+                            <th rowspan="2">5% सूट</th>
                             <th rowspan="2">एकूण</th>
                             <th rowspan="2">पावती क्र.</th>
                             <th rowspan="2" class="width77">करांचे नाव</th>
                             <th colspan="2">वसुली</th>
+
+                            <th rowspan="2">5% दंड</th>
+                            <th rowspan="2">5% सूट</th>
+
                             <th rowspan="2">एकूण</th>
                             <th rowspan="2">बाकी</th>
                         </tr>
@@ -93,10 +100,15 @@
                             <td>गृहकर व भूमीकर</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.bhumi }}</td>
                             <td>{{ Math.round(item.BHUMIKAR) }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.plus }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.less }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.b }}</td>
+
 
                             <td rowspan="7">&nbsp;</td>
                             <td>गृहकर व भूमीकर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -108,8 +120,12 @@
                             <td>दिवाबत्ती/वीज कर</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva }}</td>
                             <td>{{ item.VIZ_DIVVABATTIKAR }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva_batti_plus_5 }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva_batti_less_5 }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.d }}</td>
                             <td> दिवाबत्ती/वीज कर </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -120,8 +136,12 @@
                             <td>आरोग्य रक्षण कर </td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya }}</td>
                             <td>{{ item.AAROGYA_RAKSHAN_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya_plus_5 }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya_less_5 }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.e }}</td>
                             <td>आरोग्य रक्षण कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -133,8 +153,12 @@
                             <td>सफाई कर</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.safai }}</td>
                             <td>{{ item.SAFAI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.safae_plus_5 }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.safae_less_5 }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.f }}</td>
                             <td>सफाई कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -142,35 +166,52 @@
                         </tr>
 
                         <tr>
-                            <td>५% सूट (-) </td>
-                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.less }}</td>
-                            <td>0</td>
-                            <td>{{ namuna_9_1_data?.alphabets?.ls }}</td>
-                            <td>५% सूट (-)</td>
+                            <!-- <td>५% सूट (-) </td> -->
+                            <!-- <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.less }}</td> -->
+                            <!-- <td>0</td> -->
+                            <!-- <td>&nbsp;</td> -->
+                            <!-- <td>&nbsp;</td> -->
+                            <!-- <td>{{ namuna_9_1_data?.alphabets?.ls }}</td> -->
+                            <!-- <td>५% सूट (-)</td> -->
+                            <!-- <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
+                            <td>&nbsp;</td> -->
                         </tr>
                         <tr>
-                            <td>५% दंड (+)</td>
-                            <td>{{ namuna_9_1_data?.alphabets?.magilnewpl }}</td>
+                            <!-- <td>५% दंड (+)</td> -->
+                            <!-- <td>{{ namuna_9_1_data?.alphabets?.magilnewpl }}</td>
                             <td>0</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>{{ namuna_9_1_data?.alphabets?.totalnewpl }}</td>
-                            <td>५% दंड (+)</td>
+                            <td>५% दंड (+)</td> -->
+                            <!-- <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
+                            <td>&nbsp;</td> -->
                         </tr>
                         <tr>
                             <td rowspan="1" colspan="1">भोगवटदाराचे नाव</td>
                             <td rowspan="1" colspan="4">मिलकत प्रकार</td>
                             <td><b>एकूण </b></td>
-                            <td><b>{{ namuna_9_1_data?.alphabets?.s }}</b></td>
-                            <td><b>{{ namuna_9_1_data?.alphabets?.a }}</b></td>
-                            <td><b>{{ namuna_9_1_data?.alphabets?.j }}</b></td>
+                            <td><b>{{ Math.round(namuna_9_1_data?.newUserSevakarDBrs4[0]?.bhumi +
+                                    namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva +
+                                    namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya +
+                                    namuna_9_1_data?.newUserSevakarDBrs4[0]?.safai) }}</b></td>
+                            <td><b>{{ Math.round(item.BHUMIKAR + item.VIZ_DIVVABATTIKAR + item.AAROGYA_RAKSHAN_KAR +
+                                    item.SAFAI_KAR) }}</b></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td><b>{{ Math.round(namuna_9_1_data?.alphabets?.b + namuna_9_1_data?.alphabets?.d +
+                                    namuna_9_1_data?.alphabets?.e + namuna_9_1_data?.alphabets?.f) }}</b></td>
                             <td><b>एकूण </b></td>
+                            <td><b>&nbsp;</b></td>
+                            <td><b>&nbsp;</b></td>
                             <td><b>&nbsp;</b></td>
                             <td><b>&nbsp;</b></td>
                             <td><b>&nbsp;</b></td>
@@ -183,9 +224,13 @@
                             <td>सामान्य पाणी कर</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.samanya }}</td>
                             <td>{{ item.SAMANYA_PANI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.samanya_pani_plus_5 }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.samanya_pani_less_5 }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.g }}</td>
                             <td rowspan="5">&nbsp;</td>
                             <td>सामान्य पाणी कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -195,8 +240,12 @@
                             <td>विशेष पाणी कर</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.vishesh }}</td>
                             <td>{{ item.VISHESH_PANI_KAR }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.vishesh_pani_plus_5 }}</td>
+                            <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.vishesh_pani_less_5 }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.h }}</td>
                             <td>विशेष पाणी कर</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -206,8 +255,12 @@
                             <td>इत्तर फी</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.etar }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.etar }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>{{ namuna_9_1_data?.alphabets?.n }}</td>
                             <td>इत्तर फी</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -217,8 +270,12 @@
                             <td>नोटीस फी</td>
                             <td>{{ namuna_9_1_data?.newUserSevakarDBrs4[0]?.notice }}</td>
                             <td>{{ namuna_9_1_data?.alphabets?.notice }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>{{ namuna_9_1_data?.alphabets?.o }}</td>
                             <td>नोटीस फी</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -227,10 +284,30 @@
 
                         <tr style="font-weight:bold;">
                             <td>एकूण मागणी </td>
-                            <td>{{ namuna_9_1_data?.alphabets?.k }}</td>
-                            <td>{{ namuna_9_1_data?.alphabets?.l }}</td>
-                            <td>{{ namuna_9_1_data?.alphabets?.m }}</td>
+                            <td>{{ Math.round(namuna_9_1_data?.newUserSevakarDBrs4[0]?.bhumi +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.diva +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.aarogya +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.safai +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.samanya +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.vishesh +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.etar +
+                                namuna_9_1_data?.newUserSevakarDBrs4[0]?.notice) }}</td>
+                            <td>{{ Math.round(item.BHUMIKAR + item.VIZ_DIVVABATTIKAR + item.AAROGYA_RAKSHAN_KAR +
+                                item.SAFAI_KAR + item.SAMANYA_PANI_KAR +item.VISHESH_PANI_KAR +
+                                (namuna_9_1_data?.alphabets?.etar || 0) + (namuna_9_1_data?.alphabets?.notice || 0)) }}
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{ Math.round(namuna_9_1_data?.alphabets?.b + namuna_9_1_data?.alphabets?.d +
+                                namuna_9_1_data?.alphabets?.e +
+                                namuna_9_1_data?.alphabets?.f +
+                                namuna_9_1_data?.alphabets?.g +
+                                namuna_9_1_data?.alphabets?.h +
+                                namuna_9_1_data?.alphabets?.n +
+                                namuna_9_1_data?.alphabets?.o) }}</td>
                             <td>एकूण मागणी </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>

@@ -14,6 +14,7 @@ import { LoaderService } from '../../../../services/loader.service';
   styleUrl: './namuna9.component.css'
 })
 export class Namuna9Component {
+    Math = Math;
     receivedData : any;
     reportData: any;
     ward_number: any;
