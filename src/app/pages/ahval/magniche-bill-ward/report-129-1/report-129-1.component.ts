@@ -310,7 +310,7 @@ export class Report1291Component {
               }
               .tip {
                 font-size: 10px !important;
-                line-height: 1.4 !important;
+                line-height: 1.2 !important;
                 margin-top: 3px !important;
                 padding: 2px 0 !important;
               }
@@ -522,7 +522,7 @@ export class Report1291Component {
               }
               .tip {
                 font-size: 10px !important;
-                line-height: 1.4 !important;
+                line-height: 1.2 !important;
                 margin-top: 3px !important;
                 padding: 2px 0 !important;
               }
