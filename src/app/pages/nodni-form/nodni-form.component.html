@@ -6,7 +6,10 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
                 <input matInput type="text" formControlName="annu_kramank" mask="0*" placeholder="Enter अनु. क्रमांक"
-                    tabindex="1" />
+                    tabindex="1" (blur)="checkAnnuKramankDuplicate($event)" />
+                <!-- <mat-error *ngIf="nodaniForm.get('annu_kramank')?.hasError('duplicate')">
+                    अनु क्रमांक already exists
+                </mat-error> -->
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
@@ -16,7 +19,10 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
                 <input matInput type="text" formControlName="ward_kramank" mask="0*" placeholder="Enter वॉर्ड क्रमांक"
-                    tabindex="3" />
+                    tabindex="3" (blur)="checkWardNumberDuplicate($event)" />
+                <!-- <mat-error *ngIf="nodaniForm.get('ward_kramank')?.hasError('duplicate')">
+                    वॉर्ड क्रमांक already exists
+                </mat-error> -->
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
@@ -692,6 +698,7 @@
         <div class="submit-row">
             <button mat-raised-button color="warn" class="custom-red" (click)="reset()">Reset</button> &nbsp;
             <button mat-raised-button color="primary" class="submit-btn"
+                [disabled]="nodaniForm.get('annu_kramank')?.hasError('duplicate') || nodaniForm.get('ward_kramank')?.hasError('duplicate')"
                 (click)="(!is_edit)  ? save_nodani_form() : update_nodani_form()" tabindex="31">{{(is_edit) ? "बदल करा"
                 : "जतन
                 करा"}}</button>

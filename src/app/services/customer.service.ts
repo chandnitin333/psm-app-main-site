@@ -38,6 +38,10 @@ export class CustomerService {
   addSillakJoda(params: any) {
     return this.api.post(`insert-update-sillak-joda`, params);
   }
+
+  checkSillakJodaExist(params: any) {
+    return this.api.post(`check-sillak-joda-exist`, params);
+  }
   deleteCustomerFromNodani(id: number) {
     return this.api.delete(`delete-malmatta-nodni-info/${id}`);
   }

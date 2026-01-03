@@ -162,7 +162,15 @@ addBuildingkarFormI_original_table(params: any) {
   getnodniById(id: number) {
     return this.api.get(`get-malmatta-nodni-user-by-id/${id}`);
   }
-  
+
+  checkAnnuKramankExists(params: any) {
+    return this.api.post('check-annu-kramank-exists', params);
+  }
+
+  checkWardNumberExists(params: any) {
+    return this.api.post('check-ward-number-exists', params);
+  }
+
   // verifyUserLogin(params: any) {
   //   return this.api.post(`verify-user-for-permission`, params);
   // }

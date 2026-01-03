@@ -1282,4 +1282,87 @@ resetSelection() {
     input.value = input.value.toUpperCase();
     this.nodaniForm.get('voter_card_number')?.setValue(input.value);
   }
+
+  checkAnnuKramankDuplicate(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const annuKramank = input.value;
+
+    if (!annuKramank || annuKramank.trim() === '') {
+      this.nodaniForm.get('annu_kramank')?.setErrors(null);
+      return;
+    }
+
+    const params = {
+      annu_kramank: annuKramank,
+      user_id: this.userDetails.userId
+    };
+
+    console.log('Checking अनु क्रमांक:', params);
+
+    this.NodaniService.checkAnnuKramankExists(params).subscribe({
+      next: (res: any) => {
+        console.log('अनु क्रमांक validation response:', res);
+        // Check if duplicate exists based on status 200 and message content
+        if (res && res.status === 200 && res.message && res.message.includes('already exists')) {
+          console.log('Duplicate अनु क्रमांक found!');
+          this.toastr.error(res.message, 'Duplicate Error', {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true
+          });
+          this.nodaniForm.get('annu_kramank')?.setErrors({ duplicate: true });
+          this.nodaniForm.get('annu_kramank')?.markAsTouched();
+        } else {
+          console.log('अनु क्रमांक is available');
+          this.nodaniForm.get('annu_kramank')?.setErrors(null);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error checking annu kramank:', err);
+        this.toastr.error('Error checking अनु क्रमांक. Please try again.', 'Error');
+      }
+    });
+  }
+
+  checkWardNumberDuplicate(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const wardNumber = input.value;
+
+    if (!wardNumber || wardNumber.trim() === '') {
+      this.nodaniForm.get('ward_kramank')?.setErrors(null);
+      return;
+    }
+
+    const params = {
+      annu_kramank: this.nodaniForm.value.annu_kramank,
+      ward_number: wardNumber,
+      user_id: this.userDetails.userId
+    };
+
+    console.log('Checking वॉर्ड क्रमांक:', params);
+
+    this.NodaniService.checkWardNumberExists(params).subscribe({
+      next: (res: any) => {
+        console.log('वॉर्ड क्रमांक validation response:', res);
+        // Check if duplicate exists based on status 200 and message content
+        if (res && res.status === 200 && res.message && res.message.includes('already exists')) {
+          console.log('Duplicate वॉर्ड क्रमांक found!');
+          this.toastr.error(res.message, 'Duplicate Error', {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true
+          });
+          this.nodaniForm.get('ward_kramank')?.setErrors({ duplicate: true });
+          this.nodaniForm.get('ward_kramank')?.markAsTouched();
+        } else {
+          console.log('वॉर्ड क्रमांक is available');
+          this.nodaniForm.get('ward_kramank')?.setErrors(null);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error checking ward number:', err);
+        this.toastr.error('Error checking वॉर्ड क्रमांक. Please try again.', 'Error');
+      }
+    });
+  }
 }
