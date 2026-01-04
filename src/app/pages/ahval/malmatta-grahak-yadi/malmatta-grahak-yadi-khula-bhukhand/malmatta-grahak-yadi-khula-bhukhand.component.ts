@@ -5,6 +5,8 @@ import html2pdf from 'html2pdf.js';
 import { MalmattaGrahakYadiService } from '../../../../services/malmatta-grahak-yadi.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { ToastrService } from 'ngx-toastr';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-malmatta-grahak-yadi-khula-bhukhand',
@@ -48,15 +50,37 @@ export class MalmattaGrahakYadiKhulaBhukhandComponent {
             }
     this.grahakYadiService.khulaBhukhandDarkachiYadi(param).subscribe({
       next: (res: any) => {
-        this.bindingDataList = res.data;
-        this.year = this.bindingDataList.yearRs10[0].year
-        this.end_year = Number(this.year) + 1;
-        console.log('Khula bhukhand dharkachi yadi List:', this.bindingDataList?.rs6[0]?.taxationLandRS4);
-        this.spinner.hide();
+        try {
+          this.bindingDataList = res.data;
+
+          // Check if data is empty
+          if (!this.bindingDataList?.rs6 || this.bindingDataList.rs6.length === 0) {
+            this.toastr.warning('डेटा उपलब्ध नाही', 'चेतावणी');
+            setTimeout(() => {
+              this.router.navigate(['/malmatta-grahak-yadi']);
+            }, 1500);
+            this.spinner.hide();
+            return;
+          }
+
+          if (this.bindingDataList?.yearRs10 && this.bindingDataList.yearRs10.length > 0) {
+            this.year = this.bindingDataList.yearRs10[0].year;
+            this.end_year = Number(this.year) + 1;
+          }
+          console.log('Khula bhukhand dharkachi yadi List:', this.bindingDataList?.rs6[0]?.taxationLandRS4);
+        } catch (error) {
+          console.error('Error processing data:', error);
+        } finally {
+          this.spinner.hide();
+        }
       },
-      error: (err: Error) => {
+      error: (err: any) => {
         console.error('Error getting for Khula bhukhand dharkachi yadi List :', err);
+        this.toastr.error('डेटा मिळविण्यात त्रुटी', 'त्रुटी');
         this.spinner.hide();
+        setTimeout(() => {
+          this.router.navigate(['/malmatta-grahak-yadi']);
+        }, 1500);
       },
     });
   }
@@ -607,6 +631,146 @@ export class MalmattaGrahakYadiKhulaBhukhandComponent {
       timeOut: 8000,
       closeButton: true
     });
+  }
+
+  async downloadPDFDirect() {
+    const element = document.getElementById('contentToExport');
+    if (!element) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    // Show loading message with persistent toast
+    const loadingToast = this.toastr.info(
+      'PDF तयार करत आहे, कृपया प्रतीक्षा करा...',
+      'लोड होत आहे',
+      {
+        timeOut: 0,
+        extendedTimeOut: 0,
+        closeButton: false,
+        tapToDismiss: false,
+        progressBar: true,
+        disableTimeOut: true
+      }
+    );
+
+    // Small delay to ensure loading toast is visible
+    setTimeout(async () => {
+      try {
+        // Hide buttons before capturing
+        const buttons = element.querySelectorAll('button, .hidden-print');
+        buttons.forEach((btn: any) => {
+          btn.style.display = 'none';
+        });
+
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+        const fileName = `khula_bhukhand_yadi_${currentDate}.pdf`;
+
+        // Get all page-break divs (each record should be on one page)
+        const pageBreaks = element.querySelectorAll('.page-break');
+
+        if (pageBreaks.length === 0) {
+          throw new Error('No content found to generate PDF');
+        }
+
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        const pageWidth = 297; // A4 width in mm (landscape)
+        const pageHeight = 210; // A4 height in mm (landscape)
+
+        // Add margins
+        const leftMargin = 10; // 10mm left margin
+        const rightMargin = 10; // 10mm right margin
+        const topMargin = 5; // 5mm top margin
+        const bottomMargin = 5; // 5mm bottom margin
+
+        // Calculate available space for content
+        const availableWidth = pageWidth - leftMargin - rightMargin;
+        const availableHeight = pageHeight - topMargin - bottomMargin;
+
+        // Process each page-break div separately
+        for (let i = 0; i < pageBreaks.length; i++) {
+          const pageElement = pageBreaks[i] as HTMLElement;
+
+          const canvas = await html2canvas(pageElement, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+          });
+
+          const imgData = canvas.toDataURL('image/png');
+
+          // Add new page for each record (except the first one)
+          if (i > 0) {
+            pdf.addPage();
+          }
+
+          // Calculate dimensions to fit on one page with margins
+          const canvasWidth = canvas.width;
+          const canvasHeight = canvas.height;
+          const ratio = canvasWidth / canvasHeight;
+
+          let finalWidth = availableWidth;
+          let finalHeight = availableWidth / ratio;
+
+          // If height exceeds available space, scale down
+          if (finalHeight > availableHeight) {
+            finalHeight = availableHeight;
+            finalWidth = availableHeight * ratio;
+          }
+
+          // Center the image within the available space (with margins)
+          const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
+          const yOffset = topMargin + (availableHeight - finalHeight) / 2;
+
+          pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+        }
+
+        // Save the PDF
+        pdf.save(fileName);
+
+        // Show buttons again
+        buttons.forEach((btn: any) => {
+          btn.style.display = '';
+        });
+
+        // Clear loading toast and show success
+        this.toastr.clear(loadingToast.toastId);
+        this.toastr.success('PDF डाउनलोड यशस्वी!', 'यशस्वी', {
+          timeOut: 3000,
+          closeButton: true,
+          progressBar: true
+        });
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+
+        // Show buttons again in case of error
+        const buttons = element.querySelectorAll('button, .hidden-print');
+        buttons.forEach((btn: any) => {
+          btn.style.display = '';
+        });
+
+        // Clear loading toast and show error
+        this.toastr.clear(loadingToast.toastId);
+        this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी', {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true
+        });
+      }
+    }, 100); // Small delay to ensure loading message displays
   }
 
 }

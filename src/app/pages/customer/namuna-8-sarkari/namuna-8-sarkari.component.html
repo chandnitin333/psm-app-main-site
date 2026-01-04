@@ -1,6 +1,10 @@
 <button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
   Print / Save as PDF (Perfect Quality)
 </button>&nbsp;
+<button (click)="downloadPDFDirect()" class="hidden-print btn btn-info" value="Download PDF"
+    style="font-weight: bold;">
+    📥 Download PDF
+</button>&nbsp;
 <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
     style="font-weight: bold; margin-left: 10px;">
     📥 PDF तयार करा

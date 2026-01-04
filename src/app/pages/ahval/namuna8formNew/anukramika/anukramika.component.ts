@@ -5,6 +5,8 @@ import { Namuna8Service } from '../../../../services/namuna8.service';
 import html2pdf from 'html2pdf.js';
 import { LoaderService } from '../../../../services/loader.service';
 import { ToastrService } from 'ngx-toastr';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-anukramika',
   standalone: true,
@@ -40,21 +42,27 @@ export class AnukramikaComponent {
     this.spinner.show();
 
     const param = {
-                "ward": this.receivedData.ward_no,
-                "year": this.receivedData.year,
-                "start": this.receivedData.start,
-                "end": this.receivedData.end
-            }
+      "ward": this.receivedData.ward_no,
+      "year": this.receivedData.year,
+      "start": this.receivedData.start,
+      "end": this.receivedData.end
+    };
+
     this.apiService.getAnukramikaData(param).subscribe({
       next: (res: any) => {
-        this.reportData = res.data;
-        console.log('Reponse Data:', this.reportData);
-        this.spinner.hide();
+        try {
+          this.reportData = res.data;
+          console.log('Reponse Data:', this.reportData);
+        } catch (error) {
+          console.error('Error processing data:', error);
+        } finally {
+          this.spinner.hide();
+        }
       },
-      error: (err: Error) => {
+      error: (err: any) => {
         console.error('Error getting for anukramika list :', err);
         this.spinner.hide();
-      },
+      }
     });
   }
   @HostListener('window:keydown', ['$event'])
@@ -402,5 +410,112 @@ export class AnukramikaComponent {
       timeOut: 8000,
       closeButton: true
     });
+  }
+
+  downloadPDFDirect() {
+    const element = document.getElementById('contentToExport');
+    if (!element) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    // Show loading message with persistent toast
+    const loadingToast = this.toastr.info(
+      'PDF तयार करत आहे, कृपया प्रतीक्षा करा...',
+      'लोड होत आहे',
+      {
+        timeOut: 0,
+        extendedTimeOut: 0,
+        closeButton: false,
+        tapToDismiss: false,
+        progressBar: true,
+        disableTimeOut: true
+      }
+    );
+
+    // Small delay to ensure loading toast is visible
+    setTimeout(() => {
+      // Hide buttons before capturing
+      const buttons = element.querySelectorAll('button, .hidden-print');
+      buttons.forEach((btn: any) => {
+        btn.style.display = 'none';
+      });
+
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+      const fileName = `anukramika_list_${currentDate}.pdf`;
+
+      html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      }).then((canvas) => {
+        const imgWidth = 210; // A4 width in mm (portrait)
+        const imgHeight = 297; // A4 height in mm (portrait)
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        // Calculate the number of pages needed
+        const pageHeight = imgHeight;
+        const contentHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = contentHeight;
+        let position = 0;
+
+        // Add first page
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, contentHeight);
+        heightLeft -= pageHeight;
+
+        // Add additional pages if needed
+        while (heightLeft > 0) {
+          position = heightLeft - contentHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, contentHeight);
+          heightLeft -= pageHeight;
+        }
+
+        // Save the PDF
+        pdf.save(fileName);
+
+        // Show buttons again
+        buttons.forEach((btn: any) => {
+          btn.style.display = '';
+        });
+
+        // Clear loading toast and show success
+        this.toastr.clear(loadingToast.toastId);
+        this.toastr.success('PDF डाउनलोड यशस्वी!', 'यशस्वी', {
+          timeOut: 3000,
+          closeButton: true,
+          progressBar: true
+        });
+      }).catch((error) => {
+        console.error('Error generating PDF:', error);
+
+        // Show buttons again in case of error
+        buttons.forEach((btn: any) => {
+          btn.style.display = '';
+        });
+
+        // Clear loading toast and show error
+        this.toastr.clear(loadingToast.toastId);
+        this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी', {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true
+        });
+      });
+    }, 100); // Small delay to ensure loading message displays
   }
 }

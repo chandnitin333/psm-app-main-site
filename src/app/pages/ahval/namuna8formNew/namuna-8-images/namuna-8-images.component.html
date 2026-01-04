@@ -3,11 +3,14 @@
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
     </button>&nbsp;
-
-<button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
-    style="font-weight: bold; margin-left: 10px;">
-    📥 PDF तयार करा
-</button>
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
+    </button>
 </div>
 <div class="hidden-print alert alert-warning" style="margin-bottom: 10px; padding: 8px; font-size: 12px;">
     <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"

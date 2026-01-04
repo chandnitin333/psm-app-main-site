@@ -2,7 +2,11 @@
     <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
-    </button> &nbsp;
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
         style="font-weight: bold; margin-left: 10px;">
         📥 PDF तयार करा
@@ -32,13 +36,13 @@
             <div class="row">
 
                 <div class="col-md-4">
-                    <span class="font15 left">जिल्हा :- {{bindingDataList.newUserDataDBRs2[0]?.DISTRICT_NAME}} </span>
+                    <span class="font15 left">जिल्हा :- {{bindingDataList?.newUserDataDBRs2?.[0]?.DISTRICT_NAME}} </span>
                 </div>
                 <div class="col-md-4 center tahsil">
-                    <span class="font15 ">तालुका :- {{bindingDataList.newUserDataDBRs2[0]?.TALUKA_NAME}} </span>
+                    <span class="font15 ">तालुका :- {{bindingDataList?.newUserDataDBRs2?.[0]?.TALUKA_NAME}} </span>
                 </div>
                 <div class="col-md-4">
-                    <span class="font15 right">ग्रामपंचायत :- {{bindingDataList.newUserDataDBRs2[0]?.PANCHAYAT_NAME}}
+                    <span class="font15 right">ग्रामपंचायत :- {{bindingDataList?.newUserDataDBRs2?.[0]?.PANCHAYAT_NAME}}
                     </span>
                 </div>
 
@@ -52,49 +56,49 @@
 
                         <tr>
                             <td>अ.क्र</td>
-                            <td>{{ item.newUserDataRs3[0]?.ANNU_KRAMANK }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.ANNU_KRAMANK }}</td>
                             <td>मालमत्ता क्र.</td>
-                            <td>{{ item.newUserDataRs3[0]?.MALMATTA_NUMBER }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.MALMATTA_NUMBER }}</td>
                             <td>वार्ड क्र.</td>
-                            <td>{{ item.newUserDataRs3[0]?.VARD_NUMBER}}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.VARD_NUMBER}}</td>
                             <td>प्लॉट क्र.</td>
-                            <td>{{ item.newUserDataRs3[0]?.PLOT_NO }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.PLOT_NO }}</td>
                             <td>खसरा न .</td>
-                            <td>{{ item.newUserDataRs3[0]?.KHASARA_KRAMANK }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.KHASARA_KRAMANK }}</td>
                             <td>सर्वे क्र.</td>
-                            <td>{{ item.newUserDataRs3[0]?.SURVEY_KRAMANK }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SURVEY_KRAMANK }}</td>
                             <!--<td rowspan="5">चतुर : सीमा </td>-->
                             <td>पाणी व्यवस्ता </td>
-                            <td>{{ item.newUserDataRs3[0]?.PINIYACHA_PANI }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.PINIYACHA_PANI }}</td>
                             <td>शौचालय </td>
-                            <td>{{ item.newUserDataRs3[0]?.SOUNCHALAY }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SOUNCHALAY }}</td>
                             <td>मिलकत प्रकार</td>
-                            <td>{{ item.newUserDataRs3[0]?.MILKAR_PRAKAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.MILKAR_PRAKAR }}</td>
                         </tr>
                         <tr>
                             <td colspan="2"><b>घरमालकाचे नाव </b></td>
-                            <td colspan="7">{{ item.newUserDataRs3[0]?.HOMEUSER_NAME }} </td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.HOMEUSER_NAME }} </td>
                             <td rowspan="4">चतुर : सीमा </td>
                             <td colspan="2">पूर्वेस </td>
-                            <td colspan="10">{{ item.newUserDataRs3[0]?.PURVA }} </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.PURVA }} </td>
                         </tr>
                         <tr>
                             <td colspan="2"><b>पत्नी / मुलांचे नाव</b> </td>
-                            <td colspan="7">{{ item.newUserDataRs3[0]?.HOMEUSER_NAME1 }}</td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.HOMEUSER_NAME1 }}</td>
                             <td colspan="2">पश्चिमेस </td>
-                            <td colspan="10">{{ item.newUserDataRs3[0]?.PACHHIM }} </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.PACHHIM }} </td>
                         </tr>
                         <tr>
                             <td colspan="2"><b>भोगवटदाराचे नाव</b> </td>
-                            <td colspan="7">{{ item.newUserDataRs3[0]?.BHOGATWARGARACHE_NAME }}</td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.BHOGATWARGARACHE_NAME }}</td>
                             <td colspan="2">उत्तरेस </td>
-                            <td colspan="10">{{ item.newUserDataRs3[0]?.UTTAR }} </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.UTTAR }} </td>
                         </tr>
                         <tr>
                             <td colspan="2">पत्ता</td>
-                            <td colspan="7">{{ item.newUserDataRs3[0]?.ADDRESS_NAGAR_SOCIETY }}</td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.ADDRESS_NAGAR_SOCIETY }}</td>
                             <td colspan="2"> दक्षिणेस </td>
-                            <td colspan="10">{{ item.newUserDataRs3[0]?.DAKSIN }} </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.DAKSIN }} </td>
                         </tr>
                         <tr>
                             <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ </td>
@@ -110,15 +114,15 @@
 
                         </tr>
                         <tr>
-                            <td>{{ item.newUserDataRs3[0]?.LAMBI }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.RUNDI }}</td>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.SQUARE_FOOT }}</td>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.SQUARE_METER }}</td>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.URVATICH_KHALI_JAGA }}</td>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.URVATICH_KHALI_JAGAS }}</td>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.MOBILE_NUMBER }}</td>
-                            <td colspan="3">{{ item.newUserDataRs3[0]?.AADHARCARD_NUMBER }}</td>
-                            <td colspan="4">{{ item.newUserDataRs3[0]?.VOTERCARD_NUMBER }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.LAMBI }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.RUNDI }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.SQUARE_FOOT }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.SQUARE_METER }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.URVATICH_KHALI_JAGA }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.URVATICH_KHALI_JAGAS }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.MOBILE_NUMBER }}</td>
+                            <td colspan="3">{{ item?.newUserDataRs3?.[0]?.AADHARCARD_NUMBER }}</td>
+                            <td colspan="4">{{ item?.newUserDataRs3?.[0]?.VOTERCARD_NUMBER }}</td>
                         </tr>
                         <tr style="font-weight:bold;">
                             <td colspan="2">मालमत्तेचे वर्णन </td>
@@ -204,7 +208,7 @@
                             <td colspan="8">कराची रक्क्म</td>
                             <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
                             <td colspan="2">गृह व भूमीकर </td>
-                            <td colspan="4">{{ item.newUserDataRs3[0]?.manoraaddition }}</td>
+                            <td colspan="4">{{ item?.newUserDataRs3?.[0]?.manoraaddition }}</td>
                         </tr>
                         <tr>
                             <td colspan="2">वीज </td>
@@ -225,14 +229,14 @@
                             <td colspan="4">एकूण कर </td>
                         </tr>
                         <tr>
-                            <td colspan="2">{{ item.newUserDataRs3[0]?.VIZ_DIVVABATTIKAR }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.AAROGYA_RAKSHAN_KAR }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.SAFAI_KAR }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.SAMANYA_PANI_KAR }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.VISHESH_PANI_KAR }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.EKUN }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.bhumikar }}</td>
-                            <td>{{ item.newUserDataRs3[0]?.EEKUN_KAR_BHARNA }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.VIZ_DIVVABATTIKAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.AAROGYA_RAKSHAN_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SAFAI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SAMANYA_PANI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.VISHESH_PANI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.EKUN }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.bhumikar }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.EEKUN_KAR_BHARNA }}</td>
                             <td colspan="2">&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -244,7 +248,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">फेरफार / शेरा </td>
-                            <td colspan="18">{{ item.newUserDataRs3[0]?.MAJAHUN_GHAT }}</td>
+                            <td colspan="18">{{ item?.newUserDataRs3?.[0]?.MAJAHUN_GHAT }}</td>
                         </tr>
 
                     </tbody>
@@ -256,7 +260,7 @@
                 <div class="row">
                     <div class="col-md-8"></div>
                     <div class="col-md-4">
-                        <span class="font15 right">पान नंबर : {{ item.newUserDataRs3[0]?.ANNU_KRAMANK }}</span>
+                        <span class="font15 right">पान नंबर : {{ item?.newUserDataRs3?.[0]?.ANNU_KRAMANK }}</span>
                     </div>
                 </div>
             </div>

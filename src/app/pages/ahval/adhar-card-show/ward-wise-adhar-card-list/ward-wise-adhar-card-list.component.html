@@ -2,7 +2,11 @@
     <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
-    </button>
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
     <!-- Mobile Only PDF Download Button -->
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary" value="PDF Download"
         style="font-weight: bold; margin-left: 10px;">
