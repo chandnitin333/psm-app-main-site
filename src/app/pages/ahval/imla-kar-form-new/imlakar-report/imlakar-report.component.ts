@@ -5,6 +5,8 @@ import { ImlakarService } from '../../../../services/imlakar.service';
 import html2pdf from 'html2pdf.js';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../services/loader.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-imlakar-report',
@@ -44,25 +46,134 @@ export class ImlakarReportComponent {
                 "end": this.receivedData.end,
                 "from_year": this.receivedData.from_year,
                 "to_year": this.receivedData.to_year
-            }
+            };
     this.apiService.getImlakarData(param).subscribe({
       next: (res: any) => {
-        this.reportData = res.data;
-        if(this.reportData?.rs3.length === 0 || this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
-          // alert('No data found for the selected criteria.');
+        try {
+          this.reportData = res.data;
+          if(this.reportData?.rs3.length === 0 || this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
             this.toastr.error('No data found for the selected criteria.', 'Error');
             this.router.navigate(['/imla-kar-form-new']);
+            return;
+          }
+          this.year = this.reportData.yearRs42[0].year
+          this.end_year = Number(this.year) + 1;
+        } catch (error) {
+          console.error('Error processing data:', error);
+        } finally {
+          this.spinner.hide();
         }
-        this.year = this.reportData.yearRs42[0].year
-        this.end_year = Number(this.year) + 1;
-        // console.log('Reponse Data---:', this.reportData);
-        this.spinner.hide();
       },
-      error: (err: Error) => {
+      error: (err: any) => {
         console.error('Error getting for anukramika list :', err);
         this.spinner.hide();
       },
     });
+  }
+
+  async downloadPDFDirect() {
+    const element = document.getElementById('contentToExport');
+    if (!element) {
+      this.toastr.error('Content not found', 'Error');
+      return;
+    }
+
+    // Show loading message
+    const toastId = this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      disableTimeOut: true,
+      closeButton: false
+    }).toastId;
+
+    // Hide buttons during capture
+    const buttons = document.querySelectorAll('.hidden-print');
+    buttons.forEach(btn => (btn as HTMLElement).style.display = 'none');
+
+    try {
+      // Find all page-break divs
+      const pageBreaks = element.querySelectorAll('.page-break');
+
+      if (pageBreaks.length === 0) {
+        this.toastr.error('No pages found to export', 'Error');
+        return;
+      }
+
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pageWidth = 297;
+      const pageHeight = 210;
+      const leftMargin = 10;
+      const rightMargin = 10;
+      const topMargin = 10;
+      const bottomMargin = 10;
+      const availableWidth = pageWidth - leftMargin - rightMargin;
+      const availableHeight = pageHeight - topMargin - bottomMargin;
+
+      for (let i = 0; i < pageBreaks.length; i++) {
+        const pageElement = pageBreaks[i] as HTMLElement;
+
+        const canvas = await html2canvas(pageElement, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+
+        const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
+        const finalWidth = imgWidth * ratio;
+        const finalHeight = imgHeight * ratio;
+
+        if (i > 0) {
+          pdf.addPage();
+        }
+
+        const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
+        const yOffset = topMargin + (availableHeight - finalHeight) / 2;
+
+        pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+      }
+
+      // Restore buttons
+      buttons.forEach(btn => (btn as HTMLElement).style.display = '');
+
+      // Clear loading toast
+      if (toastId) {
+        this.toastr.clear(toastId);
+      }
+
+      // Save PDF
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+      const fileName = `imlakar_mojmap_yadi_${currentDate}.pdf`;
+
+      pdf.save(fileName);
+      this.toastr.success('PDF यशस्वीरित्या डाउनलोड झाली!', 'यशस्वी');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+
+      // Restore buttons
+      buttons.forEach(btn => (btn as HTMLElement).style.display = '');
+
+      // Clear loading toast
+      if (toastId) {
+        this.toastr.clear(toastId);
+      }
+
+      this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी');
+    }
   }
   @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent) {

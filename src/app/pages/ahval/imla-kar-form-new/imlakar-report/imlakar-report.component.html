@@ -2,7 +2,10 @@
     <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
-    </button>
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF" style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
         style="font-weight: bold; margin-left: 10px;">
         📥 PDF तयार करा
@@ -20,7 +23,7 @@
     <div class="col-md-12">
         <div class="row" *ngFor="let itemRs3 of reportData?.rs3">
 
-            <div style="break-after:page;">
+            <div class="page-break" style="break-after:page;">
                 <div class="row">
                     <p class="heading">
                         <b>इमलाकर मोजमाप यादी</b>

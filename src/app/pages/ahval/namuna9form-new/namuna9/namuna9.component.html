@@ -3,6 +3,10 @@
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
     </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
         style="font-weight: bold; margin-left: 10px;">
         📥 PDF तयार करा
@@ -22,7 +26,7 @@
 <div class="container-fluid" id="contentToExport">
 
     <div class="col-md-12">
-        <div style="break-after:page;" *ngFor="let itemRs3 of reportData?.rs3">
+        <div style="break-after:page;" *ngFor="let itemRs3 of reportData?.rs3" class="page-break">
             <div class="row">
                 <p class="heading">
                     <b> नमुना ९</b>

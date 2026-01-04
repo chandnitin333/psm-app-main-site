@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import html2pdf from 'html2pdf.js';
 import { Namuna9Service } from '../../../../services/namuna9.service';
 import { LoaderService } from '../../../../services/loader.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-namuna9-anukramnika',
@@ -40,29 +42,42 @@ export class Namuna9AnukramnikaComponent {
     }
     getReportDataAPI(){
       this.spinner.show();
-      const param =   
+      const param =
               {
                 "ward": this.receivedData.ward_no,
                 "year":this.receivedData.year,
                 "start": this.receivedData.start,
                 "end":this.receivedData.end
-            }
+            };
       this.apiService.getAnukramikaData(param).subscribe({
         next: (res: any) => {
-          this.reportData = res.data;
-          // this.year = this.reportData.yearRs42[0].year
-          // this.end_year = Number(this.year) + 1;
-          if(this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
-            // alert('No data found for the selected criteria.');
-              this.toastr.error('No data found for the selected criteria.', 'Error');
-              this.router.navigate(['/namuna-9-form-new']);
+          try {
+            this.reportData = res.data;
+
+            // Check if data is empty
+            if (!this.reportData?.rs3 || this.reportData.rs3.length === 0) {
+              this.toastr.warning('डेटा उपलब्ध नाही', 'चेतावणी');
+              setTimeout(() => {
+                this.router.navigate(['/namuna-9-form-new']);
+              }, 1500);
+              this.spinner.hide();
+              return;
+            }
+
+            console.log('Reponse Data---:', this.reportData);
+          } catch (error) {
+            console.error('Error processing data:', error);
+          } finally {
+            this.spinner.hide();
           }
-          this.spinner.hide();
-          console.log('Reponse Data---:', this.reportData);
         },
-        error: (err: Error) => {
-          console.error('Error getting for anukramika list :', err);
+        error: (err: any) => {
+          console.error('Error getting for namuna 9 anukramnika :', err);
+          this.toastr.error('डेटा मिळविण्यात त्रुटी', 'त्रुटी');
           this.spinner.hide();
+          setTimeout(() => {
+            this.router.navigate(['/namuna-9-form-new']);
+          }, 1500);
         },
       });
     }
@@ -431,5 +446,134 @@ downloadPDFMobile() {
     timeOut: 8000,
     closeButton: true
   });
+}
+
+downloadPDFDirect() {
+  const element = document.getElementById('contentToExport');
+  if (!element) {
+    this.toastr.error('Content not found', 'Error');
+    return;
+  }
+
+  // Show loading message with persistent toast
+  const loadingToast = this.toastr.info(
+    'PDF तयार करत आहे, कृपया प्रतीक्षा करा...',
+    'लोड होत आहे',
+    {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: false,
+      tapToDismiss: false,
+      progressBar: true,
+      disableTimeOut: true
+    }
+  );
+
+  // Small delay to ensure loading toast is visible
+  setTimeout(() => {
+    // Hide buttons before capturing
+    const buttons = element.querySelectorAll('button, .hidden-print');
+    buttons.forEach((btn: any) => {
+      btn.style.display = 'none';
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `namuna9_anukramnika_${currentDate}.pdf`;
+
+    html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#ffffff'
+    }).then((canvas) => {
+      const pageWidth = 210; // A4 portrait width in mm
+      const pageHeight = 297; // A4 portrait height in mm
+
+      // Add margins
+      const leftMargin = 10; // 10mm left margin
+      const rightMargin = 10; // 10mm right margin
+      const topMargin = 10; // 10mm top margin
+      const bottomMargin = 5; // 5mm bottom margin
+
+      // Calculate available space for content
+      const availableWidth = pageWidth - leftMargin - rightMargin;
+      const availableHeight = pageHeight - topMargin - bottomMargin;
+
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      // Calculate dimensions to fit within available space with margins
+      const ratio = canvas.width / canvas.height;
+      let finalWidth = availableWidth;
+      let finalHeight = availableWidth / ratio;
+
+      // Calculate the number of pages needed
+      const contentHeight = finalHeight;
+      let heightLeft = contentHeight;
+      let currentPage = 0;
+
+      // Add pages as needed
+      while (heightLeft > 0 || currentPage === 0) {
+        if (currentPage > 0) {
+          pdf.addPage();
+        }
+
+        // Calculate position for this page
+        const yPosition = topMargin - (currentPage * availableHeight);
+
+        // Center horizontally with margins
+        const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
+
+        // Add image to PDF with margins
+        pdf.addImage(imgData, 'PNG', xOffset, yPosition, finalWidth, finalHeight);
+
+        heightLeft -= availableHeight;
+        currentPage++;
+      }
+
+      // Save the PDF
+      pdf.save(fileName);
+
+      // Show buttons again
+      buttons.forEach((btn: any) => {
+        btn.style.display = '';
+      });
+
+      // Clear loading toast and show success
+      this.toastr.clear(loadingToast.toastId);
+      this.toastr.success('PDF डाउनलोड यशस्वी!', 'यशस्वी', {
+        timeOut: 3000,
+        closeButton: true,
+        progressBar: true
+      });
+    }).catch((error) => {
+      console.error('Error generating PDF:', error);
+
+      // Show buttons again in case of error
+      buttons.forEach((btn: any) => {
+        btn.style.display = '';
+      });
+
+      // Clear loading toast and show error
+      this.toastr.clear(loadingToast.toastId);
+      this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी', {
+        timeOut: 5000,
+        closeButton: true,
+        progressBar: true
+      });
+    });
+  }, 100); // Small delay to ensure loading message displays
 }
 }

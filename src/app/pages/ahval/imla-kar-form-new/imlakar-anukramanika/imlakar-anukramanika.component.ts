@@ -5,6 +5,8 @@ import { ImlakarService } from '../../../../services/imlakar.service';
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../services/loader.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-imlakar-anukramanika',
@@ -39,22 +41,128 @@ export class ImlakarAnukramanikaComponent {
       this.spinner.show();
       const param = {
                   "ward": this.receivedData.ward_no
-              }
+              };
       this.apiService.imlakarAnukranika(param).subscribe({
         next: (res: any) => {
-          this.reportData = res.data;
-          if(this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
-            // alert('No data found for the selected criteria.');
+          try {
+            this.reportData = res.data;
+            if(this.reportData?.rs3 === undefined || this.reportData?.rs3 === null){
               this.toastr.error('No data found for the selected criteria.', 'Error');
               this.router.navigate(['/imla-kar-form-new']);
+              return;
+            }
+          } catch (error) {
+            console.error('Error processing data:', error);
+          } finally {
+            this.spinner.hide();
           }
-          // console.log('Reponse Data---:', this.reportData);
-          this.spinner.hide();
         },
-        error: (err: Error) => {
+        error: (err: any) => {
           console.error('Error getting for anukramika list :', err);
           this.spinner.hide();
         },
+      });
+    }
+
+    downloadPDFDirect() {
+      const element = document.getElementById('contentToExport');
+      if (!element) {
+        this.toastr.error('Content not found', 'Error');
+        return;
+      }
+
+      // Show loading message
+      const toastId = this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+        disableTimeOut: true,
+        closeButton: false
+      }).toastId;
+
+      // Hide buttons during capture
+      const buttons = document.querySelectorAll('.hidden-print');
+      buttons.forEach(btn => (btn as HTMLElement).style.display = 'none');
+
+      // PDF generation with margins - Portrait orientation
+      const pageWidth = 210;
+      const pageHeight = 297;
+      const leftMargin = 10;
+      const rightMargin = 10;
+      const topMargin = 10;
+      const bottomMargin = 5;
+      const availableWidth = pageWidth - leftMargin - rightMargin;
+      const availableHeight = pageHeight - topMargin - bottomMargin;
+
+      html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
+        const finalWidth = imgWidth * ratio;
+        const finalHeight = imgHeight * ratio;
+
+        // Multi-page handling
+        let heightLeft = finalHeight;
+        let currentPage = 0;
+
+        while (heightLeft > 0 || currentPage === 0) {
+          if (currentPage > 0) {
+            pdf.addPage();
+          }
+
+          const yPosition = currentPage === 0 ? topMargin : topMargin - (currentPage * availableHeight);
+          const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
+
+          pdf.addImage(imgData, 'PNG', xOffset, yPosition, finalWidth, finalHeight);
+
+          heightLeft -= availableHeight;
+          currentPage++;
+
+          if (heightLeft <= 0) break;
+        }
+
+        // Restore buttons
+        buttons.forEach(btn => (btn as HTMLElement).style.display = '');
+
+        // Clear loading toast
+        if (toastId) {
+          this.toastr.clear(toastId);
+        }
+
+        // Save PDF
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+        const fileName = `imlakar_anukramnika_${currentDate}.pdf`;
+
+        pdf.save(fileName);
+        this.toastr.success('PDF यशस्वीरित्या डाउनलोड झाली!', 'यशस्वी');
+      }).catch(error => {
+        console.error('Error generating PDF:', error);
+
+        // Restore buttons
+        buttons.forEach(btn => (btn as HTMLElement).style.display = '');
+
+        // Clear loading toast
+        if (toastId) {
+          this.toastr.clear(toastId);
+        }
+
+        this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी');
       });
     }
     @HostListener('window:keydown', ['$event'])
