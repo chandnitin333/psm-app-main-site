@@ -367,145 +367,101 @@ export class Namuna81SingleWardComponent {
     });
   }
 
-  async downloadPDFDirect() {
+  downloadPDFDirect() {
     const element = document.getElementById('contentToExport');
     if (!element) {
       this.toastr.error('Content not found', 'Error');
       return;
     }
 
-    // Show loading message with persistent toast
-    const loadingToast = this.toastr.info(
-      'PDF तयार करत आहे, कृपया प्रतीक्षा करा...',
-      'लोड होत आहे',
-      {
-        timeOut: 0,
-        extendedTimeOut: 0,
-        closeButton: false,
-        tapToDismiss: false,
-        progressBar: true,
-        disableTimeOut: true
-      }
-    );
+    // Show loading toast
+    const toastId = this.toastr.info('PDF तयार करत आहे...', 'कृपया प्रतीक्षा करा', {
+      disableTimeOut: true,
+      closeButton: false
+    }).toastId;
 
-    // Small delay to ensure loading toast is visible
-    setTimeout(async () => {
-      try {
-        // Hide buttons before capturing
-        const buttons = element.querySelectorAll('button, .hidden-print');
-        buttons.forEach((btn: any) => {
-          btn.style.display = 'none';
-        });
+    // Clone the element
+    const clonedElement = element.cloneNode(true) as HTMLElement;
 
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
-        const fileName = `namuna81_single_ward_${currentDate}.pdf`;
+    // Apply vertical text styles directly to cloned elements
+    const landscapeTexts = clonedElement.querySelectorAll('.landscape-text');
+    landscapeTexts.forEach((el: any) => {
+      el.style.cssText = `
+        writing-mode: vertical-rl !important;
+        text-orientation: mixed !important;
+        white-space: nowrap !important;
+        min-width: 30px !important;
+        font-size: 8px !important;
+      `;
+    });
 
-        // Get all page-break divs
-        const pageBreaks = element.querySelectorAll('.page-break');
+    // Hide buttons in clone
+    const buttons = clonedElement.querySelectorAll('button, .hidden-print');
+    buttons.forEach((btn: any) => {
+      btn.style.display = 'none';
+    });
 
-        if (pageBreaks.length === 0) {
-          this.toastr.error('No records found to export', 'Error');
-          buttons.forEach((btn: any) => { btn.style.display = ''; });
-          this.toastr.clear(loadingToast.toastId);
-          return;
+    // Create temporary container
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.left = '-9999px';
+    tempContainer.appendChild(clonedElement);
+    document.body.appendChild(tempContainer);
+
+    // Generate filename
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const currentDate = `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`;
+    const fileName = `namuna81_single_ward_${currentDate}.pdf`;
+
+    // Use html2pdf with enhanced settings
+    const options = {
+      margin: [10, 10, 10, 10],
+      filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 3,
+        useCORS: true,
+        letterRendering: true,
+        logging: false,
+        windowWidth: clonedElement.scrollWidth,
+        windowHeight: clonedElement.scrollHeight
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'landscape'
+      },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break' }
+    };
+
+    html2pdf()
+      .set(options)
+      .from(clonedElement)
+      .save()
+      .then(() => {
+        // Remove temporary container
+        document.body.removeChild(tempContainer);
+        if (toastId) {
+          this.toastr.clear(toastId);
         }
-
-        const pdf = new jsPDF({
-          orientation: 'landscape',
-          unit: 'mm',
-          format: 'a4'
-        });
-
-        const pageWidth = 297; // A4 width in mm (landscape)
-        const pageHeight = 210; // A4 height in mm (landscape)
-
-        // Add margins
-        const leftMargin = 10; // 10mm left margin
-        const rightMargin = 10; // 10mm right margin
-        const topMargin = 5; // 5mm top margin
-        const bottomMargin = 5; // 5mm bottom margin
-
-        // Calculate available space for content
-        const availableWidth = pageWidth - leftMargin - rightMargin;
-        const availableHeight = pageHeight - topMargin - bottomMargin;
-
-        // Process each page-break div separately
-        for (let i = 0; i < pageBreaks.length; i++) {
-          const pageElement = pageBreaks[i] as HTMLElement;
-
-          // Capture this specific page
-          const canvas = await html2canvas(pageElement, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff'
-          });
-
-          // Add a new page for each record (except the first one)
-          if (i > 0) {
-            pdf.addPage();
-          }
-
-          const imgData = canvas.toDataURL('image/png');
-
-          // Calculate dimensions to fit within available space with margins
-          const ratio = canvas.width / canvas.height;
-          let finalWidth = availableWidth;
-          let finalHeight = availableWidth / ratio;
-
-          // If height exceeds available space, scale down
-          if (finalHeight > availableHeight) {
-            finalHeight = availableHeight;
-            finalWidth = availableHeight * ratio;
-          }
-
-          // Center the image within the available space (with margins)
-          const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
-          const yOffset = topMargin + (availableHeight - finalHeight) / 2;
-
-          // Add image to PDF with margins
-          pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
-        }
-
-        // Save the PDF
-        pdf.save(fileName);
-
-        // Show buttons again
-        buttons.forEach((btn: any) => {
-          btn.style.display = '';
-        });
-
-        // Clear loading toast and show success
-        this.toastr.clear(loadingToast.toastId);
-        this.toastr.success('PDF डाउनलोड यशस्वी!', 'यशस्वी', {
-          timeOut: 3000,
-          closeButton: true,
-          progressBar: true
-        });
-      } catch (error) {
+        this.toastr.success('PDF यशस्वीरित्या डाउनलोड झाली!', 'यशस्वी');
+      })
+      .catch((error: any) => {
         console.error('Error generating PDF:', error);
-
-        // Show buttons again in case of error
-        const buttons = element.querySelectorAll('button, .hidden-print');
-        buttons.forEach((btn: any) => {
-          btn.style.display = '';
-        });
-
-        // Clear loading toast and show error
-        this.toastr.clear(loadingToast.toastId);
-        this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी', {
-          timeOut: 5000,
-          closeButton: true,
-          progressBar: true
-        });
-      }
-    }, 100); // Small delay to ensure loading message displays
+        // Remove temporary container
+        if (tempContainer.parentNode) {
+          document.body.removeChild(tempContainer);
+        }
+        if (toastId) {
+          this.toastr.clear(toastId);
+        }
+        this.toastr.error('PDF तयार करताना त्रुटी आली', 'त्रुटी');
+      });
   }
 }
