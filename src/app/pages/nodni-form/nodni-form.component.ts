@@ -1284,6 +1284,9 @@ resetSelection() {
   }
 
   checkAnnuKramankDuplicate(event: Event) {
+    if (this.is_edit) {
+      return;
+    }
     const input = event.target as HTMLInputElement;
     const annuKramank = input.value;
 
@@ -1325,6 +1328,9 @@ resetSelection() {
   }
 
   checkWardNumberDuplicate(event: Event) {
+    if (this.is_edit) {
+      return;
+    }
     const input = event.target as HTMLInputElement;
     const wardNumber = input.value;
 
