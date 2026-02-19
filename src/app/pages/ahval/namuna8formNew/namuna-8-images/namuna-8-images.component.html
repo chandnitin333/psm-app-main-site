@@ -3,8 +3,7 @@
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
     </button>&nbsp;
-    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
-        style="font-weight: bold;">
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF" style="font-weight: bold;">
         📥 Download PDF
     </button>&nbsp;
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
@@ -240,13 +239,14 @@
                                 <td colspan="3">{{ itemRs3?.manoraaddition | number: '1.0-0'}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">वीज</td>
+                                <td colspan="2">गृह व भूमीकर</td>
+                                <td>वीज</td>
                                 <td>आरोग्य</td>
                                 <td>सफाई</td>
                                 <td colspan="2">सा. पाणी</td>
                                 <td colspan="2">वि. पाणी</td>
                                 <td>एकूण </td>
-                                <td colspan="2">एकूण कर</td>
+                                <td>एकूण कर</td>
                                 <td colspan="2">गृह व भूमीकर</td>
                                 <td colspan="2">वीज कर</td>
                                 <td>आरोग्य</td>
@@ -257,13 +257,14 @@
                                 <td colspan="3">एकूण कर</td>
                             </tr>
                             <tr>
-                                <td colspan="2">{{ itemRs3?.VIZ_DIVVABATTIKAR}}</td>
+                                <td colspan="2">{{ itemRs3?.BHUMIKAR | number: '1.0-0'}}</td>
+                                <td>{{ itemRs3?.VIZ_DIVVABATTIKAR}}</td>
                                 <td>{{ itemRs3?.AAROGYA_RAKSHAN_KAR}}</td>
                                 <td>{{ itemRs3?.SAFAI_KAR}}</td>
                                 <td colspan="2">{{ itemRs3?.SAMANYA_PANI_KAR}}</td>
                                 <td colspan="2">{{ itemRs3?.VISHESH_PANI_KAR}}</td>
                                 <td>{{ itemRs3?.EKUN}}</td>
-                                <td colspan="2">{{ itemRs3?.EEKUN_KAR_BHARNA}}</td>
+                                <td>{{ itemRs3?.EEKUN_KAR_BHARNA | number: '1.0-0'}}</td>
                                 <td colspan="2">&nbsp;</td>
                                 <td colspan="2">&nbsp;</td>
                                 <td>&nbsp;</td>

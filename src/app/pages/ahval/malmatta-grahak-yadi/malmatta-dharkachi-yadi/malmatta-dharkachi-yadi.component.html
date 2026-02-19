@@ -3,8 +3,7 @@
         title="Best quality - Use browser's Print to PDF option">
         🖨️ Print / Save as PDF (Perfect Quality)
     </button>&nbsp;
-    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
-        style="font-weight: bold;">
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF" style="font-weight: bold;">
         📥 Download PDF
     </button>&nbsp;
     <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
@@ -36,7 +35,8 @@
                         <span class="font15">तालुका :- {{ malmattaDarkList.newUserDataDBRs2[0]?.TALUKA_NAME }}</span>
                     </div>
                     <div class="col-md-4">
-                        <span class="font15 right">ग्रामपंचायत :- {{ malmattaDarkList.newUserDataDBRs2[0]?.PANCHAYAT_NAME
+                        <span class="font15 right">ग्रामपंचायत :- {{
+                            malmattaDarkList.newUserDataDBRs2[0]?.PANCHAYAT_NAME
                             }}</span>
                     </div>
                 </div>
@@ -96,12 +96,12 @@
                             <!-- Area and Contact Info -->
                             <tr>
                                 <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ</td>
-                                <td>लांबी</td>
-                                <td>रुंदी</td>
-                                <td colspan="2">क्षेत्रफळ</td>
-                                <td colspan="2">मीटर</td>
-                                <td colspan="2">उर्वरित</td>
-                                <td colspan="2">उर्वरित मीटर</td>
+                                <td>लांबी (चौ. फु .)</td>
+                                <td>रुंदी (चौ. फु .)</td>
+                                <td colspan="2">क्षेत्रफळ(चौ. फु .)</td>
+                                <td colspan="2">मीटर(चौ. मीटर)</td>
+                                <td colspan="2">उर्वरित(चौ. फु .)</td>
+                                <td colspan="2">उर्वरित मीटर(चौ. मीटर )</td>
                                 <td colspan="2">मोबाईल</td>
                                 <td colspan="3">आधार</td>
                                 <td colspan="3">वोटर</td>
@@ -206,13 +206,14 @@
                                 <td colspan="4">{{ item.manoraaddition }}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">वीज</td>
+                                <td colspan="2">गृह व भूमीकर</td>
+                                <td>वीज</td>
                                 <td>आरोग्य</td>
                                 <td>सफाई</td>
                                 <td>सा. पाणी</td>
                                 <td>वि. पाणी</td>
                                 <td>एकूण</td>
-                                <td>गृह व भूमीकर</td>
+
                                 <td>एकूण कर</td>
                                 <td colspan="2">गृह व भूमीकर</td>
                                 <td>वीज कर</td>
@@ -224,13 +225,14 @@
                                 <td colspan="4">एकूण कर</td>
                             </tr>
                             <tr>
-                                <td colspan="2">{{ item.VIZ_DIVVABATTIKAR }}</td>
+                                <td colspan="2">{{ item.BHUMIKAR }}</td>
+                                <td>{{ item.VIZ_DIVVABATTIKAR }}</td>
                                 <td>{{ item.AAROGYA_RAKSHAN_KAR }}</td>
                                 <td>{{ item.SAFAI_KAR }}</td>
                                 <td>{{ item.SAMANYA_PANI_KAR }}</td>
                                 <td>{{ item.VISHESH_PANI_KAR }}</td>
                                 <td>{{ item.EKUN }}</td>
-                                <td>{{ item.bhumikar }}</td>
+
                                 <td>{{ item.EEKUN_KAR_BHARNA }}</td>
                                 <td colspan="2">&nbsp;</td>
                                 <td>&nbsp;</td>

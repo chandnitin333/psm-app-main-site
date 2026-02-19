@@ -264,13 +264,13 @@
 
                     <ng-container matColumnDef="AREAP">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAP_KB() || 0 }} </b></td>
                     </ng-container>
 
                     <ng-container matColumnDef="AREAI">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef><b>{{ getTotalAREAI_KB() || 0 }}</b></td>
                     </ng-container>
 
@@ -376,13 +376,13 @@
 
                     <ng-container matColumnDef="AREAP">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAP_bandkam() || 0 }} </b></td>
                     </ng-container>
 
                     <ng-container matColumnDef="AREAI">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef><b> {{ getTotalAREAI_bandkam() || 0 }} </b></td>
                     </ng-container>
 
@@ -514,13 +514,13 @@
 
                     <ng-container matColumnDef="AREAP">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ पु.प.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAP}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAP || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
                     <ng-container matColumnDef="AREAI">
                         <th mat-header-cell *matHeaderCellDef><b> क्षेत्रफळ उ.द.(चौ.फुट) </b></th>
-                        <td mat-cell *matCellDef="let element"> {{element.AREAI}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AREAI || 0}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
