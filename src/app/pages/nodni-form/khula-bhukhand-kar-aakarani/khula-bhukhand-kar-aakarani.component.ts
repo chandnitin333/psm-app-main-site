@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, AfterViewInit, EventEmitter } from '@angular/core';
+import { Component, Inject, AfterViewInit, EventEmitter, HostListener } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -17,6 +17,15 @@ import $ from 'jquery';
   styleUrl: './khula-bhukhand-kar-aakarani.component.css'
 })
 export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
+
+  @HostListener('focusin', ['$event'])
+  onFocusIn(event: FocusEvent) {
+    const target = event.target as HTMLInputElement;
+    if (target.tagName === 'INPUT' && target.type !== 'radio' && target.type !== 'checkbox') {
+      setTimeout(() => target.select());
+    }
+  }
+
   recordSaved = new EventEmitter<void>();
   khulaBhukand_malmattechePrakar: { MILKAT_VAPAR_ID: number; MILKAT_VAPAR_NAME: String }[] = [];
   khulaBhukhand_gavacheNav =  [{ gatGrampanchayatId: 0, gatGrampanchayatName: '' }];
@@ -276,15 +285,28 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
             nextIndex = currentIndex >= focusableElements.length - 1 ? 0 : currentIndex + 1;
           }
 
-          // Focus next element
+          // Focus next element and select text if it's an input
           if (focusableElements[nextIndex]) {
             focusableElements[nextIndex].focus();
+            const el = focusableElements[nextIndex] as HTMLInputElement;
+            if (el.tagName === 'INPUT' && el.type !== 'radio' && el.type !== 'checkbox') {
+              setTimeout(() => el.select());
+            }
           }
+        }
+      };
+
+      // Auto-select text on any focus (click or tab)
+      const handleFocusIn = (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        if (target.tagName === 'INPUT' && target.type !== 'radio' && target.type !== 'checkbox') {
+          setTimeout(() => target.select());
         }
       };
 
       // Add event listener to dialog content
       dialogContent.addEventListener('keydown', (event: Event) => handleTabKey(event as KeyboardEvent), true);
+      dialogContent.addEventListener('focusin', handleFocusIn, true);
 
       // Also add to dialog actions for buttons
       if (dialogActions) {
@@ -529,6 +551,7 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
             next: (res: any) => {
               if (res.status == 200) {
                 this.toastr.success(res?.message, 'Success');
+                this.recordSaved.emit();
               } else {
                 this.toastr.error(res?.message, 'Warning');
               }
@@ -545,6 +568,7 @@ export class KhulaBhukhandKarAakaraniComponent implements AfterViewInit {
             next: (res: any) => {
               if (res.status == 200) {
                 this.toastr.success(res?.message, 'Success');
+                this.recordSaved.emit();
               } else {
                 this.toastr.error(res?.message, 'Warning');
               }

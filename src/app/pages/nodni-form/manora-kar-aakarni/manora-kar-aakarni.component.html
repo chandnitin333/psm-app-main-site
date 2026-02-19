@@ -30,13 +30,12 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
                 <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()"/>
             </mat-form-field>
-        </div>
-        <div class="form-row">
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
                 <input matInput type="number" formControlName="areai" (keyup)="foot_to_meter_conversion()"/>
@@ -45,6 +44,8 @@
                 <mat-label class="text-bold">एकूण क्षेत्रफळ (चौ.फुट)</mat-label>
                 <input matInput type="number" formControlName="totalarea"/>
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
                 <input matInput type="number" formControlName="areap1" readonly />

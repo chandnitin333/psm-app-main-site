@@ -30,12 +30,12 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.फुट)</mat-label>
                 <input matInput type="number" formControlName="areap" (keyup)="foot_to_meter_conversion()"/>
-            </mat-form-field>
-        </div>
-        <div class="form-row">
+            </mat-form-field>        
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ उ.द.(चौ.फुट)</mat-label>
@@ -46,6 +46,8 @@
                 <input matInput type="number" formControlName="totalarea"
                     (keyup)="foot_to_meter_conversion_ekun_foot()"/>
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">क्षेत्रफळ पु.प.(चौ.मिटर)</mat-label>
                 <input matInput type="number" formControlName="areap1" readonly />
@@ -76,6 +78,8 @@
                 <mat-label class="text-bold">घसारा दर</mat-label>
                 <input matInput type="number" formControlName="depreciation" readonly />
             </mat-form-field>
+        </div>
+        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">भारांक</mat-label>
                 <input matInput type="number" formControlName="weighted" readonly />
@@ -84,13 +88,14 @@
                 <mat-label class="text-bold">इमारतीचे वार्षिक मुल्य</mat-label>
                 <input matInput type="number" formControlName="annual_cost" />
             </mat-form-field>
-
-        </div>
-        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field form-field-20">
                 <mat-label class="text-bold">आकारणी दर</mat-label>
                 <input matInput type="number" formControlName="levyrate" />
             </mat-form-field>
+
+        </div>
+        <div class="form-row">
+            
             <mat-form-field appearance="outline" class="form-field form-field-40">
                 <mat-label class="text-bold">इमारतीचे भांडवली मुल्य = इमारतीचे क्षेत्रफळ
                     (चौ. मीटर) X इमारतीचे वार्षिक मुल्य X घसारा दर X भारांक इमारतीचे
