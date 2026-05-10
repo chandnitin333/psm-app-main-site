@@ -74,7 +74,7 @@ export class CustomerComponent {
     { key: 'MALMATTA_NUMBER', value: 'मिळकत क्रं.' },
     { key: 'VARD_NUMBER', value: 'वार्ड क्रं.' },
     { key: 'KHASARA_KRAMANK', value: 'खसरा क्रं.' },
-    { key: 'HOMEUSER_NAME', value: 'खातेधारकाचे नाव' },
+    { key: 'HOMEUSER_NAME', value: 'खातेधारकाचे नाव', indicatorField: 'r_path' },
     { key: 'BHOGATWARGARACHE_NAME', value: 'भोगवटदाराचे नाव' },
     { key: 'ADDRESS_NAGAR_SOCIETY', value: 'पत्ता' },
     { key: 'action', value: 'action' },
@@ -439,6 +439,7 @@ export class CustomerComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Modal Data:', result);
+        this.fetchData();
       }
     });
   }

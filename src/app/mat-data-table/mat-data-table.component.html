@@ -23,6 +23,10 @@
                     </th>
                     <td mat-cell *matCellDef="let element">
                      {{ decodeHtmlEntities(element[column.key]) }}
+                     <mat-icon *ngIf="column.indicatorField && element[column.indicatorField]"
+                         class="indicator-check"
+                         matTooltip="Image uploaded"
+                         aria-label="Image uploaded">check_circle</mat-icon>
                     </td>
                 </ng-container>
 

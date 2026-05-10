@@ -47,3 +47,12 @@
   color: #b71c1c;       /* Deep red text */
   font-weight: bold;
 }
+
+.indicator-check {
+  color: #2e7d32;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+  margin-left: 6px;
+}

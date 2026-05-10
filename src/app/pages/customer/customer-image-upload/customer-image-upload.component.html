@@ -8,13 +8,21 @@
                 <input matInput type="text" [value]="data.HOMEUSER_NAME" readonly/>
             </mat-form-field>
         </div>
+        <div class="form-row" *ngIf="existingImageUrl && !selectedImage">
+            <label class="text-bold">Current Image</label>
+            <div class="preview-container">
+                <img [src]="existingImageUrl" alt="Current Image" class="image-preview"
+                     (error)="onExistingImageError()" />
+            </div>
+        </div>
         <div class="form-row">
-            <label class="text-bold">Image Upload</label>
+            <label class="text-bold">{{ existingImageUrl ? 'Change Image' : 'Image Upload' }}</label>
             <input type="file" (change)="onFileSelected($event)" accept="image/*" id="data_file" name="data_file" [(ngModel)]="uploadData.select_file"/>
         </div>
         <div class="form-row">
             <!-- <div class="col-md-4"></div> -->
             <div *ngIf="selectedImage" class="preview-container">
+                <label class="text-bold" *ngIf="existingImageUrl">New Image Preview</label>
                 <img [src]="selectedImage" alt="Image Preview" class="image-preview" />
             </div>
         </div>

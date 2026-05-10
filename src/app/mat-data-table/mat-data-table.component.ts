@@ -33,7 +33,7 @@ import { ConfirmDialogComponent } from '../common-dialog/confirm-dialog.componen
 })
 export class MatDataTableComponent {
 
-  @Input() displayedColumns: { key: string, value: string }[] = [];
+  @Input() displayedColumns: { key: string, value: string, indicatorField?: string }[] = [];
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort!: MatSort;
   @Input() totalItems!: number;

@@ -20,6 +20,7 @@ import { CustomerService } from '../../../services/customer.service';
 })
 export class CustomerImageUploadComponent {
   selectedImage: string | ArrayBuffer | null = null;
+  existingImageUrl: string = '';
   formData: FormData = new FormData();
   uploadData: any = [];
   userDetails:any=[];
@@ -32,6 +33,20 @@ export class CustomerImageUploadComponent {
       private toastr: ToastrService,
     ) {
       console.log('Received data------------->', this.data);
+      const existingPath = this.data?.r_path || this.data?.R_PATH;
+      if (existingPath) {
+        const base = (this.apiService.file_baseUrl || '').replace(/\/+$/, '/');
+        const cleaned = String(existingPath)
+          .replace(/^\/+/, '')
+          .replace(/^uploads\//i, '');
+        this.existingImageUrl = (base.endsWith('/') ? base : base + '/') + cleaned;
+        console.log('Existing image URL:', this.existingImageUrl);
+      }
+    }
+
+    onExistingImageError(): void {
+      console.warn('Existing customer image failed to load:', this.existingImageUrl);
+      this.existingImageUrl = '';
     }
 
 
