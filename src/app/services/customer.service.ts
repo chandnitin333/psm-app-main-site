@@ -42,6 +42,10 @@ export class CustomerService {
   checkSillakJodaExist(params: any) {
     return this.api.post(`check-sillak-joda-exist`, params);
   }
+
+  fetchDandSutByPanchayat(params: any) {
+    return this.api.post(`get-dand-sut-by-panchayat`, params);
+  }
   deleteCustomerFromNodani(id: number) {
     return this.api.delete(`delete-malmatta-nodni-info/${id}`);
   }

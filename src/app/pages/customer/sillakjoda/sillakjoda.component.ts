@@ -386,6 +386,7 @@ export class SillakjodaComponent {
   }
 
   checkSillakJodaExists(yearId: number): void {
+    console.log('### [SILLAK BUILD MARKER v2] checkSillakJodaExists yearId:', yearId);
     const newuserId = this.previousTaxForm.value.newuserr_id;
     const wardNo = this.previousTaxForm.value.vard_numbers;
 
@@ -393,6 +394,7 @@ export class SillakjodaComponent {
       console.log('Missing required data for checking sillak joda');
       // Clear form fields when no data
       this.clearFormFields();
+      this.applyDandSutDefaults(yearId);
       return;
     }
 
@@ -415,20 +417,140 @@ export class SillakjodaComponent {
             closeButton: true,
             progressBar: true
           });
-          // Populate form fields with existing data
+          // Existing record found — keep its values exactly; do NOT overlay
+          // the panchayat's dand_sut defaults.
           this.populateFormFields(existingData);
         } else {
           console.log('Sillak Joda does not exist for this year - clearing fields');
-          // Clear form fields when no data exists
           this.clearFormFields();
+          // No existing record — fall back to the admin-managed dand_sut row.
+          this.applyDandSutDefaults(yearId);
         }
       },
       error: (err: any) => {
         console.error('Error checking sillak joda exist:', err);
         this.toastr.error('Error checking Sillak Joda existence', 'Error');
         this.clearFormFields();
+        this.applyDandSutDefaults(yearId);
       }
     });
+  }
+
+  /**
+   * Fetch the panchayat's dand_sut row for the selected year:
+   * - current year  → use kar_type='chalu', fill empty SUT cells, clear any
+   *                   dand value left over from a past-year selection.
+   * - past year     → use kar_type='magil', fill empty DAND cells, clear any
+   *                   sut value left over from a current-year selection.
+   */
+  private applyDandSutDefaults(yearId: number | null): void {
+    console.log('[applyDandSutDefaults] yearId:', yearId, 'userDetails:', this.userDetails);
+    if (!yearId) return;
+    const panchayatId = this.userDetails?.PANCHAYAT_ID;
+    if (!panchayatId) {
+      console.warn('[applyDandSutDefaults] missing PANCHAYAT_ID in JWT — cannot fetch dand_sut');
+      return;
+    }
+
+    const isCurrent = this.isCurrentYear(yearId);
+    const isPast = this.isPastYear(yearId);
+    console.log('[applyDandSutDefaults] isCurrent:', isCurrent, 'isPast:', isPast);
+    if (!isCurrent && !isPast) return;
+
+    const target: 'sut' | 'dand' = isCurrent ? 'sut' : 'dand';
+    const opposite: 'sut' | 'dand' = isCurrent ? 'dand' : 'sut';
+    const karType: 'chalu' | 'magil' = isCurrent ? 'chalu' : 'magil';
+
+    // Clear the opposite cells so values from the previously-selected year
+    // don't linger after the year switch.
+    this.clearTargetCells(opposite);
+
+    this.customerService.fetchDandSutByPanchayat({
+      panchayat_id: panchayatId,
+      kar_type: karType,
+    }).subscribe({
+      next: (res: any) => {
+        console.log('[applyDandSutDefaults]', karType, 'response:', res);
+        const record = res?.data;
+        if (record) this.bindDandSutWhereEmpty(record, target);
+        else console.log(`[applyDandSutDefaults] no ${karType} dand_sut for panchayat ${panchayatId}`);
+      },
+      error: (err: any) => console.error(`[applyDandSutDefaults] ${karType} error:`, err),
+    });
+  }
+
+  private clearTargetCells(target: 'sut' | 'dand'): void {
+    const rows = this.taxRows();
+    const self = this as any;
+    rows.forEach(r => {
+      const v = target === 'sut' ? r.sutVar : r.dandVar;
+      const c = target === 'sut' ? r.sutCtl : r.dandCtl;
+      const ro = target === 'sut' ? r.sutVar + '_readonly' : r.dandVar + '_readonly';
+      self[v] = 0;
+      self[ro] = false;
+      this.previousTaxForm.get(c)?.setValue(0);
+    });
+    this.updateTotal();
+  }
+
+  private taxRows(): { src: string, sutVar: string, dandVar: string, sutCtl: string, dandCtl: string, lockType: string }[] {
+    return [
+      { src: 'gruhkar_v_bhumikar_5', sutVar: 'propertyTax_sut', dandVar: 'propertyTax_dand', sutCtl: 'propertyTax_discount', dandCtl: 'propertyTax_penalty', lockType: 'property' },
+      { src: 'viz_v_divabatti_kar_5', sutVar: 'electricityTax_sut', dandVar: 'electricityTax_dand', sutCtl: 'electricityTax_discount', dandCtl: 'electricityTax_penalty', lockType: 'electricity' },
+      { src: 'aarogya_rakshan_kar_5', sutVar: 'healthTax_sut', dandVar: 'healthTax_dand', sutCtl: 'healthTax_discount', dandCtl: 'healthTax_penalty', lockType: 'health' },
+      { src: 'safae_kar_5', sutVar: 'cleaningTax_sut', dandVar: 'cleaningTax_dand', sutCtl: 'cleaningTax_discount', dandCtl: 'cleaningTax_penalty', lockType: 'cleaning' },
+      { src: 'samanya_pani_kar_5', sutVar: 'generalWaterTax_sut', dandVar: 'generalWaterTax_dand', sutCtl: 'generalWaterTax_discount', dandCtl: 'generalWaterTax_penalty', lockType: 'generalWater' },
+      { src: 'vishesh_pani_kar_5', sutVar: 'specialWaterTax_sut', dandVar: 'specialWaterTax_dand', sutCtl: 'specialWaterTax_discount', dandCtl: 'specialWaterTax_penalty', lockType: 'specialWater' },
+    ];
+  }
+
+  private bindDandSutWhereEmpty(rec: any, target: 'sut' | 'dand'): void {
+    console.log('[bindDandSutWhereEmpty] target:', target, 'rec:', rec);
+    const rows = this.taxRows();
+
+    let touched = false;
+    rows.forEach(r => {
+      const defaultValue = Number(rec[r.src]) || 0;
+      if (defaultValue === 0) return;
+
+      const targetVar = target === 'sut' ? r.sutVar : r.dandVar;
+      const self = this as any;
+      const currentVal = Number(self[targetVar]) || 0;
+      if (currentVal !== 0) return; // existing wins
+
+      self[targetVar] = defaultValue;
+      const formCtl = target === 'sut' ? r.sutCtl : r.dandCtl;
+      this.previousTaxForm.get(formCtl)?.setValue(defaultValue);
+      this.checkFieldLock(r.lockType, target);
+      touched = true;
+    });
+
+    if (touched) this.updateTotal();
+  }
+
+  private isCurrentYear(yearId: number | string): boolean {
+    const opt = this.yearOptions.find(y => Number(y.YEAR_ID) === Number(yearId));
+    if (!opt || !opt.YEAR_NAME) return false;
+    const currentYear = new Date().getFullYear();
+    const yrs = (String(opt.YEAR_NAME).match(/\d{4}/g) || []).map(Number);
+    if (yrs.length === 0) return false;
+    // current if any 4-digit chunk matches the calendar year, OR if the latest
+    // year in the table happens to be selected (handles offset financial years).
+    if (yrs.some(y => y === currentYear)) return true;
+    const latestYearInOptions = Math.max(
+      ...this.yearOptions.flatMap(o => (String(o.YEAR_NAME || '').match(/\d{4}/g) || []).map(Number))
+    );
+    return yrs.includes(latestYearInOptions);
+  }
+
+  private isPastYear(yearId: number | string): boolean {
+    const opt = this.yearOptions.find(y => Number(y.YEAR_ID) === Number(yearId));
+    if (!opt || !opt.YEAR_NAME) return false;
+    if (this.isCurrentYear(yearId)) return false;
+    const currentYear = new Date().getFullYear();
+    const yrs = (String(opt.YEAR_NAME).match(/\d{4}/g) || []).map(Number);
+    if (yrs.length === 0) return false;
+    return yrs.some(y => y < currentYear);
   }
 
   populateFormFields(data: any): void {
