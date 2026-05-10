@@ -55,6 +55,7 @@ export class DashboardComponent {
   pagedDataSource = new MatTableDataSource<any>([]);
   currentPage: number = 0;
   isLoad: boolean = false;
+  members: any[] = [];
 
   constructor(private api: ApiService, private spinner: LoaderService, private auth: AuthService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
@@ -117,10 +118,12 @@ export class DashboardComponent {
 
   getMemberList() {
     this.spinner.show();
-    this.api.post('get-member-list', { user_id: this.users?.userId }).subscribe({
+    this.api.post('get-member-list', { panchayat_id: this.users?.PANCHAYAT_ID }).subscribe({
       next: (res: any) => {
         console.log('Member List:', res.data);
-        this.dataSource.data = res.data;
+        const list = Array.isArray(res?.data) ? res.data : (res?.data?.data ?? []);
+        this.members = list;
+        this.dataSource.data = list;
         this.setPageData({ pageIndex: 0, pageSize: 10, length: this.dataSource.data.length });
         this.spinner.hide();
         this.isLoad = true

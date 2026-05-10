@@ -1100,3 +1100,128 @@
 ::ng-deep .mat-grid-list {
   margin: -20px;
 }
+
+/* Gram Panchayat Members */
+.members-section {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  animation: slideUp 0.5s ease-out;
+}
+
+.members-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.members-header > mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: #667eea;
+}
+
+.members-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+  flex: 1;
+}
+
+.members-count {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  min-width: 28px;
+  text-align: center;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.member-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+  border: 1px solid #e0e7ff;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+}
+
+.member-avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-avatar mat-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.member-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2c3e50;
+  word-break: break-word;
+}
+
+.member-designation,
+.member-mobile {
+  margin: 2px 0;
+  font-size: 13px;
+  color: #5a6478;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.member-meta-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+}
+
+.member-designation-badge {
+  background: #eef2ff;
+  color: #4338ca;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+}

@@ -169,21 +169,31 @@
         </div>
     </div>
 
-    <section *ngIf="isLoad">
-        <!-- Table Section -->
-        <!-- <app-mat-data-table
-            [displayedColumns]="displayedColumns"
-            [dataSource]="pagedDataSource"
-            [totalItems]="dataSource.data.length"
-            [itemsPerPage]="itemsPerPage">
-        </app-mat-data-table>  -->
-
-        <!-- <app-custom-pagination [length]="dataSource.data.length"
-            [pageSize]="itemsPerPage"
-            [currentPage]="currentPage"
-            (pageChange)="onPageChange($event)">
-        </app-custom-pagination> -->
-
+    <!-- Gram Panchayat Members -->
+    <section class="members-section" *ngIf="members?.length">
+        <div class="members-header">
+            <mat-icon>groups</mat-icon>
+            <h2 class="members-title">ग्रामपंचायत सदस्य</h2>
+            <span class="members-count">{{ members.length }}</span>
+        </div>
+        <div class="members-grid">
+            <div class="member-card" *ngFor="let m of members">
+                <div class="member-avatar">
+                    <mat-icon>person</mat-icon>
+                </div>
+                <div class="member-body">
+                    <h3 class="member-name">{{ m.FULL_NAME || m.NAME_NAME }}</h3>
+                    <p class="member-designation">
+                        <mat-icon class="member-meta-icon">badge</mat-icon>
+                        <span class="member-designation-badge">{{ m.DESIGNATION_NAME || m.DESIGNATION_ID || '—' }}</span>
+                    </p>
+                    <p class="member-mobile" *ngIf="m.MOBILE_NO">
+                        <mat-icon class="member-meta-icon">call</mat-icon>
+                        {{ m.MOBILE_NO }}
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- Details Section -->
     <mat-tab-group class="info-tabs">
