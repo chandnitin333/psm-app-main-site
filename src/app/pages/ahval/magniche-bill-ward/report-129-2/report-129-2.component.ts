@@ -150,12 +150,33 @@ export class Report1292Component {
       });
     }
 
-    private copyLink(url: string): void {
-      navigator.clipboard?.writeText(url).then(() => {
-        this.toastr.success('पेमेंट लिंक कॉपी झाली: ' + url, 'यशस्वी', { timeOut: 6000 });
-      }).catch(() => {
-        this.toastr.info(url, 'पेमेंट लिंक', { timeOut: 10000, closeButton: true });
-      });
+    copyLink(url: string): void {
+      const onSuccess = () => this.toastr.success('पेमेंट लिंक कॉपी झाली: ' + url, 'यशस्वी', { timeOut: 6000 });
+      const fallback = () => {
+        // execCommand fallback — works on non-secure origins (e.g. IP access)
+        // where navigator.clipboard is unavailable.
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (ok) onSuccess();
+          else this.toastr.info(url, 'पेमेंट लिंक (मॅन्युअली कॉपी करा)', { timeOut: 10000, closeButton: true });
+        } catch {
+          this.toastr.info(url, 'पेमेंट लिंक (मॅन्युअली कॉपी करा)', { timeOut: 10000, closeButton: true });
+        }
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(onSuccess).catch(fallback);
+      } else {
+        fallback();
+      }
     }
 
     downloadPDFDirect() {

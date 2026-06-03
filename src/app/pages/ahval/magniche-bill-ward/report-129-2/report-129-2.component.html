@@ -41,8 +41,10 @@
                     (click)="generatePaymentLink(itemRs3)">
                     🔗 पेमेंट लिंक ({{ itemRs3?.HOMEUSER_NAME }})
                 </button>
-                <span *ngIf="generatedLinks[itemRs3?.NEWUSER_ID]" style="font-size:11px; margin-left:6px;">
-                    {{ generatedLinks[itemRs3?.NEWUSER_ID] }}
+                <span *ngIf="generatedLinks[itemRs3?.NEWUSER_ID]" class="copy-link-text"
+                    title="कॉपी करण्यासाठी क्लिक करा"
+                    (click)="copyLink(generatedLinks[itemRs3?.NEWUSER_ID])">
+                    📋 {{ generatedLinks[itemRs3?.NEWUSER_ID] }}
                 </span>
             </div>
             <div class="col-md-6 dotted-border-right">

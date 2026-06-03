@@ -41,6 +41,20 @@ table{
 .kar-claimed { background: #fef9c3; color: #854d0e; }
 .kar-pending { background: #e2e8f0; color: #475569; }
 
+.copy-link-text {
+    font-size: 11px;
+    margin-left: 6px;
+    cursor: pointer;
+    color: #1d4ed8;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.copy-link-text:hover {
+    color: #1e40af;
+    background: #eff6ff;
+}
+
 
 table, th, td {
   border: 1px solid black;
