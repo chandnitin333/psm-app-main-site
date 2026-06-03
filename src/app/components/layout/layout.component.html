@@ -1,8 +1,14 @@
 
 <app-loader></app-loader>
-<div *ngIf="isLoginPage; else mainLayout">
-    <app-login></app-login>
+<!-- Public pages (e.g. /bill-pay/<token>): no header/sidebar, no auth check -->
+<div *ngIf="isPublicPage">
+    <router-outlet></router-outlet>
 </div>
+<ng-container *ngIf="!isPublicPage">
+    <div *ngIf="isLoginPage; else mainLayout">
+        <app-login></app-login>
+    </div>
+</ng-container>
 <ng-template #mainLayout>
     <mat-sidenav-container class="sidenav-container">
 
