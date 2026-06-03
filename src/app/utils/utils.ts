@@ -185,15 +185,21 @@ export class Util {
         };
         return await this.http.post(`${API_URL}panchayat-list-by-taluka-id`, params, { headers }).toPromise();
     }
-    async showConfirmAlert(): Promise<boolean> {
+    async showConfirmAlert(options?: {
+        title?: string,
+        text?: string,
+        confirmButtonText?: string,
+        confirmButtonColor?: string,
+        icon?: 'warning' | 'question' | 'info' | 'success' | 'error',
+    }): Promise<boolean> {
         return Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
+            title: options?.title ?? 'Are you sure?',
+            text: options?.text ?? "You won't be able to revert this!",
+            icon: options?.icon ?? 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: options?.confirmButtonColor ?? '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: options?.confirmButtonText ?? 'Yes, delete it!'
         }).then((result) => {
             return result.isConfirmed;
         });

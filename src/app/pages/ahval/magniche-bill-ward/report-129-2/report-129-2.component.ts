@@ -7,6 +7,7 @@ import { MagnicheBillService } from '../../../../services/magniche-bill.service'
 import { LoaderService } from '../../../../services/loader.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { BillPaymentService } from '../../../../services/bill-payment.service';
 
 @Component({
   selector: 'app-report-129-1',
@@ -22,7 +23,9 @@ export class Report1292Component {
     public year: number = 0;
     public end_year: number = 0;
     isMobileDevice: boolean = false;
-    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
+    generatedLinks: { [newuserId: number]: string } = {};
+    karStatusMap: { [newuserId: number]: { gruhkar: string, panikar: string } } = {};
+    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService, private billPayment: BillPaymentService) {
       const encoded = sessionStorage.getItem('magnicheBillWardReport_2');
       this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (encoded) {
@@ -59,6 +62,7 @@ export class Report1292Component {
             }
             this.year = this.reportData?.yearRs42?.YEAR_ID
             this.end_year = Number(this.year) + 1;
+            this.loadKarStatuses();
           } catch (error) {
             console.error('Error processing data:', error);
           } finally {
@@ -69,6 +73,88 @@ export class Report1292Component {
           console.error('Error getting for anukramika list :', err);
           this.spinner.hide();
         },
+      });
+    }
+
+    loadKarStatuses(): void {
+      const ids = (this.reportData?.rs3 ?? [])
+        .map((r: any) => Number(r?.NEWUSER_ID))
+        .filter((n: number) => Number.isFinite(n) && n > 0);
+      if (!ids.length) return;
+      // Status is year+report scoped: this is the 129-2 report.
+      this.billPayment.karStatusByNewusers(ids, this.receivedData?.year, '129-2').subscribe({
+        next: (res: any) => {
+          this.karStatusMap = res?.data ?? {};
+        },
+        error: (err: any) => console.error('Error loading kar statuses:', err),
+      });
+    }
+
+    karStatus(newuserId: number, karType: 'gruhkar' | 'panikar'): string {
+      return this.karStatusMap[newuserId]?.[karType] ?? 'pending';
+    }
+
+    karStatusLabel(newuserId: number, karType: 'gruhkar' | 'panikar'): string {
+      switch (this.karStatus(newuserId, karType)) {
+        case 'verified': return 'भरले ✓';
+        case 'claimed': return 'पडताळणी बाकी';
+        default: return 'बाकी';
+      }
+    }
+
+    generatePaymentLink(itemRs3: any): void {
+      const newuserId = itemRs3?.NEWUSER_ID;
+      if (!newuserId) {
+        this.toastr.error('NEWUSER_ID सापडला नाही', 'Error');
+        return;
+      }
+      if (this.generatedLinks[newuserId]) {
+        this.copyLink(this.generatedLinks[newuserId]);
+        return;
+      }
+      // Same amount split as 129-1: पाणी कर = h (विशेष पाणी कर),
+      // गृहकर = b + d + e + f + g; एकूण = both.
+      const al = itemRs3?.rs4Data?.[0]?.alphabets ?? {};
+      const gruhkarAmount =
+        (al.b ?? 0) + (al.d ?? 0) + (al.e ?? 0) +
+        (al.f ?? 0) + (al.g ?? 0);
+      const paniAmount = (al.h ?? 0);
+      const billData = {
+        khatedar_name: itemRs3?.HOMEUSER_NAME,
+        malmatta_number: itemRs3?.MALMATTA_NUMBER,
+        annu_kramank: itemRs3?.ANNU_KRAMANK,
+        total_amount: Math.round((gruhkarAmount + paniAmount) * 100) / 100,
+        gruhkar_amount: Math.round(gruhkarAmount * 100) / 100,
+        pani_amount: Math.round(paniAmount * 100) / 100,
+      };
+      this.billPayment.generateLink({
+        newuser_id: newuserId,
+        ward_no: itemRs3?.VARD_NUMBER ?? this.receivedData?.ward_no,
+        year_id: this.receivedData?.year,
+        report_type: '129-2',
+        bill_data: billData,
+      }).subscribe({
+        next: (res: any) => {
+          if (res?.status === 201 && res?.token) {
+            const url = `${window.location.origin}/bill-pay/${res.token}`;
+            this.generatedLinks[newuserId] = url;
+            this.copyLink(url);
+          } else {
+            this.toastr.error(res?.message || 'लिंक तयार होऊ शकली नाही', 'Error');
+          }
+        },
+        error: (err: any) => {
+          console.error('Error generating payment link:', err);
+          this.toastr.error('लिंक तयार होऊ शकली नाही', 'Error');
+        },
+      });
+    }
+
+    private copyLink(url: string): void {
+      navigator.clipboard?.writeText(url).then(() => {
+        this.toastr.success('पेमेंट लिंक कॉपी झाली: ' + url, 'यशस्वी', { timeOut: 6000 });
+      }).catch(() => {
+        this.toastr.info(url, 'पेमेंट लिंक', { timeOut: 10000, closeButton: true });
       });
     }
 

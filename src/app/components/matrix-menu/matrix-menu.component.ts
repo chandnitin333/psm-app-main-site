@@ -40,6 +40,7 @@ export class MatrixMenuComponent {
     { label: 'मालमत्ता फेरफार', icon: 'bar_chart',  url:"/ferfar-yadi", subItems:[] },
     { label: 'कर आकारणी', icon: 'monetization_on', url:'/tax-generation', subItems:[] },
     { label: 'वसुली', icon: 'savings',  url:'/customer-vasuli', subItems:[] },
+    { label: 'पेमेंट पडताळणी', icon: 'verified',  url:'/bill-payments', subItems:[] },
     { label: 'अहवाल', icon: 'bar_chart',  url:'javascript:void(0)', subItems:[
       { label: 'आधार लिस्ट शो', icon: 'account_box',  url:'/aadhar-card-show' },
       { label: 'मोबाईल नंबर लिस्ट', icon: 'phone',  url:'/mobile-number' },

@@ -62,6 +62,7 @@ export class SidebarComponent {
     { label: 'मालमत्ता फेरफार',icon: 'bar_chart', route: '/ferfar-yadi' },
     { label: 'कर आकारणी',icon: 'monetization_on', route: '/tax-generation' },
     { label: 'वसुली',icon: 'savings', route: '/customer-vasuli' },
+    { label: 'पेमेंट पडताळणी',icon: 'verified', route: '/bill-payments' },
     { label: 'अहवाल',icon: 'bar_chart',  children: [
         { label: 'आधार लिस्ट शो', icon: 'account_box',  route: '/aadhar-card-show' },
         { label: 'मोबाईल नंबर लिस्ट',  icon: 'phone', route: '/mobile-number' },

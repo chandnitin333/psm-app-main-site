@@ -26,6 +26,25 @@
     <div class="row">
 
         <div class="row" *ngFor="let itemRs3 of reportData?.rs3">
+            <div class="hidden-print payment-toolbar">
+                <span class="kar-badge-group">
+                    <span class="kar-badge-name">घरकर:</span>
+                    <span class="kar-badge" [ngClass]="'kar-' + karStatus(itemRs3?.NEWUSER_ID, 'gruhkar')">
+                        {{ karStatusLabel(itemRs3?.NEWUSER_ID, 'gruhkar') }}
+                    </span>
+                    <span class="kar-badge-name">पाणी कर:</span>
+                    <span class="kar-badge" [ngClass]="'kar-' + karStatus(itemRs3?.NEWUSER_ID, 'panikar')">
+                        {{ karStatusLabel(itemRs3?.NEWUSER_ID, 'panikar') }}
+                    </span>
+                </span>
+                <button class="btn btn-sm btn-warning" style="font-weight:bold;"
+                    (click)="generatePaymentLink(itemRs3)">
+                    🔗 पेमेंट लिंक ({{ itemRs3?.HOMEUSER_NAME }})
+                </button>
+                <span *ngIf="generatedLinks[itemRs3?.NEWUSER_ID]" style="font-size:11px; margin-left:6px;">
+                    {{ generatedLinks[itemRs3?.NEWUSER_ID] }}
+                </span>
+            </div>
             <div class="col-md-6 dotted-border-right">
                 <div class="col-md-12">
                     <div class="row">
