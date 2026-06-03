@@ -154,6 +154,27 @@ table, th, td {
     display: none !important;
   }
 
+  /* Report QR: reserve room so it never overlaps the जिल्हा row */
+  .qr-anchor-row {
+    min-height: 64px !important;
+    position: relative !important;
+  }
+
+  .qr-anchor {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+  }
+
+  ::ng-deep .report-qr-img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  ::ng-deep .report-qr-caption {
+    font-size: 7px !important;
+  }
+
   /* Page setup */
   @page {
     size: A4 landscape;

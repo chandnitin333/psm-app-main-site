@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import html2pdf from 'html2pdf.js';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReportQrComponent } from '../../../components/report-qr/report-qr.component';
+import { ReportLinkService } from '../../../services/report-link.service';
 
 @Component({
   selector: 'app-namuna-9-1',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReportQrComponent],
   templateUrl: './namuna-9-1.component.html',
   styleUrl: './namuna-9-1.component.css'
 })
@@ -20,14 +22,23 @@ receivedData: any;
   namuna_9_1_data: any;
   // years: any;
 isMobileDevice: boolean = false;
-  constructor(private router: Router, private customerService: CustomerService,private toastr: ToastrService) {
+  isPublic: boolean = false;     // opened via QR scan (/public-report/...) — no login
+  publicToken: string = '';
+  constructor(private router: Router, private customerService: CustomerService,private toastr: ToastrService,
+    private route: ActivatedRoute, private reportLink: ReportLinkService) {
     this.receivedData = this.router.getCurrentNavigation()?.extras.state;
      this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     console.log('Namuna91Component: Received Data via Router', this.receivedData);
+    this.publicToken = this.route.snapshot.paramMap.get('token') || '';
+    this.isPublic = !!this.publicToken;
   }
 
 ngOnInit() {
-  this.get_namuna_9_1_data();
+  if (this.isPublic) {
+    this.get_public_namuna_9_1_data();
+  } else {
+    this.get_namuna_9_1_data();
+  }
 }
 get_namuna_9_1_data(){
   this.customerService.getNamuna_9_1_data(this.receivedData.value, this.receivedData.ward_no).subscribe({
@@ -37,6 +48,27 @@ get_namuna_9_1_data(){
     },
     error: (err: Error) => {
       console.error('Error getting for namuna 8:', err);
+    },
+  });
+}
+
+get_public_namuna_9_1_data(){
+  this.reportLink.getPublicReport(this.publicToken).subscribe({
+    next: (res: any) => {
+      if (res?.status === 200 && res?.data) {
+        this.namuna_9_1_data = res.data;
+        // Template references receivedData.ward_no — rebuild it from the data.
+        this.receivedData = {
+          value: res.data?.newUserDataDBrs3?.[0]?.NEWUSER_ID,
+          ward_no: res.data?.newUserDataDBrs3?.[0]?.VARD_NUMBER,
+        };
+      } else {
+        this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+      }
+    },
+    error: (err: Error) => {
+      console.error('Error getting public namuna 9:', err);
+      this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
     },
   });
 }
@@ -219,6 +251,13 @@ get_namuna_9_1_data(){
           <title>नमुना ९</title>
           <style>
             ${styles}
+
+            /* Report QR: reserve room so it never overlaps the जिल्हा row */
+            .qr-anchor-row { min-height: 64px !important; position: relative !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
 
             /* Print-specific styles */
             @page {
@@ -441,6 +480,13 @@ get_namuna_9_1_data(){
           <title>नमुना ९</title>
           <style>
             ${styles}
+
+            /* Report QR: reserve room so it never overlaps the जिल्हा row */
+            .qr-anchor-row { min-height: 64px !important; position: relative !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
 
             /* Print-specific styles */
             @page {
