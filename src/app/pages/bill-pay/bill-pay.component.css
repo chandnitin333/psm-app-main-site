@@ -127,6 +127,47 @@
 .bank-row span { color: #64748b; }
 .bank-row b { color: #1e293b; word-break: break-all; text-align: right; }
 
+.pay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.upi-btn {
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5f259f, #7b3fbf);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.upi-btn:active { transform: scale(0.98); }
+
+.download-btn {
+    width: 100%;
+    padding: 11px 10px;
+    border: 1px solid #214162;
+    border-radius: 8px;
+    background: #fff;
+    color: #214162;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.download-btn:active { transform: scale(0.98); }
+
+.lightbox-download {
+    width: auto;
+    max-width: 320px;
+    background: #fff;
+}
+
 .scanner-tap-hint {
     margin: 8px 0 0;
     font-size: 12px;

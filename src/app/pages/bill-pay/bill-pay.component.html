@@ -70,6 +70,12 @@
                         <img *ngIf="gharScannerUrl" [src]="gharScannerUrl" alt="घरकर स्कॅनर" class="scanner-clickable"
                             (click)="openScannerPreview(gharScannerUrl, 'घरकर / गृहकर')" />
                         <p class="scanner-tap-hint" *ngIf="gharScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                        <div class="pay-actions" *ngIf="gharScannerUrl">
+                            <button type="button" class="upi-btn" *ngIf="upiAvailable('gruhkar')"
+                                (click)="payViaUpi('gruhkar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            <button type="button" class="download-btn"
+                                (click)="downloadScanner(gharScannerUrl, 'gharkar')">⬇ स्कॅनर डाउनलोड करा</button>
+                        </div>
                     </ng-container>
                     <ng-template #gharBank>
                         <div class="bank-details" *ngIf="hasBankDetails('gruhkar'); else gharBankMissing">
@@ -89,6 +95,10 @@
                             <div class="bank-row" *ngIf="bankDetails('gruhkar').upi">
                                 <span>UPI ID</span><b>{{ bankDetails('gruhkar').upi }}</b>
                             </div>
+                            <div class="pay-actions" *ngIf="upiAvailable('gruhkar')">
+                                <button type="button" class="upi-btn"
+                                    (click)="payViaUpi('gruhkar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            </div>
                         </div>
                         <ng-template #gharBankMissing>
                             <p class="scanner-note">बँक तपशील उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.</p>
@@ -105,6 +115,12 @@
                         <img *ngIf="paniScannerUrl" [src]="paniScannerUrl" alt="पाणी कर स्कॅनर" class="scanner-clickable"
                             (click)="openScannerPreview(paniScannerUrl, 'पाणी कर')" />
                         <p class="scanner-tap-hint" *ngIf="paniScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                        <div class="pay-actions" *ngIf="paniScannerUrl">
+                            <button type="button" class="upi-btn" *ngIf="upiAvailable('panikar')"
+                                (click)="payViaUpi('panikar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            <button type="button" class="download-btn"
+                                (click)="downloadScanner(paniScannerUrl, 'panikar')">⬇ स्कॅनर डाउनलोड करा</button>
+                        </div>
                     </ng-container>
                     <ng-template #paniBank>
                         <div class="bank-details" *ngIf="hasBankDetails('panikar'); else paniBankMissing">
@@ -123,6 +139,10 @@
                             </div>
                             <div class="bank-row" *ngIf="bankDetails('panikar').upi">
                                 <span>UPI ID</span><b>{{ bankDetails('panikar').upi }}</b>
+                            </div>
+                            <div class="pay-actions" *ngIf="upiAvailable('panikar')">
+                                <button type="button" class="upi-btn"
+                                    (click)="payViaUpi('panikar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
                             </div>
                         </div>
                         <ng-template #paniBankMissing>
@@ -247,6 +267,10 @@
         <h3 class="lightbox-title">{{ previewScannerTitle }}</h3>
         <img [src]="previewScannerUrl" alt="Scanner Preview" class="lightbox-img"
             (click)="$event.stopPropagation()" />
+        <button type="button" class="download-btn lightbox-download"
+            (click)="downloadScanner(previewScannerUrl, 'scanner'); $event.stopPropagation()">
+            ⬇ स्कॅनर डाउनलोड करा
+        </button>
         <p class="lightbox-hint">QR स्कॅन करा • बंद करण्यासाठी बाहेर टॅप करा</p>
     </div>
 </div>

@@ -227,6 +227,58 @@ export class BillPayComponent {
         return !!(b.bank_name || b.account_no || b.upi);
     }
 
+    /** UPI ID configured for this tax? (needed for the GPay/PhonePe button) */
+    upiAvailable(karType: 'gruhkar' | 'panikar'): boolean {
+        return !!this.bankDetails(karType).upi;
+    }
+
+    /**
+     * Open the UPI app chooser (GPay / PhonePe / Paytm ...) with the
+     * panchayat's UPI ID and the amount prefilled.
+     */
+    payViaUpi(karType: 'gruhkar' | 'panikar'): void {
+        const b = this.bankDetails(karType);
+        if (!b.upi) return;
+        const amt = karType === 'gruhkar'
+            ? Number(this.billInfo?.bill?.gruhkar_amount)
+            : Number(this.billInfo?.bill?.pani_amount);
+        const payeeName = b.holder || this.billInfo?.panchayat?.PANCHAYAT_NAME || 'Gram Panchayat';
+        const note = (karType === 'gruhkar' ? 'Gharkar' : 'Panikar')
+            + (this.billInfo?.bill?.malmatta_number ? ` M.No ${this.billInfo.bill.malmatta_number}` : '');
+        const params = new URLSearchParams();
+        params.set('pa', b.upi);
+        params.set('pn', payeeName);
+        if (Number.isFinite(amt) && amt > 0) {
+            params.set('am', amt.toFixed(2));
+        }
+        params.set('cu', 'INR');
+        params.set('tn', note);
+        // window.location bypasses Angular's href sanitizer for the upi: scheme.
+        window.location.href = `upi://pay?${params.toString()}`;
+    }
+
+    /** Download the scanner QR image so the user can pay via
+     *  GPay/PhonePe "upload QR from gallery". */
+    downloadScanner(url: string, karLabel: string): void {
+        fetch(url)
+            .then(res => res.blob())
+            .then(blob => {
+                const ext = (blob.type.split('/')[1] || 'png').replace('jpeg', 'jpg');
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `${karLabel}-scanner.${ext}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+                this.toastr.success('स्कॅनर डाउनलोड झाला. UPI ॲपमध्ये "Upload QR" ने भरणा करा.', 'यशस्वी');
+            })
+            .catch(() => {
+                // Fallback: open in new tab so user can long-press & save.
+                window.open(url, '_blank');
+            });
+    }
+
     openScannerPreview(url: string, title: string): void {
         this.previewScannerUrl = url;
         this.previewScannerTitle = title;
