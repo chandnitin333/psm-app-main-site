@@ -30,6 +30,10 @@ export class MatrixMenuComponent {
    
   }
   checkIsloggedIn() {
+    // Never force-redirect on public pages (e.g. /bill-pay/<token> opened via QR).
+    if (window.location.pathname.startsWith('/bill-pay')) {
+      return;
+    }
     if (this.auth.isTokenExpired()) {
       this.auth.logout();
     }

@@ -27,11 +27,18 @@ export class LayoutComponent {
   private publicPrefixes = ['/bill-pay'];
 
   constructor(private router: Router) {
+    // IMPORTANT: set the initial value synchronously from the browser URL.
+    // On a direct page load (e.g. QR scan -> /bill-pay/<token>) router.url is
+    // still '/' until NavigationEnd, so without this the main layout renders
+    // for a moment and the header's auth check redirects to /login.
+    this.isPublicPage = this.publicPrefixes.some(p => window.location.pathname.startsWith(p));
+    this.isLoginPage = window.location.pathname === '/login';
 
     this.router.events.subscribe(() => {
       // Check if the current route is 'login'
       this.isLoginPage = this.router.url === '/login';
-      this.isPublicPage = this.publicPrefixes.some(p => this.router.url.startsWith(p));
+      this.isPublicPage = this.publicPrefixes.some(p => this.router.url.startsWith(p))
+        || this.publicPrefixes.some(p => window.location.pathname.startsWith(p));
     });
   }
 
