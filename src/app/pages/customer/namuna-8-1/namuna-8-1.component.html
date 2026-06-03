@@ -1,20 +1,22 @@
-<button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
-    Print / Save as PDF (Perfect Quality)
-</button>&nbsp;
-<button (click)="downloadPDFDirect()" class="hidden-print btn btn-info" value="Download PDF" style="font-weight: bold;">
-    📥 Download PDF
-</button>&nbsp;
-<button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
-    style="font-weight: bold; margin-left: 10px;">
-    📥 PDF तयार करा
-</button>
-<!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>&nbsp;
-<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print (HTML2PDF)
-</button>&nbsp;&nbsp;&nbsp; -->
-<div class="alert alert-warning hidden-print print-instruction-alert">
-    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
-    मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
-</div>
+<ng-container *ngIf="!isPublic">
+    <button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
+        Print / Save as PDF (Perfect Quality)
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="hidden-print btn btn-info" value="Download PDF" style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
+    </button>
+    <!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>&nbsp;
+    <button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print (HTML2PDF)
+    </button>&nbsp;&nbsp;&nbsp; -->
+    <div class="alert alert-warning hidden-print print-instruction-alert">
+        <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+        मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+    </div>
+</ng-container>
 <div class="container-fluid" id="contentToExport">
     <div class="col-md-12">
         <!-- <button onclick="myFunction(20256)" class="buttonPdf  hidden-print" value="PDF">PDF</button> -->
