@@ -75,6 +75,7 @@ export const routes: Routes = [
     {path: 'magniche-bill-ward-report-129-1', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-1/report-129-1.component').then(m => m.Report1291Component) },
     {path: 'bill-pay/:token', loadComponent: () => import('./pages/bill-pay/bill-pay.component').then(m => m.BillPayComponent) },
     {path: 'bill-payments', loadComponent: () => import('./pages/bill-payments/bill-payments.component').then(m => m.BillPaymentsComponent) },
+    {path: 'public-report/namuna-8-1/:token', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component) },
     {path: 'magniche-bill-ward-report-129-2', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
 
     {path: 'namuna-9-anukramika-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-anukramnika/namuna9-anukramnika.component').then(m => m.Namuna9AnukramnikaComponent) },

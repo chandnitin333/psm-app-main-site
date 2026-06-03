@@ -19,7 +19,11 @@
     <div class="col-md-12">
         <!-- <button onclick="myFunction(20256)" class="buttonPdf  hidden-print" value="PDF">PDF</button> -->
         <div class="">
-            <div class="row">
+            <div class="row qr-anchor-row" style="position: relative;">
+                <div class="qr-anchor" style="position: absolute; top: 0; right: 0;" *ngIf="!isPublic">
+                    <app-report-qr [newuserId]="receivedData?.value" reportKey="namuna-8-1"
+                        [enabled]="!isPublic"></app-report-qr>
+                </div>
                 <p class="heading">
                     <b>नमुना ८</b>
                     <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->

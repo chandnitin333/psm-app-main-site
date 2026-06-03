@@ -24,7 +24,7 @@ export class LayoutComponent {
 
   // Routes accessible without login — rendered without header/sidebar,
   // so no auth check (matrix-menu) runs for them.
-  private publicPrefixes = ['/bill-pay'];
+  private publicPrefixes = ['/bill-pay', '/public-report'];
 
   constructor(private router: Router) {
     // IMPORTANT: set the initial value synchronously from the browser URL.
