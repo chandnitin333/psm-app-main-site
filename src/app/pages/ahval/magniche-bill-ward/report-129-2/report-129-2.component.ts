@@ -398,6 +398,7 @@ export class Report1292Component {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
+              .hidden-print { display: none !important; }
               @page {
                 size: A4 landscape;
                 margin: 10mm 8mm 8mm 8mm;
@@ -610,6 +611,7 @@ export class Report1292Component {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
+              .hidden-print { display: none !important; }
               @page {
                 size: A4 landscape;
                 margin: 10mm 8mm 8mm 8mm;

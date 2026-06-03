@@ -51,6 +51,13 @@ table{
     color: #1e40af;
     background: #eff6ff;
 }
+
+@media print {
+    .hidden-print,
+    .payment-toolbar {
+        display: none !important;
+    }
+}
 .buttonPdf{
 	margin-left: -100px;
 }
