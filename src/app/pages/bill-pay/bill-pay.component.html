@@ -60,23 +60,75 @@
         <div class="billpay-card">
             <h3 class="scanner-heading">QR स्कॅन करून पेमेंट करा</h3>
             <div class="scanner-grid">
-                <div class="scanner-box" *ngIf="gharScannerUrl">
+                <!-- घरकर: scanner up to ₹2000, bank/UPI details above -->
+                <div class="scanner-box" *ngIf="gharScannerUrl || (useBankFor('gruhkar') && hasBankDetails('gruhkar'))">
                     <h4>घरकर / गृहकर</h4>
                     <p class="scanner-amount" *ngIf="billInfo.bill?.gruhkar_amount != null">
                         भरावयाची रक्कम: <b>₹ {{ billInfo.bill?.gruhkar_amount }}</b>
                     </p>
-                    <img [src]="gharScannerUrl" alt="घरकर स्कॅनर" class="scanner-clickable"
-                        (click)="openScannerPreview(gharScannerUrl, 'घरकर / गृहकर')" />
-                    <p class="scanner-tap-hint">🔍 मोठे करण्यासाठी टॅप करा</p>
+                    <ng-container *ngIf="!useBankFor('gruhkar'); else gharBank">
+                        <img *ngIf="gharScannerUrl" [src]="gharScannerUrl" alt="घरकर स्कॅनर" class="scanner-clickable"
+                            (click)="openScannerPreview(gharScannerUrl, 'घरकर / गृहकर')" />
+                        <p class="scanner-tap-hint" *ngIf="gharScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                    </ng-container>
+                    <ng-template #gharBank>
+                        <div class="bank-details" *ngIf="hasBankDetails('gruhkar'); else gharBankMissing">
+                            <p class="bank-note">₹2000 पेक्षा जास्त रक्कम — कृपया बँक खात्यात / UPI ने भरणा करा</p>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').bank_name">
+                                <span>बँक</span><b>{{ bankDetails('gruhkar').bank_name }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').holder">
+                                <span>खातेधारक</span><b>{{ bankDetails('gruhkar').holder }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').account_no">
+                                <span>खाते क्रमांक</span><b>{{ bankDetails('gruhkar').account_no }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').ifsc">
+                                <span>IFSC</span><b>{{ bankDetails('gruhkar').ifsc }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').upi">
+                                <span>UPI ID</span><b>{{ bankDetails('gruhkar').upi }}</b>
+                            </div>
+                        </div>
+                        <ng-template #gharBankMissing>
+                            <p class="scanner-note">बँक तपशील उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.</p>
+                        </ng-template>
+                    </ng-template>
                 </div>
-                <div class="scanner-box" *ngIf="paniScannerUrl">
+                <!-- पाणी कर: scanner up to ₹2000, bank/UPI details above -->
+                <div class="scanner-box" *ngIf="paniScannerUrl || (useBankFor('panikar') && hasBankDetails('panikar'))">
                     <h4>पाणी कर</h4>
                     <p class="scanner-amount" *ngIf="billInfo.bill?.pani_amount != null">
                         भरावयाची रक्कम: <b>₹ {{ billInfo.bill?.pani_amount }}</b>
                     </p>
-                    <img [src]="paniScannerUrl" alt="पाणी कर स्कॅनर" class="scanner-clickable"
-                        (click)="openScannerPreview(paniScannerUrl, 'पाणी कर')" />
-                    <p class="scanner-tap-hint">🔍 मोठे करण्यासाठी टॅप करा</p>
+                    <ng-container *ngIf="!useBankFor('panikar'); else paniBank">
+                        <img *ngIf="paniScannerUrl" [src]="paniScannerUrl" alt="पाणी कर स्कॅनर" class="scanner-clickable"
+                            (click)="openScannerPreview(paniScannerUrl, 'पाणी कर')" />
+                        <p class="scanner-tap-hint" *ngIf="paniScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                    </ng-container>
+                    <ng-template #paniBank>
+                        <div class="bank-details" *ngIf="hasBankDetails('panikar'); else paniBankMissing">
+                            <p class="bank-note">₹2000 पेक्षा जास्त रक्कम — कृपया बँक खात्यात / UPI ने भरणा करा</p>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').bank_name">
+                                <span>बँक</span><b>{{ bankDetails('panikar').bank_name }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').holder">
+                                <span>खातेधारक</span><b>{{ bankDetails('panikar').holder }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').account_no">
+                                <span>खाते क्रमांक</span><b>{{ bankDetails('panikar').account_no }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').ifsc">
+                                <span>IFSC</span><b>{{ bankDetails('panikar').ifsc }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').upi">
+                                <span>UPI ID</span><b>{{ bankDetails('panikar').upi }}</b>
+                            </div>
+                        </div>
+                        <ng-template #paniBankMissing>
+                            <p class="scanner-note">बँक तपशील उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.</p>
+                        </ng-template>
+                    </ng-template>
                 </div>
             </div>
             <p class="scanner-note" *ngIf="!gharScannerUrl && !paniScannerUrl">

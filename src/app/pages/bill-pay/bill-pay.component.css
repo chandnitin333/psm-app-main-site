@@ -99,6 +99,34 @@
     cursor: zoom-in;
 }
 
+.bank-details {
+    text-align: left;
+    background: #fff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.bank-note {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #b45309;
+    font-weight: 600;
+    text-align: center;
+}
+
+.bank-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 4px 0;
+    border-bottom: 1px dotted #e5e9f0;
+    font-size: 13px;
+}
+
+.bank-row span { color: #64748b; }
+.bank-row b { color: #1e293b; word-break: break-all; text-align: right; }
+
 .scanner-tap-hint {
     margin: 8px 0 0;
     font-size: 12px;

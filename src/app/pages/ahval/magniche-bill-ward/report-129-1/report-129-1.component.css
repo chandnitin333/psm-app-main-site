@@ -57,6 +57,20 @@ table{
     .payment-toolbar {
         display: none !important;
     }
+
+    ::ng-deep .bill-qr-img {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    ::ng-deep .bill-qr-block {
+        margin: 1px 0 !important;
+        gap: 6px !important;
+        page-break-inside: avoid;
+    }
+
+    ::ng-deep .bill-qr-caption { font-size: 9px !important; }
+    ::ng-deep .bill-qr-sub { font-size: 8px !important; }
 }
 .buttonPdf{
 	margin-left: -100px;

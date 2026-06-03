@@ -8,11 +8,12 @@ import { LoaderService } from '../../../../services/loader.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { BillPaymentService } from '../../../../services/bill-payment.service';
+import { BillQrComponent } from '../../../../components/bill-qr/bill-qr.component';
 
 @Component({
-  selector: 'app-report-129-1',
+  selector: 'app-report-129-2',
   standalone: true,
-  imports: [CommonModule,ToastrModule],
+  imports: [CommonModule,ToastrModule,BillQrComponent],
   templateUrl: './report-129-2.component.html',
   styleUrl: './report-129-2.component.css'
 })
@@ -399,6 +400,24 @@ export class Report1292Component {
           }
               ${styles}
               .hidden-print { display: none !important; }
+              .bill-qr-block {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 6px !important;
+                margin: 1px 0 !important;
+                padding: 0 !important;
+                page-break-inside: avoid;
+              }
+              .bill-qr-img {
+                width: 52px !important;
+                height: 52px !important;
+                border: 1px solid #000 !important;
+                padding: 1px !important;
+                background: #fff !important;
+              }
+              .bill-qr-caption { font-size: 9px !important; line-height: 1.2 !important; text-align: left !important; }
+              .bill-qr-sub { font-size: 8px !important; }
               @page {
                 size: A4 landscape;
                 margin: 10mm 8mm 8mm 8mm;
@@ -612,6 +631,24 @@ export class Report1292Component {
           }
               ${styles}
               .hidden-print { display: none !important; }
+              .bill-qr-block {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 6px !important;
+                margin: 1px 0 !important;
+                padding: 0 !important;
+                page-break-inside: avoid;
+              }
+              .bill-qr-img {
+                width: 52px !important;
+                height: 52px !important;
+                border: 1px solid #000 !important;
+                padding: 1px !important;
+                background: #fff !important;
+              }
+              .bill-qr-caption { font-size: 9px !important; line-height: 1.2 !important; text-align: left !important; }
+              .bill-qr-sub { font-size: 8px !important; }
               @page {
                 size: A4 landscape;
                 margin: 10mm 8mm 8mm 8mm;

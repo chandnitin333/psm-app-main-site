@@ -72,10 +72,15 @@ export class BillPayComponent {
                     }
                     // Prefill payer details from the current login session (JWT),
                     // if the link is opened in a logged-in browser. Readonly when prefilled.
+                    // When opened via QR scan (no login), prefill the khatedar's own
+                    // name from the bill (editable).
                     const sessionUser = this.apiService.getDecodedToken();
                     if (sessionUser?.NAME) {
                         this.claim.payer_name = `${sessionUser.NAME ?? ''} ${sessionUser.SURNAME ?? ''}`.trim();
                         this.payerLocked = true;
+                    } else if (!this.claim.payer_name && this.billInfo?.bill?.khatedar_name) {
+                        this.claim.payer_name = this.billInfo.bill.khatedar_name;
+                        this.payerLocked = false;
                     }
                     // Point the form at a kar that is still open, and prefill its amount.
                     if (!this.isKarOpen(this.claim.kar_type as 'gruhkar' | 'panikar')) {
@@ -191,6 +196,35 @@ export class BillPayComponent {
 
     reportLabel(reportType: string): string {
         return reportType === '129-2' ? '१२९(२)' : '१२९(१)';
+    }
+
+    /** Above ₹2000 the QR scanner is replaced by bank/UPI details for that tax. */
+    readonly BANK_THRESHOLD = 2000;
+
+    useBankFor(karType: 'gruhkar' | 'panikar'): boolean {
+        const amt = karType === 'gruhkar'
+            ? Number(this.billInfo?.bill?.gruhkar_amount)
+            : Number(this.billInfo?.bill?.pani_amount);
+        return Number.isFinite(amt) && amt > this.BANK_THRESHOLD;
+    }
+
+    bankDetails(karType: 'gruhkar' | 'panikar'): any {
+        const p = this.billInfo?.panchayat ?? {};
+        if (karType === 'gruhkar') {
+            return {
+                bank_name: p.GHAR_BANK_NAME, ifsc: p.GHAR_IFSC,
+                account_no: p.GHAR_ACCOUNT_NO, holder: p.GHAR_ACCOUNT_HOLDER, upi: p.GHAR_UPI_ID,
+            };
+        }
+        return {
+            bank_name: p.PANI_BANK_NAME, ifsc: p.PANI_IFSC,
+            account_no: p.PANI_ACCOUNT_NO, holder: p.PANI_ACCOUNT_HOLDER, upi: p.PANI_UPI_ID,
+        };
+    }
+
+    hasBankDetails(karType: 'gruhkar' | 'panikar'): boolean {
+        const b = this.bankDetails(karType);
+        return !!(b.bank_name || b.account_no || b.upi);
     }
 
     openScannerPreview(url: string, title: string): void {
