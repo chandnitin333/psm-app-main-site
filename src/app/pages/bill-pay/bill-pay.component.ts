@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 import { ApiService } from '../../services/api.service';
 import { BillPaymentService } from '../../services/bill-payment.service';
 
@@ -233,10 +234,41 @@ export class BillPayComponent {
     }
 
     /**
-     * Open the UPI app chooser (GPay / PhonePe / Paytm ...) with the
-     * panchayat's UPI ID and the amount prefilled.
+     * Step 1: show the process popup. Only on confirmation do we open the
+     * UPI app chooser; on cancel the user simply stays on the bill-pay page.
      */
     payViaUpi(karType: 'gruhkar' | 'panikar'): void {
+        if (!this.upiAvailable(karType)) return;
+        Swal.fire({
+            title: 'पेमेंट करण्यापूर्वी लक्षात ठेवा',
+            html: `
+                <div style="text-align:left; font-size:14px; line-height:1.7;">
+                    <b>१.</b> UPI ॲपमध्ये पेमेंट पूर्ण करा.<br/>
+                    <b>२.</b> पेमेंट झाल्यावर <b>या पेजवर परत येऊन</b> UTR क्रमांक व पेमेंटचा <b>स्क्रीनशॉट अपलोड</b> करा.<br/>
+                    <b>३.</b> ग्रामपंचायत तुमच्या स्क्रीनशॉटची पडताळणी करून मंजूर करेल.<br/>
+                    <span style="color:#b45309;"><b>टीप:</b> स्क्रीनशॉट अपलोड करून पडताळणी होईपर्यंत तुमचे पेमेंट 'पडताळणी बाकी' राहील.</span>
+                </div>
+                <div style="margin-top:10px; font-weight:700;">तुम्ही पुढे जाऊ इच्छिता का?</div>
+            `,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'होय, पुढे जा',
+            cancelButtonText: 'नाही, परत जा',
+            confirmButtonColor: '#16a34a',
+            cancelButtonColor: '#64748b',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.launchUpiApp(karType);
+            }
+            // Cancel → nothing to do, user stays on the bill-pay page.
+        });
+    }
+
+    /**
+     * Step 2: open the UPI app chooser (GPay / PhonePe / Paytm ...) with the
+     * panchayat's UPI ID and the amount prefilled.
+     */
+    private launchUpiApp(karType: 'gruhkar' | 'panikar'): void {
         const b = this.bankDetails(karType);
         if (!b.upi) return;
         const amt = karType === 'gruhkar'
