@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../../../services/loader.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReportQrComponent } from '../../../../components/report-qr/report-qr.component';
+import { ReportLinkService } from '../../../../services/report-link.service';
 
 @Component({
   selector: 'app-namuna9',
   standalone: true,
-  imports: [CommonModule,ToastrModule],
+  imports: [CommonModule,ToastrModule,ReportQrComponent],
   templateUrl: './namuna9.component.html',
   styleUrl: './namuna9.component.css'
 })
@@ -23,21 +25,58 @@ export class Namuna9Component {
     public year: number = 0;
     public end_year: number = 0;
     isMobileDevice: boolean = false;
-    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
+    isPublic: boolean = false;     // opened via QR scan — no login
+    publicToken: string = '';
+    reportParams: any = null;      // params for QR link generation
+    constructor(private router: Router, private apiService: Namuna9Service, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService,
+      private reportLink: ReportLinkService) {
+      this.publicToken = this.route.snapshot.paramMap.get('token') || '';
+      this.isPublic = !!this.publicToken;
       const encoded = sessionStorage.getItem('namuna9');
         this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
-      }else{
+      } else if (!this.isPublic) {
         this.router.navigate(['/namuna-9-form-new']);
       }
       console.log('Namuna81Component: Received Data via Router', this.receivedData);
     }
 
     ngOnInit() {
-        this.getReportDataAPI();
+        if (this.isPublic) {
+          this.getPublicReportDataAPI();
+        } else {
+          this.getReportDataAPI();
+        }
 
     }
+
+    getPublicReportDataAPI(){
+      this.spinner.show();
+      this.reportLink.getPublicReport(this.publicToken).subscribe({
+        next: (res: any) => {
+          try {
+            if (res?.status === 200 && res?.data) {
+              this.reportData = res.data;
+              if (this.reportData?.yearRs42 && this.reportData.yearRs42.length > 0) {
+                this.year = this.reportData.yearRs42[0].year;
+                this.end_year = Number(this.year) + 1;
+              }
+            } else {
+              this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+            }
+          } finally {
+            this.spinner.hide();
+          }
+        },
+        error: (err: any) => {
+          console.error('Error getting public report:', err);
+          this.spinner.hide();
+          this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
+        },
+      });
+    }
+
     getReportDataAPI(){
       this.spinner.show();
       const param =
@@ -47,6 +86,7 @@ export class Namuna9Component {
                 "start": this.receivedData.start,
                 "end":this.receivedData.end
             };
+      this.reportParams = param;   // QR link uses the exact same params
       this.apiService.getNamuna9WardNew(param).subscribe({
         next: (res: any) => {
           try {
@@ -200,6 +240,26 @@ export class Namuna9Component {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
+              /* One report per printed page */
+              .page-break {
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                display: block !important;
+              }
+              .page-break:last-of-type { page-break-after: auto !important; }
+              /* Report QR pinned to the top-right, with reserved row height */
+              .qr-anchor-row { min-height: 76px !important; position: relative !important; }
+              .qr-anchor {
+                position: absolute !important;
+                top: 0 !important;
+                right: 0 !important;
+                left: auto !important;
+                width: auto !important;
+                text-align: right !important;
+              }
+              .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+              .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+              .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               @page {
                 size: A4 landscape;
                 margin: 8mm 10mm 8mm 10mm;
@@ -379,6 +439,26 @@ export class Namuna9Component {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
+              /* One report per printed page */
+              .page-break {
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                display: block !important;
+              }
+              .page-break:last-of-type { page-break-after: auto !important; }
+              /* Report QR pinned to the top-right, with reserved row height */
+              .qr-anchor-row { min-height: 76px !important; position: relative !important; }
+              .qr-anchor {
+                position: absolute !important;
+                top: 0 !important;
+                right: 0 !important;
+                left: auto !important;
+                width: auto !important;
+                text-align: right !important;
+              }
+              .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+              .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+              .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               @page {
                 size: A4 landscape;
                 margin: 8mm 10mm 8mm 10mm;

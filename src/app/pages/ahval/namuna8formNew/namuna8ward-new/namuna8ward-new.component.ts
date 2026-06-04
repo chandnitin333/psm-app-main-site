@@ -7,11 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../services/loader.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReportQrComponent } from '../../../../components/report-qr/report-qr.component';
+import { ReportLinkService } from '../../../../services/report-link.service';
 
 @Component({
   selector: 'app-namuna8ward-new',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReportQrComponent],
   templateUrl: './namuna8ward-new.component.html',
   styleUrl: './namuna8ward-new.component.css'
 })
@@ -22,22 +24,64 @@ export class Namuna8wardNewComponent {
   public year: number = 0;
   public end_year: number = 0;
   isMobileDevice: boolean = false;
-  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private spinner: LoaderService,private toastr: ToastrService) {
+  isPublic: boolean = false;     // opened via QR scan — no login
+  publicToken: string = '';
+  reportParams: any = null;      // params for QR link generation
+  constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private spinner: LoaderService,private toastr: ToastrService,
+    private reportLink: ReportLinkService) {
     this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    this.publicToken = this.route.snapshot.paramMap.get('token') || '';
+    this.isPublic = !!this.publicToken;
     const encoded = sessionStorage.getItem('namuna8wardNewForm');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
-    }else{
+    } else if (!this.isPublic) {
       this.router.navigate(['/namuna-8-form-new']);
     }
     console.log('Namuna81Component: Received Data via Router', this.receivedData);
   }
 
    ngOnInit() {
-      this.getReportDataAPI();
+      if (this.isPublic) {
+        this.getPublicReportDataAPI();
+      } else {
+        this.getReportDataAPI();
+      }
 
 
   }
+
+  getPublicReportDataAPI(){
+    this.spinner.show();
+    this.reportLink.getPublicReport(this.publicToken).subscribe({
+      next: (res: any) => {
+        try {
+          if (res?.status === 200 && res?.data) {
+            this.reportData = res.data;
+            if (this.reportData?.yearRs42 && this.reportData.yearRs42.length > 0) {
+              this.year = this.reportData.yearRs42[0].year;
+              this.end_year = Number(this.year) + 1;
+            }
+            // Template header uses receivedData.year1/toYear1 — rebuild from echo.
+            this.receivedData = {
+              year1: this.reportData?.from_to_year?.from_year,
+              toYear1: this.reportData?.from_to_year?.to_year,
+            };
+          } else {
+            this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+          }
+        } finally {
+          this.spinner.hide();
+        }
+      },
+      error: (err: any) => {
+        console.error('Error getting public report:', err);
+        this.spinner.hide();
+        this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
+      },
+    });
+  }
+
   getReportDataAPI(){
     this.spinner.show();
 
@@ -49,6 +93,7 @@ export class Namuna8wardNewComponent {
                 "from_year": this.receivedData.year1,
                 "to_year": this.receivedData.toYear1
             }
+    this.reportParams = param;   // QR link uses the exact same params
     this.apiService.getNamuna8WardNew(param).subscribe({
       next: (res: any) => {
         try {
@@ -111,6 +156,11 @@ export class Namuna8wardNewComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
             ${styles}
+            .qr-anchor-row { min-height: 56px !important; position: relative !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
               margin: 12mm 15mm;
@@ -458,6 +508,11 @@ export class Namuna8wardNewComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
             ${styles}
+            .qr-anchor-row { min-height: 56px !important; position: relative !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
+            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
               margin: 12mm 15mm;

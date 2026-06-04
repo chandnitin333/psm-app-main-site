@@ -5,7 +5,7 @@ import { ApiService } from './api.service';
 export class ReportLinkService {
     constructor(private api: ApiService) { }
 
-    generateLink(params: { newuser_id: any, report_key: string }) {
+    generateLink(params: { newuser_id?: any, report_key: string, report_params?: any }) {
         return this.api.post('generate-report-link', params);
     }
 

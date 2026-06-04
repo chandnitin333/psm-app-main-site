@@ -46,6 +46,8 @@ import { ReportLinkService } from '../../services/report-link.service';
 export class ReportQrComponent implements OnInit {
     @Input() newuserId: any;
     @Input() reportKey: string = 'namuna-8-1';
+    /** For ward/range reports — the request params identifying the report. */
+    @Input() reportParams: any = null;
     /** Set false on public pages (no auth there to generate links). */
     @Input() enabled: boolean = true;
 
@@ -54,10 +56,11 @@ export class ReportQrComponent implements OnInit {
     constructor(private reportLink: ReportLinkService) { }
 
     ngOnInit(): void {
-        if (!this.enabled || !this.newuserId) return;
+        if (!this.enabled || (!this.newuserId && !this.reportParams)) return;
         this.reportLink.generateLink({
-            newuser_id: this.newuserId,
+            newuser_id: this.newuserId ?? null,
             report_key: this.reportKey,
+            report_params: this.reportParams ?? null,
         }).subscribe({
             next: (res: any) => {
                 if (res?.status === 201 && res?.token) {

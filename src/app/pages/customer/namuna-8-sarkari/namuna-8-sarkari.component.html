@@ -1,24 +1,30 @@
-<button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
-  Print / Save as PDF (Perfect Quality)
-</button>&nbsp;
-<button (click)="downloadPDFDirect()" class="hidden-print btn btn-info" value="Download PDF"
-    style="font-weight: bold;">
-    📥 Download PDF
-</button>&nbsp;
-<button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
-    style="font-weight: bold; margin-left: 10px;">
-    📥 PDF तयार करा
-</button>
-<!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
-<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
-</button>&nbsp;&nbsp;&nbsp; -->
-<div class="alert alert-warning hidden-print print-instruction-alert">
-  <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
-</div>
+<ng-container *ngIf="!isPublic">
+    <button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
+      Print / Save as PDF (Perfect Quality)
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="hidden-print btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
+    </button>
+    <!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+    <button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+    </button>&nbsp;&nbsp;&nbsp; -->
+    <div class="alert alert-warning hidden-print print-instruction-alert">
+      <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+    </div>
+</ng-container>
 <div class="container-fluid" id="contentToExport">
     <div *ngFor="let item of namuna_8_sarkar_data?.newUserDataDBrs14">
         <div class="col-md-12">
-            <div class="row">
+            <div class="row qr-anchor-row" style="position: relative;">
+                <div class="qr-anchor" style="position: absolute; top: 0; right: 0;" *ngIf="!isPublic">
+                    <app-report-qr [newuserId]="receivedData?.value" reportKey="namuna-8-sarkari"
+                        [enabled]="!isPublic"></app-report-qr>
+                </div>
                 <p class="namna heading">
                     <b> नमुना ८ </b>
                 </p>
