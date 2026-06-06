@@ -30,6 +30,11 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": "/public"
+              },
+               {
+                "glob": ".htaccess",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
