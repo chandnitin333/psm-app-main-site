@@ -1,5 +1,5 @@
 
-export const API_URL = 'https://gramvikas.co.in/api';
+export const API_URL = 'http://gramvikas.co.in/api';
 // export const API_URL = 'http://localhost:4444/api';
 // export const API_URL = 'http://103.102.234.151:4444/api';
 
