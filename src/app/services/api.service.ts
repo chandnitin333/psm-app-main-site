@@ -8,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ApiService {
 
-  private baseUrl: string = 'http://gramvikas.co.in/api';
+  private baseUrl: string = 'http://103.102.234.151:4444/api';
   public file_baseUrl: string = 'http://103.102.234.151:4444/uploads/';
   // public file_baseUrl: string = 'http://localhost:4444/uploads/';
   // public  baseUrl: string = 'http://localhost:4444/api';
