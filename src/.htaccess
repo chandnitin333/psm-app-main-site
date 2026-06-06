@@ -1,4 +1,10 @@
 RewriteEngine On
+
+# Redirect HTTP to HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Angular routing
 RewriteBase /
 
 RewriteRule ^index\.html$ - [L]
