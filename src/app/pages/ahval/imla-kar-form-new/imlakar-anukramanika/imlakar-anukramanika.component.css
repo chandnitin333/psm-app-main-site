@@ -203,7 +203,7 @@ table, th, td {
   table {
     width: 100% !important;
     border-collapse: collapse !important;
-    page-break-inside: avoid;
+    page-break-inside: auto;
     font-size: 9px !important;
   }
 

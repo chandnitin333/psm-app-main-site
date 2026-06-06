@@ -314,7 +314,7 @@ export class ImlakarAnukramanikaComponent {
               table {
                 width: 100% !important;
                 border-collapse: collapse !important;
-                page-break-inside: avoid;
+                page-break-inside: auto;
                 font-size: 9px !important;
               }
 
@@ -459,17 +459,19 @@ export class ImlakarAnukramanikaComponent {
 
       printWindow.document.close();
 
-      // Wait for content to load before printing
-      printWindow.onload = () => {
+      // Trigger print once — onload is unreliable for document.write() windows
+      // (the load event can fire before this handler is attached), so guard with
+      // a flag and a setTimeout fallback.
+      let printed = false;
+      const doPrint = () => {
+        if (printed) return;
+        printed = true;
         printWindow.focus();
-
-        // Close window after print dialog is closed (whether printed or canceled)
-        printWindow.onafterprint = () => {
-          printWindow.close();
-        };
-
+        printWindow.onafterprint = () => printWindow.close();
         printWindow.print();
       };
+      printWindow.onload = doPrint;
+      setTimeout(doPrint, 600);
     }
     downloadPDFMobile() {
       const printContent = document.getElementById('contentToExport');
@@ -551,7 +553,7 @@ export class ImlakarAnukramanikaComponent {
               table {
                 width: 100% !important;
                 border-collapse: collapse !important;
-                page-break-inside: avoid;
+                page-break-inside: auto;
                 font-size: 9px !important;
               }
 

@@ -61,7 +61,9 @@ export class DashboardComponent {
   ngOnInit() {
     this.spinner.show();
     this.token = this.api.getToken();
+    this.users = this.api.getDecodedToken();
     this.getUserActivity();
+    this.getMemberList();          // independent of get-user-activity
     this.checkIsloggedIn();
     // this.url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119376.56285906771!2d78.99097527407644!3d21.145799991378873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0a5a31ffc39%3A0x9ab2c2b62f4a1e03!2s",this.users.TALUKA,"%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1703001234567!5m2!1sen!2sin&z=12"
 
@@ -82,7 +84,6 @@ export class DashboardComponent {
           // console.log('User Activity:', res.data);
           this.userData = res.data ?? [];
           console.log("this.userData----", this.userData)
-          this.getMemberList();
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error:-', error.message);
@@ -117,13 +118,17 @@ export class DashboardComponent {
   }
 
   getMemberList() {
-    this.spinner.show();
-    this.api.post('get-member-list', { panchayat_id: this.users?.PANCHAYAT_ID }).subscribe({
+    if (!this.users) {
+      this.users = this.api.getDecodedToken();
+    }
+    const panchayatId = this.users?.PANCHAYAT_ID ?? null;
+    console.log('getMemberList -> panchayat_id:', panchayatId);
+    this.api.post('get-member-list', { panchayat_id: panchayatId }).subscribe({
       next: (res: any) => {
-        console.log('Member List:', res.data);
+        console.log('Member List response:', res);
         const list = Array.isArray(res?.data) ? res.data : (res?.data?.data ?? []);
-        this.members = list;
-        this.dataSource.data = list;
+        this.members = list ?? [];
+        this.dataSource.data = this.members;
         this.setPageData({ pageIndex: 0, pageSize: 10, length: this.dataSource.data.length });
         this.spinner.hide();
         this.isLoad = true
