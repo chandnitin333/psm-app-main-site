@@ -9,6 +9,13 @@ import { ApiService } from './api.service';
  * refreshes the token before it expires, so an actively-working user is never
  * logged out mid-task. After 30 minutes of continuous inactivity the refresh
  * stops and the user is logged out.
+ *
+ * IMPORTANT: refresh is driven by USER ACTIVITY (throttled) and by the tab
+ * becoming visible again — NOT only by a background timer. Browsers heavily
+ * throttle setInterval/setTimeout in backgrounded tabs (and pause them when the
+ * machine sleeps), so a timer-only approach silently fails and the user gets
+ * logged out. Tying refresh to activity/visibility keeps an active session
+ * alive reliably.
  */
 @Injectable({ providedIn: 'root' })
 export class IdleTimeoutService implements OnDestroy {
@@ -16,18 +23,25 @@ export class IdleTimeoutService implements OnDestroy {
     /** Inactivity window before auto logout (30 minutes). */
     private readonly IDLE_LIMIT_MS = 30 * 60 * 1000;
 
-    /** How often to refresh the token while active (well under the 30-min token life). */
-    private readonly REFRESH_INTERVAL_MS = 10 * 60 * 1000;
+    /** Refresh once the token has this little life left. The JWT lives 30 min,
+     *  so refreshing at 15 min remaining keeps a wide safety margin and works
+     *  even right after a page reload (driven by the token's real expiry). */
+    private readonly REFRESH_AHEAD_MS = 15 * 60 * 1000;
+
+    /** Backstop poll so refresh still happens even with little pointer movement. */
+    private readonly POLL_MS = 60 * 1000;
 
     /** Activity timestamp is shared across tabs via localStorage. */
     private readonly LAST_ACTIVITY_KEY = 'lastActivityAt';
 
     private readonly activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'];
     private timerId: any = null;
-    private refreshId: any = null;
+    private pollId: any = null;
     private started = false;
+    private refreshing = false;
     private boundActivity = () => this.onActivity();
     private boundStorage = (e: StorageEvent) => this.onStorage(e);
+    private boundVisibility = () => this.onVisibility();
 
     constructor(private auth: AuthService, private zone: NgZone, private api: ApiService) { }
 
@@ -42,8 +56,9 @@ export class IdleTimeoutService implements OnDestroy {
             this.activityEvents.forEach(ev =>
                 window.addEventListener(ev, this.boundActivity, { passive: true }));
             window.addEventListener('storage', this.boundStorage);
+            document.addEventListener('visibilitychange', this.boundVisibility);
             this.scheduleCheck();
-            this.scheduleRefresh();
+            this.schedulePoll();
         });
     }
 
@@ -52,7 +67,8 @@ export class IdleTimeoutService implements OnDestroy {
         this.started = false;
         this.activityEvents.forEach(ev => window.removeEventListener(ev, this.boundActivity));
         window.removeEventListener('storage', this.boundStorage);
-        if (this.refreshId) { clearInterval(this.refreshId); this.refreshId = null; }
+        document.removeEventListener('visibilitychange', this.boundVisibility);
+        if (this.pollId) { clearInterval(this.pollId); this.pollId = null; }
         if (this.timerId) { clearTimeout(this.timerId); this.timerId = null; }
     }
 
@@ -62,12 +78,23 @@ export class IdleTimeoutService implements OnDestroy {
 
     private onActivity(): void {
         this.markActivity();
+        // Keep the session alive while the user works (throttled internally).
+        this.maybeRefresh();
     }
 
     /** Another tab updated the activity time — keep this tab in sync. */
     private onStorage(e: StorageEvent): void {
         if (e.key === this.LAST_ACTIVITY_KEY) {
             // nothing to do; the next scheduled check reads the fresh value
+        }
+    }
+
+    /** Tab came back to the foreground — timers may have been throttled while
+     *  hidden, so refresh now if the user is still within the active window. */
+    private onVisibility(): void {
+        if (document.visibilityState === 'visible') {
+            this.markActivity();
+            this.maybeRefresh();
         }
     }
 
@@ -98,27 +125,49 @@ export class IdleTimeoutService implements OnDestroy {
         }, 30 * 1000);
     }
 
-    /** While active, refresh the token before the 30-min JWT expires. */
-    private scheduleRefresh(): void {
-        if (this.refreshId) clearInterval(this.refreshId);
-        this.refreshId = setInterval(() => {
-            const idleFor = Date.now() - this.lastActivity();
-            // Only keep the session alive if the user was active recently.
-            if (idleFor < this.IDLE_LIMIT_MS) {
-                this.refreshToken();
-            }
-        }, this.REFRESH_INTERVAL_MS);
+    /** Backstop poll: keep the token fresh even if the user isn't moving much. */
+    private schedulePoll(): void {
+        if (this.pollId) clearInterval(this.pollId);
+        this.pollId = setInterval(() => this.maybeRefresh(), this.POLL_MS);
+    }
+
+    /** Milliseconds until the current JWT expires (null if no/invalid token). */
+    private tokenRemainingMs(): number | null {
+        const decoded = this.api.getDecodedToken();
+        if (!decoded?.exp) return null;
+        return decoded.exp * 1000 - Date.now();
+    }
+
+    /** Refresh the token if the user is still active and the token is getting
+     *  close to expiry. Driven by the token's REAL expiry, so it works after a
+     *  reload too. Cheap to call on every activity event. */
+    private maybeRefresh(): void {
+        if (this.refreshing) return;
+        if (Date.now() - this.lastActivity() >= this.IDLE_LIMIT_MS) return;  // idle — let it lapse
+        const remaining = this.tokenRemainingMs();
+        if (remaining === null) return;                       // not logged in / bad token
+        if (remaining > this.REFRESH_AHEAD_MS) return;        // still plenty of life — wait
+        this.refreshing = true;
+        this.refreshToken();
     }
 
     private refreshToken(): void {
         this.api.post('refresh-token', {}).subscribe({
             next: (res: any) => {
+                this.refreshing = false;
                 const newToken = res?.token || res?.data?.token;
                 if (newToken) {
                     this.api.setToken(newToken);
+                } else {
+                    // Interceptor turns errors into 200s, so a missing token means
+                    // the refresh was rejected; next poll/activity will retry.
+                    console.warn('token refresh returned no token:', res);
                 }
             },
-            error: (err: any) => console.error('token refresh failed:', err),
+            error: (err: any) => {
+                this.refreshing = false;
+                console.error('token refresh failed:', err);
+            },
         });
     }
 }

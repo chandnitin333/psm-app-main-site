@@ -163,7 +163,8 @@ export class Namuna8wardNewComponent {
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
-              margin: 12mm 15mm;
+              /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
+              margin: 24mm 15mm 12mm 21mm;
             }
             * {
               margin: 0 !important;
@@ -515,7 +516,8 @@ export class Namuna8wardNewComponent {
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
-              margin: 12mm 15mm;
+              /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
+              margin: 24mm 15mm 12mm 21mm;
             }
             * {
               margin: 0 !important;
