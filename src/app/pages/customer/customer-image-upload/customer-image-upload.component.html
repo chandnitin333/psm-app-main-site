@@ -29,8 +29,8 @@
 
     </mat-dialog-content>
     <mat-dialog-actions align="center">
-        <button mat-button mat-dialog-close class="custom-red">Cancel</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="addUploadData()">Save</button>
+        <button type="button" mat-button class="custom-red" (click)="onCancel()">Cancel</button>
+        <button type="button" mat-raised-button color="primary" (click)="addUploadData()">Save</button>
     </mat-dialog-actions>
 
 </form>

@@ -96,6 +96,15 @@ export class CustomerComponent {
     });
     this.user_id = this.userDetails.userId;
     this.fetchData();
+
+    // If a camera-triggered reload closed the upload dialog, reopen it so the
+    // user can continue with the captured photo (restored from sessionStorage).
+    try {
+      const pending = sessionStorage.getItem('custImgUploadOpen');
+      if (pending) {
+        this.openModalForImageUpload(JSON.parse(pending));
+      }
+    } catch { /* ignore */ }
   }
 
   fetchData() {
@@ -431,12 +440,18 @@ export class CustomerComponent {
     });
   }
   openModalForImageUpload(element:any): void {
+    // Remember which record's upload dialog is open so we can restore it if
+    // the page is reloaded while the mobile camera is in the foreground.
+    try { sessionStorage.setItem('custImgUploadOpen', JSON.stringify(element)); } catch { /* ignore */ }
+
     const dialogRef = this.dialog.open(CustomerImageUploadComponent, {
       width: '600px', // Adjust size
       data: element,
+      disableClose: true,   // don't close on backdrop/ESC (camera-return events)
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      try { sessionStorage.removeItem('custImgUploadOpen'); } catch { /* ignore */ }
       if (result) {
         console.log('Modal Data:', result);
         this.fetchData();
