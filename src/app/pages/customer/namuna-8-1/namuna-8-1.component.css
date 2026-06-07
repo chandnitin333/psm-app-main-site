@@ -309,3 +309,24 @@ table, th, td {
     float: right;
   }
 }
+
+/* ---- Mobile (screen only — print/PDF unaffected) ----
+   The report is a wide government-form layout (col-md-* floats + wide table).
+   On phones the floats overlap, so keep the layout intact at a fixed min-width
+   and let the user pan horizontally instead of overlapping. */
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #contentToExport {
+    min-width: 760px;
+    margin: 0 auto;
+  }
+
+  .table-responsive {
+    overflow-x: visible !important;
+  }
+}

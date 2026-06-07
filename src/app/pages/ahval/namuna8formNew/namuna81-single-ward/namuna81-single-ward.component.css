@@ -340,3 +340,22 @@ table, th, td {
   }
 }
 
+
+
+/* ---- Mobile (screen only — print/PDF unaffected) ----
+   Wide government-form layout overlaps on phones; keep it intact at a fixed
+   min-width and let the user pan horizontally instead of overlapping. */
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #contentToExport {
+    min-width: 760px;
+    margin: 0 auto;
+  }
+  .table-responsive {
+    overflow-x: visible !important;
+  }
+}
