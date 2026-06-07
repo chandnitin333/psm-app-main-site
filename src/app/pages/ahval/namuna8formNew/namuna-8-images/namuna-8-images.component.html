@@ -64,7 +64,7 @@
 
                         <tbody>
 
-                            <tr>
+                            <tr class="area-row">
                                 <td>अ.क्र
                                 </td>
                                 <td>{{ itemRs3?.ANNU_KRAMANK}}</td>
@@ -87,8 +87,8 @@
                                 <td colspan="2">{{ itemRs3?.MILKAR_PRAKAR || '-' }}</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><b>घरमालकाचे नाव</b> </td>
-                                <td colspan="9">{{ itemRs3?.HOMEUSER_NAME}} </td>
+                                <td colspan="4" class="nm-lbl"><b>घरमालकाचे नाव</b> </td>
+                                <td colspan="7">{{ itemRs3?.HOMEUSER_NAME}} </td>
 
                                 <!--<td rowspan="4">चतुर : सीमा </td>-->
                                 <td colspan="9">आधार कार्ड/वोटर कार्ड</td>
@@ -103,47 +103,47 @@
 
                             </tr>
                             <tr>
-                                <td colspan="2"><b>पत्नी / मुलांचे नाव</b></td>
-                                <td colspan="9">{{ itemRs3?.HOMEUSER_NAME1}}</td>
+                                <td colspan="4" class="nm-lbl"><b>पत्नी / मुलांचे नाव</b></td>
+                                <td colspan="7">{{ itemRs3?.HOMEUSER_NAME1}}</td>
                                 <td colspan="9">{{ itemRs3?.AADHARCARD_NUMBER}} &nbsp; {{ itemRs3?.VOTERCARD_NUMBER}}
                                 </td>
                                 <!--<td colspan="10">रोड </td>-->
                             </tr>
                             <tr>
-                                <td colspan="2"><b>भोगवटदाराचे नाव</b> </td>
-                                <td colspan="9">{{ itemRs3?.BHOGATWARGARACHE_NAME}}</td>
+                                <td colspan="4" class="nm-lbl"><b>भोगवटदाराचे नाव</b> </td>
+                                <td colspan="7">{{ itemRs3?.BHOGATWARGARACHE_NAME}}</td>
                                 <td colspan="9">मोबाईल</td>
                                 <!--<td colspan="10">शाळा </td>-->
                             </tr>
                             <tr>
-                                <td colspan="2">पत्ता</td>
-                                <td colspan="9">{{ itemRs3?.ADDRESS_NAGAR_SOCIETY}}</td>
+                                <td colspan="4" class="nm-lbl">पत्ता</td>
+                                <td colspan="7">{{ itemRs3?.ADDRESS_NAGAR_SOCIETY}}</td>
 
                                 <td colspan="9"> {{ itemRs3?.MOBILE_NUMBER}} </td>
                                 <!-- <td colspan="10">घर </td>-->
                             </tr>
-                            <tr>
-                                <td colspan="2" rowspan="2">चतुर : सीमा</td>
+                            <tr class="area-row">
+                                <td colspan="4" rowspan="2" class="lbl-mid">चतुर : सीमा</td>
                                 <td colspan="4" class="kk">पूर्वेस</td>
                                 <td colspan="4" class="kk"> पश्चिमेस</td>
                                 <td colspan="4" class="kk">उत्तरेस</td>
-                                <td colspan="6" class="kk">दक्षिणेस</td>
+                                <td colspan="4" class="kk">दक्षिणेस</td>
                             </tr>
                             <tr>
                                 <td colspan="4">{{ itemRs3?.PURVA || '-'}} </td>
                                 <td colspan="4">{{ itemRs3?.PACHHIM || '-'}} </td>
                                 <td colspan="4">{{ itemRs3?.UTTAR || '-'}} </td>
-                                <td colspan="6">{{ itemRs3?.DAKSIN || '-'}} </td>
+                                <td colspan="4">{{ itemRs3?.DAKSIN || '-'}} </td>
 
                             </tr>
-                            <tr>
-                                <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ</td>
+                            <tr class="area-row">
+                                <td rowspan="2" colspan="4" class="lbl-mid">एकूण जागेचे क्षेत्रफळ</td>
                                 <td colspan="2">लांबी (चौ.फु.)</td>
                                 <td colspan="2">रुंदी (चौ.फु.)</td>
-                                <td colspan="3">क्षेत्रफळ (चौ.फु.)</td>
-                                <td colspan="3">क्षेत्रफळ (चौ.मीटर)</td>
-                                <td colspan="4">उर्वरितखाली जागा (चौ. फु.)</td>
-                                <td colspan="4">उर्वरितखाली जागा (चौ. मीटर)</td>
+                                <td colspan="2">क्षेत्रफळ (चौ.फु.)</td>
+                                <td colspan="2">क्षेत्रफळ (चौ.मीटर)</td>
+                                <td colspan="4">उर्वरित जागा (चौ.फु.)</td>
+                                <td colspan="4">उर्वरित जागा (चौ.मी.)</td>
                                 <!--<td colspan="2">मोबाईल </td>
         <td colspan="3">आधार कार्ड </td>
 		<td colspan="3">वोटर कार्ड </td>-->
@@ -152,30 +152,30 @@
                             <tr>
                                 <td colspan="2">{{ itemRs3?.LAMBI}}</td>
                                 <td colspan="2">{{ itemRs3?.RUNDI}}</td>
-                                <td colspan="3">{{ itemRs3?.SQUARE_FOOT}}</td>
-                                <td colspan="3">{{ itemRs3?.SQUARE_METER}}</td>
+                                <td colspan="2">{{ itemRs3?.SQUARE_FOOT}}</td>
+                                <td colspan="2">{{ itemRs3?.SQUARE_METER}}</td>
                                 <td colspan="4">{{ itemRs3?.URVATICH_KHALI_JAGA}}</td>
                                 <td colspan="4">{{ itemRs3?.URVATICH_KHALI_JAGAS}}</td>
                                 <!--<td colspan="2">9865412365</td>
         <td colspan="3">256425698941</td>
 		 <td colspan="4"></td>-->
                             </tr>
-                            <tr style="font-weight:bold;">
+                            <tr style="font-weight:bold;" class="tx-hdr-row">
                                 <td colspan="2">मालमत्तेचे वर्णन </td>
                                 <td colspan="2">मालमत्तेचा प्रकार</td>
                                 <td colspan="2">वापराचा प्रकार</td>
                                 <td colspan="2">बांधकामाचा मजला</td>
                                 <td>वय / वर्ष</td>
-                                <td colspan="2">क्षेत्रफळ पु.प.(चौ.फूट)</td>
-                                <td colspan="2">क्षेत्रफळ उ. द. (चौ.फूट)</td>
-                                <td colspan="2">एकूण क्षेत्रफळ (चौ.फूट)</td>
-                                <td colspan="2">एकूण क्षेत्रफळ (चौ.मीटर)</td>
+                                <td colspan="2">क्षेत्र पु.प.(चौ.फूट)</td>
+                                <td colspan="2">क्षेत्र उ. द. (चौ.फूट)</td>
+                                <td colspan="2">ए. क्षेत्र (चौ.फूट)</td>
+                                <td colspan="2">ए. क्षेत्र (चौ.मीटर)</td>
                                 <td>वार्षिक मूल्य </td>
                                 <td>घसारा </td>
                                 <td>भारांक </td>
                                 <td colspan="2">भांडवली मूल्य </td>
                                 <td>आकारणी दर </td>
-                                <td colspan="3">प्रति रु.१००० च्या भांडवली मूल्यावर</td>
+                                <td colspan="3">प्रति रु.१००० भां.मूल्यावर</td>
                                 <td colspan="3">कर आकारणी</td>
                             </tr>
 
@@ -286,7 +286,7 @@
                             </tr>
                             <tr>
 
-                                <td colspan="18">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार
+                                <td colspan="18" class="tip-cell">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार
                                     कराची आकारणी करण्यात आली
                                     आहे.
                                     २) मालकी हक्का बाबाद कसलाही वाद. असल्यास किंव्हा भविष्यात उदभवल्यास तो न्यायालया
