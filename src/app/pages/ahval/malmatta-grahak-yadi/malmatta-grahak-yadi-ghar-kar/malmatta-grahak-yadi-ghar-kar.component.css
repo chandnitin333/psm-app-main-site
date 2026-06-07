@@ -418,3 +418,18 @@ table, th, td {
     overflow-x: visible !important;
   }
 }
+
+
+/* ---- Mobile: center the title block across full report width ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-12,
+  #contentToExport .row { width: 100% !important; }
+  #contentToExport .heading,
+  #contentToExport .san,
+  #contentToExport .namna {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
+}

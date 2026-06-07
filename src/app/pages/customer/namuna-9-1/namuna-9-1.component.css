@@ -329,6 +329,18 @@ table, th, td {
     min-width: 760px;
     margin: 0 auto;
   }
+  #contentToExport .col-md-12,
+  #contentToExport .row {
+    width: 100% !important;
+  }
+  /* Title block centered across the full report width */
+  #contentToExport .heading,
+  #contentToExport .san {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
   .table-responsive {
     overflow-x: visible !important;
   }
