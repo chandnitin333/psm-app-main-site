@@ -542,3 +542,21 @@ table, th, td {
     text-align: center !important;
   }
 }
+
+
+/* ---- Mobile: keep जिल्हा/तालुका/ग्रामपंचायत row on ONE line (3 cols) ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-4 {
+    width: 33.33% !important;
+    float: left !important;
+    display: block !important;
+  }
+  #contentToExport .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  #contentToExport .left  { float: left  !important; text-align: left  !important; }
+  #contentToExport .center { text-align: center !important; }
+  #contentToExport .right { float: right !important; text-align: right !important; }
+}
