@@ -54,10 +54,11 @@ get_namuna_8_1_data(){
 get_public_namuna_8_1_data(){
   this.reportLink.getPublicReport(this.publicToken).subscribe({
     next: (res: any) => {
-      if (res?.status === 200 && res?.data) {
+      console.log('public report response:', res);
+      if ((res?.status === 200 || res?.status === undefined) && res?.data) {
         this.namuna_8_1_data = res.data;
       } else {
-        this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+        this.toastr.error(res?.message || 'रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
       }
     },
     error: (err: Error) => {
