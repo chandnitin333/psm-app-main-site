@@ -27,6 +27,8 @@ export class Namuna8wardNewComponent {
   isPublic: boolean = false;     // opened via QR scan — no login
   publicToken: string = '';
   reportParams: any = null;      // params for QR link generation
+  // Per-record QR URLs (one scanner per row → opens just that record).
+  perRecordQrUrl: { [id: string]: string } = {};
   constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private spinner: LoaderService,private toastr: ToastrService,
     private reportLink: ReportLinkService) {
     this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -102,6 +104,7 @@ export class Namuna8wardNewComponent {
             this.year = this.reportData.yearRs42[0].year;
             this.end_year = Number(this.year) + 1;
           }
+          this.buildPerRecordQrLinks(param);
           console.log('Reponse Data:', this.reportData);
         } catch (error) {
           console.error('Error processing data:', error);
@@ -115,6 +118,36 @@ export class Namuna8wardNewComponent {
       },
     });
   }
+
+  /** One bulk call → a per-record public link (single-vard report) for every
+   *  row, so each printed record carries its OWN QR that opens just that
+   *  record. Avoids one generate-link request per row. */
+  private buildPerRecordQrLinks(param: any): void {
+    if (this.isPublic) return;   // public view never generates links
+    const rows: any[] = this.reportData?.rs3 || [];
+    const ids = rows
+      .map(r => r?.NEWUSER_ID)
+      .filter(id => id !== null && id !== undefined);
+    if (ids.length === 0) return;
+
+    this.reportLink.generateLinksBulk({
+      report_key: 'namuna-8-1-single-vard',
+      report_params: param,
+      new_user_ids: ids,
+    }).subscribe({
+      next: (res: any) => {
+        const tokens = res?.tokens || {};
+        const origin = window.location.origin;
+        const map: { [id: string]: string } = {};
+        for (const id of Object.keys(tokens)) {
+          map[id] = `${origin}/public-report/namuna-8-1-single-vard/${tokens[id]}`;
+        }
+        this.perRecordQrUrl = map;
+      },
+      error: (err: any) => console.error('bulk QR link error:', err),
+    });
+  }
+
   @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {

@@ -50,12 +50,20 @@ export class ReportQrComponent implements OnInit {
     @Input() reportParams: any = null;
     /** Set false on public pages (no auth there to generate links). */
     @Input() enabled: boolean = true;
+    /** Pre-built public URL (e.g. from a bulk token call). When set, the QR is
+     *  rendered directly from it — no per-component generate-link request. */
+    @Input() directUrl: string | null = null;
 
     qrDataUrl: string | null = null;
 
     constructor(private reportLink: ReportLinkService) { }
 
     ngOnInit(): void {
+        // Fast path: caller already has the link (bulk-generated) — just render.
+        if (this.directUrl) {
+            this.renderQr(this.directUrl);
+            return;
+        }
         if (!this.enabled || (!this.newuserId && !this.reportParams)) return;
         this.reportLink.generateLink({
             newuser_id: this.newuserId ?? null,
@@ -65,12 +73,16 @@ export class ReportQrComponent implements OnInit {
             next: (res: any) => {
                 if (res?.status === 201 && res?.token) {
                     const url = `${window.location.origin}/public-report/${this.reportKey}/${res.token}`;
-                    QRCode.toDataURL(url, { width: 168, margin: 1, errorCorrectionLevel: 'M' })
-                        .then((dataUrl: string) => this.qrDataUrl = dataUrl)
-                        .catch((err: any) => console.error('report-qr render error:', err));
+                    this.renderQr(url);
                 }
             },
             error: (err: any) => console.error('report-qr generateLink error:', err),
         });
+    }
+
+    private renderQr(url: string): void {
+        QRCode.toDataURL(url, { width: 168, margin: 1, errorCorrectionLevel: 'M' })
+            .then((dataUrl: string) => this.qrDataUrl = dataUrl)
+            .catch((err: any) => console.error('report-qr render error:', err));
     }
 }

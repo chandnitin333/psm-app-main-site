@@ -28,9 +28,9 @@
 
             <div class="row qr-anchor-row" style="position: relative;">
                 <div class="qr-anchor" style="position: absolute; top: 0; right: 0; left: auto; text-align: right;"
-                    *ngIf="!isPublic && reportParams">
-                    <app-report-qr [reportParams]="reportParams" reportKey="malmatta-khula-bhukhand"
-                        [enabled]="!isPublic"></app-report-qr>
+                    *ngIf="!isPublic && perRecordQrUrl[item?.newuser_id]">
+                    <app-report-qr [directUrl]="perRecordQrUrl[item?.newuser_id]"
+                        reportKey="namuna-8-1-single-vard" [enabled]="!isPublic"></app-report-qr>
                 </div>
                 <p class="heading">
                     <b>फेरकर आकारणी मुल्यांकन यादी</b>

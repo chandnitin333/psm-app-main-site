@@ -27,6 +27,7 @@ export class MalmattaDharkachiYadiComponent {
   isPublic: boolean = false;     // opened via QR scan — no login
   publicToken: string = '';
   reportParams: any = null;      // params for QR link generation
+  perRecordQrUrl: { [id: string]: string } = {};   // one scanner per record
   constructor(private router: Router, private grahakYadiService: MalmattaGrahakYadiService, private route: ActivatedRoute, private spinner: LoaderService, private toastr: ToastrService,
     private reportLink: ReportLinkService) {
     this.publicToken = this.route.snapshot.paramMap.get('token') || '';
@@ -106,6 +107,7 @@ export class MalmattaDharkachiYadiComponent {
             this.year = this.malmattaDarkList.yearRs10[0].year;
             this.end_year = Number(this.year) + 1;
           }
+          this.buildPerRecordQrLinks(param);
           console.log('Ward Wise Adhar List:', this.malmattaDarkList);
         } catch (error) {
           console.error('Error processing data:', error);
@@ -123,6 +125,31 @@ export class MalmattaDharkachiYadiComponent {
       },
     });
   }
+
+  /** One bulk call → per-record QR (each record opens just that record). */
+  private buildPerRecordQrLinks(param: any): void {
+    if (this.isPublic) return;
+    const rows: any[] = this.malmattaDarkList?.rs3 || [];
+    const ids = rows.map(r => r?.NEWUSER_ID).filter(id => id !== null && id !== undefined);
+    if (ids.length === 0) return;
+    this.reportLink.generateLinksBulk({
+      report_key: 'namuna-8-1-single-vard',
+      report_params: param,
+      new_user_ids: ids,
+    }).subscribe({
+      next: (res: any) => {
+        const tokens = res?.tokens || {};
+        const origin = window.location.origin;
+        const map: { [id: string]: string } = {};
+        for (const id of Object.keys(tokens)) {
+          map[id] = `${origin}/public-report/namuna-8-1-single-vard/${tokens[id]}`;
+        }
+        this.perRecordQrUrl = map;
+      },
+      error: (err: any) => console.error('bulk QR link error:', err),
+    });
+  }
+
   @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.key === 'p') {

@@ -30,6 +30,7 @@ export class Namuna8ImagesComponent {
     isPublic: boolean = false;     // opened via QR scan — no login
     publicToken: string = '';
     reportParams: any = null;      // params for QR link generation
+    perRecordQrUrl: { [id: string]: string } = {};   // one scanner per record
     constructor(private router: Router, private apiService: Namuna8Service, private route: ActivatedRoute, private toastr: ToastrService, private api: ApiService, private spinner: LoaderService,
       private reportLink: ReportLinkService) {
       this.publicToken = this.route.snapshot.paramMap.get('token') || '';
@@ -123,6 +124,7 @@ export class Namuna8ImagesComponent {
               this.reportData.from_to_year.from_year = Number(this.year) + 3;
               this.reportData.from_to_year.to_year = Number(this.year) + 4;
             }
+            this.buildPerRecordQrLinks(param);
           } catch (error) {
             console.error('Error processing data:', error);
           } finally {
@@ -139,6 +141,30 @@ export class Namuna8ImagesComponent {
         },
       });
     }
+    /** One bulk call → per-record QR (each record opens just itself, with images). */
+    private buildPerRecordQrLinks(param: any): void {
+      if (this.isPublic) return;
+      const rows: any[] = this.reportData?.rs3 || [];
+      const ids = rows.map(r => r?.NEWUSER_ID).filter(id => id !== null && id !== undefined);
+      if (ids.length === 0) return;
+      this.reportLink.generateLinksBulk({
+        report_key: 'namuna-8-images',
+        report_params: param,
+        new_user_ids: ids,
+      }).subscribe({
+        next: (res: any) => {
+          const tokens = res?.tokens || {};
+          const origin = window.location.origin;
+          const map: { [id: string]: string } = {};
+          for (const id of Object.keys(tokens)) {
+            map[id] = `${origin}/public-report/namuna-8-images/${tokens[id]}`;
+          }
+          this.perRecordQrUrl = map;
+        },
+        error: (err: any) => console.error('bulk QR link error:', err),
+      });
+    }
+
     @HostListener('window:keydown', ['$event'])
       handleKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key === 'p') {
