@@ -131,7 +131,7 @@ export class Namuna8wardNewComponent {
     if (ids.length === 0) return;
 
     this.reportLink.generateLinksBulk({
-      report_key: 'namuna-8-1-single-vard',
+      report_key: 'namuna-8-vard-new',
       report_params: param,
       new_user_ids: ids,
     }).subscribe({
@@ -140,7 +140,7 @@ export class Namuna8wardNewComponent {
         const origin = window.location.origin;
         const map: { [id: string]: string } = {};
         for (const id of Object.keys(tokens)) {
-          map[id] = `${origin}/public-report/namuna-8-1-single-vard/${tokens[id]}`;
+          map[id] = `${origin}/public-report/namuna-8-vard-new/${tokens[id]}`;
         }
         this.perRecordQrUrl = map;
       },
