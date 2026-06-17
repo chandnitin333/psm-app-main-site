@@ -48,19 +48,9 @@ table, th, td {
   border: 1px solid black;
   text-align: center !important;
 }
-/* Name/address label cells: keep label on one line, don't waste row height */
-td.nm-lbl {
-  white-space: nowrap;
-}
-/* Taxation header row: keep each header on a single line (compact, no tall wrap) */
-tr.tx-hdr-row td {
-  white-space: nowrap;
-}
-/* एकूण जागेचे क्षेत्रफळ block: keep length/area headers on ONE line so the
-   whole block stays 2 rows tall (normal font kept; एकूण cell wraps in its rowspan) */
-tr.area-row td:not([rowspan]) {
-  white-space: nowrap;
-}
+/* NOTE: the single-line (nowrap) rules for nm-lbl / tx-hdr-row / area-row are
+   PRINT-ONLY (see @media print below). On screen they must wrap, otherwise the
+   wide table overflows and adds a horizontal scrollbar. */
 /* चतुर / एकूण rowspan labels: vertically centered (not top) */
 td.lbl-mid {
   vertical-align: middle !important;
@@ -478,6 +468,9 @@ td.tip-cell {
 		white-space: nowrap !important;
 		overflow: hidden !important;
 		text-overflow: clip !important;
+	}
+	td.nm-lbl {
+		white-space: nowrap !important;
 	}
 	/* टीप cell font size in print */
 	td.tip-cell {

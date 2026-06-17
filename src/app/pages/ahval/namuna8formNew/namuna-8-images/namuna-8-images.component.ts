@@ -451,8 +451,8 @@ export class Namuna8ImagesComponent {
         const options = {
           filename: fileName,
           margin: [15, 15, 15, 15],
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
+          image: { type: 'jpeg', quality: 0.6 },
+          html2canvas: { scale: 1.5, useCORS: true },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
           pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
@@ -485,8 +485,8 @@ export class Namuna8ImagesComponent {
         const options = {
           filename: fileName,
           margin: [15, 15, 15, 15],
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
+          image: { type: 'jpeg', quality: 0.6 },
+          html2canvas: { scale: 1.5, useCORS: true },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
           pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
@@ -872,9 +872,12 @@ export class Namuna8ImagesComponent {
         for (let i = 0; i < pageBreaks.length; i++) {
           const pageElement = pageBreaks[i] as HTMLElement;
 
-          // Capture this specific page
+          // Capture this specific page. scale 1.5 (not 2) keeps text readable
+          // while roughly halving pixel area, and the photo is downsampled to
+          // its display size — so output size stays bounded regardless of how
+          // large the source images are.
           const canvas = await html2canvas(pageElement, {
-            scale: 2,
+            scale: 1.5,
             useCORS: true,
             logging: false,
             backgroundColor: '#ffffff'
@@ -885,7 +888,9 @@ export class Namuna8ImagesComponent {
             pdf.addPage();
           }
 
-          const imgData = canvas.toDataURL('image/png');
+          // JPEG (compressed) instead of PNG (lossless) — this is the single
+          // biggest size win: a full-page PNG can be 10-15x larger than JPEG.
+          const imgData = canvas.toDataURL('image/jpeg', 0.6);
 
           // Calculate dimensions to fit within available space with margins
           const ratio = canvas.width / canvas.height;
@@ -902,8 +907,8 @@ export class Namuna8ImagesComponent {
           const xOffset = leftMargin + (availableWidth - finalWidth) / 2;
           const yOffset = topMargin + (availableHeight - finalHeight) / 2;
 
-          // Add image to PDF with margins
-          pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+          // Add image to PDF with margins (JPEG + FAST compression)
+          pdf.addImage(imgData, 'JPEG', xOffset, yOffset, finalWidth, finalHeight, undefined, 'FAST');
         }
 
         // Save the PDF
