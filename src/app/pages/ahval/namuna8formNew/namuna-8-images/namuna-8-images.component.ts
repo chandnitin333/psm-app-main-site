@@ -174,12 +174,14 @@ export class Namuna8ImagesComponent {
       }
 
     // Direct browser print - uses @media print CSS with landscape orientation
-    printDirect() {
+    async printDirect() {
       const printContent = document.getElementById('contentToExport');
       if (!printContent) return;
 
       const printWindow = window.open('', '_blank');
       if (!printWindow) return;
+      // Placeholder shown immediately while we prepare a self-contained doc.
+      printWindow.document.write('<!doctype html><html><head><meta charset="UTF-8"><title>Print Preview</title></head><body style="font-family:sans-serif;padding:24px;font-size:16px;color:#333">रिपोर्ट तयार करत आहे, कृपया प्रतीक्षा करा…</body></html>');
 
       // Copy styles
       const styles = Array.from(document.styleSheets)
@@ -194,7 +196,13 @@ export class Namuna8ImagesComponent {
         })
         .join('\n');
 
+      // Inline every image as a data URL so the print tab makes NO network
+      // requests — it renders instantly instead of re-fetching 100s of images.
+      const printBody = printContent.cloneNode(true) as HTMLElement;
+      await this.inlinePrintImages(printBody);
+
       // Write content to print window
+      printWindow.document.open();
       printWindow.document.write(`
         <html>
           <head>
@@ -416,24 +424,49 @@ export class Namuna8ImagesComponent {
             </style>
           </head>
           <body>
-            ${printContent.outerHTML}
+            ${printBody.outerHTML}
           </body>
         </html>
       `);
 
       printWindow.document.close();
 
-      // Wait until content fully loads before printing
-      printWindow.onload = () => {
-        printWindow.focus();
-
-        // Close window after print dialog is closed (whether printed or canceled)
-        printWindow.onafterprint = () => {
-          printWindow.close();
-        };
-
-        printWindow.print();
+      // Images are inline data URLs → render is immediate. Print once.
+      let printed = false;
+      const doPrint = () => {
+        if (printed) return;
+        printed = true;
+        try {
+          printWindow.focus();
+          printWindow.onafterprint = () => { printWindow.close(); };
+          printWindow.print();
+        } catch { /* ignore */ }
       };
+      printWindow.onload = doPrint;
+      setTimeout(doPrint, 600);   // fallback if onload already fired
+    }
+
+    /** Replace each <img> src with an inline data URL (fetched once, from the
+     *  resized ?w=600 endpoint + browser cache). The print tab then needs no
+     *  network at all, so the preview renders immediately. QR images are
+     *  already data URLs and are skipped. */
+    private async inlinePrintImages(root: HTMLElement): Promise<void> {
+      const imgs = Array.from(root.querySelectorAll('img')) as HTMLImageElement[];
+      await Promise.all(imgs.map(async (img) => {
+        const src = img.getAttribute('src') || '';
+        if (!src || src.startsWith('data:')) return;   // QR / already inline
+        try {
+          const resp = await fetch(src, { cache: 'force-cache' });
+          const blob = await resp.blob();
+          const dataUrl: string = await new Promise((resolve, reject) => {
+            const fr = new FileReader();
+            fr.onload = () => resolve(fr.result as string);
+            fr.onerror = reject;
+            fr.readAsDataURL(blob);
+          });
+          img.setAttribute('src', dataUrl);
+        } catch { /* leave original src — it will just load normally */ }
+      }));
     }
 
     downloadPDF() {
