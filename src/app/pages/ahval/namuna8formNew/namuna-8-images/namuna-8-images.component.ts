@@ -219,9 +219,10 @@ export class Namuna8ImagesComponent {
               .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
+              .n8-photo { height: 450px !important; }
               @page {
                 size: A4 landscape;
-                margin: 12mm 15mm;
+                margin: 24mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -248,10 +249,13 @@ export class Namuna8ImagesComponent {
                 padding: 0 !important;
                 margin: 0 !important;
               }
+              /* Fixed 1450px report scaled to fit A4 landscape — wide columns,
+                 no word-wrap (matches the new project's print). */
               #contentToExport {
-                width: 100% !important;
-                margin: 0 !important;
+                width: 1450px !important;
+                margin: 0 auto !important;
                 padding: 0 !important;
+                zoom: 0.7;
               }
               .page-break {
                 page-break-before: always !important;
@@ -383,17 +387,17 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 3px 3px !important;
+                padding: 5px 2px !important;
                 word-wrap: break-word;
-                font-size: 9px !important;
+                font-size: 11px !important;
                 text-align: center !important;
-                line-height: 1.3 !important;
+                line-height: 1.25 !important;
               }
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 4px 3px !important;
-                font-size: 10px !important;
+                padding: 5px 2px !important;
+                font-size: 11px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
@@ -596,9 +600,10 @@ export class Namuna8ImagesComponent {
               .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
+              .n8-photo { height: 450px !important; }
               @page {
                 size: A4 landscape;
-                margin: 12mm 15mm;
+                margin: 24mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -625,10 +630,13 @@ export class Namuna8ImagesComponent {
                 padding: 0 !important;
                 margin: 0 !important;
               }
+              /* Fixed 1450px report scaled to fit A4 landscape — wide columns,
+                 no word-wrap (matches the new project's print). */
               #contentToExport {
-                width: 100% !important;
-                margin: 0 !important;
+                width: 1450px !important;
+                margin: 0 auto !important;
                 padding: 0 !important;
+                zoom: 0.7;
               }
               .page-break {
                 page-break-before: always !important;
@@ -760,17 +768,17 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 3px 3px !important;
+                padding: 5px 2px !important;
                 word-wrap: break-word;
-                font-size: 9px !important;
+                font-size: 11px !important;
                 text-align: center !important;
-                line-height: 1.3 !important;
+                line-height: 1.25 !important;
               }
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 4px 3px !important;
-                font-size: 10px !important;
+                padding: 5px 2px !important;
+                font-size: 11px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
