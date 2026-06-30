@@ -214,25 +214,30 @@ get_public_namuna_8_1_data(){
               background: white;
             }
 
+            /* Render wide (1260px) at a larger font, then scale to fit A4 landscape.
+               This keeps text readable/bigger and laid out cleanly (no cramped 9px). */
             #contentToExport {
-              width: 100%;
-              padding: 5px !important;
+              width: 1260px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.82;
             }
 
             table {
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 9px !important;
+              font-size: 13px !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
-              font-size: 9px !important;
+              padding: 3px 2px !important;
+              font-size: 13px !important;
               text-align: center !important;
               vertical-align: middle !important;
-              word-wrap: break-word;
+              line-height: 1.2 !important;
+              word-break: keep-all !important;
             }
 
             th {
@@ -242,7 +247,7 @@ get_public_namuna_8_1_data(){
 
             .heading {
               text-align: center !important;
-              font-size: 12px !important;
+              font-size: 18px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               line-height: 1 !important;
@@ -250,13 +255,13 @@ get_public_namuna_8_1_data(){
 
             .san {
               text-align: center !important;
-              font-size: 10px !important;
+              font-size: 13px !important;
               padding: 2px 0 !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
 
             .font15 {
-              font-size: 9px !important;
+              font-size: 12px !important;
               font-weight: bold !important;
             }
 
@@ -412,25 +417,30 @@ get_public_namuna_8_1_data(){
               background: white;
             }
 
+            /* Render wide (1260px) at a larger font, then scale to fit A4 landscape.
+               This keeps text readable/bigger and laid out cleanly (no cramped 9px). */
             #contentToExport {
-              width: 100%;
-              padding: 5px !important;
+              width: 1260px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.82;
             }
 
             table {
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 9px !important;
+              font-size: 13px !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
-              font-size: 9px !important;
+              padding: 3px 2px !important;
+              font-size: 13px !important;
               text-align: center !important;
               vertical-align: middle !important;
-              word-wrap: break-word;
+              line-height: 1.2 !important;
+              word-break: keep-all !important;
             }
 
             th {
@@ -440,7 +450,7 @@ get_public_namuna_8_1_data(){
 
             .heading {
               text-align: center !important;
-              font-size: 12px !important;
+              font-size: 18px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               line-height: 1 !important;
@@ -448,13 +458,13 @@ get_public_namuna_8_1_data(){
 
             .san {
               text-align: center !important;
-              font-size: 10px !important;
+              font-size: 13px !important;
               padding: 2px 0 !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
 
             .font15 {
-              font-size: 9px !important;
+              font-size: 12px !important;
               font-weight: bold !important;
             }
 
