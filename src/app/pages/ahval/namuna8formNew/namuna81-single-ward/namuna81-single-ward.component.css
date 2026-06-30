@@ -212,7 +212,7 @@ table, th, td {
   /* Set page orientation to landscape and remove browser headers/footers */
   @page {
     size: A4 landscape;
-     margin: 30mm 8mm 8mm 8mm !important; /* top 20mm, right 8mm, bottom 8mm, left 8mm */
+     margin: 7mm !important; /* small margins so the whole report fits on ONE page */
   }
 
   /* Remove browser default headers and footers */
@@ -236,101 +236,100 @@ table, th, td {
     padding: 0;
   }
 
+  /* Like namuna-8: render WIDE at a big (15px) font, then scale to fit one A4
+     landscape page. overflow:hidden kills a spurious trailing blank page. */
   #contentToExport {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    width: 1350px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    zoom: 0.70;
+    overflow: hidden !important;
   }
 
-  /* Optimize table for printing */
+  /* Clean single-line grid: border-collapse merges adjacent cell borders into one
+     1px line (no doubling/dark) AND draws every line correctly across rowspan/colspan
+     header cells (single-side borders break at those spans). */
   table {
     width: 100%;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    font-size: 8px !important;
-    page-break-inside: avoid;
+    border-collapse: collapse !important;
     border: 1px solid #000 !important;
-  }
-
-  /* Force table cells to display borders */
-  table tbody, table tr {
-    border: none !important;
+    font-size: 15px !important;
   }
 
   th, td {
     border: 1px solid #000 !important;
     padding: 3px 2px !important;
-    font-size: 8px !important;
+    font-size: 15px !important;
     word-wrap: break-word;
     box-sizing: border-box !important;
   }
 
-  /* Ensure vertical lines are visible in header - remove duplicate borders */
-  tbody tr:first-child td:not(:first-child),
-  tbody tr:first-child th:not(:first-child) {
-    border-left: 1px solid #000 !important;
-  }
+  /* (Removed the separate-model first-row border workarounds — under
+     border-collapse the uniform th,td 1px border draws every line, including
+     the header, as a single clean line.) */
 
-  tbody tr:first-child td,
-  tbody tr:first-child th {
-    border-top: 1px solid #000 !important;
-    border-bottom: 1px solid #000 !important;
-    border-right: 1px solid #000 !important;
-  }
-
-  tbody tr:first-child td:first-child,
-  tbody tr:first-child th:first-child {
-    border-left: 1px solid #000 !important;
-  }
-
-  /* Ensure vertical text displays properly */
+  /* Ensure vertical text displays properly. transform:none is critical — the base
+     .landscape-text has transform:rotate(360deg) which (with the copied global
+     stylesheets in the print window) stops these headers from going vertical, making
+     their columns wide, squeezing the rest, wrapping heavily → tall table → 2 pages. */
   .landscape-text {
     writing-mode: vertical-rl !important;
     text-orientation: mixed !important;
     white-space: nowrap !important;
-    min-width: 25px !important;
-    font-size: 8px !important;
+    min-width: 28px !important;
+    font-size: 15px !important;
+    transform: none !important;
   }
 
-  /* Prevent page breaks inside important elements */
-  .nobreak,
-  .content-center,
-  .header-flex,
+  /* Only keep a single row from splitting across pages. Do NOT mark the whole
+     content / table / summary / footer as "avoid" — that pushes blocks to page 2
+     and leaves page 1 half-empty (the report then needs 2 pages). */
   tr {
     page-break-inside: avoid;
+  }
+  #contentToExport,
+  .nobreak {
+    page-break-inside: auto !important;
   }
 
   /* Optimize header */
   h3 {
-    font-size: 14px !important;
-    margin: 5px 0 !important;
-  }
-
-  h4 {
-    font-size: 10px !important;
+    font-size: 20px !important;
     margin: 3px 0 !important;
   }
 
+  h4 {
+    font-size: 14px !important;
+    margin: 2px 0 !important;
+  }
+
+  .heading {
+    font-size: 20px !important;
+  }
+
   .font15 {
-    font-size: 10px !important;
+    font-size: 14px !important;
   }
 
   /* Summary table */
   .summary-table {
-    margin-top: 10px;
-    page-break-inside: avoid;
+    margin-top: 4px;
   }
 
   .summary-table th,
   .summary-table td {
-    font-size: 10px !important;
-    padding: 4px !important;
+    font-size: 15px !important;
+    padding: 3px 2px !important;
   }
 
   /* Footer notes */
   .footer-notes {
-    margin-top: 10px;
-    page-break-inside: avoid;
+    margin-top: 4px;
+  }
+  .footer-notes h4 {
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+    margin: 1px 0 !important;
   }
 
   /* Ensure no extra margins/padding */

@@ -407,7 +407,7 @@ table.n8img-ekun {
 		border: 1px solid #000 !important;
 		padding: 5px 2px !important;
 		word-wrap: break-word;
-		font-size: 11px !important;
+		font-size: 15px !important;
 		text-align: center !important;
 		line-height: 1.25 !important;
 		vertical-align: middle !important;
@@ -419,7 +419,7 @@ table.n8img-ekun {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
 		padding: 5px 2px !important;
-		font-size: 11px !important;
+		font-size: 15px !important;
 		font-weight: 500;
 		font-family: sans-serif !important;
 	}
@@ -501,7 +501,7 @@ table.n8img-ekun {
 	}
 	/* टीप cell font size in print */
 	td.tip-cell {
-		font-size: 9px !important;
+		font-size: 12px !important;
 	}
 	/* Style for no image placeholder */
 	td[rowspan="8"] img[src*="no_image.jpg"],

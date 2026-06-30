@@ -205,7 +205,7 @@ export class Namuna81SingleWardComponent {
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
-              margin: 8mm;
+              margin: 7mm;
             }
             * {
               margin: 0 !important;
@@ -216,10 +216,17 @@ export class Namuna81SingleWardComponent {
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
             }
+            #contentToExport {
+              width: 1350px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.70;
+              overflow: hidden !important;
+            }
             .heading {
-              font-size: 12px !important;
+              font-size: 20px !important;
               margin-bottom: 2px !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
             .padding20 {
               margin-bottom: 2px !important;
@@ -232,8 +239,8 @@ export class Namuna81SingleWardComponent {
               width: 100% !important;
             }
             .font15 {
-              font-size: 9px !important;
-              line-height: 1 !important;
+              font-size: 14px !important;
+              line-height: 1.1 !important;
             }
             .table-responsive {
               margin-top: 3px !important;
@@ -242,6 +249,7 @@ export class Namuna81SingleWardComponent {
             table {
               width: 100% !important;
               border-collapse: collapse !important;
+              border: 1px solid #000 !important;
               margin-top: 3px !important;
             }
             thead {
@@ -252,9 +260,9 @@ export class Namuna81SingleWardComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
+              padding: 3px 2px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 15px !important;
               text-align: center !important;
             }
             th {
@@ -263,11 +271,18 @@ export class Namuna81SingleWardComponent {
               padding: 3px 2px !important;
             }
             tr {
-              border: 1px solid #000 !important;
               page-break-inside: avoid;
               page-break-after: auto;
             }
-            .page-break {
+            .landscape-text {
+              writing-mode: vertical-rl !important;
+              text-orientation: mixed !important;
+              white-space: nowrap !important;
+              min-width: 28px !important;
+              font-size: 15px !important;
+              transform: none !important;
+            }
+            .page-break:not(:first-child) {
               page-break-before: always;
             }
           </style>
@@ -347,7 +362,7 @@ export class Namuna81SingleWardComponent {
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
-              margin: 8mm;
+              margin: 7mm;
             }
             * {
               margin: 0 !important;
@@ -358,10 +373,17 @@ export class Namuna81SingleWardComponent {
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
             }
+            #contentToExport {
+              width: 1350px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.70;
+              overflow: hidden !important;
+            }
             .heading {
-              font-size: 12px !important;
+              font-size: 20px !important;
               margin-bottom: 2px !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
             .padding20 {
               margin-bottom: 2px !important;
@@ -374,8 +396,8 @@ export class Namuna81SingleWardComponent {
               width: 100% !important;
             }
             .font15 {
-              font-size: 9px !important;
-              line-height: 1 !important;
+              font-size: 14px !important;
+              line-height: 1.1 !important;
             }
             .table-responsive {
               margin-top: 3px !important;
@@ -384,6 +406,7 @@ export class Namuna81SingleWardComponent {
             table {
               width: 100% !important;
               border-collapse: collapse !important;
+              border: 1px solid #000 !important;
               margin-top: 3px !important;
             }
             thead {
@@ -394,9 +417,9 @@ export class Namuna81SingleWardComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
+              padding: 3px 2px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 15px !important;
               text-align: center !important;
             }
             th {
@@ -405,11 +428,18 @@ export class Namuna81SingleWardComponent {
               padding: 3px 2px !important;
             }
             tr {
-              border: 1px solid #000 !important;
               page-break-inside: avoid;
               page-break-after: auto;
             }
-            .page-break {
+            .landscape-text {
+              writing-mode: vertical-rl !important;
+              text-orientation: mixed !important;
+              white-space: nowrap !important;
+              min-width: 28px !important;
+              font-size: 15px !important;
+              transform: none !important;
+            }
+            .page-break:not(:first-child) {
               page-break-before: always;
             }
           </style>

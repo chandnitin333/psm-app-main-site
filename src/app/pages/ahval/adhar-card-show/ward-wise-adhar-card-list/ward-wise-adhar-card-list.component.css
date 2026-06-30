@@ -95,16 +95,16 @@ table, figure {
 
 	/* Reduce heading size for better space utilization */
 	.heading {
-		font-size: 12px !important;
+		font-size: 18px !important;
 		margin-bottom: 2px !important;
-		line-height: 1 !important;
+		line-height: 1.1 !important;
 	}
 
 	/* Reduce spacing for ward number */
 	.padding20 {
 		margin-bottom: 2px !important;
-		font-size: 10px !important;
-		line-height: 1 !important;
+		font-size: 13px !important;
+		line-height: 1.1 !important;
 	}
 
 	/* Minimal spacing between header and table */
@@ -122,8 +122,8 @@ table, figure {
 
 	/* Make header text smaller */
 	.font15 {
-		font-size: 9px !important;
-		line-height: 1 !important;
+		font-size: 13px !important;
+		line-height: 1.1 !important;
 	}
 
 	.col-md-12 {
@@ -185,16 +185,17 @@ table, figure {
 
 	th, td {
 		border: 1px solid #000 !important;
-		padding: 2px !important;
+		padding: 4px 3px !important;
 		word-wrap: break-word;
-		font-size: 9px !important;
+		font-size: 14px !important;
 		text-align: center !important;
 	}
 
 	th {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
-		padding: 3px 2px !important;
+		padding: 4px 3px !important;
+		font-size: 14px !important;
 	}
 
 	tr {

@@ -32,6 +32,17 @@ table, figure {
 	width: 5%;
 }
 
+/* Report QR (screen): keep it pinned to the top-right corner and reserve row
+   height so it never overlaps the heading / ग्रामपंचायत line below it. */
+.qr-anchor-row {
+	min-height: 76px;
+	position: relative;
+}
+.qr-anchor {
+	left: auto !important;
+	right: 0 !important;
+	width: auto !important;
+}
 
 
 /* style sheet for "A4" printing */
@@ -158,6 +169,8 @@ table, th, td {
     position: absolute !important;
     top: 0 !important;
     right: 0 !important;
+    left: auto !important;
+    width: auto !important;
   }
 
   ::ng-deep .report-qr-img {
@@ -190,22 +203,31 @@ table, th, td {
     background: white;
   }
 
+  /* Render wide (1260px) at a larger font, then scale to fit A4 landscape on one page. */
+  #contentToExport {
+    width: 1260px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    zoom: 0.82;
+  }
+
   /* Table optimization for print */
   table {
     width: 100% !important;
     border-collapse: collapse !important;
     page-break-inside: avoid;
-    font-size: 11px !important;
+    font-size: 15px !important;
     margin: 0 !important;
   }
 
   th, td {
     border: 1px solid #000 !important;
-    padding: 4px 5px !important;
-    font-size: 11px !important;
+    padding: 3px 2px !important;
+    font-size: 15px !important;
     text-align: center !important;
     vertical-align: middle !important;
-    line-height: 1.4 !important;
+    line-height: 1.2 !important;
+    word-break: keep-all !important;
   }
 
   th {
@@ -217,25 +239,25 @@ table, th, td {
   /* Headings */
   .heading, .namna {
     text-align: center !important;
-    font-size: 16px !important;
+    font-size: 20px !important;
     font-weight: bold !important;
     padding: 3px 0 !important;
     margin: 0 0 5px 0 !important;
-    line-height: 1.5 !important;
+    line-height: 1.3 !important;
   }
 
   .san {
     text-align: center !important;
-    font-size: 13px !important;
+    font-size: 14px !important;
     padding: 3px 0 !important;
     margin: 0 0 5px 0 !important;
-    line-height: 1.4 !important;
+    line-height: 1.2 !important;
   }
 
   .font15 {
-    font-size: 11px !important;
+    font-size: 13px !important;
     font-weight: bold !important;
-    line-height: 1.4 !important;
+    line-height: 1.3 !important;
   }
 
   /* Prevent page breaks inside table rows */

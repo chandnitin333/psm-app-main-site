@@ -176,7 +176,7 @@ get_public_namuna_8_sarkari_data(){
 
             /* Report QR: reserve room so it never overlaps following rows */
             .qr-anchor-row { min-height: 64px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; left: auto !important; width: auto !important; }
             .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
             .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
@@ -201,28 +201,31 @@ get_public_namuna_8_sarkari_data(){
               background: white;
             }
 
+            /* Render wide (1260px) at a larger font, then scale to fit A4 landscape on
+               a single page — readable/bigger, laid out cleanly. */
             #contentToExport {
-              width: 100%;
-              padding: 4px !important;
-              margin: 0 !important;
+              width: 1260px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.82;
             }
 
             table {
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 11px !important;
+              font-size: 15px !important;
               margin: 0 !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
-              padding: 4px 5px !important;
-              font-size: 11px !important;
+              padding: 3px 2px !important;
+              font-size: 15px !important;
               text-align: center !important;
               vertical-align: middle !important;
-              word-wrap: break-word;
-              line-height: 1.4 !important;
+              line-height: 1.2 !important;
+              word-break: keep-all !important;
             }
 
             th {
@@ -233,25 +236,25 @@ get_public_namuna_8_sarkari_data(){
 
             .heading, .namna {
               text-align: center !important;
-              font-size: 16px !important;
+              font-size: 20px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               margin: 0 0 5px 0 !important;
-              line-height: 1.5 !important;
+              line-height: 1.3 !important;
             }
 
             .san {
               text-align: center !important;
-              font-size: 13px !important;
+              font-size: 14px !important;
               padding: 3px 0 !important;
               margin: 0 0 5px 0 !important;
-              line-height: 1.4 !important;
+              line-height: 1.2 !important;
             }
 
             .font15 {
-              font-size: 11px !important;
+              font-size: 13px !important;
               font-weight: bold !important;
-              line-height: 1.4 !important;
+              line-height: 1.3 !important;
             }
 
             .left {
@@ -400,7 +403,7 @@ get_public_namuna_8_sarkari_data(){
 
             /* Report QR: reserve room so it never overlaps following rows */
             .qr-anchor-row { min-height: 64px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; left: auto !important; width: auto !important; }
             .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
             .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
@@ -425,28 +428,31 @@ get_public_namuna_8_sarkari_data(){
               background: white;
             }
 
+            /* Render wide (1260px) at a larger font, then scale to fit A4 landscape on
+               a single page — readable/bigger, laid out cleanly. */
             #contentToExport {
-              width: 100%;
-              padding: 4px !important;
-              margin: 0 !important;
+              width: 1260px !important;
+              margin: 0 auto !important;
+              padding: 0 !important;
+              zoom: 0.82;
             }
 
             table {
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 11px !important;
+              font-size: 15px !important;
               margin: 0 !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
-              padding: 4px 5px !important;
-              font-size: 11px !important;
+              padding: 3px 2px !important;
+              font-size: 15px !important;
               text-align: center !important;
               vertical-align: middle !important;
-              word-wrap: break-word;
-              line-height: 1.4 !important;
+              line-height: 1.2 !important;
+              word-break: keep-all !important;
             }
 
             th {
@@ -457,25 +463,25 @@ get_public_namuna_8_sarkari_data(){
 
             .heading, .namna {
               text-align: center !important;
-              font-size: 16px !important;
+              font-size: 20px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               margin: 0 0 5px 0 !important;
-              line-height: 1.5 !important;
+              line-height: 1.3 !important;
             }
 
             .san {
               text-align: center !important;
-              font-size: 13px !important;
+              font-size: 14px !important;
               padding: 3px 0 !important;
               margin: 0 0 5px 0 !important;
-              line-height: 1.4 !important;
+              line-height: 1.2 !important;
             }
 
             .font15 {
-              font-size: 11px !important;
+              font-size: 13px !important;
               font-weight: bold !important;
-              line-height: 1.4 !important;
+              line-height: 1.3 !important;
             }
 
             .left {

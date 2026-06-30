@@ -189,7 +189,7 @@ get_public_namuna_8_1_data(){
 
             /* Report QR: reserve room so it never overlaps the जिल्हा row */
             .qr-anchor-row { min-height: 64px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; left: auto !important; width: auto !important; }
             .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
             .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
@@ -392,7 +392,7 @@ get_public_namuna_8_1_data(){
 
             /* Report QR: reserve room so it never overlaps the जिल्हा row */
             .qr-anchor-row { min-height: 64px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
+            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; left: auto !important; width: auto !important; }
             .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
             .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
             .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }

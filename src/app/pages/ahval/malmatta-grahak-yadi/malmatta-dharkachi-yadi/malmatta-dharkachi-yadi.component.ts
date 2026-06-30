@@ -227,7 +227,6 @@ export class MalmattaDharkachiYadiComponent {
           }
           .page-break {
             page-break-before: always !important;
-            page-break-after: always !important;
             page-break-inside: avoid !important;
           }
           .page-break:first-child {
@@ -252,7 +251,7 @@ export class MalmattaDharkachiYadiComponent {
             table-layout: fixed !important;
           }
           .font15 {
-            font-size: 11px !important;
+            font-size: 13px !important;
             line-height: 1.3 !important;
             white-space: nowrap !important;
           }
@@ -356,15 +355,15 @@ export class MalmattaDharkachiYadiComponent {
             border: 1px solid #000 !important;
             padding: 4px 3px !important;
             word-wrap: break-word;
-            font-size: 10px !important;
+            font-size: 12px !important;
             text-align: center !important;
-            line-height: 1.4 !important;
+            line-height: 1.3 !important;
           }
           th {
             font-weight: bold !important;
             background-color: #f0f0f0 !important;
             padding: 5px 4px !important;
-            font-size: 11px !important;
+            font-size: 12px !important;
           }
           tr[style*="font-weight:bold"] td,
           td b,
@@ -594,7 +593,6 @@ downloadPDFMobile() {
           }
           .page-break {
             page-break-before: always !important;
-            page-break-after: always !important;
             page-break-inside: avoid !important;
           }
           .page-break:first-child {
@@ -619,7 +617,7 @@ downloadPDFMobile() {
             table-layout: fixed !important;
           }
           .font15 {
-            font-size: 11px !important;
+            font-size: 13px !important;
             line-height: 1.3 !important;
             white-space: nowrap !important;
           }
@@ -723,15 +721,15 @@ downloadPDFMobile() {
             border: 1px solid #000 !important;
             padding: 4px 3px !important;
             word-wrap: break-word;
-            font-size: 10px !important;
+            font-size: 12px !important;
             text-align: center !important;
-            line-height: 1.4 !important;
+            line-height: 1.3 !important;
           }
           th {
             font-weight: bold !important;
             background-color: #f0f0f0 !important;
             padding: 5px 4px !important;
-            font-size: 11px !important;
+            font-size: 12px !important;
           }
           tr[style*="font-weight:bold"] td,
           td b,

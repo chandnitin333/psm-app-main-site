@@ -191,18 +191,18 @@ get_namuna_10_vasuli_data(){
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 11px !important;
+              font-size: 15px !important;
               margin: 4px 0 !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
               padding: 5px 4px !important;
-              font-size: 11px !important;
+              font-size: 15px !important;
               text-align: center !important;
               vertical-align: middle !important;
-              word-wrap: break-word;
-              line-height: 1.3 !important;
+              line-height: 1.25 !important;
+              word-break: keep-all !important;
             }
 
             th {
@@ -212,7 +212,7 @@ get_namuna_10_vasuli_data(){
 
             .heading {
               text-align: center !important;
-              font-size: 15px !important;
+              font-size: 19px !important;
               font-weight: bold !important;
               padding: 4px 0 !important;
               margin: 4px 0 !important;
@@ -221,14 +221,14 @@ get_namuna_10_vasuli_data(){
 
             .san {
               text-align: center !important;
-              font-size: 12px !important;
+              font-size: 14px !important;
               padding: 3px 0 !important;
               margin: 3px 0 !important;
               line-height: 1.3 !important;
             }
 
             .font15 {
-              font-size: 11px !important;
+              font-size: 13px !important;
               font-weight: bold !important;
               line-height: 1.3 !important;
             }

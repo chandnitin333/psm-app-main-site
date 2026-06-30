@@ -389,7 +389,7 @@ export class Namuna8ImagesComponent {
                 border: 1px solid #000 !important;
                 padding: 5px 2px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 15px !important;
                 text-align: center !important;
                 line-height: 1.25 !important;
               }
@@ -397,7 +397,7 @@ export class Namuna8ImagesComponent {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
                 padding: 5px 2px !important;
-                font-size: 11px !important;
+                font-size: 15px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
@@ -770,7 +770,7 @@ export class Namuna8ImagesComponent {
                 border: 1px solid #000 !important;
                 padding: 5px 2px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 15px !important;
                 text-align: center !important;
                 line-height: 1.25 !important;
               }
@@ -778,7 +778,7 @@ export class Namuna8ImagesComponent {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
                 padding: 5px 2px !important;
-                font-size: 11px !important;
+                font-size: 15px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
