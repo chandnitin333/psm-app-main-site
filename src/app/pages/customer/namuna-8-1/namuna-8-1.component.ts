@@ -227,13 +227,13 @@ get_public_namuna_8_1_data(){
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 13px !important;
+              font-size: 15px !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
               padding: 3px 2px !important;
-              font-size: 13px !important;
+              font-size: 15px !important;
               text-align: center !important;
               vertical-align: middle !important;
               line-height: 1.2 !important;
@@ -247,7 +247,7 @@ get_public_namuna_8_1_data(){
 
             .heading {
               text-align: center !important;
-              font-size: 18px !important;
+              font-size: 20px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               line-height: 1 !important;
@@ -255,13 +255,13 @@ get_public_namuna_8_1_data(){
 
             .san {
               text-align: center !important;
-              font-size: 13px !important;
+              font-size: 14px !important;
               padding: 2px 0 !important;
               line-height: 1.1 !important;
             }
 
             .font15 {
-              font-size: 12px !important;
+              font-size: 13px !important;
               font-weight: bold !important;
             }
 
@@ -430,13 +430,13 @@ get_public_namuna_8_1_data(){
               width: 100% !important;
               border-collapse: collapse !important;
               page-break-inside: avoid;
-              font-size: 13px !important;
+              font-size: 15px !important;
             }
 
             th, td {
               border: 1px solid #000 !important;
               padding: 3px 2px !important;
-              font-size: 13px !important;
+              font-size: 15px !important;
               text-align: center !important;
               vertical-align: middle !important;
               line-height: 1.2 !important;
@@ -450,7 +450,7 @@ get_public_namuna_8_1_data(){
 
             .heading {
               text-align: center !important;
-              font-size: 18px !important;
+              font-size: 20px !important;
               font-weight: bold !important;
               padding: 3px 0 !important;
               line-height: 1 !important;
@@ -458,13 +458,13 @@ get_public_namuna_8_1_data(){
 
             .san {
               text-align: center !important;
-              font-size: 13px !important;
+              font-size: 14px !important;
               padding: 2px 0 !important;
               line-height: 1.1 !important;
             }
 
             .font15 {
-              font-size: 12px !important;
+              font-size: 13px !important;
               font-weight: bold !important;
             }
 
