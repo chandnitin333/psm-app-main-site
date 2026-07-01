@@ -26,7 +26,7 @@
             <div class="page-break">
 
                 <div class="row qr-anchor-row" style="position: relative;">
-                    <div class="qr-anchor" style="position: absolute; top: 0; right: 0;"
+                    <div class="qr-anchor" style="position: absolute; top: 0; left: 0;"
                         *ngIf="!isPublic && perRecordQrUrl[itemRs3?.NEWUSER_ID]">
                         <app-report-qr [directUrl]="perRecordQrUrl[itemRs3?.NEWUSER_ID]"
                             reportKey="namuna-8-images" [enabled]="!isPublic"></app-report-qr>
