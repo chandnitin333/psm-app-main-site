@@ -217,11 +217,10 @@ export class Namuna81SingleWardComponent {
               print-color-adjust: exact;
             }
             #contentToExport {
-              width: 1350px !important;
+              width: 1250px !important;
               margin: 0 auto !important;
               padding: 0 !important;
-              zoom: 0.70;
-              overflow: hidden !important;
+              zoom: 0.78;
             }
             .heading {
               font-size: 20px !important;
@@ -374,11 +373,10 @@ export class Namuna81SingleWardComponent {
               print-color-adjust: exact;
             }
             #contentToExport {
-              width: 1350px !important;
+              width: 1250px !important;
               margin: 0 auto !important;
               padding: 0 !important;
-              zoom: 0.70;
-              overflow: hidden !important;
+              zoom: 0.78;
             }
             .heading {
               font-size: 20px !important;

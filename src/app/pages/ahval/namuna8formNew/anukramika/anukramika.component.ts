@@ -120,14 +120,14 @@ export class AnukramikaComponent {
               print-color-adjust: exact;
             }
             .heading {
-              font-size: 12px !important;
+              font-size: 18px !important;
               margin-bottom: 2px !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
             .padding20 {
               margin-bottom: 2px !important;
-              font-size: 10px !important;
-              line-height: 1 !important;
+              font-size: 13px !important;
+              line-height: 1.1 !important;
             }
             .row {
               margin-bottom: 2px !important;
@@ -135,8 +135,8 @@ export class AnukramikaComponent {
               width: 100% !important;
             }
             .font15 {
-              font-size: 9px !important;
-              line-height: 1 !important;
+              font-size: 13px !important;
+              line-height: 1.1 !important;
             }
             .table-responsive {
               margin-top: 3px !important;
@@ -155,15 +155,16 @@ export class AnukramikaComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
+              padding: 4px 3px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 14px !important;
               text-align: center !important;
             }
             th {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
-              padding: 3px 2px !important;
+              padding: 4px 3px !important;
+              font-size: 14px !important;
             }
             tr {
               border: 1px solid #000 !important;
@@ -329,14 +330,14 @@ export class AnukramikaComponent {
               print-color-adjust: exact;
             }
             .heading {
-              font-size: 12px !important;
+              font-size: 18px !important;
               margin-bottom: 2px !important;
-              line-height: 1 !important;
+              line-height: 1.1 !important;
             }
             .padding20 {
               margin-bottom: 2px !important;
-              font-size: 10px !important;
-              line-height: 1 !important;
+              font-size: 13px !important;
+              line-height: 1.1 !important;
             }
             .row {
               margin-bottom: 2px !important;
@@ -344,8 +345,8 @@ export class AnukramikaComponent {
               width: 100% !important;
             }
             .font15 {
-              font-size: 9px !important;
-              line-height: 1 !important;
+              font-size: 13px !important;
+              line-height: 1.1 !important;
             }
             .table-responsive {
               margin-top: 3px !important;
@@ -364,15 +365,16 @@ export class AnukramikaComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 2px !important;
+              padding: 4px 3px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 14px !important;
               text-align: center !important;
             }
             th {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
-              padding: 3px 2px !important;
+              padding: 4px 3px !important;
+              font-size: 14px !important;
             }
             tr {
               border: 1px solid #000 !important;

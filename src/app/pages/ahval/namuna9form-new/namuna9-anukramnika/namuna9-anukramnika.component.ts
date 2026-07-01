@@ -120,7 +120,7 @@ export class Namuna9AnukramnikaComponent {
               ${styles}
               @page {
                 size: A4 portrait;
-                margin: 15mm 10mm 12mm 15mm;
+                margin: 15mm 12mm 12mm 8mm;
               }
               * {
                 margin: 0 !important;
@@ -131,21 +131,21 @@ export class Namuna9AnukramnikaComponent {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 padding-top: 5mm !important;
-                padding-left: 3mm !important;
+                padding-left: 0 !important;
               }
               .container-fluid {
                 padding-bottom: 8mm !important;
                 padding-top: 3mm !important;
               }
               .heading {
-                font-size: 12px !important;
+                font-size: 18px !important;
                 margin-bottom: 2px !important;
-                line-height: 1 !important;
+                line-height: 1.1 !important;
               }
               .padding20 {
                 margin-bottom: 2px !important;
-                font-size: 10px !important;
-                line-height: 1 !important;
+                font-size: 13px !important;
+                line-height: 1.1 !important;
               }
               .row {
                 margin-bottom: 2px !important;
@@ -153,8 +153,9 @@ export class Namuna9AnukramnikaComponent {
                 width: 100% !important;
               }
               .font15 {
-                font-size: 11px !important;
+                font-size: 13px !important;
                 line-height: 1.2 !important;
+                white-space: nowrap !important;
               }
               .table-responsive {
                 margin-top: 3px !important;
@@ -163,10 +164,12 @@ export class Namuna9AnukramnikaComponent {
                 padding-bottom: 0mm !important;
               }
               table {
-                width: 100% !important;
+                width: 98% !important;
+                table-layout: fixed !important;
                 border-collapse: collapse !important;
                 margin-top: 3px !important;
                 margin-bottom: 0mm !important;
+                page-break-inside: auto !important;
               }
               thead {
                 display: table-header-group !important;
@@ -176,22 +179,31 @@ export class Namuna9AnukramnikaComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 4px !important;
+                padding: 3px 3px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 14px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }
               th {
                 font-weight: bold !important;
                 background-color: #fff !important;
-                padding: 5px 4px !important;
+                padding: 3px 3px !important;
+                font-size: 14px !important;
               }
               tr {
                 border: 1px solid #000 !important;
                 page-break-inside: avoid;
                 page-break-after: auto;
               }
+              th:nth-child(1), td:nth-child(1) { width: 5% !important; }
+              th:nth-child(2), td:nth-child(2) { width: 9% !important; }
+              th:nth-child(3), td:nth-child(3) { width: 6% !important; }
+              th:nth-child(4), td:nth-child(4) { width: 25% !important; }
+              th:nth-child(5), td:nth-child(5) { width: 23% !important; }
+              th:nth-child(6), td:nth-child(6) { width: 14% !important; }
+              th:nth-child(7), td:nth-child(7) { width: 10% !important; }
+              th:nth-child(8), td:nth-child(8) { width: 8% !important; }
               .col-md-4 {
                 display: table-cell !important;
                 width: 33.33% !important;
@@ -326,7 +338,7 @@ downloadPDFMobile() {
               ${styles}
               @page {
                 size: A4 portrait;
-                margin: 15mm 10mm 12mm 15mm;
+                margin: 15mm 12mm 12mm 8mm;
               }
               * {
                 margin: 0 !important;
@@ -337,21 +349,21 @@ downloadPDFMobile() {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 padding-top: 5mm !important;
-                padding-left: 3mm !important;
+                padding-left: 0 !important;
               }
               .container-fluid {
                 padding-bottom: 8mm !important;
                 padding-top: 3mm !important;
               }
               .heading {
-                font-size: 12px !important;
+                font-size: 18px !important;
                 margin-bottom: 2px !important;
-                line-height: 1 !important;
+                line-height: 1.1 !important;
               }
               .padding20 {
                 margin-bottom: 2px !important;
-                font-size: 10px !important;
-                line-height: 1 !important;
+                font-size: 13px !important;
+                line-height: 1.1 !important;
               }
               .row {
                 margin-bottom: 2px !important;
@@ -359,8 +371,9 @@ downloadPDFMobile() {
                 width: 100% !important;
               }
               .font15 {
-                font-size: 11px !important;
+                font-size: 13px !important;
                 line-height: 1.2 !important;
+                white-space: nowrap !important;
               }
               .table-responsive {
                 margin-top: 3px !important;
@@ -369,10 +382,12 @@ downloadPDFMobile() {
                 padding-bottom: 0mm !important;
               }
               table {
-                width: 100% !important;
+                width: 98% !important;
+                table-layout: fixed !important;
                 border-collapse: collapse !important;
                 margin-top: 3px !important;
                 margin-bottom: 0mm !important;
+                page-break-inside: auto !important;
               }
               thead {
                 display: table-header-group !important;
@@ -382,22 +397,31 @@ downloadPDFMobile() {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 4px !important;
+                padding: 3px 3px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 14px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }
               th {
                 font-weight: bold !important;
                 background-color: #fff !important;
-                padding: 5px 4px !important;
+                padding: 3px 3px !important;
+                font-size: 14px !important;
               }
               tr {
                 border: 1px solid #000 !important;
                 page-break-inside: avoid;
                 page-break-after: auto;
               }
+              th:nth-child(1), td:nth-child(1) { width: 5% !important; }
+              th:nth-child(2), td:nth-child(2) { width: 9% !important; }
+              th:nth-child(3), td:nth-child(3) { width: 6% !important; }
+              th:nth-child(4), td:nth-child(4) { width: 25% !important; }
+              th:nth-child(5), td:nth-child(5) { width: 23% !important; }
+              th:nth-child(6), td:nth-child(6) { width: 14% !important; }
+              th:nth-child(7), td:nth-child(7) { width: 10% !important; }
+              th:nth-child(8), td:nth-child(8) { width: 8% !important; }
               .col-md-4 {
                 display: table-cell !important;
                 width: 33.33% !important;

@@ -225,13 +225,13 @@ export class Namuna8wardNewComponent {
               margin: 0 !important;
             }
             #contentToExport {
-              width: 100% !important;
-              margin: 0 !important;
+              width: 1250px !important;
+              margin: 0 auto !important;
               padding: 0 !important;
+              zoom: 0.82;
             }
             .page-break {
               page-break-before: always !important;
-              page-break-after: always !important;
               page-break-inside: avoid !important;
               margin: 0 !important;
               padding: 0 !important;
@@ -361,7 +361,7 @@ export class Namuna8wardNewComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 13px !important;
+              font-size: 15px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -369,7 +369,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 14px !important;
+              font-size: 15px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
@@ -578,13 +578,13 @@ export class Namuna8wardNewComponent {
               margin: 0 !important;
             }
             #contentToExport {
-              width: 100% !important;
-              margin: 0 !important;
+              width: 1250px !important;
+              margin: 0 auto !important;
               padding: 0 !important;
+              zoom: 0.82;
             }
             .page-break {
               page-break-before: always !important;
-              page-break-after: always !important;
               page-break-inside: avoid !important;
               margin: 0 !important;
               padding: 0 !important;
@@ -714,7 +714,7 @@ export class Namuna8wardNewComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 13px !important;
+              font-size: 15px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -722,7 +722,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 14px !important;
+              font-size: 15px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,

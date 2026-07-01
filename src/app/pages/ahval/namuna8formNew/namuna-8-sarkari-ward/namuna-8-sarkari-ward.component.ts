@@ -280,7 +280,7 @@ export class Namuna8SarkariWardComponent {
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               @page {
                 size: A4 landscape;
-                margin: 8mm 10mm 8mm 10mm;
+                margin: 22mm 10mm 8mm 10mm;
               }
               * {
                 margin: 0 !important;
@@ -306,10 +306,11 @@ export class Namuna8SarkariWardComponent {
                 margin-bottom: 2px !important;
               }
               .container-fluid {
-                width: 98% !important;
+                width: 1100px !important;
                 display: block !important;
                 margin: 0 auto !important;
                 padding: 0 !important;
+                zoom: 0.92;
               }
               .row {
                 margin-bottom: 2px !important;
@@ -342,7 +343,7 @@ export class Namuna8SarkariWardComponent {
                 border: 1px solid #000 !important;
                 padding: 3px 2px !important;
                 word-wrap: break-word;
-                font-size: 10px !important;
+                font-size: 15px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }
@@ -453,7 +454,7 @@ export class Namuna8SarkariWardComponent {
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               @page {
                 size: A4 landscape;
-                margin: 8mm 10mm 8mm 10mm;
+                margin: 22mm 10mm 8mm 10mm;
               }
               * {
                 margin: 0 !important;
@@ -479,10 +480,11 @@ export class Namuna8SarkariWardComponent {
                 margin-bottom: 2px !important;
               }
               .container-fluid {
-                width: 98% !important;
+                width: 1100px !important;
                 display: block !important;
                 margin: 0 auto !important;
                 padding: 0 !important;
+                zoom: 0.92;
               }
               .row {
                 margin-bottom: 2px !important;
@@ -515,7 +517,7 @@ export class Namuna8SarkariWardComponent {
                 border: 1px solid #000 !important;
                 padding: 3px 2px !important;
                 word-wrap: break-word;
-                font-size: 10px !important;
+                font-size: 15px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }

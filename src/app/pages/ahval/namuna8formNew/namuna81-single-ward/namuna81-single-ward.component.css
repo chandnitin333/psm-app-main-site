@@ -237,13 +237,22 @@ table, th, td {
   }
 
   /* Like namuna-8: render WIDE at a big (15px) font, then scale to fit one A4
-     landscape page. overflow:hidden kills a spurious trailing blank page. */
+     landscape page PER RECORD. (No overflow:hidden — it disables page breaks in
+     Chrome print, which clipped/merged the records when a ward has many.) */
   #contentToExport {
-    width: 1350px !important;
+    width: 1250px !important;
     margin: 0 auto !important;
     padding: 0 !important;
-    zoom: 0.70;
-    overflow: hidden !important;
+    zoom: 0.78;
+  }
+
+  /* One record per page (before only — page-break-after would add trailing blanks). */
+  .page-break {
+    page-break-before: always !important;
+    page-break-inside: avoid !important;
+  }
+  .page-break:first-child {
+    page-break-before: avoid !important;
   }
 
   /* Clean single-line grid: border-collapse merges adjacent cell borders into one

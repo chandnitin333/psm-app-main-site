@@ -219,7 +219,8 @@ export class Namuna8ImagesComponent {
               .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
-              .n8-photo { height: 450px !important; }
+              .photo-cell { position: relative !important; }
+              .n8-photo { position: absolute !important; top: 1px !important; left: 1px !important; right: 1px !important; bottom: 1px !important; width: auto !important; height: auto !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
                 margin: 24mm 8mm 8mm 12mm;
@@ -268,14 +269,14 @@ export class Namuna8ImagesComponent {
                 page-break-before: avoid !important;
               }
               .heading {
-                font-size: 15px !important;
+                font-size: 23px !important;
                 margin-bottom: 3px !important;
-                line-height: 1.3 !important;
+                line-height: 1.4 !important;
                 padding-top: 0 !important;
                 font-weight: bold !important;
               }
               .san {
-                font-size: 12px !important;
+                font-size: 16px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.3 !important;
               }
@@ -600,7 +601,8 @@ export class Namuna8ImagesComponent {
               .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
-              .n8-photo { height: 450px !important; }
+              .photo-cell { position: relative !important; }
+              .n8-photo { position: absolute !important; top: 1px !important; left: 1px !important; right: 1px !important; bottom: 1px !important; width: auto !important; height: auto !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
                 margin: 24mm 8mm 8mm 12mm;
@@ -649,14 +651,14 @@ export class Namuna8ImagesComponent {
                 page-break-before: avoid !important;
               }
               .heading {
-                font-size: 15px !important;
+                font-size: 23px !important;
                 margin-bottom: 3px !important;
-                line-height: 1.3 !important;
+                line-height: 1.4 !important;
                 padding-top: 0 !important;
                 font-weight: bold !important;
               }
               .san {
-                font-size: 12px !important;
+                font-size: 16px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.3 !important;
               }

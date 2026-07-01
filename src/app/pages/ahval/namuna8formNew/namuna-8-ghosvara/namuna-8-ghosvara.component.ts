@@ -174,9 +174,9 @@ export class Namuna8GhosvaraComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 4px !important;
+                padding: 6px 4px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 16px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }
@@ -191,7 +191,7 @@ export class Namuna8GhosvaraComponent {
                 page-break-after: auto;
               }
               .bottom-info {
-                font-size: 11px !important;
+                font-size: 13px !important;
                 margin-top: 5px !important;
                 padding: 3px !important;
                 line-height: 1.3 !important;
@@ -225,11 +225,11 @@ export class Namuna8GhosvaraComponent {
               }
               /* Add top padding to signature-row-first (सरपंच तथा अध्यक्ष row) */
               .signature-row-first {
-                padding-top: 20px !important;
+                padding-top: 55px !important;
               }
-              /* Add top padding to first signature row after bottom-info (गसरपंच, सचिव) */
-              .bottom-info ~ br + br + .row {
-                padding-top: 20px !important;
+              /* Add top signing space above the first signature group (गसरपंच, सचिव, विस्तार अधिकारी) */
+              .signature-group-first {
+                padding-top: 55px !important;
               }
               .center {
                 text-align: center !important;
@@ -360,9 +360,9 @@ export class Namuna8GhosvaraComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 4px !important;
+                padding: 6px 4px !important;
                 word-wrap: break-word;
-                font-size: 11px !important;
+                font-size: 16px !important;
                 text-align: center !important;
                 line-height: 1.3 !important;
               }
@@ -377,7 +377,7 @@ export class Namuna8GhosvaraComponent {
                 page-break-after: auto;
               }
               .bottom-info {
-                font-size: 11px !important;
+                font-size: 13px !important;
                 margin-top: 5px !important;
                 padding: 3px !important;
                 line-height: 1.3 !important;
@@ -411,11 +411,11 @@ export class Namuna8GhosvaraComponent {
               }
               /* Add top padding to signature-row-first (सरपंच तथा अध्यक्ष row) */
               .signature-row-first {
-                padding-top: 20px !important;
+                padding-top: 55px !important;
               }
-              /* Add top padding to first signature row after bottom-info (गसरपंच, सचिव) */
-              .bottom-info ~ br + br + .row {
-                padding-top: 20px !important;
+              /* Add top signing space above the first signature group (गसरपंच, सचिव, विस्तार अधिकारी) */
+              .signature-group-first {
+                padding-top: 55px !important;
               }
               .center {
                 text-align: center !important;
