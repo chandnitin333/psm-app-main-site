@@ -220,7 +220,7 @@ export class Namuna8ImagesComponent {
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               .photo-cell { position: relative !important; }
-              .n8-photo { position: absolute !important; top: 1px !important; left: 1px !important; right: 1px !important; bottom: 1px !important; width: auto !important; height: auto !important; object-fit: fill !important; display: block !important; }
+              .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
                 margin: 24mm 8mm 8mm 12mm;
@@ -281,7 +281,7 @@ export class Namuna8ImagesComponent {
                 line-height: 1.3 !important;
               }
               .font15 {
-                font-size: 10px !important;
+                font-size: 14px !important;
                 line-height: 1.3 !important;
                 white-space: nowrap !important;
               }
@@ -602,7 +602,7 @@ export class Namuna8ImagesComponent {
               .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               .photo-cell { position: relative !important; }
-              .n8-photo { position: absolute !important; top: 1px !important; left: 1px !important; right: 1px !important; bottom: 1px !important; width: auto !important; height: auto !important; object-fit: fill !important; display: block !important; }
+              .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
                 margin: 24mm 8mm 8mm 12mm;
@@ -663,7 +663,7 @@ export class Namuna8ImagesComponent {
                 line-height: 1.3 !important;
               }
               .font15 {
-                font-size: 10px !important;
+                font-size: 14px !important;
                 line-height: 1.3 !important;
                 white-space: nowrap !important;
               }
