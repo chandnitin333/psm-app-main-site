@@ -57,7 +57,7 @@ td.lbl-mid {
 }
 /* टीप cell font size */
 td.tip-cell {
-  font-size: 10px;
+  font-size: 12px;
 }
 /* EKUN tax sub-header: keep full font; let 2-word labels (वीज कर / आरोग्य कर /
    सफाई कर) wrap CLEANLY to 2 lines, vertically centered & tight so the row
@@ -85,8 +85,14 @@ table.n8img-fixed {
 table.n8img-ekun {
   margin-top: 0 !important;
 }
-/* also drop the EKUN first-row cells' top border so it can't stack with the
-   previous table's last-row cell bottom border either. */
+/* Two-table junction drawn from ONE side only, at 0.5px. A separate table's outer
+   edge at 1px rasterises to ~2px in print (thick/dark); 0.5px rasterises to ~1px —
+   matching the inner collapsed 1px grid lines exactly. EKUN top border removed so
+   the two don't stack. */
+table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
+table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
+  border-bottom: 0.5px solid #000 !important;
+}
 table.n8img-ekun tr:first-child td,
 table.n8img-ekun tr:first-child th {
   border-top: 0 !important;
@@ -194,7 +200,7 @@ table.n8img-ekun tr:first-child th {
 	/* Set page orientation to landscape with balanced margins */
 	@page {
 		size: A4 landscape;
-		margin: 16mm 8mm 8mm 12mm !important; /* top 24, right 8, bottom 8, left 12 — content shifted left, right safe */
+		margin: 18mm 8mm 8mm 12mm !important; /* top 24, right 8, bottom 8, left 12 — content shifted left, right safe */
 	}
 
 	/* Ensure content fits on page */
@@ -419,11 +425,11 @@ table.n8img-ekun tr:first-child th {
 
 	th, td {
 		border: 1px solid #000 !important;
-		padding: 1px 2px !important;
+		padding: 2px 2px !important;
 		word-wrap: break-word;
-		font-size: 19px !important;
+		font-size: 18px !important;
 		text-align: center !important;
-		line-height: 1.05 !important;
+		line-height: 1.2 !important;
 		vertical-align: middle !important;
 		font-weight: 500;
 		font-family: sans-serif !important;
@@ -432,8 +438,8 @@ table.n8img-ekun tr:first-child th {
 	th {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
-		padding: 1px 2px !important;
-		font-size: 19px !important;
+		padding: 2px 2px !important;
+		font-size: 18px !important;
 		font-weight: 500;
 		font-family: sans-serif !important;
 	}
@@ -458,10 +464,9 @@ table.n8img-ekun tr:first-child th {
 		border: 1px solid #000 !important;
 	}
 
-	/* Style for empty cells */
+	/* Empty cells stay blank (no dash placeholder) */
 	td:empty::before {
-		content: "-" !important;
-		color: #999 !important;
+		content: "" !important;
 	}
 
 	/* Fix for rowspan cells - ensure proper height and spacing */
@@ -524,7 +529,7 @@ table.n8img-ekun tr:first-child th {
 	}
 	/* टीप cell font size in print */
 	td.tip-cell {
-		font-size: 12px !important;
+		font-size: 14px !important;
 	}
 	/* Style for no image placeholder */
 	td[rowspan="8"] img[src*="no_image.jpg"],

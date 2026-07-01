@@ -223,7 +223,7 @@ export class Namuna8ImagesComponent {
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
-                margin: 16mm 8mm 8mm 12mm;
+                margin: 18mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -388,11 +388,11 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 1px 2px !important;
+                padding: 2px 2px !important;
                 word-wrap: break-word;
-                font-size: 19px !important;
+                font-size: 18px !important;
                 text-align: center !important;
-                line-height: 1.05 !important;
+                line-height: 1.2 !important;
               }
               /* merge the two tables cleanly: kill the table-ELEMENT border on both
                  n8img tables so EVERY grid line comes only from cell borders. The
@@ -406,6 +406,10 @@ export class Namuna8ImagesComponent {
               table.n8img-ekun {
                 margin-top: 0 !important;
               }
+              table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
+              table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
+                border-bottom: 0.5px solid #000 !important;
+              }
               table.n8img-ekun tr:first-child td,
               table.n8img-ekun tr:first-child th {
                 border-top: 0 !important;
@@ -413,8 +417,8 @@ export class Namuna8ImagesComponent {
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 1px 2px !important;
-                font-size: 19px !important;
+                padding: 2px 2px !important;
+                font-size: 18px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
@@ -649,7 +653,7 @@ export class Namuna8ImagesComponent {
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
-                margin: 16mm 8mm 8mm 12mm;
+                margin: 18mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -814,11 +818,11 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 1px 2px !important;
+                padding: 2px 2px !important;
                 word-wrap: break-word;
-                font-size: 19px !important;
+                font-size: 18px !important;
                 text-align: center !important;
-                line-height: 1.05 !important;
+                line-height: 1.2 !important;
               }
               /* merge the two tables cleanly: kill the table-ELEMENT border on both
                  n8img tables so EVERY grid line comes only from cell borders. The
@@ -832,6 +836,10 @@ export class Namuna8ImagesComponent {
               table.n8img-ekun {
                 margin-top: 0 !important;
               }
+              table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
+              table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
+                border-bottom: 0.5px solid #000 !important;
+              }
               table.n8img-ekun tr:first-child td,
               table.n8img-ekun tr:first-child th {
                 border-top: 0 !important;
@@ -839,8 +847,8 @@ export class Namuna8ImagesComponent {
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 1px 2px !important;
-                font-size: 19px !important;
+                padding: 2px 2px !important;
+                font-size: 18px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,

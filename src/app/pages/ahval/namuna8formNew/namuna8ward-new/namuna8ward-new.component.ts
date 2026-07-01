@@ -60,6 +60,7 @@ export class Namuna8wardNewComponent {
         try {
           if (res?.status === 200 && res?.data) {
             this.reportData = res.data;
+            this.blankDashValues(this.reportData);
             if (this.reportData?.yearRs42 && this.reportData.yearRs42.length > 0) {
               this.year = this.reportData.yearRs42[0].year;
               this.end_year = Number(this.year) + 1;
@@ -100,6 +101,7 @@ export class Namuna8wardNewComponent {
       next: (res: any) => {
         try {
           this.reportData = res.data;
+          this.blankDashValues(this.reportData);
           if (this.reportData?.yearRs42 && this.reportData.yearRs42.length > 0) {
             this.year = this.reportData.yearRs42[0].year;
             this.end_year = Number(this.year) + 1;
@@ -117,6 +119,21 @@ export class Namuna8wardNewComponent {
         this.spinner.hide();
       },
     });
+  }
+
+  /** Backend sends "-" as a placeholder for empty fields; show those blank in the
+   *  report instead of a dash. Recursively replaces any string value that is just
+   *  "-" (optionally surrounded by spaces) with an empty string. */
+  private blankDashValues(obj: any): void {
+    if (!obj || typeof obj !== 'object') return;
+    for (const key of Object.keys(obj)) {
+      const v = obj[key];
+      if (typeof v === 'string') {
+        if (v.trim() === '-') obj[key] = '';
+      } else if (v && typeof v === 'object') {
+        this.blankDashValues(v);
+      }
+    }
   }
 
   /** One bulk call → a per-record public link (single-vard report) for every
