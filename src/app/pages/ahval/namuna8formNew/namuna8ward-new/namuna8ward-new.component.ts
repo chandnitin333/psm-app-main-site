@@ -197,7 +197,7 @@ export class Namuna8wardNewComponent {
             @page {
               size: A4 landscape;
               /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
-              margin: 24mm 15mm 12mm 21mm;
+              margin: 12mm 10mm 10mm 12mm;
             }
             * {
               margin: 0 !important;
@@ -225,10 +225,10 @@ export class Namuna8wardNewComponent {
               margin: 0 !important;
             }
             #contentToExport {
-              width: 1250px !important;
+              width: 1100px !important;
               margin: 0 auto !important;
               padding: 0 !important;
-              zoom: 0.82;
+              zoom: 0.85;
             }
             .page-break {
               page-break-before: always !important;
@@ -240,19 +240,19 @@ export class Namuna8wardNewComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 15px !important;
+              font-size: 24px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 12px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 10px !important;
+              font-size: 16px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -359,17 +359,17 @@ export class Namuna8wardNewComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 3px 3px !important;
+              padding: 2px 3px !important;
               word-wrap: break-word;
-              font-size: 15px !important;
+              font-size: 16px !important;
               text-align: center !important;
-              line-height: 1.3 !important;
+              line-height: 1.15 !important;
             }
             th {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
-              padding: 4px 3px !important;
-              font-size: 15px !important;
+              padding: 2px 3px !important;
+              font-size: 16px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
@@ -550,7 +550,7 @@ export class Namuna8wardNewComponent {
             @page {
               size: A4 landscape;
               /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
-              margin: 24mm 15mm 12mm 21mm;
+              margin: 12mm 10mm 10mm 12mm;
             }
             * {
               margin: 0 !important;
@@ -578,10 +578,10 @@ export class Namuna8wardNewComponent {
               margin: 0 !important;
             }
             #contentToExport {
-              width: 1250px !important;
+              width: 1100px !important;
               margin: 0 auto !important;
               padding: 0 !important;
-              zoom: 0.82;
+              zoom: 0.85;
             }
             .page-break {
               page-break-before: always !important;
@@ -593,19 +593,19 @@ export class Namuna8wardNewComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 15px !important;
+              font-size: 24px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 12px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 10px !important;
+              font-size: 16px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -712,17 +712,17 @@ export class Namuna8wardNewComponent {
             }
             th, td {
               border: 1px solid #000 !important;
-              padding: 3px 3px !important;
+              padding: 2px 3px !important;
               word-wrap: break-word;
-              font-size: 15px !important;
+              font-size: 16px !important;
               text-align: center !important;
-              line-height: 1.3 !important;
+              line-height: 1.15 !important;
             }
             th {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
-              padding: 4px 3px !important;
-              font-size: 15px !important;
+              padding: 2px 3px !important;
+              font-size: 16px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
