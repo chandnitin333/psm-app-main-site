@@ -85,18 +85,15 @@ table.n8img-fixed {
 table.n8img-ekun {
   margin-top: 0 !important;
 }
-/* Two-table junction drawn from ONE side only, at 0.5px. A separate table's outer
-   edge at 1px rasterises to ~2px in print (thick/dark); 0.5px rasterises to ~1px —
-   matching the inner collapsed 1px grid lines exactly. EKUN top border removed so
-   the two don't stack. */
-table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
-table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
-  border-bottom: 0.5px solid #000 !important;
-}
-table.n8img-ekun tr:first-child td,
-table.n8img-ekun tr:first-child th {
-  border-top: 0 !important;
-}
+/* EKUN table is nested inside a full-width cell of the main table. The wrapper
+   cell (part of the main table) provides the outer FRAME; the nested table draws
+   ONLY its internal grid. All four of the nested table's OUTER edges are removed
+   so they don't double with the wrapper cell's borders (which rasterised as an
+   uneven/thick line). Junction is now the main table's internal border — crisp. */
+table.n8img-ekun tr:first-child td { border-top: 0 !important; }
+table.n8img-ekun tr:last-child td { border-bottom: 0 !important; }
+table.n8img-ekun tr td:first-child { border-left: 0 !important; }
+table.n8img-ekun tr td:last-child { border-right: 0 !important; }
 .heading{
     text-align: center;
     /* padding-top: 8px; */

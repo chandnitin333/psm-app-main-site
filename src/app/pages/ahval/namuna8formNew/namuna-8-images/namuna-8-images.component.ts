@@ -406,14 +406,10 @@ export class Namuna8ImagesComponent {
               table.n8img-ekun {
                 margin-top: 0 !important;
               }
-              table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
-              table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
-                border-bottom: 0.5px solid #000 !important;
-              }
-              table.n8img-ekun tr:first-child td,
-              table.n8img-ekun tr:first-child th {
-                border-top: 0 !important;
-              }
+              table.n8img-ekun tr:first-child td { border-top: 0 !important; }
+              table.n8img-ekun tr:last-child td { border-bottom: 0 !important; }
+              table.n8img-ekun tr td:first-child { border-left: 0 !important; }
+              table.n8img-ekun tr td:last-child { border-right: 0 !important; }
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
@@ -836,14 +832,10 @@ export class Namuna8ImagesComponent {
               table.n8img-ekun {
                 margin-top: 0 !important;
               }
-              table.n8img-fixed:not(.n8img-ekun) tr:last-child td,
-              table.n8img-fixed:not(.n8img-ekun) tr:last-child th {
-                border-bottom: 0.5px solid #000 !important;
-              }
-              table.n8img-ekun tr:first-child td,
-              table.n8img-ekun tr:first-child th {
-                border-top: 0 !important;
-              }
+              table.n8img-ekun tr:first-child td { border-top: 0 !important; }
+              table.n8img-ekun tr:last-child td { border-bottom: 0 !important; }
+              table.n8img-ekun tr td:first-child { border-left: 0 !important; }
+              table.n8img-ekun tr td:last-child { border-right: 0 !important; }
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
