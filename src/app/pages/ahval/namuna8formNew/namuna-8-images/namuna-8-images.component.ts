@@ -394,6 +394,22 @@ export class Namuna8ImagesComponent {
                 text-align: center !important;
                 line-height: 1.25 !important;
               }
+              /* merge the two tables cleanly: kill the table-ELEMENT border on both
+                 n8img tables so EVERY grid line comes only from cell borders. The
+                 table's own edge border would otherwise stack with the edge cells'
+                 borders and rasterise the junction as a thick/dark DOUBLE line in
+                 print. (The ekun table carries both classes, so n8img-fixed covers
+                 it too.) Also drop the ekun first-row cell top border. */
+              table.n8img-fixed {
+                border: 0 !important;
+              }
+              table.n8img-ekun {
+                margin-top: 0 !important;
+              }
+              table.n8img-ekun tr:first-child td,
+              table.n8img-ekun tr:first-child th {
+                border-top: 0 !important;
+              }
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
@@ -803,6 +819,22 @@ export class Namuna8ImagesComponent {
                 font-size: 15px !important;
                 text-align: center !important;
                 line-height: 1.25 !important;
+              }
+              /* merge the two tables cleanly: kill the table-ELEMENT border on both
+                 n8img tables so EVERY grid line comes only from cell borders. The
+                 table's own edge border would otherwise stack with the edge cells'
+                 borders and rasterise the junction as a thick/dark DOUBLE line in
+                 print. (The ekun table carries both classes, so n8img-fixed covers
+                 it too.) Also drop the ekun first-row cell top border. */
+              table.n8img-fixed {
+                border: 0 !important;
+              }
+              table.n8img-ekun {
+                margin-top: 0 !important;
+              }
+              table.n8img-ekun tr:first-child td,
+              table.n8img-ekun tr:first-child th {
+                border-top: 0 !important;
               }
               th {
                 font-weight: bold !important;

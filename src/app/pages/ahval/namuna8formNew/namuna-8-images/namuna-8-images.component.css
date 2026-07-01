@@ -73,8 +73,23 @@ tr.ekun-subhdr td {
 /* EKUN is a separate table directly below the taxation table. Keep a small gap so
    the two tables' borders never overlap/merge into a thick dark line — clean
    separation instead. */
+/* Both n8img tables: kill the table-ELEMENT border so EVERY grid line comes only
+   from the cell (th/td) borders. Otherwise the table's own edge border stacks with
+   the edge cells' borders and, at the two-table junction, rasterises as a thick /
+   dark DOUBLE line in print (screen collapses it, the print raster does not). With
+   table borders off, the junction is just the previous table's last-row cell bottom
+   border — a single 1px line identical to every inner grid line. */
+table.n8img-fixed {
+  border: 0 !important;
+}
 table.n8img-ekun {
-  margin-top: 3px !important;
+  margin-top: 0 !important;
+}
+/* also drop the EKUN first-row cells' top border so it can't stack with the
+   previous table's last-row cell bottom border either. */
+table.n8img-ekun tr:first-child td,
+table.n8img-ekun tr:first-child th {
+  border-top: 0 !important;
 }
 .heading{
     text-align: center;

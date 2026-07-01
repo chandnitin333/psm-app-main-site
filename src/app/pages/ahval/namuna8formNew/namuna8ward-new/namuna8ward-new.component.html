@@ -154,13 +154,13 @@
                                 <td>{{itemRs4?.AREAI}}</td>
                                 <td>{{itemRs4?.TOTALAREA}}</td>
                                 <td>{{itemRs4?.TOTALAREA1}}</td>
-                                <td>{{itemRs4?.ANNUALVALUE}}</td>
+                                <td>{{itemRs4?.ANNUALVALUE | number: '1.0-0'}}</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>{{itemRs4?.CAPITAL}}</td>
+                                <td>{{itemRs4?.CAPITAL | number: '1.0-0'}}</td>
                                 <td>{{itemRs4?.LEVYRATE}}</td>
                                 <td>{{itemRs4?.tax1000}}</td>
-                                <td colspan="5">{{itemRs4?.TAXATION}}</td>
+                                <td colspan="5">{{itemRs4?.TAXATION | number: '1.0-0'}}</td>
                             </tr>
                             <tr *ngFor="let itemRs5 of itemRs3?.constructionTaxRS5">
                                 <td colspan="2">{{itemRs5?.MILKAT_VAPAR_NAME}} </td>
@@ -172,13 +172,13 @@
                                 <td>{{itemRs5?.AREAI}}</td>
                                 <td>{{itemRs5?.TOTALAREA}}</td>
                                 <td>{{itemRs5?.TOTALAREA1}}</td>
-                                <td>{{itemRs5?.ANNUALCOST}}</td>
+                                <td>{{itemRs5?.ANNUALCOST | number: '1.0-0'}}</td>
                                 <td>{{itemRs5?.DEPRECIATION}}</td>
                                 <td>{{itemRs5?.WEIGHTTAGE}}</td>
-                                <td>{{itemRs5?.ONE}}</td>
+                                <td>{{itemRs5?.ONE | number: '1.0-0'}}</td>
                                 <td>{{itemRs5?.LEVYRATE}}</td>
                                 <td>{{itemRs5?.cons1000}}</td>
-                                <td colspan="5">{{itemRs5?.TWO}}</td>
+                                <td colspan="5">{{itemRs5?.TWO | number: '1.0-0'}}</td>
                             </tr>
                             <tr *ngFor="let itemRs6 of itemRs3?.taxPayerRS6">
                                 <td colspan="2">{{itemRs6?.DESCRIPTION_NAME}}</td>
@@ -194,42 +194,42 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>{{itemRs6?.CAPITAL}}</td>
+                                <td>{{itemRs6?.CAPITAL | number: '1.0-0'}}</td>
                                 <td>&nbsp;</td>
-                                <td colspan="4">{{itemRs6?.TAXATION}} </td>
+                                <td colspan="4">{{itemRs6?.TAXATION | number: '1.0-0'}} </td>
                             </tr>
                             <tr>
                                 <td colspan="8">कराची रक्क्म</td>
                                 <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
                                 <td colspan="2">गृह व भूमीकर </td>
-                                <td colspan="4">{{itemRs3?.manoraaddition}}</td>
+                                <td colspan="4">{{itemRs3?.manoraaddition | number: '1.0-0'}}</td>
                             </tr>
-                            <tr>
-                                <td colspan="2">वीज </td>
-                                <td>आरोग्य </td>
-                                <td>सफाई </td>
-                                <td>सा. पाणी</td>
-                                <td>वि. पाणी</td>
+                            <tr style="white-space: nowrap;">
+                                <td colspan="2">गृह व भूमीकर </td>
+                                <td>वीज कर</td>
+                                <td>आरोग्य कर</td>
+                                <td>सफाई कर</td>
+                                <td>सा. पाणी कर</td>
+                                <td>वि. पाणी कर</td>
                                 <td>एकूण </td>
-                                <td>गृह व भूमीकर </td>
                                 <td>एकूण कर </td>
                                 <td colspan="1">गृह व भूमीकर </td>
                                 <td>वीज कर </td>
-                                <td>आरोग्य</td>
+                                <td>आरोग्य कर</td>
                                 <td>सफाई कर </td>
-                                <td>सा. पाणी </td>
-                                <td>वि . पाणी </td>
+                                <td style="white-space: nowrap;">सा. पाणी कर</td>
+                                <td style="white-space: nowrap;">वि . पाणी कर</td>
                                 <td>एकूण </td>
                                 <td colspan="4">एकूण कर </td>
                             </tr>
                             <tr>
-                                <td colspan="2">{{itemRs3?.VIZ_DIVVABATTIKAR}}</td>
+                                <td colspan="2">{{itemRs3?.BHUMIKAR | number: '1.0-0'}}</td>
+                                <td>{{itemRs3?.VIZ_DIVVABATTIKAR}}</td>
                                 <td>{{itemRs3?.AAROGYA_RAKSHAN_KAR}}</td>
                                 <td>{{itemRs3?.SAFAI_KAR}}</td>
                                 <td>{{itemRs3?.SAMANYA_PANI_KAR}}</td>
                                 <td>{{itemRs3?.VISHESH_PANI_KAR}}</td>
                                 <td>{{itemRs3?.EKUN}}</td>
-                                <td>{{itemRs3?.bhumikar}}</td>
                                 <td>{{itemRs3?.EEKUN_KAR_BHARNA}}</td>
                                 <td colspan="1">&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -245,7 +245,7 @@
                                 <td colspan="18"> {{itemRs3?.MAJAHUN_GHAT}}</td>
                             </tr>
                             <tr>
-                                <td colspan="15">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार कराची आकारणी करण्यात आली आहे.
+                                <td colspan="15" style="font-size: 11px !important; text-align: left !important; line-height: 1.15 !important;">टीप :- १) मोक्यावर असलेल्या बांधकामनुसार कराची आकारणी करण्यात आली आहे.
                                     २) मालकी हक्का बाबाद कसलाही वाद. असल्यास किंव्हा भविष्यात उदभवल्यास तो न्यायालया
                                     मार्फत सोडवावा. ३)न्यायालयाचा निर्णय अर्जदारास व ग्रामपंचायतीला बंधनकारक राहील. ४)
                                     नामांतरण हे फक्त भोगवटदारावर कर वसुलीच्या द्रूष्टीने मंजूर करण्यात येत आहे. ५)
@@ -255,7 +255,7 @@
                                     फ्लोरिंग,विटाची भिंत ३) अर्ध पक्के बांधकाम:- टीनपत्रे,सिमेंटशीट,विटाची भिंत. ४)
                                     कच्चे बांधकाम:- दगडाच्या मातीच्या भिंती,कौलारू,गवती छाप्पर.
                                 </td>
-                                <td colspan="5"><b>सचिव / सरपंच स्वाक्षरी</b></td>
+                                <td colspan="5" style="vertical-align: bottom !important; padding-bottom: 6px !important;"><b>सचिव / सरपंच स्वाक्षरी</b></td>
                             </tr>
                         </tbody>
                     </table>
