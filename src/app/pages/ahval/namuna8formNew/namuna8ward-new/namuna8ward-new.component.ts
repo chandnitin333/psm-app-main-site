@@ -189,11 +189,11 @@ export class Namuna8wardNewComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
             ${styles}
-            .qr-anchor-row { min-height: 56px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
-            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
-            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
-            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
+            #contentToExport .qr-anchor-row { min-height: 94px !important; position: relative !important; }
+            #contentToExport .qr-anchor { position: absolute !important; top: 0 !important; left: 0 !important; right: auto !important; z-index: 10 !important; }
+            #contentToExport .report-qr-img { width: 90px !important; height: 90px !important; border: 1px solid #000 !important; background: #fff !important; padding: 1px !important; }
+            #contentToExport .report-qr-caption { font-size: 11px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            #contentToExport .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
               /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
@@ -542,11 +542,11 @@ export class Namuna8wardNewComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
             ${styles}
-            .qr-anchor-row { min-height: 56px !important; position: relative !important; }
-            .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
-            .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
-            .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
-            .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
+            #contentToExport .qr-anchor-row { min-height: 94px !important; position: relative !important; }
+            #contentToExport .qr-anchor { position: absolute !important; top: 0 !important; left: 0 !important; right: auto !important; z-index: 10 !important; }
+            #contentToExport .report-qr-img { width: 90px !important; height: 90px !important; border: 1px solid #000 !important; background: #fff !important; padding: 1px !important; }
+            #contentToExport .report-qr-caption { font-size: 11px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+            #contentToExport .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
             @page {
               size: A4 landscape;
               /* top 24mm (extra top space), right 15mm, bottom 12mm, left 21mm (~+10px more) */
