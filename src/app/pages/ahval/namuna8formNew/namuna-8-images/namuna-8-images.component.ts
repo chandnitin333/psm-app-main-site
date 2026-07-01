@@ -469,9 +469,37 @@ export class Namuna8ImagesComponent {
             fr.onerror = reject;
             fr.readAsDataURL(blob);
           });
-          img.setAttribute('src', dataUrl);
-        } catch { /* leave original src — it will just load normally */ }
+          this.applyPrintImage(img, dataUrl);
+        } catch {
+          /* fetch failed (e.g. CORS) — fall back to the original network URL */
+          this.applyPrintImage(img, src);
+        }
       }));
+    }
+
+    /* Property photo must FILL its cell in print. object-fit/absolute on an <img>
+       is unreliable in real-Chrome print (td isn't a reliable containing block and
+       zoom breaks height:100%). Painting the image as the cell's background with
+       background-size:100% 100% fills the box in every environment. */
+    private applyPrintImage(img: HTMLImageElement, url: string): void {
+      if (img.classList.contains('n8-photo')) {
+        const cell = img.closest('td') as HTMLElement | null;
+        if (cell) {
+          cell.style.backgroundImage = `url("${url}")`;
+          cell.style.backgroundSize = '100% 100%';
+          cell.style.backgroundRepeat = 'no-repeat';
+          cell.style.backgroundPosition = 'center';
+          // force the background to actually print (browsers skip background graphics otherwise)
+          cell.style.setProperty('-webkit-print-color-adjust', 'exact', 'important');
+          cell.style.setProperty('print-color-adjust', 'exact', 'important');
+          // remove the <img> entirely — hiding via display:none is overridden by
+          // the `.n8-photo { display: block !important }` print rule, which would
+          // otherwise show the photo twice (background + img).
+          img.remove();
+          return;
+        }
+      }
+      img.setAttribute('src', url);
     }
 
     downloadPDF() {
