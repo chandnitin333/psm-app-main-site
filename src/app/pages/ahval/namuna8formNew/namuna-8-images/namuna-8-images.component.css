@@ -194,7 +194,7 @@ table.n8img-ekun tr:first-child th {
 	/* Set page orientation to landscape with balanced margins */
 	@page {
 		size: A4 landscape;
-		margin: 24mm 8mm 8mm 12mm !important; /* top 24, right 8, bottom 8, left 12 — content shifted left, right safe */
+		margin: 16mm 8mm 8mm 12mm !important; /* top 24, right 8, bottom 8, left 12 — content shifted left, right safe */
 	}
 
 	/* Ensure content fits on page */
@@ -248,7 +248,6 @@ table.n8img-ekun tr:first-child th {
 		padding: 0 !important;
 		display: block !important;
 		height: auto !important;
-		max-height: 100vh !important;
 	}
 
 	/* First page should not have page break before */
@@ -420,11 +419,11 @@ table.n8img-ekun tr:first-child th {
 
 	th, td {
 		border: 1px solid #000 !important;
-		padding: 5px 2px !important;
+		padding: 1px 2px !important;
 		word-wrap: break-word;
-		font-size: 15px !important;
+		font-size: 19px !important;
 		text-align: center !important;
-		line-height: 1.25 !important;
+		line-height: 1.05 !important;
 		vertical-align: middle !important;
 		font-weight: 500;
 		font-family: sans-serif !important;
@@ -433,8 +432,8 @@ table.n8img-ekun tr:first-child th {
 	th {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
-		padding: 5px 2px !important;
-		font-size: 15px !important;
+		padding: 1px 2px !important;
+		font-size: 19px !important;
 		font-weight: 500;
 		font-family: sans-serif !important;
 	}

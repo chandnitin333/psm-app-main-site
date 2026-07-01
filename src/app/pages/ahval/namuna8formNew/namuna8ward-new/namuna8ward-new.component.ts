@@ -247,7 +247,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
             }
             .san {
-              font-size: 19px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
@@ -361,7 +361,7 @@ export class Namuna8wardNewComponent {
               border: 1px solid #000 !important;
               padding: 2px 3px !important;
               word-wrap: break-word;
-              font-size: 13px !important;
+              font-size: 16px !important;
               text-align: center !important;
               line-height: 1.15 !important;
             }
@@ -369,7 +369,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 2px 3px !important;
-              font-size: 13px !important;
+              font-size: 16px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
@@ -600,7 +600,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
             }
             .san {
-              font-size: 19px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
@@ -714,7 +714,7 @@ export class Namuna8wardNewComponent {
               border: 1px solid #000 !important;
               padding: 2px 3px !important;
               word-wrap: break-word;
-              font-size: 13px !important;
+              font-size: 16px !important;
               text-align: center !important;
               line-height: 1.15 !important;
             }
@@ -722,7 +722,7 @@ export class Namuna8wardNewComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 2px 3px !important;
-              font-size: 13px !important;
+              font-size: 16px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,

@@ -223,7 +223,7 @@ export class Namuna8ImagesComponent {
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
-                margin: 24mm 8mm 8mm 12mm;
+                margin: 16mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -388,11 +388,11 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 5px 2px !important;
+                padding: 1px 2px !important;
                 word-wrap: break-word;
-                font-size: 15px !important;
+                font-size: 19px !important;
                 text-align: center !important;
-                line-height: 1.25 !important;
+                line-height: 1.05 !important;
               }
               /* merge the two tables cleanly: kill the table-ELEMENT border on both
                  n8img tables so EVERY grid line comes only from cell borders. The
@@ -413,8 +413,8 @@ export class Namuna8ImagesComponent {
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 5px 2px !important;
-                font-size: 15px !important;
+                padding: 1px 2px !important;
+                font-size: 19px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
@@ -649,7 +649,7 @@ export class Namuna8ImagesComponent {
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
               @page {
                 size: A4 landscape;
-                margin: 24mm 8mm 8mm 12mm;
+                margin: 16mm 8mm 8mm 12mm;
               }
               * {
                 margin: 0 !important;
@@ -814,11 +814,11 @@ export class Namuna8ImagesComponent {
               }
               th, td {
                 border: 1px solid #000 !important;
-                padding: 5px 2px !important;
+                padding: 1px 2px !important;
                 word-wrap: break-word;
-                font-size: 15px !important;
+                font-size: 19px !important;
                 text-align: center !important;
-                line-height: 1.25 !important;
+                line-height: 1.05 !important;
               }
               /* merge the two tables cleanly: kill the table-ELEMENT border on both
                  n8img tables so EVERY grid line comes only from cell borders. The
@@ -839,8 +839,8 @@ export class Namuna8ImagesComponent {
               th {
                 font-weight: bold !important;
                 background-color: #f0f0f0 !important;
-                padding: 5px 2px !important;
-                font-size: 15px !important;
+                padding: 1px 2px !important;
+                font-size: 19px !important;
               }
               tr[style*="font-weight:bold"] td,
               td b,
