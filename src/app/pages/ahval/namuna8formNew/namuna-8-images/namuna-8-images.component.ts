@@ -214,10 +214,10 @@ export class Namuna8ImagesComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
-              .qr-anchor-row { min-height: 56px !important; position: relative !important; }
+              .qr-anchor-row { min-height: 78px !important; position: relative !important; }
               .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
-              .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
-              .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+              .report-qr-img { width: 70px !important; height: 70px !important; border: 1px solid #000 !important; background: #fff !important; }
+              .report-qr-caption { font-size: 9px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               .photo-cell { position: relative !important; }
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
@@ -269,19 +269,19 @@ export class Namuna8ImagesComponent {
                 page-break-before: avoid !important;
               }
               .heading {
-                font-size: 23px !important;
+                font-size: 28px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.4 !important;
                 padding-top: 0 !important;
                 font-weight: bold !important;
               }
               .san {
-                font-size: 16px !important;
+                font-size: 19px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.3 !important;
               }
               .font15 {
-                font-size: 14px !important;
+                font-size: 16px !important;
                 line-height: 1.3 !important;
                 white-space: nowrap !important;
               }
@@ -624,10 +624,10 @@ export class Namuna8ImagesComponent {
             font-family: 'Noto Sans Devanagari', Arial, sans-serif !important;
           }
               ${styles}
-              .qr-anchor-row { min-height: 56px !important; position: relative !important; }
+              .qr-anchor-row { min-height: 78px !important; position: relative !important; }
               .qr-anchor { position: absolute !important; top: 0 !important; right: 0 !important; }
-              .report-qr-img { width: 48px !important; height: 48px !important; border: 1px solid #000 !important; background: #fff !important; }
-              .report-qr-caption { font-size: 7px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
+              .report-qr-img { width: 70px !important; height: 70px !important; border: 1px solid #000 !important; background: #fff !important; }
+              .report-qr-caption { font-size: 9px !important; line-height: 1.1 !important; display: block !important; text-align: center !important; }
               .report-qr-block { display: inline-flex !important; flex-direction: column !important; align-items: center !important; }
               .photo-cell { position: relative !important; }
               .n8-photo { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: fill !important; display: block !important; }
@@ -679,19 +679,19 @@ export class Namuna8ImagesComponent {
                 page-break-before: avoid !important;
               }
               .heading {
-                font-size: 23px !important;
+                font-size: 28px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.4 !important;
                 padding-top: 0 !important;
                 font-weight: bold !important;
               }
               .san {
-                font-size: 16px !important;
+                font-size: 19px !important;
                 margin-bottom: 3px !important;
                 line-height: 1.3 !important;
               }
               .font15 {
-                font-size: 14px !important;
+                font-size: 16px !important;
                 line-height: 1.3 !important;
                 white-space: nowrap !important;
               }
