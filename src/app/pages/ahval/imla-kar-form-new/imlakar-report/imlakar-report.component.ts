@@ -57,6 +57,7 @@ export class ImlakarReportComponent {
         try {
           if (res?.status === 200 && res?.data) {
             this.reportData = res.data;
+            this.roundNumbers(this.reportData);
             this.year = this.reportData?.yearRs42?.[0]?.year;
             this.end_year = Number(this.year) + 1;
           } else {
@@ -72,6 +73,25 @@ export class ImlakarReportComponent {
         this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
       },
     });
+  }
+
+  /** Round every numeric value to a whole number (no decimals, no thousand
+   *  separators) EXCEPT एकूण क्षेत्रफळ (चौ.मीटर) / घसारा / आकारणी दर which keep
+   *  their decimal value as-is. */
+  private roundNumbers(obj: any): void {
+    const skip = new Set(['TOTALAREA1', 'DEPRECIATION', 'levyrate', 'LEVYRATE']);
+    const walk = (o: any) => {
+      if (!o || typeof o !== 'object') return;
+      for (const k of Object.keys(o)) {
+        const v = o[k];
+        if (typeof v === 'number') {
+          if (!skip.has(k)) o[k] = Math.round(v);
+        } else if (v && typeof v === 'object') {
+          walk(v);
+        }
+      }
+    };
+    walk(obj);
   }
 
   /** One bulk call → per-record report-view QR (each opens just that record). */
@@ -118,6 +138,7 @@ export class ImlakarReportComponent {
             this.router.navigate(['/imla-kar-form-new']);
             return;
           }
+          this.roundNumbers(this.reportData);
           this.year = this.reportData.yearRs42[0].year
           this.end_year = Number(this.year) + 1;
           this.buildPerRecordQrLinks(param);
