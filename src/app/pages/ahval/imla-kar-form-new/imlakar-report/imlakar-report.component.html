@@ -24,7 +24,12 @@
         <div class="row" *ngFor="let itemRs3 of reportData?.rs3">
 
             <div class="page-break" style="break-after:page;">
-                <div class="row">
+                <div class="row" style="position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; z-index: 5;"
+                        *ngIf="!isPublic && perRecordQrUrl[itemRs3?.NEWUSER_ID]">
+                        <app-report-qr [directUrl]="perRecordQrUrl[itemRs3?.NEWUSER_ID]" reportKey="imla-kar"
+                            [enabled]="!isPublic"></app-report-qr>
+                    </div>
                     <p class="heading">
                         <b>इमलाकर मोजमाप यादी</b>
                         <!--<button type="submit" class="buttonPdf" value="PDF">PDF </button>-->
@@ -39,11 +44,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><span class="sadarNode">सदर नोंद ग्रामपंचायत नमुना ८ पान क्रमांक
-                            __{{itemRs3?.ANNU_KRAMANK}}__ वरून
-                            घेण्यात आली </span></div>
+                    <div class="col-md-12" style="text-align: right;">
+                        <span class="sadarNode">सदर नोंद ग्रामपंचायत नमुना ८ पान क्रमांक
+                            __{{itemRs3?.ANNU_KRAMANK}}__ वरून घेण्यात आली </span>
+                    </div>
 
 
 

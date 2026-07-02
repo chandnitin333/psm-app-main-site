@@ -66,9 +66,9 @@ table, th, td {
 	float:right !important;
 }
 .sadarNode{
-    float: right !important;
     font-weight: bold;
     font-size: 12px;
+    white-space: nowrap;
 }
 .borderDouble{
     border-bottom: 3px double #000;
@@ -149,7 +149,7 @@ table, th, td {
 	/* Set page orientation to landscape with balanced margins */
 	@page {
 		size: A4 landscape;
-		margin: 12mm 15mm; /* top/bottom 12mm, left/right 15mm - balanced for readability */
+		margin: 20mm 15mm 8mm 15mm; /* top 20mm for binding, bottom 8mm, left/right 15mm */
 	}
 
 	/* Ensure content fits on page */
@@ -208,7 +208,7 @@ table, th, td {
 
 	/* Heading sizes - balanced for readability and fitting on one page */
 	.heading {
-		font-size: 15px !important;
+		font-size: 18px !important;
 		margin-bottom: 3px !important;
 		line-height: 1.3 !important;
 		padding-top: 0 !important;
@@ -216,14 +216,14 @@ table, th, td {
 	}
 
 	.san {
-		font-size: 12px !important;
+		font-size: 15px !important;
 		margin-bottom: 3px !important;
 		line-height: 1.3 !important;
 	}
 
 	/* Header text - district, taluka, grampanchayat */
 	.font15 {
-		font-size: 10px !important;
+		font-size: 12px !important;
 		line-height: 1.3 !important;
 		white-space: nowrap !important;
 	}
@@ -368,7 +368,7 @@ table, th, td {
 		border: 1px solid #000 !important;
 		padding: 3px 3px !important;
 		word-wrap: break-word;
-		font-size: 9px !important;
+		font-size: 11px !important;
 		text-align: center !important;
 		line-height: 1.3 !important;
 	}
@@ -377,7 +377,7 @@ table, th, td {
 		font-weight: bold !important;
 		background-color: #f0f0f0 !important;
 		padding: 4px 3px !important;
-		font-size: 10px !important;
+		font-size: 12px !important;
 	}
 
 	/* Make bold rows more prominent */

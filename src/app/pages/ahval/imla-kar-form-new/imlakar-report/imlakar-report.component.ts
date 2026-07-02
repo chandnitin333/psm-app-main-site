@@ -7,11 +7,13 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../services/loader.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReportQrComponent } from '../../../../components/report-qr/report-qr.component';
+import { ReportLinkService } from '../../../../services/report-link.service';
 
 @Component({
   selector: 'app-imlakar-report',
   standalone: true,
-  imports: [CommonModule,ToastrModule],
+  imports: [CommonModule,ToastrModule,ReportQrComponent],
   templateUrl: './imlakar-report.component.html',
   styleUrl: './imlakar-report.component.css'
 })
@@ -22,9 +24,16 @@ export class ImlakarReportComponent {
   public year: number = 0;
   public end_year: number = 0;
   isMobileDevice: boolean = false;
-  constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService) {
-    const encoded = sessionStorage.getItem('imlakarFormReport');
+  isPublic: boolean = false;
+  publicToken: string = '';
+  reportParams: any = null;
+  perRecordQrUrl: { [id: string]: string } = {};
+  constructor(private router: Router, private apiService: ImlakarService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService, private reportLink: ReportLinkService) {
+    this.publicToken = this.route.snapshot.paramMap.get('token') || '';
+    this.isPublic = !!this.publicToken;
     this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (this.isPublic) return;   // public view rebuilds from the token
+    const encoded = sessionStorage.getItem('imlakarFormReport');
     if (encoded) {
       this.receivedData = JSON.parse(atob(encoded));
     }else{
@@ -34,9 +43,61 @@ export class ImlakarReportComponent {
   }
 
    ngOnInit() {
-      this.getReportDataAPI();
-
+      if (this.isPublic) {
+        this.getPublicReportDataAPI();
+      } else {
+        this.getReportDataAPI();
+      }
   }
+
+  getPublicReportDataAPI(){
+    this.spinner.show();
+    this.reportLink.getPublicReport(this.publicToken).subscribe({
+      next: (res: any) => {
+        try {
+          if (res?.status === 200 && res?.data) {
+            this.reportData = res.data;
+            this.year = this.reportData?.yearRs42?.[0]?.year;
+            this.end_year = Number(this.year) + 1;
+          } else {
+            this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+          }
+        } finally {
+          this.spinner.hide();
+        }
+      },
+      error: (err: any) => {
+        console.error('Error getting public report:', err);
+        this.spinner.hide();
+        this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
+      },
+    });
+  }
+
+  /** One bulk call → per-record report-view QR (each opens just that record). */
+  private buildPerRecordQrLinks(param: any): void {
+    if (this.isPublic) return;
+    const rows: any[] = this.reportData?.rs3 || [];
+    const ids = rows.map(r => r?.NEWUSER_ID).filter(id => id !== null && id !== undefined);
+    if (ids.length === 0) return;
+    this.reportLink.generateLinksBulk({
+      report_key: 'imla-kar',
+      report_params: param,
+      new_user_ids: ids,
+    }).subscribe({
+      next: (res: any) => {
+        const tokens = res?.tokens || {};
+        const origin = window.location.origin;
+        const map: { [id: string]: string } = {};
+        for (const id of Object.keys(tokens)) {
+          map[id] = `${origin}/public-report/imla-kar/${tokens[id]}`;
+        }
+        this.perRecordQrUrl = map;
+      },
+      error: (err: any) => console.error('bulk QR link error:', err),
+    });
+  }
+
   getReportDataAPI(){
     this.spinner.show();
     const param = {
@@ -47,6 +108,7 @@ export class ImlakarReportComponent {
                 "from_year": this.receivedData.from_year,
                 "to_year": this.receivedData.to_year
             };
+    this.reportParams = param;
     this.apiService.getImlakarData(param).subscribe({
       next: (res: any) => {
         try {
@@ -58,6 +120,7 @@ export class ImlakarReportComponent {
           }
           this.year = this.reportData.yearRs42[0].year
           this.end_year = Number(this.year) + 1;
+          this.buildPerRecordQrLinks(param);
         } catch (error) {
           console.error('Error processing data:', error);
         } finally {
@@ -293,7 +356,7 @@ export class ImlakarReportComponent {
             ${styles}
             @page {
               size: A4 landscape;
-              margin: 12mm 15mm;
+              margin: 20mm 15mm 8mm 15mm;
             }
             * {
               margin: 0 !important;
@@ -336,19 +399,19 @@ export class ImlakarReportComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 15px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 12px !important;
+              font-size: 15px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 10px !important;
+              font-size: 12px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -457,7 +520,7 @@ export class ImlakarReportComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 11px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -465,7 +528,7 @@ export class ImlakarReportComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 10px !important;
+              font-size: 12px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
@@ -565,7 +628,7 @@ export class ImlakarReportComponent {
             ${styles}
             @page {
               size: A4 landscape;
-              margin: 12mm 15mm;
+              margin: 20mm 15mm 8mm 15mm;
             }
             * {
               margin: 0 !important;
@@ -608,19 +671,19 @@ export class ImlakarReportComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 15px !important;
+              font-size: 18px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 12px !important;
+              font-size: 15px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 10px !important;
+              font-size: 12px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -729,7 +792,7 @@ export class ImlakarReportComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 9px !important;
+              font-size: 11px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -737,7 +800,7 @@ export class ImlakarReportComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 10px !important;
+              font-size: 12px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
