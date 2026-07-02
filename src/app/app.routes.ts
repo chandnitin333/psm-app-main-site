@@ -86,6 +86,8 @@ export const routes: Routes = [
     {path: 'public-report/malmatta-khula-bhukhand/:token', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-khula-bhukhand/malmatta-grahak-yadi-khula-bhukhand.component').then(m => m.MalmattaGrahakYadiKhulaBhukhandComponent) },
     {path: 'public-report/malmatta-ghar-kar/:token', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-ghar-kar/malmatta-grahak-yadi-ghar-kar.component').then(m => m.MalmattaGrahakYadiGharKarComponent) },
     {path: 'public-report/namuna-9-vard-new/:token', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9/namuna9.component').then(m => m.Namuna9Component) },
+    {path: 'public-report/magniche-bill-ward-report-129-1/:token', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-1/report-129-1.component').then(m => m.Report1291Component) },
+    {path: 'public-report/magniche-bill-ward-report-129-2/:token', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
     {path: 'magniche-bill-ward-report-129-2', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
 
     {path: 'namuna-9-anukramika-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-anukramnika/namuna9-anukramnika.component').then(m => m.Namuna9AnukramnikaComponent) },

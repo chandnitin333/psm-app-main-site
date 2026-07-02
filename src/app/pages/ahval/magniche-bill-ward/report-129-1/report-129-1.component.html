@@ -49,7 +49,12 @@
             </div>
             <div class="col-md-6 dotted-border-right">
                 <div class="col-md-12">
-                    <div class="row">
+                    <div class="row" style="position: relative;">
+                        <div style="position: absolute; top: 0; left: 0; z-index: 5;"
+                            *ngIf="!isPublic && perRecordQrUrl[itemRs3?.NEWUSER_ID]">
+                            <app-report-qr [directUrl]="perRecordQrUrl[itemRs3?.NEWUSER_ID]" reportKey="129-1"
+                                [enabled]="!isPublic"></app-report-qr>
+                        </div>
                         <p class="namna">
                             <b class="heading">कराची मागणी पावती</b><br>
                             <b class="san headingM">सन. 2025 - 2026 </b>
@@ -216,12 +221,7 @@
                             <td colspan="3" style="border-right: 1px solid #fff !important;">&nbsp;</td>
                         </tr>
                         <tr style="margin-top:25px !important ;">
-                            <td colspan="12">
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br><br><br>
+                            <td colspan="12" style="height: 185px; vertical-align: bottom;">
                                 <p class="sign"><b>खातेधारकांची सही </b></p>
                             </td>
                         </tr>
@@ -232,7 +232,12 @@
 
             <div class="col-md-6">
                 <div class="col-md-12">
-                    <div class="row">
+                    <div class="row" style="position: relative;">
+                        <div style="position: absolute; top: 0; right: 0; z-index: 5;"
+                            *ngIf="!isPublic && perRecordQrUrl[itemRs3?.NEWUSER_ID]">
+                            <app-report-qr [directUrl]="perRecordQrUrl[itemRs3?.NEWUSER_ID]" reportKey="129-1"
+                                [enabled]="!isPublic"></app-report-qr>
+                        </div>
                         <p class="namna">
                             <b class="heading">कराची मागणी पावती </b>
                             <br>
@@ -400,7 +405,7 @@
                             <td colspan="3" style="border-right: 1px solid #fff !important;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td colspan="12">
+                            <td colspan="12" style="height: 185px; vertical-align: bottom;">
                                 <p>
                                     हे बिल आपणास प्राप्त झाल्यापासून देय रकमांचा भरणा {{ receivedData?.bharna}}
                                     दिवसांच्या आत करावा अन्यथा
@@ -419,8 +424,6 @@
                                     वर्षाच्या गृहकरावर कोणत्याही प्रकारची सूट
                                     मिळणार नाही.
                                 </p>
-                                <app-bill-qr [item]="itemRs3" [wardNo]="receivedData?.ward_no"
-                                    [yearId]="receivedData?.year" reportType="129-1"></app-bill-qr>
                                 <br />
                                 <p class="sign">
                                     <b>सरपंच / सचिव सही</b>

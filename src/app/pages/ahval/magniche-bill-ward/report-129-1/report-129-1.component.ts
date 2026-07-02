@@ -9,11 +9,13 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { BillPaymentService } from '../../../../services/bill-payment.service';
 import { BillQrComponent } from '../../../../components/bill-qr/bill-qr.component';
+import { ReportQrComponent } from '../../../../components/report-qr/report-qr.component';
+import { ReportLinkService } from '../../../../services/report-link.service';
 
 @Component({
   selector: 'app-report-129-1',
   standalone: true,
-  imports: [CommonModule,ToastrModule,BillQrComponent],
+  imports: [CommonModule,ToastrModule,BillQrComponent,ReportQrComponent],
   templateUrl: './report-129-1.component.html',
   styleUrl: './report-129-1.component.css'
 })
@@ -26,9 +28,16 @@ export class Report1291Component {
      isMobileDevice: boolean = false;
     generatedLinks: { [newuserId: number]: string } = {};
     karStatusMap: { [newuserId: number]: { gruhkar: string, panikar: string } } = {};
-    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService, private billPayment: BillPaymentService) {
-      const encoded = sessionStorage.getItem('magnicheBillWardReport');
+    isPublic: boolean = false;              // opened via report-view QR — no login
+    publicToken: string = '';
+    reportParams: any = null;               // params snapshot for QR link generation
+    perRecordQrUrl: { [id: string]: string } = {};   // one report-view scanner per record
+    constructor(private router: Router, private apiService: MagnicheBillService, private route: ActivatedRoute, private toastr: ToastrService, private spinner: LoaderService, private billPayment: BillPaymentService, private reportLink: ReportLinkService) {
+      this.publicToken = this.route.snapshot.paramMap.get('token') || '';
+      this.isPublic = !!this.publicToken;
       this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (this.isPublic) { this.receivedData = {}; return; }   // public view rebuilds from the token, no sessionStorage
+      const encoded = sessionStorage.getItem('magnicheBillWardReport');
       if (encoded) {
         this.receivedData = JSON.parse(atob(encoded));
         console.log('Encoded Data from sessionStorage:', this.receivedData);
@@ -43,9 +52,77 @@ export class Report1291Component {
     }
 
     ngOnInit() {
-        this.getReportDataAPI();
-
+        if (this.isPublic) {
+          this.getPublicReportDataAPI();
+        } else {
+          this.getReportDataAPI();
+        }
     }
+
+    getPublicReportDataAPI(){
+      this.spinner.show();
+      this.reportLink.getPublicReport(this.publicToken).subscribe({
+        next: (res: any) => {
+          try {
+            if (res?.status === 200 && res?.data) {
+              this.reportData = res.data;
+              this.roundNumbers(this.reportData);
+              this.year = this.reportData?.yearRs42?.YEAR_ID;
+              this.end_year = Number(this.year) + 1;
+            } else {
+              this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
+            }
+          } finally {
+            this.spinner.hide();
+          }
+        },
+        error: (err: any) => {
+          console.error('Error getting public report:', err);
+          this.spinner.hide();
+          this.toastr.error('रिपोर्ट लोड होऊ शकला नाही.', 'Error');
+        },
+      });
+    }
+
+    /** Round every numeric value in the report data so the bill shows whole
+     *  numbers (no decimals) everywhere — individual line items AND totals.
+     *  Rounding the components keeps the printed total = sum of the shown lines. */
+    private roundNumbers(obj: any): void {
+      if (!obj || typeof obj !== 'object') return;
+      for (const k of Object.keys(obj)) {
+        const v = obj[k];
+        if (typeof v === 'number') {
+          obj[k] = Math.round(v);
+        } else if (v && typeof v === 'object') {
+          this.roundNumbers(v);
+        }
+      }
+    }
+
+    /** One bulk call → per-record report-view QR (each opens just that record). */
+    private buildPerRecordQrLinks(param: any): void {
+      if (this.isPublic) return;
+      const rows: any[] = this.reportData?.rs3 || [];
+      const ids = rows.map(r => r?.NEWUSER_ID).filter(id => id !== null && id !== undefined);
+      if (ids.length === 0) return;
+      this.reportLink.generateLinksBulk({
+        report_key: '129-1',
+        report_params: param,
+        new_user_ids: ids,
+      }).subscribe({
+        next: (res: any) => {
+          const tokens = res?.tokens || {};
+          const origin = window.location.origin;
+          const map: { [id: string]: string } = {};
+          for (const id of Object.keys(tokens)) {
+            map[id] = `${origin}/public-report/magniche-bill-ward-report-129-1/${tokens[id]}`;
+          }
+          this.perRecordQrUrl = map;
+        },
+        error: (err: any) => console.error('bulk QR link error:', err),
+      });
+    }
+
     getReportDataAPI(){
       const param = {
                   "ward_no": this.receivedData.ward_no || null,
@@ -56,6 +133,7 @@ export class Report1291Component {
                   "to_year": this.receivedData.to_year || null,
                   "new_user_id": this.receivedData.new_user_id || null,
               };
+      this.reportParams = param;   // QR link uses the exact same params
       this.spinner.show();
       this.apiService.getMagnicheBillReport129_1(param).subscribe({
         next: (res: any) => {
@@ -66,9 +144,11 @@ export class Report1291Component {
               this.router.navigate(['/magniche-bill']);
               return;
             }
+            this.roundNumbers(this.reportData);
             this.year = this.reportData?.yearRs42?.YEAR_ID
             this.end_year = Number(this.year) + 1;
             this.loadKarStatuses();
+            this.buildPerRecordQrLinks(param);
           } catch (error) {
             console.error('Error processing data:', error);
           } finally {
