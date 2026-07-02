@@ -493,6 +493,24 @@ export class Namuna8ImagesComponent {
       }));
     }
 
+    /** Plain number — strips thousand separators (12,000 → 12000) but KEEPS the
+     *  decimal value as-is (floats like 1.5 / 76.55 stay). Blank for empty/non-numeric. */
+    plainNum(v: any): string {
+      if (v === null || v === undefined || v === '') return '';
+      const n = Number(v);
+      if (isNaN(n)) return String(v);
+      return String(n);
+    }
+
+    /** Plain ROUNDED integer — no separators and no decimals (float → rounded).
+     *  Use for money amounts. Blank for empty/non-numeric. */
+    plainRound(v: any): string {
+      if (v === null || v === undefined || v === '') return '';
+      const n = Number(v);
+      if (isNaN(n)) return String(v);
+      return String(Math.round(n));
+    }
+
     /* Property photo must FILL its cell in print. object-fit/absolute on an <img>
        is unreliable in real-Chrome print (td isn't a reliable containing block and
        zoom breaks height:100%). Painting the image as the cell's background with

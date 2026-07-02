@@ -173,17 +173,17 @@
                                 <td rowspan="1" colspan="2">एकूण जागा </td>
                                 <td colspan="2">&nbsp; </td>
                                 <td>&nbsp;</td>
-                                <td colspan="2">{{ itemRs4?.AREAP}}</td>
-                                <td colspan="2">{{ itemRs4?.AREAI}}</td>
-                                <td colspan="2">{{ itemRs4?.TOTALAREA}}</td>
-                                <td colspan="2">{{ itemRs4?.TOTALAREA1}}</td>
-                                <td colspan="2">{{ itemRs4?.ANNUALVALUE | number: '1.0-0' }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.AREAP) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.AREAI) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.TOTALAREA) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.TOTALAREA1) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs4?.ANNUALVALUE) }}</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td colspan="2">{{ itemRs4?.CAPITAL | number: '1.0-0' }}</td>
-                                <td colspan="2">{{ itemRs4?.LEVYRATE}}</td>
-                                <td colspan="2">{{ itemRs4?.tax1000}}</td>
-                                <td colspan="2">{{ itemRs4?.TAXATION | number: '1.0-0'}}</td>
+                                <td colspan="2">{{ plainRound(itemRs4?.CAPITAL) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.LEVYRATE) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs4?.tax1000) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs4?.TAXATION) }}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs5 of itemRs3?.constructionTaxRS5">
@@ -192,17 +192,17 @@
                                 <td colspan="2">{{ itemRs5?.VAPARACHE_PRAKAR}} </td>
                                 <td colspan="2">{{ itemRs5?.FLOOR_NAME}}</td>
                                 <td>{{ itemRs5?.LIFESPAN}}</td>
-                                <td colspan="2">{{ itemRs5?.AREAP}}</td>
-                                <td colspan="2">{{ itemRs5?.AREAI}}</td>
-                                <td colspan="2">{{ itemRs5?.TOTALAREA}}</td>
-                                <td colspan="2">{{ itemRs5?.TOTALAREA1}}</td>
-                                <td colspan="2">{{ itemRs5?.ANNUALCOST | number: '1.0-0' }}</td>
-                                <td>{{ itemRs5?.DEPRECIATION}}</td>
-                                <td>{{ itemRs5?.WEIGHTTAGE}}</td>
-                                <td colspan="2">{{ itemRs5?.ONE | number: '1.0-0' }}</td>
-                                <td colspan="2">{{ itemRs5?.LEVYRATE}}</td>
-                                <td colspan="2">{{ itemRs5?.cons1000}}</td>
-                                <td colspan="2">{{ itemRs5?.TWO | number: '1.0-0' }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.AREAP) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.AREAI) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.TOTALAREA) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.TOTALAREA1) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs5?.ANNUALCOST) }}</td>
+                                <td>{{ plainNum(itemRs5?.DEPRECIATION) }}</td>
+                                <td>{{ plainNum(itemRs5?.WEIGHTTAGE) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs5?.ONE) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.LEVYRATE) }}</td>
+                                <td colspan="2">{{ plainNum(itemRs5?.cons1000) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs5?.TWO) }}</td>
                             </tr>
 
                             <tr *ngFor="let itemRs6 of itemRs3?.taxPayerRS6">
@@ -211,17 +211,17 @@
                                 <td colspan="2"> {{ itemRs6?.VAPARACHE_PRAKAR}} </td>
                                 <td colspan="2">{{ itemRs6?.MANORAMASTER_NAME}} </td>
                                 <td>&nbsp;</td>
-                                <td colspan="2"> {{ itemRs6?.AREAP}} </td>
-                                <td colspan="2">{{ itemRs6?.AREAI}}</td>
-                                <td colspan="2"> {{ itemRs6?.TOTALAREA}} </td>
-                                <td colspan="2"> {{ itemRs6?.TOTALAREA1}} </td>
+                                <td colspan="2"> {{ plainNum(itemRs6?.AREAP) }} </td>
+                                <td colspan="2">{{ plainNum(itemRs6?.AREAI) }}</td>
+                                <td colspan="2"> {{ plainNum(itemRs6?.TOTALAREA) }} </td>
+                                <td colspan="2"> {{ plainNum(itemRs6?.TOTALAREA1) }} </td>
                                 <td colspan="2">&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td colspan="2">&nbsp;</td>
-                                <td colspan="2">{{ itemRs6?.CAPITAL | number: '1.0-0' }}</td>
+                                <td colspan="2">{{ plainRound(itemRs6?.CAPITAL) }}</td>
                                 <td colspan="2">&nbsp;</td>
-                                <td colspan="2"> {{ itemRs6?.TAXATION | number: '1.0-0' }}</td>
+                                <td colspan="2"> {{ plainRound(itemRs6?.TAXATION) }}</td>
                             </tr>
 
 
@@ -232,7 +232,7 @@
                                 <td colspan="16">कराची रक्क्म</td>
                                 <td colspan="9">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
                                 <td colspan="2">गृह व भूमीकर </td>
-                                <td colspan="2">{{ itemRs3?.manoraaddition | number: '1.0-0'}}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.manoraaddition) }}</td>
                             </tr>
                             <tr class="ekun-subhdr" style="white-space: nowrap;">
                                 <td colspan="2">गृह व भूमीकर</td>
@@ -253,14 +253,14 @@
                                 <td colspan="1">एकूण कर</td>
                             </tr>
                             <tr>
-                                <td colspan="2">{{ itemRs3?.BHUMIKAR | number: '1.0-0'}}</td>
-                                <td colspan="2">{{ itemRs3?.VIZ_DIVVABATTIKAR}}</td>
-                                <td colspan="2">{{ itemRs3?.AAROGYA_RAKSHAN_KAR}}</td>
-                                <td colspan="2">{{ itemRs3?.SAFAI_KAR}}</td>
-                                <td colspan="2">{{ itemRs3?.SAMANYA_PANI_KAR}}</td>
-                                <td colspan="2">{{ itemRs3?.VISHESH_PANI_KAR}}</td>
-                                <td colspan="2">{{ itemRs3?.EKUN}}</td>
-                                <td colspan="2">{{ itemRs3?.EEKUN_KAR_BHARNA | number: '1.0-0'}}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.BHUMIKAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.VIZ_DIVVABATTIKAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.AAROGYA_RAKSHAN_KAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.SAFAI_KAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.SAMANYA_PANI_KAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.VISHESH_PANI_KAR) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.EKUN) }}</td>
+                                <td colspan="2">{{ plainRound(itemRs3?.EEKUN_KAR_BHARNA) }}</td>
                                 <td colspan="2">&nbsp;</td>
                                 <td colspan="2">&nbsp;</td>
                                 <td colspan="2">&nbsp;</td>

@@ -121,6 +121,24 @@ export class Namuna8wardNewComponent {
     });
   }
 
+  /** Plain number — strips thousand separators (12,000 → 12000) but KEEPS the
+   *  decimal value as-is (floats like 1.5 / 76.55 stay). Blank for empty/non-numeric. */
+  plainNum(v: any): string {
+    if (v === null || v === undefined || v === '') return '';
+    const n = Number(v);
+    if (isNaN(n)) return String(v);
+    return String(n);
+  }
+
+  /** Plain ROUNDED integer — no separators and no decimals (float → rounded).
+   *  Use for money amounts. Blank for empty/non-numeric. */
+  plainRound(v: any): string {
+    if (v === null || v === undefined || v === '') return '';
+    const n = Number(v);
+    if (isNaN(n)) return String(v);
+    return String(Math.round(n));
+  }
+
   /** Backend sends "-" as a placeholder for empty fields; show those blank in the
    *  report instead of a dash. Recursively replaces any string value that is just
    *  "-" (optionally surrounded by spaces) with an empty string. */
