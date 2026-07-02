@@ -356,7 +356,7 @@ export class ImlakarReportComponent {
             ${styles}
             @page {
               size: A4 landscape;
-              margin: 20mm 15mm 8mm 15mm;
+              margin: 25mm 15mm 8mm 15mm;
             }
             * {
               margin: 0 !important;
@@ -628,7 +628,7 @@ export class ImlakarReportComponent {
             ${styles}
             @page {
               size: A4 landscape;
-              margin: 20mm 15mm 8mm 15mm;
+              margin: 25mm 15mm 8mm 15mm;
             }
             * {
               margin: 0 !important;
