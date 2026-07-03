@@ -420,19 +420,19 @@ export class ImlakarReportComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 18px !important;
+              font-size: 20px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 15px !important;
+              font-size: 17px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 12px !important;
+              font-size: 14px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -541,7 +541,7 @@ export class ImlakarReportComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 11px !important;
+              font-size: 13px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -549,7 +549,7 @@ export class ImlakarReportComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 12px !important;
+              font-size: 14px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
@@ -692,19 +692,19 @@ export class ImlakarReportComponent {
               page-break-before: avoid !important;
             }
             .heading {
-              font-size: 18px !important;
+              font-size: 20px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
               padding-top: 0 !important;
               font-weight: bold !important;
             }
             .san {
-              font-size: 15px !important;
+              font-size: 17px !important;
               margin-bottom: 3px !important;
               line-height: 1.3 !important;
             }
             .font15 {
-              font-size: 12px !important;
+              font-size: 14px !important;
               line-height: 1.3 !important;
               white-space: nowrap !important;
             }
@@ -813,7 +813,7 @@ export class ImlakarReportComponent {
               border: 1px solid #000 !important;
               padding: 3px 3px !important;
               word-wrap: break-word;
-              font-size: 11px !important;
+              font-size: 13px !important;
               text-align: center !important;
               line-height: 1.3 !important;
             }
@@ -821,7 +821,7 @@ export class ImlakarReportComponent {
               font-weight: bold !important;
               background-color: #f0f0f0 !important;
               padding: 4px 3px !important;
-              font-size: 12px !important;
+              font-size: 14px !important;
             }
             tr[style*="font-weight:bold"] td,
             td b,
