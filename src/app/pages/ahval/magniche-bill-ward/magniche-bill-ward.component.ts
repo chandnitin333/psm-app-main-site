@@ -28,10 +28,10 @@ export class MagnicheBillWardComponent {
       to1: new FormControl<string | null>(null),
       start: new FormControl<number | null>(null),
       end: new FormControl<number | null>(null),
-      // start_date: new FormControl<string | null>(null),
-      start_date: new FormControl<string | null>(new Date().toISOString().split('T')[0]),
-      end_date: new FormControl<string | null>(new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().split('T')[0]),
-      // end_date: new FormControl<string | null>(null),
+      // Empty by default — user picks the dates themselves; report still
+      // generates with blank dates (see getDate() empty handling).
+      start_date: new FormControl<string | null>(null),
+      end_date: new FormControl<string | null>(null),
       bharna: new FormControl<number | null>(null),
   });
 
@@ -159,7 +159,10 @@ export class MagnicheBillWardComponent {
     }
 
     getDate(dateStr:any){
+      // No date chosen → send blank so the report still generates.
+      if (!dateStr) return '';
       const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return '';
 
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based

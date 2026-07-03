@@ -509,7 +509,7 @@ export class Report1291Component {
               .bill-qr-sub { font-size: 8px !important; }
               @page {
                 size: A4 landscape;
-                margin: 10mm 8mm 8mm 8mm;
+                margin: 10mm 5mm 8mm 20mm;
               }
               * {
                 margin: 0 !important;
@@ -740,7 +740,7 @@ export class Report1291Component {
               .bill-qr-sub { font-size: 8px !important; }
               @page {
                 size: A4 landscape;
-                margin: 10mm 8mm 8mm 8mm;
+                margin: 10mm 5mm 8mm 20mm;
               }
               * {
                 margin: 0 !important;
