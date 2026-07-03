@@ -120,7 +120,7 @@ export class MagnicheBillWardComponent {
 
     generate_report_129_1(element:any): void {
       let formValues = this.magnicheBillForm.value;
-      if(formValues.start!== null && formValues.end !== null && formValues.year !== null && formValues.to !== null && formValues.bharna !== null){
+      if(formValues.start!== null && formValues.end !== null && formValues.year !== null && formValues.to !== null){
           const reportData = {
             ...formValues,
             new_user_id: null,
@@ -134,13 +134,13 @@ export class MagnicheBillWardComponent {
         sessionStorage.setItem('magnicheBillWardReport', encoded);
         this.router.navigate(['magniche-bill-ward-report-129-1']);
       } else{
-        this.toastr.error('Please fill requierd filed like Start Number, End Number and Bharna.', 'Error');
+        this.toastr.error('Please fill requierd filed like Start Number and End Number.', 'Error');
       }
     }
 
     generate_report_129_2(element:any): void {
       let formValues = this.magnicheBillForm.value;
-      if(formValues.start!== null && formValues.end !== null && formValues.year !== null && formValues.to !== null && formValues.bharna !== null){
+      if(formValues.start!== null && formValues.end !== null && formValues.year !== null && formValues.to !== null){
           const reportData = {
             ...formValues,
             new_user_id: null,
@@ -154,7 +154,7 @@ export class MagnicheBillWardComponent {
         sessionStorage.setItem('magnicheBillWardReport_2', encoded);
         this.router.navigate(['magniche-bill-ward-report-129-2']);
       } else{
-        this.toastr.error('Please fill requierd filed like Start Number, End Number and Bharna.', 'Error');
+        this.toastr.error('Please fill requierd filed like Start Number and End Number.', 'Error');
       }
     }
 
