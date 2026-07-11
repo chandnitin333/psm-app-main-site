@@ -67,7 +67,7 @@ export class Report1291Component {
             if (res?.status === 200 && res?.data) {
               this.reportData = res.data;
               this.roundNumbers(this.reportData);
-              this.year = this.reportData?.yearRs42?.YEAR_ID;
+              this.year = (Array.isArray(this.reportData?.yearRS42) ? this.reportData?.yearRS42?.[0]?.year : (this.reportData?.yearRS42?.currentYear ?? this.reportData?.yearRS42?.year));
               this.end_year = Number(this.year) + 1;
             } else {
               this.toastr.error('रिपोर्ट लिंक अवैध आहे किंवा कालबाह्य झाली आहे.', 'Error');
@@ -97,6 +97,34 @@ export class Report1291Component {
           this.roundNumbers(v);
         }
       }
+    }
+
+    /** Actual rupee amount for a stored percentage (e.g. 5% दंड / सूट) applied
+     *  to a base amount — shows the computed value instead of the raw percent. */
+    pct(base: any, percent: any): number {
+      return Math.round((Number(base) || 0) * (Number(percent) || 0) / 100);
+    }
+
+    /** एकूण मागणी — sum of all 5% दंड (penalty) amounts across the tax rows. */
+    totalPlusAmt(item: any): number {
+      const r = item?.rs4Data?.[0] || {};
+      return this.pct(r.bhumi, r.plus)
+        + this.pct(r.diva, r.diva_batti_plus_5)
+        + this.pct(r.aarogya, r.aarogya_plus_5)
+        + this.pct(r.safai, r.safae_plus_5)
+        + this.pct(r.samanya, r.samanya_pani_plus_5)
+        + this.pct(r.vishesh, r.vishesh_pani_plus_5);
+    }
+
+    /** एकूण मागणी — sum of all 5% सूट (discount) amounts across the tax rows. */
+    totalLessAmt(item: any): number {
+      const r = item?.rs4Data?.[0] || {};
+      return this.pct(item?.BHUMIKAR, r.less)
+        + this.pct(item?.VIZ_DIVVABATTIKAR, r.diva_batti_less_5)
+        + this.pct(item?.AAROGYA_RAKSHAN_KAR, r.aarogya_less_5)
+        + this.pct(item?.SAFAI_KAR, r.safae_less_5)
+        + this.pct(item?.SAMANYA_PANI_KAR, r.samanya_pani_less_5)
+        + this.pct(item?.VISHESH_PANI_KAR, r.vishesh_pani_less_5);
     }
 
     /** One bulk call → per-record report-view QR (each opens just that record). */
@@ -145,7 +173,7 @@ export class Report1291Component {
               return;
             }
             this.roundNumbers(this.reportData);
-            this.year = this.reportData?.yearRs42?.YEAR_ID
+            this.year = (Array.isArray(this.reportData?.yearRS42) ? this.reportData?.yearRS42?.[0]?.year : (this.reportData?.yearRS42?.currentYear ?? this.reportData?.yearRS42?.year))
             this.end_year = Number(this.year) + 1;
             this.loadKarStatuses();
             this.buildPerRecordQrLinks(param);
