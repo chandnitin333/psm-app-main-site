@@ -147,7 +147,7 @@ export class Report1292Component {
     getReportDataAPI(){
       this.spinner.show();
       const param = {
-                  "ward_no": this.receivedData.ward_no || null,
+                  "ward_no": this.receivedData.ward_no ?? null,   // ?? not || — ward 0 must survive
                   "year": this.receivedData.year || null,
                   "start": this.receivedData.start || null,
                   "end": this.receivedData.end || null,
