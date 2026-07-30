@@ -107,13 +107,21 @@ export class CustomerComponent {
     } catch { /* ignore */ }
   }
 
+  /** Ward filter value — send 0 as the string "0" so the backend's
+   *  `if (txt_vard_number)` check doesn't treat ward 0 as "no filter"
+   *  (which returned every record). Empty stays empty → no filter. */
+  private wardFilterValue(): any {
+    const w = this.customerForm.value.ward_no;
+    return (w === null || w === undefined || w === '') ? w : String(w);
+  }
+
   fetchData() {
     this.customerService
       .fetchCustomersList({
         page_number: this.currentPage,
         txtnumber: this.customerForm.value.annu_kramank,
         txt_malmatta_number: this.customerForm.value.malmatta_no,
-        txt_vard_number: this.customerForm.value.ward_no,
+        txt_vard_number: this.wardFilterValue(),
         txt_plot_number: this.customerForm.value.plot_no,
         txt_khasara_number: this.customerForm.value.khasara_no,
         txt_survey_number: this.customerForm.value.survey_no,
