@@ -15,3 +15,7 @@ button.active {
 span {
   margin: 0 10px;
 }
+
+::ng-deep .mat-mdc-paginator-page-size {
+  display: none;
+}

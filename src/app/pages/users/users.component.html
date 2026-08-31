@@ -1,13 +1,12 @@
+<div class="table-responsive">
 
+    <app-mat-data-table
+        [displayedColumns]="[{ key: 'id', value: 'ID' }, { key: 'name', value: 'Name' }, { key: 'age', value: 'Age' }]"
+        [dataSource]="pagedDataSource">
+    </app-mat-data-table>
+    <!-- [totalItems]="dataSource.data.length"
+[itemsPerPage]="itemsPerPage" -->
 
-<app-mat-data-table
-    [displayedColumns]="[{ key: 'id', value: 'आयडी' }, { key: 'name', value: 'नाव' }, { key: 'age', value: 'वय' }]"
-    [dataSource]="pagedDataSource"
-    [totalItems]="dataSource.data.length"
-    [itemsPerPage]="itemsPerPage">
-</app-mat-data-table>
-
-<app-custom-pagination [length]="dataSource.data.length"
-    [pageSize]="itemsPerPage"
-    [currentPage]="currentPage"
-    (pageChange)="onPageChange($event)"> </app-custom-pagination>
+    <app-custom-pagination [length]="dataSource.data.length" [pageSize]="itemsPerPage" [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)"> </app-custom-pagination>
+</div>

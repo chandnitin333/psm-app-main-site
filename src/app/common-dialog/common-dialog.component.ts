@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 export interface DialogData {
   type: 'success' | 'warning' | 'error' | 'confirm';
@@ -18,7 +19,7 @@ export interface DialogData {
     MatDialogActions,
     MatDialogClose,
     MatDialogContent,
-    MatDialogTitle],
+    MatDialogTitle,MatDialogModule, MatButton, MatDialogActions, MatDialogContent, MatDialogTitle, MatDialogClose, MatDialogContainer ],
   templateUrl: './common-dialog.component.html',
   styleUrl: './common-dialog.component.css'
 })

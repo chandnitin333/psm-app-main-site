@@ -1,123 +1,131 @@
 <mat-card class="form-panel">
     <mat-card-title class="title">
         <span class="title-text">कस्टमर फेरफार (Customer Ferfar)</span>
-        
+
         <a mat-stroked-button class="title-button" routerLink="/ferfar-yadi"><mat-icon>arrow_back</mat-icon>
             Back</a>
     </mat-card-title>
 
     <mat-divider></mat-divider>
 
-    <form class="form-grid">
-        <div class="form-row">
+    <form class="form-grid" [formGroup]="addCustomerFerfar">
+        <div class="form-row mt-2">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">फेरफार नमुना यादी</mat-label>
-                <mat-select>
-                    <mat-option value="2021">फेरफार नमुना यादी</mat-option>
-                    <mat-option value="2022">फेरफार नमुना यादी</mat-option>
+                <mat-select formControlName="ferfar_namuna_yadi">
+                    <mat-option *ngFor="let item of ferfarNanunaYadiDDL" [value]="item.FERFARNAMUNAYADI_ID">
+                        {{ item.FERFARNAMUNAYADI_NAME }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">ग्रामपंचायत</mat-label>
-                <mat-select>
-                    <mat-option value="2021">ग्रामपंचायत 1</mat-option>
-                    <mat-option value="2022">ग्रामपंचायत 2</mat-option>
+                <mat-select formControlName="gram_panchayat">
+                    <mat-option *ngFor="let item of grampanchayatDDL" [value]="item.PANCHAYAT_ID">
+                        {{ item.PANCHAYAT_NAME }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वर्ष (Year)</mat-label>
-                <mat-select [(value)]="fromYearSelected">
-                    <mat-option value="2021">2021</mat-option>
-                    <mat-option value="2022">2022</mat-option>
-                    <mat-option value="2023">2023</mat-option>
-                    <mat-option value="2024">2024</mat-option>
+                <mat-select formControlName="from_year">
+                    <mat-option *ngFor="let year of yearOptions" [value]="year.YEAR_ID">
+                        {{ year.YEAR_NAME }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">ते (To)</mat-label>
-                <mat-select [(value)]="toYearSelected" disabled>
-                    <mat-option value="2025">2025</mat-option>
-                </mat-select>
+                <input type="hidden" formControlName="to_year" readonly />
+                <input matInput type="text" formControlName="to_year1" readonly />
             </mat-form-field>
-        </div>
-        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">अनु. क्रमांक</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="anu_kramak" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मालमत्ता क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="malmatta_number" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
+
+
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">वॉर्ड क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="vard_number" (keyup)="fetCustomerData()" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">प्लॉट क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="plot_number" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">खसरा क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="khasara_number" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सर्वे क्र.</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="survey_number" />
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">मासिक सभा क्रमांक</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="masik_sabha_no" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">ठराव क्रमांक</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="tharav_no" />
             </mat-form-field>
+        </div>
+        <div class="form-row">
+
+
+
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">दिनांक.</mat-label>
-                <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy" />
+                <input matInput [matDatepicker]="picker" appDateFormat placeholder="dd/MM/yyyy"
+                    formControlName="date" />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">घरमालकाची नाव लिहून देणार</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="home_user_name_lihun_denar" />
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">नाव लिहून घेणारा</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="nav_lihun_ghenara" />
             </mat-form-field>
-        </div>
-        <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सचिव</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="sachiv" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">सरपंच</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="sarpanch" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label class="text-bold">उपसरपंच</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="up_sarpanch" />
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="form-field">
+        </div>
+        <div class="form-row">
+
+            <mat-form-field appearance="outline" class="form-field-50">
                 <mat-label class="text-bold">शेरा/ टीप </mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" formControlName="shera_or_tip" />
             </mat-form-field>
         </div>
 
-
         <div class="submit-row">
-            <button mat-raised-button color="primary" class="submit-btn">Submit</button>
+            <button mat-raised-button color="primary" class="submit-btn"
+                (click)="(!from_edit)  ? SaveFerfarYadi() : updateFerfarYadi()">{{(from_edit) ? "बदल करा" : "जतन
+                करा"}}</button>
         </div>
     </form>
     <div>

@@ -7,6 +7,7 @@ import { HeaderComponent } from '../header/header.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { LoginComponent } from '../login/login.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { IdleTimeoutService } from '../../services/idle-timeout.service';
 @Component({
   selector: 'app-layout',
   standalone: true,
@@ -20,11 +21,33 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class LayoutComponent {
   isLoginPage: boolean = false;
-  constructor(private router: Router) {
+  isPublicPage: boolean = false;
+
+  // Routes accessible without login — rendered without header/sidebar,
+  // so no auth check (matrix-menu) runs for them.
+  private publicPrefixes = ['/bill-pay', '/public-report'];
+
+  constructor(private router: Router, private idle: IdleTimeoutService) {
+    // IMPORTANT: set the initial value synchronously from the browser URL.
+    // On a direct page load (e.g. QR scan -> /bill-pay/<token>) router.url is
+    // still '/' until NavigationEnd, so without this the main layout renders
+    // for a moment and the header's auth check redirects to /login.
+    this.isPublicPage = this.publicPrefixes.some(p => window.location.pathname.startsWith(p));
+    this.isLoginPage = window.location.pathname === '/login';
 
     this.router.events.subscribe(() => {
       // Check if the current route is 'login'
       this.isLoginPage = this.router.url === '/login';
+      this.isPublicPage = this.publicPrefixes.some(p => this.router.url.startsWith(p))
+        || this.publicPrefixes.some(p => window.location.pathname.startsWith(p));
+
+      // Activity-based auto logout runs only inside the authenticated app —
+      // never on login or public (QR) pages.
+      if (this.isLoginPage || this.isPublicPage) {
+        this.idle.stop();
+      } else {
+        this.idle.start();
+      }
     });
   }
 

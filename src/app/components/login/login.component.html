@@ -1,95 +1,176 @@
 <div class="login-container">
-    <mat-card class="login-card">
-        <mat-card-header>
-            <mat-card-title><span
-                    style="text-align: center;">Login</span></mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+    <!-- Background animated circles -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="district-selects">
-                    <mat-form-field appearance="outline">
-                        <mat-label>जिल्हा</mat-label>
-                        <mat-select formControlName="district_id"
-                            (selectionChange)="fetchTalukas($event.value)">
-                            <mat-option *ngFor="let ele of districtList"
-                                value="{{ele.DISTRICT_ID}}">{{ele.DISTRICT_NAME}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('district_id')?.hasError('required')">
-                            District is required
-                        </mat-error>
-                    </mat-form-field>
+    <div class="login-wrapper">
+        <!-- Left side - Branding -->
+        <div class="login-branding">
+            <div class="branding-content">
+                <div class="logo-container">
+                    <mat-icon class="logo-icon">account_balance</mat-icon>
+                </div>
+                <h1 class="branding-title">ग्रामपंचायत व्यवस्थापन प्रणाली</h1>
+                <p class="branding-subtitle">महाराष्ट्र ग्रामपंचायत डिजिटल प्लॅटफॉर्म</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <mat-icon>check_circle</mat-icon>
+                        <span>सुरक्षित लॉगिन</span>
+                    </div>
+                    <div class="feature-item">
+                        <mat-icon>check_circle</mat-icon>
+                        <span>डिजिटल रेकॉर्ड</span>
+                    </div>
+                    <div class="feature-item">
+                        <mat-icon>check_circle</mat-icon>
+                        <span>वेगवान प्रक्रिया</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>तालुका</mat-label>
-                        <mat-select formControlName="taluka_id"
-                            (selectionChange)="fetchPanchaytList($event.value)">
-                            <mat-option *ngFor="let ele of talukaList"
-                                value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('taluka_id')?.hasError('required')">
-                            District is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>पंचायत</mat-label>
-                        <mat-select formControlName="panchayat_id">
-                            <mat-option *ngFor="let ele of panchayatList"
-                                value="{{ele.PANCHAYAT_ID}}">{{ele.PANCHAYAT_NAME}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error
-                            *ngIf="loginForm.get('panchayat_id')?.hasError('required')">
-                            District is required
-                        </mat-error>
-                    </mat-form-field>
+        <!-- Right side - Login form एप्लिकेशन-->
+        <div class="login-form-section">
+            <mat-card class="login-card">
+                <div class="card-header">
+                    <h2 class="login-title">ग्राम विकास मधे स्वागत आहे</h2>
+                    <p class="login-subtitle">कृपया आपले खाते प्रविष्ट करा</p>
                 </div>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="text" formControlName="username"
-                        placeholder="Enter your username">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error
-                        *ngIf="loginForm.get('username')?.hasError('required')">
-                        Email is required
-                    </mat-error>
-                    <!-- <mat-error
-                        *ngIf="loginForm.get('username')?.hasError('username')">
-                        Please enter a valid email
-                    </mat-error> -->
-                </mat-form-field>
+                <mat-card-content>
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <!-- Location Selection -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <mat-icon>location_on</mat-icon>
+                                स्थान निवडा
+                            </h3>
+                            <div class="district-selects">
+                                <mat-form-field appearance="outline" class="custom-field">
+                                    <mat-label>जिल्हा</mat-label>
+                                    <mat-icon matPrefix>map</mat-icon>
+                                    <mat-select formControlName="district_id"
+                                        (selectionChange)="fetchTalukas($event.value)">
+                                        <mat-select-trigger>
+                                            {{getSelectedDistrictName()}}
+                                        </mat-select-trigger>
+                                        <mat-option>
+                                            <ngx-mat-select-search [(ngModel)]="districtSearchText"
+                                                [ngModelOptions]="{standalone: true}"
+                                                placeholderLabel="Search जिल्हा..."
+                                                noEntriesFoundLabel="No जिल्हा found">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let ele of filteredDistrictList"
+                                            value="{{ele.DISTRICT_ID}}">{{ele.DISTRICT_NAME}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="loginForm.get('district_id')?.hasError('required')">
+                                        जिल्हा आवश्यक आहे
+                                    </mat-error>
+                                </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'"
-                        formControlName="password">
-                    <button mat-icon-button matSuffix
-                        (click)="hidePassword = !hidePassword" type="button">
-                        <mat-icon>{{hidePassword ? 'visibility_off' :
-                            'visibility'}}</mat-icon>
-                    </button>
-                    <mat-error
-                        *ngIf="loginForm.get('password')?.hasError('required')">
-                        Password is required
-                    </mat-error>
-                </mat-form-field>
+                                <mat-form-field appearance="outline" class="custom-field">
+                                    <mat-label>तालुका</mat-label>
+                                    <mat-icon matPrefix>location_city</mat-icon>
+                                    <mat-select formControlName="taluka_id"
+                                        (selectionChange)="fetchPanchaytList($event.value)">
+                                        <mat-select-trigger>
+                                            {{getSelectedTalukaName()}}
+                                        </mat-select-trigger>
+                                        <mat-option>
+                                            <ngx-mat-select-search [(ngModel)]="talukaSearchText"
+                                                [ngModelOptions]="{standalone: true}"
+                                                placeholderLabel="Search तालुका..."
+                                                noEntriesFoundLabel="No तालुका found">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let ele of filteredTalukaList"
+                                            value="{{ele.TALUKA_ID}}">{{ele.TALUKA_NAME}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="loginForm.get('taluka_id')?.hasError('required')">
+                                        तालुका आवश्यक आहे
+                                    </mat-error>
+                                </mat-form-field>
 
-                <button mat-raised-button color="primary" type="submit"
-                    [disabled]="loginForm.invalid">
-                    Login
-                </button>
-                <!-- Forgot Password Link -->
-                <div class="forgot-password">
-                    <a href class="forgot-link">Forgot Password?</a>
-                </div>
-            </form>
+                                <mat-form-field appearance="outline" class="custom-field">
+                                    <mat-label>पंचायत</mat-label>
+                                    <mat-icon matPrefix>account_balance</mat-icon>
+                                    <mat-select formControlName="panchayat_id">
+                                        <mat-select-trigger>
+                                            {{getSelectedPanchayatName()}}
+                                        </mat-select-trigger>
+                                        <mat-option>
+                                            <ngx-mat-select-search [(ngModel)]="panchayatSearchText"
+                                                [ngModelOptions]="{standalone: true}"
+                                                placeholderLabel="Search पंचायत..."
+                                                noEntriesFoundLabel="No पंचायत found">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let ele of filteredPanchayatList"
+                                            value="{{ele.PANCHAYAT_ID}}">{{ele.PANCHAYAT_NAME}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="loginForm.get('panchayat_id')?.hasError('required')">
+                                        पंचायत आवश्यक आहे
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
 
-        </mat-card-content>
-    </mat-card>
+                        <!-- Credentials Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <mat-icon>vpn_key</mat-icon>
+                                लॉगिन माहिती
+                            </h3>
+
+                            <mat-form-field appearance="outline" class="custom-field">
+                                <mat-label>Username</mat-label>
+                                <mat-icon matPrefix>person</mat-icon>
+                                <input matInput type="text" formControlName="username"
+                                    placeholder="Enter your username">
+                                <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                                    Username is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="custom-field">
+                                <mat-label>Password</mat-label>
+                                <mat-icon matPrefix>lock</mat-icon>
+                                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                                    placeholder="Enter your password">
+                                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                                    Password is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-actions">
+                            <button mat-raised-button class="login-button" type="submit" [disabled]="loginForm.invalid">
+                                <mat-icon>login</mat-icon>
+                                Login
+                            </button>
+
+                            <!-- <div class="forgot-password">
+                                    <a href="#" class="forgot-link">
+                                        <mat-icon>help_outline</mat-icon>
+                                        Forgot Password?
+                                    </a>
+                                </div> -->
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+
+            <div class="login-footer">
+                <p>© 2017 - {{currentYear}} ग्राम विकास. महाराष्ट्र ग्रामपंचायत. सर्व हक्क राखीव.</p>
+            </div>
+        </div>
+    </div>
 </div>

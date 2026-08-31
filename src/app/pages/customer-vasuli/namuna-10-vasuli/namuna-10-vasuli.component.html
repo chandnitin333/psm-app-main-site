@@ -1,0 +1,214 @@
+<button (click)="printDirect()" class="hidden-print btn btn-success" value="Print">
+  Print / Save as PDF (Perfect Quality)
+</button>&nbsp;
+<!-- <button (click)="downloadPDF()" class="buttonPdf hidden-print btn btn-info" value="PDF">PDF </button>
+<button (click)="downloadAndPreviewPDF()" class=" hidden-print btn btn-primary" value="PDF">Print
+</button>&nbsp;&nbsp;&nbsp; -->
+<div class="alert alert-warning hidden-print print-instruction-alert">
+  <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination" मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+</div>
+<div class="container-fluid" id="contentToExport">
+
+    <div class="col-md-12">
+        <div class="row">
+            <p class="heading">
+                <b>कराबद्दल पावती ( नमुना १० )</b>
+            </p>
+
+            <p class="san"> ग्रामपंचायत कार्यालय :- {{ userDetails.PANCHAYAT_NAME}}</p>
+
+        </div>
+
+        <div class="row">
+
+
+
+            <div class="col-md-4">
+                <span class="font15 left">तहसील :- {{ userDetails.TALUKA_NAME}}</span>
+            </div>
+            <div class="col-md-4 center tahsil">
+                <span class="font15 ">जिल्हा :- {{ userDetails.DISTRICT_NAME}} </span>
+            </div>
+            <div class="col-md-4">
+                <span class="font15 right">पावती क्रमांक :- {{ namuna_10_data?.VASULI_ID}} </span>
+            </div>
+
+
+        </div>
+    </div>
+    
+
+    <div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>अनुक्रमांक </th>
+                                <th>मालमत्ता क्रमांक </th>
+                                <th>वार्ड क्रमांक </th>
+                                <th>प्लॉट क्रमांक </th>
+                                <th>खसरा क्रमांक </th>
+                                <th> सर्वे नं </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ namuna_10_data?.ANNU_KRAMANK}}</td>
+                                <td>{{ namuna_10_data?.MALMATTA_NUMBER}}</td>
+                                <td>{{ namuna_10_data?.VARD_NUMBER}}</td>
+                                <td>{{ namuna_10_data?.PLOT_NO}}</td>
+                                <td>{{ namuna_10_data?.KHASARA_KRAMANK}}</td>
+                                <th> {{ namuna_10_data?.SURVEY_KRAMANK}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <!--<thead style="border-bottom: none;">
+				  <tr>
+					<th>कराचे प्रकार </th>
+					<th>चाऱु </th>
+					<th> मागीऱ   </th>
+					<th>एकुण  </th>
+					<th>चाऱु खातेदार </th>
+				  </tr>
+				</thead>-->
+                        <tbody>
+
+
+                            <tr>
+                                <td>खातेधारकाचे नाव </td>
+                                <td>{{ namuna_10_data?.HOMEUSER_NAME}} </td>
+                            </tr>
+                            <tr>
+                                <td>पत्नी / मुलाचे नाव </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td>भोगवटदाराचे नाव </td>
+                                <td> {{ namuna_10_data?.BHOGATWARGARACHE_NAME}}</td>
+                            </tr>
+                            <tr>
+                                <td>गृहकर व भूमीकर दिनांक </td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_DATE}} </td>
+                            </tr>
+                            <tr>
+                                <td>पाणी कर दिनांक </td>
+                                <td>{{ namuna_10_data?.PAVTI_DATE_PANI_KRAMANK}} </td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>सन {{ currentYear }} ते {{ currentYear + 1 }} करीत खाली नमूद केलेल्या रकमा कर दाखल
+                                    प्राप्त झाली आहे </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>करांचे नाव </th>
+                                <th>मागील बाकी </th>
+                                <th> चालू कर </th>
+                                <th>एकूण जमा रक्कम </th>
+                                <th>थकबाकी रक्कम </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>गृहकर व भूमीकर </td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_MAGIL_KAR}}</td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_CHALU_KAR}}</td>
+                                <td>{{ namuna_10_data?.GHRUH_BHUMIKAR_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.GHRUH_BHUMIKAR_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                            <tr>
+                                <td>दिवाबत्ती / वीज कर </td>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.VIZ_DIVABATTI_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.VIZ_DIVABATTI_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                            <tr>
+                                <td>आरोग्य रक्षण कर </td>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.AAROGYA_RAKSHAN_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.AAROGYA_RAKSHAN_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                            <tr>
+                                <td> सफाई कर</td>
+                                <td>{{ namuna_10_data?.SAFAI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAFAI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAFAI_JAMMA_KELELI_RAKKAM}}</td>
+                                <th>{{ namuna_10_data?.SAFAI_SHILLAK_RAKKAM}}</th>
+                            </tr>
+                            <tr>
+                                <td> सामान्य पाणी कर </td>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.SAMNAYA_PANI_JAMMA_KELELI_RAKKAM}}</td>
+                                <th>{{ namuna_10_data?.SAMNAYA_PANI_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                            <tr>
+                                <td> विशेष पाणी कर</td>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.VISHESH_PANI_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.VISHESH_PANI_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                            <tr>
+                                <td>एकूण रक्कम</td>
+                                <td>{{ namuna_10_data?.EKUN_MAGIL_KAR}} </td>
+                                <td>{{ namuna_10_data?.EKUN_CHALU_KAR}} </td>
+                                <td>{{ namuna_10_data?.EKUN_JAMMA_KELELI_RAKKAM}} </td>
+                                <th>{{ namuna_10_data?.EKUN_SHILLAK_RAKKAM}} </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p style="text-align: center;">भरलेली रक्कम अक्षरी :- {{ akshariRs }} </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="left"><br><b>दिनांक :- {{ currentDate | date:'MM/dd/yyyy' }} </b></span>
+        </div>
+        <div class="col-md-4 center">
+            <span class="font15 "> </span>
+        </div>
+        <div class="col-md-4">
+            <span class="right"><b><br>प्राप्त करता ग्रामपंचायत कार्यालय सही व शिक्का </b></span>
+        </div>
+    </div>
+    <br><br>

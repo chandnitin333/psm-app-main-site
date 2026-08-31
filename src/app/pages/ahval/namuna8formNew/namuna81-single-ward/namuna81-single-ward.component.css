@@ -1,0 +1,384 @@
+/* 
+table{
+    font-size: 12px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 8px;
+    font-size: 13px;
+    line-height:0.5;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    padding: 3px 25px;
+}
+
+
+.san{
+	text-align: center;
+    font-size: 12px;
+	line-height: 0.4;
+}
+
+
+*/
+.nobreak {
+        page-break-inside: avoid;
+    }
+
+    .content-center {
+        text-align: center;
+        margin: auto;
+    }
+
+    .header-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .col-md-3 {
+        flex: 1;
+    }
+
+    .font15 {
+        font-size: 15px;
+    }
+
+    .right {
+        float: right;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+    }
+
+    th, td {
+        border: 1px solid #000 !important;
+        padding: 5px;
+    }
+
+    .header-vertical-top {
+        vertical-align: top;
+    }
+
+    .header-center {
+        text-align: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        white-space: nowrap;
+        min-width: 30px;
+    }
+
+    .summary-table {
+        margin-top: 10px;
+    }
+
+    .footer-notes {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .red-text {
+        color: red;
+    }
+
+    .right{
+        float:right;
+    }
+    .font15, .san, .right{
+        font-weight: bold;
+    }
+    .buttonPdf{
+        float: right;
+        padding: 3px 25px;
+        margin-left: -100px;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        transform: rotate(360deg);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid black;
+        padding: 6px;
+        
+    }
+    h4{
+            font-size: 12px;
+        }
+    table {
+        font-size: 12px;
+    }
+
+    .buttonPdf {
+        margin-left: -100px;
+    }
+
+    .heading:second-child {
+        page-break-after: avoid;
+    }
+
+    .heading {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
+
+    table,
+    figure {
+        page-break-inside: avoid;
+    }
+
+    .table-bordered>tbody>tr>td {
+        width: 5%;
+    }
+
+
+
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  border: 1px solid #000;
+  padding: 2px 4px;
+  font-size: 9px;
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;
+}
+
+.pdf-export-style .landscape-text {
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  white-space: nowrap !important;
+  min-width: 30px;
+}
+
+/* Print Styles */
+@media print {
+  /* Hide buttons when printing */
+  .hidden-print,
+  .buttonPdf,
+  button {
+    display: none !important;
+  }
+
+  /* Set page orientation to landscape and remove browser headers/footers */
+  @page {
+    size: A4 landscape;
+     margin: 7mm !important; /* small margins so the whole report fits on ONE page */
+  }
+
+  /* Remove browser default headers and footers */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide all elements except content to export */
+  body > *:not(#contentToExport) {
+    display: none !important;
+  }
+
+  body > app-root > *:not(app-namuna81-single-ward) {
+    display: none !important;
+  }
+
+  /* Ensure content fits on page */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Like namuna-8: render WIDE at a big (15px) font, then scale to fit one A4
+     landscape page PER RECORD. (No overflow:hidden — it disables page breaks in
+     Chrome print, which clipped/merged the records when a ward has many.) */
+  #contentToExport {
+    width: 1250px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    zoom: 0.78;
+  }
+
+  /* One record per page (before only — page-break-after would add trailing blanks). */
+  .page-break {
+    page-break-before: always !important;
+    page-break-inside: avoid !important;
+  }
+  .page-break:first-child {
+    page-break-before: avoid !important;
+  }
+
+  /* Clean single-line grid: border-collapse merges adjacent cell borders into one
+     1px line (no doubling/dark) AND draws every line correctly across rowspan/colspan
+     header cells (single-side borders break at those spans). */
+  table {
+    width: 100%;
+    border-collapse: collapse !important;
+    border: 1px solid #000 !important;
+    font-size: 15px !important;
+  }
+
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 3px 2px !important;
+    font-size: 15px !important;
+    word-wrap: break-word;
+    box-sizing: border-box !important;
+  }
+
+  /* (Removed the separate-model first-row border workarounds — under
+     border-collapse the uniform th,td 1px border draws every line, including
+     the header, as a single clean line.) */
+
+  /* Ensure vertical text displays properly. transform:none is critical — the base
+     .landscape-text has transform:rotate(360deg) which (with the copied global
+     stylesheets in the print window) stops these headers from going vertical, making
+     their columns wide, squeezing the rest, wrapping heavily → tall table → 2 pages. */
+  .landscape-text {
+    writing-mode: vertical-rl !important;
+    text-orientation: mixed !important;
+    white-space: nowrap !important;
+    min-width: 28px !important;
+    font-size: 15px !important;
+    transform: none !important;
+  }
+
+  /* Only keep a single row from splitting across pages. Do NOT mark the whole
+     content / table / summary / footer as "avoid" — that pushes blocks to page 2
+     and leaves page 1 half-empty (the report then needs 2 pages). */
+  tr {
+    page-break-inside: avoid;
+  }
+  #contentToExport,
+  .nobreak {
+    page-break-inside: auto !important;
+  }
+
+  /* Optimize header */
+  h3 {
+    font-size: 20px !important;
+    margin: 3px 0 !important;
+  }
+
+  h4 {
+    font-size: 14px !important;
+    margin: 2px 0 !important;
+  }
+
+  .heading {
+    font-size: 20px !important;
+  }
+
+  .font15 {
+    font-size: 14px !important;
+  }
+
+  /* Summary table */
+  .summary-table {
+    margin-top: 4px;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    font-size: 15px !important;
+    padding: 3px 2px !important;
+  }
+
+  /* Footer notes */
+  .footer-notes {
+    margin-top: 4px;
+  }
+  .footer-notes h4 {
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+    margin: 1px 0 !important;
+  }
+
+  /* Ensure no extra margins/padding */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+
+
+/* ---- Mobile (screen only — print/PDF unaffected) ----
+   Wide government-form layout overlaps on phones; keep it intact at a fixed
+   min-width and let the user pan horizontally instead of overlapping. */
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #contentToExport {
+    min-width: 760px;
+    margin: 0 auto;
+  }
+  .table-responsive {
+    overflow-x: visible !important;
+  }
+}
+
+
+/* ---- Mobile: center the title block across full report width ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-12,
+  #contentToExport .row { width: 100% !important; }
+  #contentToExport .heading,
+  #contentToExport .san,
+  #contentToExport .namna {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
+}

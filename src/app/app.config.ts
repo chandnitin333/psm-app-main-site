@@ -8,6 +8,8 @@ import { routes } from './app.routes';
 import { HttpHeaderInterceptor } from './http-header.interceptor';
 import { CommonDialogModule } from './modules/common-dialog/common-dialog.module';
 import { ApiService } from './services/api.service';
+import { provideAnimations } from '@angular/platform-browser/animations'; // Required for Toastr
+import { provideToastr } from 'ngx-toastr';
 
 
 export const appConfig: ApplicationConfig = {
@@ -24,6 +26,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule, MatDialogModule),
     importProvidersFrom(CommonDialogModule),
     ApiService,
+    provideAnimations(),  // ✅ Required for Toastr
+    provideToastr()
   ],
 };
 

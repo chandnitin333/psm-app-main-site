@@ -1,0 +1,206 @@
+
+table{
+    font-size: 12px;
+    /* line-height: 100%; */
+}
+.buttonPdf{
+	margin-left: -100px;
+}
+
+.payment-toolbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.kar-badge-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.kar-badge-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #214162;
+}
+
+.kar-badge {
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.kar-verified { background: #dcfce7; color: #166534; }
+.kar-claimed { background: #fef9c3; color: #854d0e; }
+.kar-pending { background: #e2e8f0; color: #475569; }
+
+.copy-link-text {
+    font-size: 11px;
+    margin-left: 6px;
+    cursor: pointer;
+    color: #1d4ed8;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.copy-link-text:hover {
+    color: #1e40af;
+    background: #eff6ff;
+}
+
+@media print {
+    .hidden-print,
+    .payment-toolbar {
+        display: none !important;
+    }
+
+    ::ng-deep .bill-qr-img {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    ::ng-deep .bill-qr-block {
+        margin: 1px 0 !important;
+        gap: 6px !important;
+        page-break-inside: avoid;
+    }
+
+    ::ng-deep .bill-qr-caption { font-size: 9px !important; }
+    ::ng-deep .bill-qr-sub { font-size: 8px !important; }
+}
+
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 8px;
+    font-size: 18px;
+    line-height:0.5;
+    font-weight: bold;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right !important;
+}
+.sadarNode{
+    float: right !important;
+    font-weight: bold;
+    font-size: 12px;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    /* font-size: 15px;
+    font-weight: bold; */
+    padding: 3px 25px;
+    /* background-color: #0bca11; */
+}
+
+
+.san{
+	text-align: center;
+    font-size: 16px;
+	line-height: 0.4;
+}
+
+.padding20{
+	/* padding:20px; */
+}
+.font15, .san, .right{
+	font-weight: bold;
+}
+
+
+/* this is important code for the print */
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   /* removes gaps between borders */
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  /* border: 1px solid #000; */
+  padding: 2px 4px;            /* control inner cell spacing */
+  font-size: 10px;              /* small font for dense tables */
+  text-align: center;
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;         /* optional header shading */
+}
+
+/*  for pdf */
+/* Compact table style for PDF exports */
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   /* removes space between borders */
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  /* border: 1px solid #000;       */
+  padding: 2px 4px;            /* small cell padding */
+  font-size: 10px;              /* compact font size */
+  text-align: center;          /* center align content */
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;         /* light grey header */
+}
+
+
+
+
+
+.heading {
+  page-break-before: always;
+   /* page-break-after: avoid; */
+}
+table, figure {
+  page-break-inside: avoid;
+}
+
+
+.dotted-border-right{
+	border-right: 2px dotted;
+    padding: 10px;
+}
+/* .table-bordered>tbody>tr>td{
+	width: 5%;
+} */
+.print-media.col-md-11{
+	width:100%;
+}
+.namna{
+	text-align:center;
+}
+.tip{
+    text-align: left;
+    line-height: 4px;
+}
+.sign{
+    text-align: right;
+}

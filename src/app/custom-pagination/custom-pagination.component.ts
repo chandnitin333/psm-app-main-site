@@ -11,7 +11,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 export class CustomPaginationComponent implements OnInit {
   @Input() length = 0;
   @Input() pageSize = 10;
-  @Input() pageSizeOptions: number[] = [5, 10, 25, 100];
+  // @Input() pageSizeOptions: number[] = [5, 10, 25, 100];
+   @Input() pageSizeOptions: number[] = [10];
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Input() currentPage = 0;
   ngOnInit(): void {

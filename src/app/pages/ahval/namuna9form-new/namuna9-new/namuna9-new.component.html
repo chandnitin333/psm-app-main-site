@@ -1,0 +1,205 @@
+<div class="hidden-print" style="margin-bottom: 10px;">
+    <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
+        title="Best quality - Use browser's Print to PDF option">
+        🖨️ Print / Save as PDF (Perfect Quality)
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF" style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
+    </button>
+</div>
+<div class="hidden-print alert alert-warning" style="margin-bottom: 10px; padding: 8px; font-size: 12px;">
+    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+    मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+</div>
+
+<div class="container-fluid" id="contentToExport">
+    <div class="nobreak">
+        <div class="row">
+            <p class="heading"> नमुना ९ </p>
+            <p class="san">सन. {{ year }} - {{ end_year }} च्या आकारणी केलेल्या करांच्या मागणीचे नोंदणी
+                पुस्तक </p>
+
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <span class="font15 left">वार्ड नं. 1</span>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right">पान क्र :- </span>
+                </div>
+
+            </div>
+            <div class="row">
+
+
+                <div class="col-md-4">
+                    <span class="font15 left">ग्रामपंचायत :- {{ reportData?.newUserDataDBRs2[0]?.PANCHAYAT_NAME}}
+                    </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15">तहसील :- {{ reportData?.newUserDataDBRs2[0]?.TALUKA_NAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right"> जिल्हा :- {{ reportData?.newUserDataDBRs2[0]?.DISTRICT_NAME}} </span>
+                </div>
+
+            </div>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="vertical-align: middle;" class="landscape-text" rowspan="5">अनु. क्रमांक</th>
+                        <th style="vertical-align: middle;" class="landscape-text" rowspan="5">मालमत्ता क्रमांक</th>
+                        <th style="vertical-align: middle;" rowspan="5" width="">खातेधारकाचे नाव</th>
+                        <th style="vertical-align: middle;" colspan="7">मागणी</th>
+                        <th style="vertical-align: middle;" colspan="3" rowspan="2"> आरोग्य रक्षण कर </th>
+                        <th style="vertical-align: middle;" colspan="3" rowspan="2">पाणी पट्टी</th>
+                        <th style="vertical-align: middle;" rowspan="5">पावती नंबर <br> व तारीख</th>
+                        <th style="vertical-align: middle;" colspan="6">वसुली</th>
+                        <th style="vertical-align: middle;" colspan="3" rowspan="2"> आरोग्य रक्षण कर </th>
+                        <th style="vertical-align: middle;" colspan="3" rowspan="2">पाणी पट्टी</th>
+                        <th style="vertical-align: middle;" rowspan="5">शेरा</th>
+                        <!-- <th style="vertical-align: middle;" rowspan="2"></th> -->
+                    </tr>
+                    <tr>
+                        <th colspan="4" rowspan="1">गृह कर</th>
+                        <th colspan="3">दिवाबत्ती कर</th>
+                        <th colspan="3">गृह कर</th>
+                        <th colspan="3">दिवाबत्ती कर</th>
+                    </tr>
+                    <tr>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="vertical-text">५% दंड</th>
+                        <th class="landscape-text">एकूण</th>
+
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                        <th class="landscape-text">मागील</th>
+                        <th class="landscape-text">चालू</th>
+                        <th class="landscape-text">एकूण</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+
+                    <tr *ngFor="let itemRs4 of reportData?.rs4">
+                        <td>{{ itemRs4?.ANNU_KRAMANK }}</td>
+                        <td>{{ itemRs4?.MALMATTA_NUMBER }}</td>
+
+
+                        <td>
+                            {{ itemRs4?.MILKAR_PRAKAR === 'इमलाकर' ? itemRs4?.BHOGATWARGARACHE_NAME :
+                            itemRs4?.HOMEUSER_NAME }}
+                        </td>
+
+
+
+                        <td>{{ itemRs4?.rs5Data[0]?.bhumi }}</td>
+                        <td>{{ itemRs4?.BHUMIKAR }}</td>
+                        <!-- <td>{{ itemRs4?.rs5Data[0]?.alphabets.b }}</td> -->
+                        <td style="font-weight: bold;">{{ itemRs4?.rs5Data[0]?.alphabets.b }}</td>
+
+                        <td>{{ itemRs4?.rs5Data[0]?.diva }}</td>
+                        <td>{{ itemRs4?.VIZ_DIVVABATTIKAR }}</td>
+                        <td style="font-weight: bold;">{{ itemRs4?.rs5Data[0]?.alphabets.d }}</td>
+
+                        <ng-container *ngIf="itemRs4?.condition === 1; else safaiBlock">
+                            <td>{{ itemRs4?.rs5Data[0]?.aarogya }}</td>
+                            <td>{{ itemRs4?.AAROGYA_RAKSHAN_KAR }}</td>
+                            <td style="font-weight: bold;">{{ itemRs4?.rs5Data[0]?.alphabets?.e }}</td>
+                        </ng-container>
+
+                        <ng-template #safaiBlock>
+                            <td>{{ itemRs4?.rs5Data[0]?.safai }}</td>
+                            <td>{{ itemRs4?.SAFAI_KAR }}</td>
+                            <td style="font-weight: bold;">{{ itemRs4?.rs5Data[0]?.alphabets?.f }}</td>
+                        </ng-template>
+
+
+                        <ng-container
+                            *ngIf="itemRs4?.rs5Data[0]?.samanya != 0 && itemRs4?.rs5Data[0]?.vishesh != 0; else checkSamanya">
+                            <td>
+                                {{ itemRs4?.rs5Data[0]?.samanya }} + {{ itemRs4?.rs5Data[0]?.vishesh }}
+                            </td>
+                        </ng-container>
+
+                        <ng-template #checkSamanya>
+                            <ng-container *ngIf="itemRs4?.rs5Data[0]?.samanya != 0; else onlyVishesh">
+                                <td>{{ itemRs4?.rs5Data[0]?.samanya }}</td>
+                            </ng-container>
+                        </ng-template>
+
+                        <ng-template #onlyVishesh>
+                            <td>{{ itemRs4?.rs5Data[0]?.vishesh }}</td>
+                        </ng-template>
+
+
+                        <ng-container *ngIf="itemRs4?.SAMANYA_PANI_KAR != 0; else showVishesh">
+                            <td>{{ itemRs4?.SAMANYA_PANI_KAR }}</td>
+                        </ng-container>
+
+                        <ng-template #showVishesh>
+                            <td>{{ itemRs4?.VISHESH_PANI_KAR }}</td>
+                        </ng-template>
+
+                        <td style="font-weight: bold;">
+                            {{
+                            (itemRs4?.rs5Data[0]?.samanya || 0) +
+                            (itemRs4?.rs5Data[0]?.vishesh || 0) +
+                            (itemRs4?.SAMANYA_PANI_KAR || 0) +
+                            (itemRs4?.VISHESH_PANI_KAR || 0)
+                            }}
+                        </td>
+
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+
+                    </tr>
+                    <!-- <tr>
+                        <td colspan="30"></td>
+                    </tr> -->
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

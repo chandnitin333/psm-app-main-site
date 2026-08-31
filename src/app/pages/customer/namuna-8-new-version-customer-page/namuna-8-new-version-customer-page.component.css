@@ -1,0 +1,351 @@
+/* 
+table{
+    font-size: 12px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 8px;
+    font-size: 13px;
+    line-height:0.5;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    padding: 3px 25px;
+}
+
+
+.san{
+	text-align: center;
+    font-size: 12px;
+	line-height: 0.4;
+}
+
+
+*/
+.nobreak {
+        page-break-inside: avoid;
+    }
+
+    .content-center {
+        text-align: center;
+        margin: auto;
+    }
+
+    .header-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .col-md-3 {
+        flex: 1;
+    }
+
+    .font15 {
+        font-size: 15px;
+    }
+
+    .right {
+        float: right;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+    }
+
+    th, td {
+        border: 1px solid #000;
+        padding: 5px;
+    }
+
+    .header-vertical-top {
+        vertical-align: top;
+    }
+
+    .header-center {
+        text-align: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        white-space: nowrap;
+        min-width: 30px;
+    }
+
+    .summary-table {
+        margin-top: 10px;
+    }
+
+    .footer-notes {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .red-text {
+        color: red;
+    }
+
+    .right{
+        float:right;
+    }
+    .font15, .san, .right{
+        font-weight: bold;
+    }
+    .buttonPdf{
+        float: right;
+        padding: 3px 25px;
+        margin-left: -100px;
+    }
+
+    .landscape-text {
+        writing-mode: vertical-rl;
+        transform: rotate(360deg);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid black;
+        padding: 6px;
+        
+    }
+    h4{
+            font-size: 12px;
+        }
+    table {
+        font-size: 12px;
+    }
+
+    .buttonPdf {
+        margin-left: -100px;
+    }
+
+    .heading:second-child {
+        page-break-after: avoid;
+    }
+
+    .heading {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
+
+    table,
+    figure {
+        page-break-inside: avoid;
+    }
+
+    .table-bordered>tbody>tr>td {
+        width: 5%;
+    }
+
+
+
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  border: 1px solid #000;
+  padding: 2px 4px;        
+  font-size: 9px;        
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;   
+}
+
+.pdf-export-style .landscape-text {
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  white-space: nowrap !important;
+  min-width: 30px;
+}
+
+/* Print instruction alert styles */
+.print-instruction-alert {
+  margin-top: 10px;
+  font-size: 11px;
+  padding: 8px 12px;
+}
+
+.print-instruction-alert strong {
+  font-size: 12px;
+}
+
+/* Print media queries for better print quality */
+@media print {
+  /* Hide buttons and non-essential elements */
+  .hidden-print, button {
+    display: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  /* Reset margins and padding */
+  * {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body {
+    font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #000;
+    background: white;
+  }
+
+  /* Render wide (1260px) at a larger font, then scale to fit A4 landscape on one page. */
+  #contentToExport {
+    width: 1260px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    zoom: 0.82;
+  }
+
+  /* Table optimization for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid;
+    font-size: 15px !important;
+  }
+
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 3px 2px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    line-height: 1.2 !important;
+    word-break: keep-all !important;
+  }
+
+  th {
+    font-weight: bold !important;
+    background: #f2f2f2 !important;
+  }
+
+  /* Headings */
+  .heading {
+    text-align: center !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    padding: 0 !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  .san {
+    text-align: center !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .font15 {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Prevent page breaks inside table rows */
+  tr {
+    page-break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  /* Container and table responsive */
+  .table-responsive {
+    overflow: visible !important;
+  }
+
+  .container-fluid {
+    padding: 3px !important;
+  }
+
+  /* Grid system for print */
+  .row {
+    width: 100% !important;
+    clear: both;
+    padding: 2px 0 !important;
+  }
+
+  .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .col-md-4 {
+    width: 33.33% !important;
+    float: left;
+  }
+
+  .left {
+    text-align: left !important;
+    float: left;
+  }
+
+  .center {
+    text-align: center !important;
+  }
+
+  .right {
+    text-align: right !important;
+    float: right;
+  }
+}
+

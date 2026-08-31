@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { API_URL } from '../../constant/admin.constant';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,9 @@ export class AuthService {
         if (!res?.data?.token) {
           this.router.navigate(['login']);
         }
+        // console.log('Login Response------:', res?.data?.RandomNumber, res?.data?.RNO);
+        localStorage.setItem('randomNumber', res?.data?.RandomNumber);
+        localStorage.setItem('rno', res?.data?.RNO);
         this.setToken(res?.data?.token);
         this.router.navigate(['home']);
       });
@@ -44,5 +48,14 @@ export class AuthService {
       return throwError(new Error('Failed to login'));
     }
     return new Observable<any>();
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+
+    const decoded: any = jwtDecode(token);
+    const exp = decoded.exp * 1000; // convert to milliseconds
+    return Date.now() > exp; // true if expired
   }
 }

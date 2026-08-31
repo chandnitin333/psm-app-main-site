@@ -1,0 +1,276 @@
+<div class="billpay-wrapper">
+    <div class="billpay-card" *ngIf="isLoading">
+        <p class="loading-text">लोड होत आहे...</p>
+    </div>
+
+    <div class="billpay-card" *ngIf="!isLoading && notFound">
+        <h2 class="billpay-title">लिंक सापडली नाही</h2>
+        <p>ही पेमेंट लिंक अवैध आहे किंवा कालबाह्य झाली आहे. कृपया ग्रामपंचायतीशी संपर्क साधा.</p>
+    </div>
+
+    <ng-container *ngIf="!isLoading && !notFound && billInfo">
+        <div class="billpay-card">
+            <h2 class="billpay-title">{{ billInfo.panchayat?.PANCHAYAT_NAME }} — कर भरणा</h2>
+            <div class="bill-summary">
+                <div class="bill-row" *ngIf="billInfo.bill?.khatedar_name">
+                    <span class="bill-label">खातेधारकाचे नाव</span>
+                    <span class="bill-value">{{ billInfo.bill?.khatedar_name }}</span>
+                </div>
+                <div class="bill-row" *ngIf="billInfo.bill?.malmatta_number">
+                    <span class="bill-label">मालमत्ता क्र.</span>
+                    <span class="bill-value">{{ billInfo.bill?.malmatta_number }}</span>
+                </div>
+                <div class="bill-row" *ngIf="billInfo.ward_no">
+                    <span class="bill-label">वार्ड क्र.</span>
+                    <span class="bill-value">{{ billInfo.ward_no }}</span>
+                </div>
+                <div class="bill-row" *ngIf="billInfo.report_type">
+                    <span class="bill-label">मागणी पावती (कलम)</span>
+                    <span class="bill-value">{{ reportLabel(billInfo.report_type) }}</span>
+                </div>
+                <div class="bill-row" *ngIf="billInfo.bill?.gruhkar_amount != null">
+                    <span class="bill-label">गृहकर रक्कम</span>
+                    <span class="bill-value">₹ {{ billInfo.bill?.gruhkar_amount }}</span>
+                </div>
+                <div class="bill-row" *ngIf="billInfo.bill?.pani_amount != null">
+                    <span class="bill-label">पाणी कर रक्कम</span>
+                    <span class="bill-value">₹ {{ billInfo.bill?.pani_amount }}</span>
+                </div>
+                <div class="bill-row total" *ngIf="billInfo.bill?.total_amount">
+                    <span class="bill-label">एकूण मागणी रक्कम</span>
+                    <span class="bill-value">₹ {{ billInfo.bill?.total_amount }}</span>
+                </div>
+            </div>
+            <div class="kar-status-row">
+                <div class="kar-status-box">
+                    <span class="kar-status-name">घरकर</span>
+                    <span class="status-pill" [ngClass]="'status-' + karStatus('gruhkar')">
+                        {{ karStatusLabel('gruhkar') }}
+                    </span>
+                </div>
+                <div class="kar-status-box">
+                    <span class="kar-status-name">पाणी कर</span>
+                    <span class="status-pill" [ngClass]="'status-' + karStatus('panikar')">
+                        {{ karStatusLabel('panikar') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="billpay-card">
+            <h3 class="scanner-heading">QR स्कॅन करून पेमेंट करा</h3>
+            <div class="scanner-grid">
+                <!-- घरकर: scanner up to ₹2000, bank/UPI details above -->
+                <div class="scanner-box" *ngIf="gharScannerUrl || (useBankFor('gruhkar') && hasBankDetails('gruhkar'))">
+                    <h4>घरकर / गृहकर</h4>
+                    <p class="scanner-amount" *ngIf="billInfo.bill?.gruhkar_amount != null">
+                        भरावयाची रक्कम: <b>₹ {{ billInfo.bill?.gruhkar_amount }}</b>
+                    </p>
+                    <ng-container *ngIf="!useBankFor('gruhkar'); else gharBank">
+                        <img *ngIf="gharScannerUrl" [src]="gharScannerUrl" alt="घरकर स्कॅनर" class="scanner-clickable"
+                            (click)="openScannerPreview(gharScannerUrl, 'घरकर / गृहकर')" />
+                        <p class="scanner-tap-hint" *ngIf="gharScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                        <div class="pay-actions" *ngIf="gharScannerUrl">
+                            <button type="button" class="upi-btn" *ngIf="upiAvailable('gruhkar')"
+                                (click)="payViaUpi('gruhkar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            <button type="button" class="download-btn"
+                                (click)="downloadScanner(gharScannerUrl, 'gharkar')">⬇ स्कॅनर डाउनलोड करा</button>
+                        </div>
+                    </ng-container>
+                    <ng-template #gharBank>
+                        <div class="bank-details" *ngIf="hasBankDetails('gruhkar'); else gharBankMissing">
+                            <p class="bank-note">₹2000 पेक्षा जास्त रक्कम — कृपया बँक खात्यात / UPI ने भरणा करा</p>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').bank_name">
+                                <span>बँक</span><b>{{ bankDetails('gruhkar').bank_name }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').holder">
+                                <span>खातेधारक</span><b>{{ bankDetails('gruhkar').holder }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').account_no">
+                                <span>खाते क्रमांक</span><b>{{ bankDetails('gruhkar').account_no }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').ifsc">
+                                <span>IFSC</span><b>{{ bankDetails('gruhkar').ifsc }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('gruhkar').upi">
+                                <span>UPI ID</span><b>{{ bankDetails('gruhkar').upi }}</b>
+                            </div>
+                            <div class="pay-actions" *ngIf="upiAvailable('gruhkar')">
+                                <button type="button" class="upi-btn"
+                                    (click)="payViaUpi('gruhkar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            </div>
+                        </div>
+                        <ng-template #gharBankMissing>
+                            <p class="scanner-note">बँक तपशील उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.</p>
+                        </ng-template>
+                    </ng-template>
+                </div>
+                <!-- पाणी कर: scanner up to ₹2000, bank/UPI details above -->
+                <div class="scanner-box" *ngIf="paniScannerUrl || (useBankFor('panikar') && hasBankDetails('panikar'))">
+                    <h4>पाणी कर</h4>
+                    <p class="scanner-amount" *ngIf="billInfo.bill?.pani_amount != null">
+                        भरावयाची रक्कम: <b>₹ {{ billInfo.bill?.pani_amount }}</b>
+                    </p>
+                    <ng-container *ngIf="!useBankFor('panikar'); else paniBank">
+                        <img *ngIf="paniScannerUrl" [src]="paniScannerUrl" alt="पाणी कर स्कॅनर" class="scanner-clickable"
+                            (click)="openScannerPreview(paniScannerUrl, 'पाणी कर')" />
+                        <p class="scanner-tap-hint" *ngIf="paniScannerUrl">🔍 मोठे करण्यासाठी टॅप करा</p>
+                        <div class="pay-actions" *ngIf="paniScannerUrl">
+                            <button type="button" class="upi-btn" *ngIf="upiAvailable('panikar')"
+                                (click)="payViaUpi('panikar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            <button type="button" class="download-btn"
+                                (click)="downloadScanner(paniScannerUrl, 'panikar')">⬇ स्कॅनर डाउनलोड करा</button>
+                        </div>
+                    </ng-container>
+                    <ng-template #paniBank>
+                        <div class="bank-details" *ngIf="hasBankDetails('panikar'); else paniBankMissing">
+                            <p class="bank-note">₹2000 पेक्षा जास्त रक्कम — कृपया बँक खात्यात / UPI ने भरणा करा</p>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').bank_name">
+                                <span>बँक</span><b>{{ bankDetails('panikar').bank_name }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').holder">
+                                <span>खातेधारक</span><b>{{ bankDetails('panikar').holder }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').account_no">
+                                <span>खाते क्रमांक</span><b>{{ bankDetails('panikar').account_no }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').ifsc">
+                                <span>IFSC</span><b>{{ bankDetails('panikar').ifsc }}</b>
+                            </div>
+                            <div class="bank-row" *ngIf="bankDetails('panikar').upi">
+                                <span>UPI ID</span><b>{{ bankDetails('panikar').upi }}</b>
+                            </div>
+                            <div class="pay-actions" *ngIf="upiAvailable('panikar')">
+                                <button type="button" class="upi-btn"
+                                    (click)="payViaUpi('panikar')">📱 UPI ॲपने भरा (GPay / PhonePe)</button>
+                            </div>
+                        </div>
+                        <ng-template #paniBankMissing>
+                            <p class="scanner-note">बँक तपशील उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.</p>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+            <p class="scanner-note" *ngIf="!gharScannerUrl && !paniScannerUrl">
+                या ग्रामपंचायतीसाठी स्कॅनर उपलब्ध नाहीत. कृपया ग्रामपंचायत कार्यालयाशी संपर्क साधा.
+            </p>
+        </div>
+
+        <div class="billpay-card" *ngIf="gharScannerUrl || paniScannerUrl">
+            <h3 class="scanner-heading">पेमेंट केल्यानंतर येथे नोंद करा</h3>
+            <div class="claim-form" *ngIf="hasOpenKar">
+                <div class="form-field">
+                    <label>कर प्रकार</label>
+                    <select [(ngModel)]="claim.kar_type" name="kar_type" class="input"
+                        (change)="onKarTypeChange()">
+                        <option value="gruhkar" *ngIf="isKarOpen('gruhkar')">घरकर / गृहकर</option>
+                        <option value="panikar" *ngIf="isKarOpen('panikar')">पाणी कर</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>पेमेंट पद्धत *</label>
+                    <div class="mode-options">
+                        <label class="mode-option">
+                            <input type="radio" name="payment_mode" value="upi"
+                                [(ngModel)]="claim.payment_mode" (change)="onModeChange()" />
+                            UPI / ऑनलाईन
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="payment_mode" value="cash"
+                                [(ngModel)]="claim.payment_mode" (change)="onModeChange()" />
+                            रोख (Cash)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>भरलेली रक्कम (₹) *</label>
+                    <input type="number" [(ngModel)]="claim.amount" name="amount" class="input" placeholder="0.00" />
+                </div>
+                <ng-container *ngIf="claim.payment_mode === 'upi'">
+                    <div class="form-field">
+                        <label>UTR / Transaction क्रमांक *</label>
+                        <input type="text" [(ngModel)]="claim.utr_number" name="utr_number" class="input"
+                            placeholder="UPI app मधील Transaction ID" />
+                    </div>
+                    <div class="form-field">
+                        <label>Transaction स्क्रीनशॉट *</label>
+                        <input type="file" accept="image/*" class="input"
+                            (change)="onTransactionFileSelected($event)" />
+                        <div *ngIf="transactionPreview" class="txn-preview">
+                            <img [src]="transactionPreview" alt="Transaction Preview" />
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="form-field">
+                    <label>तुमचे नाव</label>
+                    <input type="text" [(ngModel)]="claim.payer_name" name="payer_name" class="input"
+                        [class.readonly-field]="payerLocked" [readonly]="payerLocked" />
+                </div>
+                <div class="form-field">
+                    <label>मोबाईल क्रमांक</label>
+                    <input type="text" [(ngModel)]="claim.payer_mobile" name="payer_mobile" class="input"
+                        maxlength="10" />
+                </div>
+                <div class="form-field">
+                    <label>शेरा (Remark)</label>
+                    <textarea [(ngModel)]="claim.payer_remark" name="payer_remark" class="input" rows="3"
+                        maxlength="300" placeholder="काही नोंद करायची असल्यास येथे लिहा (ऐच्छिक)"></textarea>
+                </div>
+                <button class="submit-btn" (click)="submitClaim()" [disabled]="isSubmitting">
+                    {{ isSubmitting ? 'नोंदवत आहे...' : 'पेमेंटची नोंद करा' }}
+                </button>
+            </div>
+            <div class="claim-success" *ngIf="!hasOpenKar">
+                ✅ दोन्ही करांच्या पेमेंटची नोंद झाली आहे. ग्रामपंचायत लवकरच पडताळणी करेल.
+            </div>
+        </div>
+
+        <div class="billpay-card" *ngIf="billInfo.payments?.length">
+            <h3 class="scanner-heading">या बिलावरील नोंदी</h3>
+            <div class="table-scroll">
+            <table class="payments-table">
+                <thead>
+                    <tr>
+                        <th>कर</th>
+                        <th>पद्धत</th>
+                        <th>रक्कम</th>
+                        <th>UTR</th>
+                        <th>पावती</th>
+                        <th>शेरा</th>
+                        <th>स्थिती</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of billInfo.payments">
+                        <td>{{ p.kar_type === 'gruhkar' ? 'घरकर' : 'पाणी कर' }}</td>
+                        <td>{{ modeLabel(p.payment_mode) }}</td>
+                        <td>₹ {{ p.amount }}</td>
+                        <td>{{ p.utr_number || '—' }}</td>
+                        <td>
+                            <a *ngIf="p.transaction_image" [href]="txnImageUrl(p.transaction_image)" target="_blank">पहा</a>
+                            <span *ngIf="!p.transaction_image">—</span>
+                        </td>
+                        <td class="remark-cell">{{ p.payer_remark || '—' }}</td>
+                        <td>
+                            <span class="status-pill" [ngClass]="'status-' + p.status">{{ statusLabel(p.status) }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Fullscreen scanner preview (lightbox) -->
+    <div class="scanner-lightbox" *ngIf="previewScannerUrl" (click)="closeScannerPreview()">
+        <button class="lightbox-close" (click)="closeScannerPreview()">✕</button>
+        <h3 class="lightbox-title">{{ previewScannerTitle }}</h3>
+        <img [src]="previewScannerUrl" alt="Scanner Preview" class="lightbox-img"
+            (click)="$event.stopPropagation()" />
+        <button type="button" class="download-btn lightbox-download"
+            (click)="downloadScanner(previewScannerUrl, 'scanner'); $event.stopPropagation()">
+            ⬇ स्कॅनर डाउनलोड करा
+        </button>
+        <p class="lightbox-hint">QR स्कॅन करा • बंद करण्यासाठी बाहेर टॅप करा</p>
+    </div>
+</div>

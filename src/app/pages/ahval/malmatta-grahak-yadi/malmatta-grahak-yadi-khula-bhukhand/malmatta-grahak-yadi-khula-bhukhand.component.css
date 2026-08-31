@@ -1,0 +1,379 @@
+
+table{
+    font-size: 12px;
+    /* line-height: 100%; */
+}
+.buttonPdf{
+	margin-left: -100px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    padding-top: 8px;
+    font-size: 13px;
+    line-height:0.5;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    /* font-size: 15px;
+    font-weight: bold; */
+    padding: 3px 25px;
+    /* background-color: #0bca11; */
+}
+
+
+.san{
+	text-align: center;
+    font-size: 12px;
+	line-height: 0.4;
+}
+
+.padding20{
+	/* padding:20px; */
+}
+.font15, .san, .right{
+	font-weight: bold;
+}
+
+
+/* Print styles for landscape A4 with page breaks */
+@media print {
+	/* Hide buttons and alerts */
+	.hidden-print,
+	.alert,
+	button {
+		display: none !important;
+	}
+
+	/* Set page orientation to landscape with margins for user notes */
+	@page {
+		size: A4 landscape;
+		margin: 15mm 20mm; /* top/bottom 15mm, left/right 20mm for user notes */
+	}
+
+	/* Ensure content fits on page */
+	* {
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Remove all default paragraph margins */
+	p {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	div {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	span {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Remove all Bootstrap container padding */
+	.container-fluid {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	#contentToExport {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* New page before each record (NOT after — page-break-after on the last record
+	   creates a trailing blank page). */
+	.page-break {
+		page-break-before: always !important;
+		page-break-inside: avoid !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* First page should not have page break before */
+	.page-break:first-child {
+		page-break-before: avoid !important;
+	}
+
+	/* Heading sizes for better readability */
+	.heading {
+		font-size: 16px !important;
+		margin-bottom: 4px !important;
+		line-height: 1.3 !important;
+		padding-top: 0 !important;
+		font-weight: bold !important;
+	}
+
+	.san {
+		font-size: 14px !important;
+		margin-bottom: 4px !important;
+		line-height: 1.3 !important;
+	}
+
+	/* Header text - district, taluka, grampanchayat */
+	.font15 {
+		font-size: 13px !important;
+		line-height: 1.3 !important;
+		/* white-space: nowrap !important; */
+	}
+
+	.col-md-12 {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	.col-md-4 {
+		display: table-cell !important;
+		width: 33.33% !important;
+		vertical-align: middle !important;
+		padding: 0 !important;
+	}
+
+	.col-md-4:nth-child(1) {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) {
+		text-align: center !important;
+	}
+
+	/* Ensure center column content is perfectly centered like san heading */
+	.col-md-4.center,
+	.col-md-4.center.tahsil {
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+		text-align: center !important;
+	}
+
+	.col-md-4:nth-child(3) {
+		text-align: right !important;
+	}
+
+	/* Make spans inside columns fill width */
+	.col-md-4 span {
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.col-md-4:nth-child(1) span,
+	.col-md-4:nth-child(1) .font15 {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) span,
+	.col-md-4:nth-child(2) .font15,
+	.center.tahsil span,
+	.center.tahsil .font15 {
+		text-align: center !important;
+		display: block !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		padding-left: 100px !important;
+	}
+
+	.col-md-4:nth-child(3) span,
+	.col-md-4:nth-child(3) .font15 {
+		text-align: right !important;
+	}
+
+	.col-md-8 {
+		display: table-cell !important;
+		width: 66.66% !important;
+		padding: 0 !important;
+	}
+
+	/* Ensure pan number row aligns properly */
+	.col-md-4 .font15.right,
+	.col-md-4 > span.right {
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.row {
+		margin-bottom: 3px !important;
+		display: table !important;
+		width: 100% !important;
+		table-layout: fixed !important;
+	}
+
+	.left {
+		float: none !important;
+		text-align: left !important;
+		display: block !important;
+	}
+
+	.center,
+	.center.tahsil {
+		text-align: center !important;
+		margin-left: 0 !important;
+		display: block !important;
+	}
+
+	.right {
+		float: none !important;
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Override for font15 class to ensure proper alignment */
+	.font15.left {
+		text-align: left !important;
+	}
+
+	.font15.right {
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Spacing between header and table */
+	.table-responsive {
+		margin-top: 5px !important;
+		overflow-x: visible !important;
+		padding: 0 !important;
+	}
+
+	/* Optimize table for printing with readable font size */
+	table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin: 0 !important;
+		margin-top: 5px !important;
+	}
+
+	thead {
+		display: table-header-group !important;
+	}
+
+	tbody {
+		display: table-row-group !important;
+	}
+
+	th, td {
+		border: 1px solid #000 !important;
+		padding: 4px 3px !important;
+		word-wrap: break-word;
+		font-size: 12px !important;
+		text-align: center !important;
+		line-height: 1.3 !important;
+	}
+
+	th {
+		font-weight: bold !important;
+		background-color: #f0f0f0 !important;
+		padding: 5px 4px !important;
+		font-size: 12px !important;
+	}
+
+	/* Make bold rows more prominent */
+	tr[style*="font-weight:bold"] td,
+	td b,
+	td strong {
+		font-weight: bold !important;
+	}
+
+	tr {
+		border: 1px solid #000 !important;
+		page-break-inside: avoid !important;
+	}
+
+	/* Prevent page breaks inside important elements */
+	.heading,
+	.row {
+		page-break-inside: avoid !important;
+	}
+
+	/* Ensure no extra margins/padding */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+}
+
+
+/* ---- Mobile (screen only — print/PDF unaffected) ----
+   Wide government-form layout overlaps on phones; keep it intact at a fixed
+   min-width and let the user pan horizontally instead of overlapping. */
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #contentToExport {
+    min-width: 760px;
+    margin: 0 auto;
+  }
+  .table-responsive {
+    overflow-x: visible !important;
+  }
+}
+
+
+/* ---- Mobile: center the title block across full report width ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-12,
+  #contentToExport .row { width: 100% !important; }
+  #contentToExport .heading,
+  #contentToExport .san,
+  #contentToExport .namna {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
+}
+
+
+/* ---- Mobile: keep जिल्हा/तालुका/ग्रामपंचायत row on ONE line (3 cols) ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-4 {
+    width: 33.33% !important;
+    float: left !important;
+    display: block !important;
+  }
+  #contentToExport .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  #contentToExport .left  { float: left  !important; text-align: left  !important; }
+  #contentToExport .center { text-align: center !important; }
+  #contentToExport .right { float: right !important; text-align: right !important; }
+}

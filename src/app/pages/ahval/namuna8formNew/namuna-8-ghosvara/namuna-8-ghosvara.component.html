@@ -1,0 +1,458 @@
+<div class="hidden-print" style="margin-bottom: 10px;">
+    <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
+        title="Best quality - Use browser's Print to PDF option">
+        🖨️ Print / Save as PDF (Perfect Quality)
+    </button>&nbsp;
+    <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+        style="font-weight: bold;">
+        📥 Download PDF
+    </button>&nbsp;
+    <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+        style="font-weight: bold; margin-left: 10px;">
+        📥 PDF तयार करा
+    </button>
+</div>
+<div class="hidden-print alert alert-warning" style="margin-bottom: 10px; padding: 8px; font-size: 12px;">
+    <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+    मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+</div>
+<div class="container-fluid" id="contentToExport">
+    <div class="col-md-12">
+        <div class="row">
+            <div class=" col-md-offset-2">
+                <div class="table-responsive">
+                    <table class="table" style="margin-bottom: 0px !important;">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                                <th>गोषवारा नमुना ८ </th>
+                                <th
+                                    style="border-right: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th
+                                    style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                                <th>कर मागणी सन {{ reportData?.yearRs42.currentYear }}-{{
+                                    reportData?.yearRs42?.nextYear }} ते {{
+                                    reportData?.yearRs42?.year_3 }}-{{
+                                    reportData?.yearRs42?.year_4 }} </th>
+                                <th
+                                    style="border-right: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th
+                                    style="border-left: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                                <th style="border-bottom: 1px solid #fff !important;"> &nbsp; </th>
+                                <th
+                                    style="border-right: 1px solid #fff !important;border-top: 1px solid #fff !important;border-bottom: 1px solid #fff !important">
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- <form action="govshwaraNamuna8_vard.asp" method="post"> -->
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>जिल्हा :-{{ reportData?.newUserDataDB[0]?.DISTRICT_NAME }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>तहसील :- {{ reportData?.newUserDataDB[0]?.TALUKA_NAME }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>ग्रामपंचायत :- {{ reportData?.newUserDataDB[0]?.PANCHAYAT_NAME }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>एकूण घराची संख्या </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>कराचे प्रकार</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td> ऐकून रक्कम </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs2[0]?.bhumicount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>गहृ व भूमीकर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs2[0]?.bhumi }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs3[0]?.VIZcount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>दियाबत्ती कर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs3[0]?.VIZ }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs4[0]?.aarogyacount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>आरोग्य रक्षण कर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs4[0]?.aarogya }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs5[0]?.safaicount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>सफाई कर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs5[0]?.safai }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs6[0]?.panicount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>सामान्य पाणी कर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs6[0]?.pani }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs7[0]?.visheshcount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>विशेष पाणी कर </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs7[0]?.vishesh }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs8[0]?.vanicount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>औधोगिक </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs8[0]?.vani }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs9[0]?.manocount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>मनोरा </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.rs9[0]?.mano }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- </form> -->
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.totalLeft }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>एकुण</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>{{ reportData?.totalRight }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <p style="text-align: center;" class="bottom-info">ग्रामपंचायत मासिक सभा दि.
+                .........../........../............... ठराव क्रं. .............. अन्वेय गृहकर व भूमीकर , दिवाबत्ती
+                कर , आरोग्य रक्षण कर , सफाई कर व पाणी पट्टी कर सन {{ reportData?.yearRs42.currentYear }}-{{
+                reportData?.yearRs42?.nextYear }} ते {{
+                reportData?.yearRs42?.year_3 }}-{{
+                reportData?.yearRs42?.year_4 }} करीत सदर कर आकारणी "कर
+                आकारणी समिती " कडून अंतिम करण्यात येत आहे .
+            </p>
+        </div>
+        <br><br>
+        <div class="row signature-group-first">
+            <div class="col-md-4 center">
+                <span class="font15">गसरपंच </span>
+            </div>
+            <div class="col-md-4 center">
+                <span class="font15">सचिव </span>
+            </div>
+            <div class="col-md-4 center">
+                <span class="font15"> विस्तार अधिकारी </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 center">
+                <span class="font15">गट ग्रामपंचायत डेमो पं. स. नागपूर ग्रामीण </span>
+            </div>
+            <div class="col-md-4 center">
+                <span class="font15">गट ग्रामपंचायत डेमो पं. स. नागपूर ग्रामीण </span>
+            </div>
+            <div class="col-md-4 center">
+                <span class="font15">(पंचा)तथा सदस्य कर आकारणी समिती डेमो </span>
+            </div>
+        </div>
+        <br><br>
+        <div class="row signature-row-first">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">सरपंच तथा अध्यक्ष </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">उपसरपंच तथा अध्यक्ष</span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15"> शा.अभियंता </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">ग्रामसेवक तथा सदस्य व सचिव</span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15"> खंड विकास अधिकारी </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">कर आकारणी समिती डेमो </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">कर आकारणी समिती डेमो </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">( जि. प. बांधकाम ) तथा सदस्य</span><br>
+                <span class="font15">कर आकारणी समिती डेमो </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15">कर आकारणी समिती डेमो </span>
+            </div>
+            <div class="col-md-2 center">
+                <span class="font15"> कर आकारणी समिती डेमो </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
