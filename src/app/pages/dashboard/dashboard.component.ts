@@ -8,18 +8,37 @@ import { CustomPaginationComponent } from '../../custom-pagination/custom-pagina
 import { MatDataTableComponent } from '../../mat-data-table/mat-data-table.component';
 import { ApiService } from '../../services/api.service';
 import { LoaderService } from '../../services/loader.service';
+import { AuthService } from '../../services/auth.service';
+import { RouterLink } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [LayoutModule, CommonModule, MatDataTableComponent, CustomPaginationComponent],
+  imports: [LayoutModule, CommonModule, MatDataTableComponent, CustomPaginationComponent,RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
   token: any = "";
-  userData: any;
-  users: any;
+  userData: any = {
+    chalu_khatedar: 0,
+    adhikrut: 0,
+    indira_awas: 0,
+    imlakar: 0,
+    ghar_kar: 0,
+    audyogik: 0,
+    manora: 0
+  };
+  mapUrl: SafeResourceUrl = '';
+  users: any = {
+    NAME: '',
+    SURNAME: '',
+    USERNAME: '',
+    DISTRICT_NAME: '',
+    TALUKA_NAME: '',
+    PANCHAYAT_NAME: ''
+  };
 
   displayedColumns: { key: string; value: string }[] = [
 
@@ -36,25 +55,35 @@ export class DashboardComponent {
   pagedDataSource = new MatTableDataSource<any>([]);
   currentPage: number = 0;
   isLoad: boolean = false;
+  members: any[] = [];
 
-  constructor(private api: ApiService, private spinner: LoaderService) { }
+  constructor(private api: ApiService, private spinner: LoaderService, private auth: AuthService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.spinner.show();
     this.token = this.api.getToken();
+    this.users = this.api.getDecodedToken();
     this.getUserActivity();
+    this.getMemberList();          // independent of get-user-activity
+    this.checkIsloggedIn();
+    // this.url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119376.56285906771!2d78.99097527407644!3d21.145799991378873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0a5a31ffc39%3A0x9ab2c2b62f4a1e03!2s",this.users.TALUKA,"%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1703001234567!5m2!1sen!2sin&z=12"
 
-
+  }
+  checkIsloggedIn() {
+    if (this.auth.isTokenExpired()) {
+      this.auth.logout();
+    }
   }
 
   getUserActivity() {
     this.users = this.api.getDecodedToken();
-   
+    this.generateMapUrl();
+
     try {
       this.api.post('get-user-activity', { user_id: this.users?.userId }).subscribe({
         next: (res: any) => {
-          console.log('User Activity:', res.data);
-          this.userData = res.data[0] ?? [];
-          this.getMemberList();
+          // console.log('User Activity:', res.data);
+          this.userData = res.data ?? [];
+          console.log("this.userData----", this.userData)
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error:-', error.message);
@@ -68,12 +97,38 @@ export class DashboardComponent {
 
   }
 
+  generateMapUrl() {
+    // Use Taluka name if available, otherwise use District name, otherwise default to Nagpur
+    let location = ''; 
+    if(this.users.PANCHAYAT_NAME.trim() === 'डेमो' || this.users.PANCHAYAT_NAME.trim() === 'न्यू डेमो'){
+      location = 'Nagpur';
+    }else {
+      location = this.users.PANCHAYAT_NAME.trim() || this.users.TALUKA_NAME.trim() || this.users.DISTRICT_NAME.trim() || 'Nagpur';
+    }
+    const searchQuery = `${location}, Maharashtra, India`;
+
+    // Google Maps Embed API URL with dynamic location
+    const baseUrl = 'https://www.google.com/maps/embed/v1/place';
+    const apiKey = 'AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8'; // You may need to replace this with your actual API key
+
+    // Alternative: Using the search-based embed URL (doesn't require API key)
+    const embedUrl = `https://www.google.com/maps?q=${encodeURIComponent(searchQuery)}&output=embed&z=14`;
+
+    this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
   getMemberList() {
-    this.spinner.show();
-    this.api.post('get-member-list', { user_id: this.users?.userId }).subscribe({
+    if (!this.users) {
+      this.users = this.api.getDecodedToken();
+    }
+    const panchayatId = this.users?.PANCHAYAT_ID ?? null;
+    console.log('getMemberList -> panchayat_id:', panchayatId);
+    this.api.post('get-member-list', { panchayat_id: panchayatId }).subscribe({
       next: (res: any) => {
-        console.log('Member List:', res.data);
-        this.dataSource.data = res.data;
+        console.log('Member List response:', res);
+        const list = Array.isArray(res?.data) ? res.data : (res?.data?.data ?? []);
+        this.members = list ?? [];
+        this.dataSource.data = this.members;
         this.setPageData({ pageIndex: 0, pageSize: 10, length: this.dataSource.data.length });
         this.spinner.hide();
         this.isLoad = true
@@ -87,7 +142,7 @@ export class DashboardComponent {
 
   onPageChange(event: PageEvent): void {
 
-    this.currentPage = event.pageIndex
+    this.currentPage = event.pageIndex + 1
     this.setPageData(event);
   }
 

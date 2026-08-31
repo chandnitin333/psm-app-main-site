@@ -1,0 +1,48 @@
+<mat-card class="form-panel">
+    <mat-card-title class="title">पीडीएफ जोडा / डाउनलोड करा</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <form class="form-grid">
+        <div class="form-row mt-2">
+            <!-- File Name Input -->
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label class="text-bold">फाईल नाव</mat-label>
+                <input matInput type="text" name="file_name" [(ngModel)]="fileAttachName"
+                    placeholder="Enter file name" />
+            </mat-form-field>
+
+            <!-- File Upload -->
+            <mat-form-field appearance="outline" class="w-full form-field">
+                <mat-label>पीडीएफ अपलोड करा</mat-label>
+                <!-- Hidden File Input -->
+                <input type="file" hidden (change)="onFileSelected($event)" #fileInput id="sachiv_image"
+                    name="sachiv_image" />
+
+                <!-- Visible Text Box Showing File Name -->
+                <input matInput placeholder="Choose file" [value]="fileName" readonly />
+
+                <button mat-icon-button matSuffix type="button" (click)="fileInput.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <button mat-raised-button color="primary" class="submit-btn" type="button" (click)="submitPDF()">
+                Submit
+            </button>
+        </div>
+    </form>
+
+    <!-- Table Section -->
+    <div class="table-responsive mt-4">
+        <app-mat-data-table [displayedColumns]="displayedColumns" [dataSource]="pagedDataSource"
+            [currentPage]="currentPage" [isEdit]="false" [isDelete]="false" [isView]="false" [isPrint]="false"
+            [isDownload]="true" [isPreview]="false" [isKar]="false"
+            (downloadEvent)="onDownload($event)"></app-mat-data-table>
+
+        <app-custom-pagination *ngIf="dataSource && dataSource.data.length > 0" [length]="totalItems"
+            [pageSize]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)">
+        </app-custom-pagination>
+    </div>
+</mat-card>

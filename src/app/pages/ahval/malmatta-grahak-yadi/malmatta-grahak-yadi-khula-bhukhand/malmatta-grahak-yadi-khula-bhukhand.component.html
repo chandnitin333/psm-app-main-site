@@ -1,0 +1,276 @@
+<ng-container *ngIf="!isPublic">
+    <div class="hidden-print" style="margin-bottom: 10px;">
+        <button (click)="printDirect()" class="btn btn-success" value="Print" style="font-weight: bold;"
+            title="Best quality - Use browser's Print to PDF option">
+            🖨️ Print / Save as PDF (Perfect Quality)
+        </button>&nbsp;
+        <button (click)="downloadPDFDirect()" class="btn btn-info" value="Download PDF"
+            style="font-weight: bold;">
+            📥 Download PDF
+        </button>&nbsp;
+        <button *ngIf="isMobileDevice" (click)="downloadPDFMobile()" class="btn btn-primary"
+            style="font-weight: bold; margin-left: 10px;">
+            📥 PDF तयार करा
+        </button>
+    </div>
+    <div class="hidden-print alert alert-warning" style="margin-bottom: 10px; padding: 8px; font-size: 12px;">
+        <strong>📌 सर्वोत्तम गुणवत्तेसाठी:</strong> हिरवे "Print / Save as PDF" बटण वापरा. प्रिंट डायलॉगमध्ये "Destination"
+        मध्ये "Save as PDF" निवडा व "Headers and footers" अनचेक करा.
+        <br><strong>नोट:</strong> प्रत्येक तक्ता वेगळ्या पानावर येईल. नोट्स लिहिण्यासाठी पानाच्या कडेला जागा आहे.
+    </div>
+</ng-container>
+
+<div class="container-fluid " id="contentToExport">
+    <div class="col-md-12">
+        <ng-container *ngFor="let item of bindingDataList?.rs6">
+            <div class="page-break">
+
+
+            <div class="row qr-anchor-row" style="position: relative;">
+                <div class="qr-anchor" style="position: absolute; top: 0; right: 0; left: auto; text-align: right;"
+                    *ngIf="!isPublic && perRecordQrUrl[item?.newuser_id]">
+                    <app-report-qr [directUrl]="perRecordQrUrl[item?.newuser_id]"
+                        reportKey="namuna-8-1-single-vard" [enabled]="!isPublic"></app-report-qr>
+                </div>
+                <p class="heading">
+                    <b>फेरकर आकारणी मुल्यांकन यादी</b>
+                </p>
+
+                <p class="san">सन {{ year }} - {{ end_year }}</p>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <span class="font15 left">जिल्हा :- {{bindingDataList?.newUserDataDBRs2?.[0]?.DISTRICT_NAME}} </span>
+                </div>
+                <div class="col-md-4 center tahsil">
+                    <span class="font15 ">तालुका :- {{bindingDataList?.newUserDataDBRs2?.[0]?.TALUKA_NAME}} </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="font15 right">ग्रामपंचायत :- {{bindingDataList?.newUserDataDBRs2?.[0]?.PANCHAYAT_NAME}}
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table">
+
+                    <tbody>
+
+                        <tr>
+                            <td>अ.क्र</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.ANNU_KRAMANK }}</td>
+                            <td>मालमत्ता क्र.</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.MALMATTA_NUMBER }}</td>
+                            <td>वार्ड क्र.</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.VARD_NUMBER}}</td>
+                            <td>प्लॉट क्र.</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.PLOT_NO }}</td>
+                            <td>खसरा न .</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.KHASARA_KRAMANK }}</td>
+                            <td>सर्वे क्र.</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SURVEY_KRAMANK }}</td>
+                            <!--<td rowspan="5">चतुर : सीमा </td>-->
+                            <td>पाणी व्यवस्ता </td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.PINIYACHA_PANI }}</td>
+                            <td>शौचालय </td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SOUNCHALAY }}</td>
+                            <td>मिलकत प्रकार</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.MILKAR_PRAKAR }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>घरमालकाचे नाव </b></td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.HOMEUSER_NAME }} </td>
+                            <td rowspan="4">चतुर : सीमा </td>
+                            <td colspan="2">पूर्वेस </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.PURVA }} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>पत्नी / मुलांचे नाव</b> </td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.HOMEUSER_NAME1 }}</td>
+                            <td colspan="2">पश्चिमेस </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.PACHHIM }} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>भोगवटदाराचे नाव</b> </td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.BHOGATWARGARACHE_NAME }}</td>
+                            <td colspan="2">उत्तरेस </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.UTTAR }} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">पत्ता</td>
+                            <td colspan="7">{{ item?.newUserDataRs3?.[0]?.ADDRESS_NAGAR_SOCIETY }}</td>
+                            <td colspan="2"> दक्षिणेस </td>
+                            <td colspan="10">{{ item?.newUserDataRs3?.[0]?.DAKSIN }} </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" colspan="2">एकूण जागेचे क्षेत्रफळ </td>
+                            <td>लांबी (चौ. फु .)</td>
+                            <td>रुंदी (चौ. फु .)</td>
+                            <td colspan="2">क्षेत्रफळ (चौ. फु .)</td>
+                            <td colspan="2">क्षेत्रफळ (चौ. मीटर)</td>
+                            <td colspan="2">उर्वरितखाली जागा (चौ. फु .);</td>
+                            <td colspan="2">उर्वरितखाली जागा (चौ. मीटर )</td>
+                            <td colspan="2">मोबाईल </td>
+                            <td colspan="3">आधार कार्ड </td>
+                            <td colspan="3">वोटर कार्ड </td>
+
+                        </tr>
+                        <tr>
+                            <td>{{ item?.newUserDataRs3?.[0]?.LAMBI }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.RUNDI }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.SQUARE_FOOT }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.SQUARE_METER }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.URVATICH_KHALI_JAGA }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.URVATICH_KHALI_JAGAS }}</td>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.MOBILE_NUMBER }}</td>
+                            <td colspan="3">{{ item?.newUserDataRs3?.[0]?.AADHARCARD_NUMBER }}</td>
+                            <td colspan="4">{{ item?.newUserDataRs3?.[0]?.VOTERCARD_NUMBER }}</td>
+                        </tr>
+                        <tr style="font-weight:bold;">
+                            <td colspan="2">मालमत्तेचे वर्णन </td>
+                            <td>मालमत्तेचा प्रकार </td>
+                            <td>वापराचा प्रकार </td>
+                            <td>बांधकामाचा मजला </td>
+                            <td>वय / वर्ष </td>
+                            <td>क्षेत्रफळ पु. प . (चौ . फूट )</td>
+                            <td>क्षेत्रफळ उ. द . (चौ . फूट )</td>
+                            <td>एकूण क्षेत्रफळ (चौ . फूट )</td>
+                            <td>एकूण क्षेत्रफळ (चौ . मीटर )</td>
+                            <td>वार्षिक मूल्य </td>
+                            <td>घसारा </td>
+                            <td>भारांक </td>
+                            <td>भांडवली मूल्य </td>
+                            <td>आकारणी दर </td>
+                            <td>प्रति रु .१००० च्या भांडवली मूल्यावर </td>
+                            <td colspan="4">कर आकारणी </td>
+                        </tr>
+
+                        <tr *ngFor="let item_rs4 of item?.taxationLandRS4">
+                            <td colspan="2">{{ item_rs4?.MILKAT_VAPAR_NAME }} </td>
+                            <td>{{ item_rs4?.MILKAT_VAPAR_NAME }}</td>
+                            <!--<td colspan="2">एकूण जागा </td>-->
+                            <td rowspan="1">एकूण जागा </td>
+                            <td>&nbsp; </td>
+                            <td>&nbsp;</td>
+                            <td>{{ item_rs4?.AREAP }}</td>
+                            <td>{{ item_rs4?.AREAI }}</td>
+                            <td>{{ item_rs4?.TOTALAREA }}</td>
+                            <td>{{ item_rs4?.TOTALAREA1 }}</td>
+                            <td>{{ item_rs4?.ANNUALVALUE }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{ item_rs4?.CAPITAL }}</td>
+                            <td>{{ item_rs4?.LEVYRATE }}</td>
+                            <td>{{ item_rs4?.tax1000 }}</td>
+                            <td colspan="5">{{ item_rs4?.TAXATION }}</td>
+                        </tr>
+
+                        <tr *ngFor="let item_rs5 of item?.constructionTaxRS5">
+                            <td colspan="2">{{ item_rs5?.MILKAT_VAPAR_NAME }} </td>
+                            <td>{{ item_rs5?.DESCRIPTION_NAME }} </td>
+                            <td>{{ item_rs5?.VAPARACHE_PRAKAR }} </td>
+                            <td>{{ item_rs5?.FLOOR_NAME }} </td>
+                            <td>{{ item_rs5?.LIFESPAN }}</td>
+                            <td>{{ item_rs5?.AREAP }}</td>
+                            <td>{{ item_rs5?.AREAI }}</td>
+                            <td>{{ item_rs5?.TOTALAREA }}</td>
+                            <td>{{ item_rs5?.TOTALAREA1 }}</td>
+                            <td>{{ item_rs5?.ANNUALCOST }}</td>
+                            <td>{{ item_rs5?.DEPRECIATION }}</td>
+                            <td>{{ item_rs5?.WEIGHTTAGE }}</td>
+                            <td>{{ item_rs5?.ONE }}</td>
+                            <td>{{ item_rs5?.LEVYRATE }}</td>
+                            <td>{{ item_rs5?.cons1000 }}</td>
+                            <td colspan="5">{{ item_rs5?.TWO }}</td>
+                        </tr>
+
+                        <tr *ngFor="let item_rs8 of item?.taxPayerRS8">
+                            <td colspan="2">{{ item_rs8?.DESCRIPTION_NAME }}</td>
+
+                            <td>{{ item_rs8?.MILKAT_VAPAR_NAME }}</td>
+                            <td>{{ item_rs8?.VAPARACHE_PRAKAR }} </td>
+                            <td>{{ item_rs8?.MANORAMASTER_NAME }} </td>
+                            <td>&nbsp;</td>
+                            <td>{{ item_rs8?.AREAP }} </td>
+                            <td>{{ item_rs8?.AREAI }} </td>
+                            <td>{{ item_rs8?.TOTALAREA }} </td>
+                            <td>{{ item_rs8?.TOTALAREA1 }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{ item_rs8?.CAPITAL }} </td>
+                            <td>&nbsp;</td>
+                            <td colspan="4">{{ item_rs8?.TAXATION }}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td colspan="8">कराची रक्क्म</td>
+                            <td colspan="6">अपिलाचे निकाल आणि त्यानंतर केलेले फेरफार (रुपये )</td>
+                            <td colspan="2">गृह व भूमीकर </td>
+                            <td colspan="4">{{ item?.newUserDataRs3?.[0]?.manoraaddition }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">वीज </td>
+                            <td>आरोग्य </td>
+                            <td>सफाई </td>
+                            <td>सा. पाणी </td>
+                            <td>वि . पाणी </td>
+                            <td>एकूण </td>
+                            <td>गृह व भूमीकर </td>
+                            <td>एकूण कर </td>
+                            <td colspan="2">गृह व भूमीकर </td>
+                            <td>वीज कर </td>
+                            <td>आरोग्य</td>
+                            <td>सफाई कर </td>
+                            <td>सा. पाणी </td>
+                            <td>वि . पाणी </td>
+                            <td>एकूण </td>
+                            <td colspan="4">एकूण कर </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ item?.newUserDataRs3?.[0]?.VIZ_DIVVABATTIKAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.AAROGYA_RAKSHAN_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SAFAI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.SAMANYA_PANI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.VISHESH_PANI_KAR }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.EKUN }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.bhumikar }}</td>
+                            <td>{{ item?.newUserDataRs3?.[0]?.EEKUN_KAR_BHARNA }}</td>
+                            <td colspan="2">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">फेरफार / शेरा </td>
+                            <td colspan="18">{{ item?.newUserDataRs3?.[0]?.MAJAHUN_GHAT }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <span class="font15 right">पान नंबर : {{ item?.newUserDataRs3?.[0]?.ANNU_KRAMANK }}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

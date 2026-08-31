@@ -33,7 +33,7 @@ import { ConfirmDialogComponent } from '../common-dialog/confirm-dialog.componen
 })
 export class MatDataTableComponent {
 
-  @Input() displayedColumns: { key: string, value: string }[] = [];
+  @Input() displayedColumns: { key: string, value: string, indicatorField?: string }[] = [];
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort!: MatSort;
   @Input() totalItems!: number;
@@ -48,6 +48,7 @@ export class MatDataTableComponent {
   @Input() isDownload: boolean = false;
   @Input() isPreview: boolean = false;
   @Input() isKar: boolean = false;
+  @Input() isImage: boolean = false;
 
   // Output Events
   @Output() editEvent = new EventEmitter<any>();
@@ -56,6 +57,7 @@ export class MatDataTableComponent {
   @Output() printEvent = new EventEmitter<any>();
   @Output() downloadEvent = new EventEmitter<any>();
   @Output() previewEvent = new EventEmitter<any>();
+  @Output() imageEvent = new EventEmitter<any>();
   @Output() prevTaxEvent = new EventEmitter<any>(); // Magil kar 
 
   columnKeys: string[] = [];
@@ -110,5 +112,14 @@ export class MatDataTableComponent {
 
   prevTax(element: any) {
     this.prevTaxEvent.emit(element);
+  }
+
+  image(element: any) {
+    this.imageEvent.emit(element);
+  }
+    decodeHtmlEntities(input: string): string {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = input;
+    return txt.value;
   }
 }

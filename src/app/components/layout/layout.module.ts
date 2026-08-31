@@ -20,55 +20,59 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatTabsModule,
-        MatGridListModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDividerModule,
-        MatOptionModule,
-        MatSelectModule,
-        MatTableModule,
-        MatDatepickerModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatExpansionModule
-        
-        
-    ],
-    exports: [
-        MatSidenavModule,
-        MatToolbarModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatTabsModule,
-        MatGridListModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDividerModule,
-        MatOptionModule,
-        MatSelectModule,
-        MatTableModule,
-        MatDatepickerModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatExpansionModule
-    ]
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatDialogModule,
+    NgxMaskDirective
+  ],
+  exports: [
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatDialogModule,
+  ],
+  providers: [provideNgxMask()],
 })
-export class LayoutModule { }
+export class LayoutModule {}

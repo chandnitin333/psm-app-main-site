@@ -1,0 +1,648 @@
+
+table{
+    font-size: 12px;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* line-height: 100%; */
+}
+.buttonPdf{
+	margin-left: -100px;
+}
+/* @media only screen and (max-width: 600px) {
+	.buttonPdf{
+		margin-left: 0px;
+	}
+} */
+
+						
+/* .heading:first-child {
+	page-break-after: avoid;
+} */
+
+/* .heading {
+	page-break-before: avoid;
+	page-break-after: always;
+} */
+/* table, figure {
+  page-break-inside: avoid;
+} */
+
+/* .table-bordered > tbody > tr > td{
+	width: 5%;
+} */
+
+
+/* .print-wrapper {
+  padding: 20mm; 
+  background-color: white; 
+} */
+/* .page-break {
+        page-break-after: always;
+        break-after: page;
+    } */
+/* .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	vertical-align: middle !important;
+	
+} */
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+/* NOTE: the single-line (nowrap) rules for nm-lbl / tx-hdr-row / area-row are
+   PRINT-ONLY (see @media print below). On screen they must wrap, otherwise the
+   wide table overflows and adds a horizontal scrollbar. */
+/* चतुर / एकूण rowspan labels: vertically centered (not top) */
+td.lbl-mid {
+  vertical-align: middle !important;
+}
+/* टीप cell font size */
+td.tip-cell {
+  font-size: 12px;
+}
+/* EKUN tax sub-header: keep full font; let 2-word labels (वीज कर / आरोग्य कर /
+   सफाई कर) wrap CLEANLY to 2 lines, vertically centered & tight so the row
+   stays uniform and arranged (no font reduction). */
+tr.ekun-subhdr td {
+  padding: 3px 1px !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.2px !important;
+  vertical-align: middle !important;
+  white-space: normal !important;
+  word-break: keep-all !important;
+}
+/* EKUN is a separate table directly below the taxation table. Keep a small gap so
+   the two tables' borders never overlap/merge into a thick dark line — clean
+   separation instead. */
+/* Both n8img tables: kill the table-ELEMENT border so EVERY grid line comes only
+   from the cell (th/td) borders. Otherwise the table's own edge border stacks with
+   the edge cells' borders and, at the two-table junction, rasterises as a thick /
+   dark DOUBLE line in print (screen collapses it, the print raster does not). With
+   table borders off, the junction is just the previous table's last-row cell bottom
+   border — a single 1px line identical to every inner grid line. */
+table.n8img-fixed {
+  border: 0 !important;
+}
+table.n8img-ekun {
+  margin-top: 0 !important;
+}
+/* EKUN table is nested inside a full-width cell of the main table. The wrapper
+   cell (part of the main table) provides the outer FRAME; the nested table draws
+   ONLY its internal grid. All four of the nested table's OUTER edges are removed
+   so they don't double with the wrapper cell's borders (which rasterised as an
+   uneven/thick line). Junction is now the main table's internal border — crisp. */
+table.n8img-ekun tr:first-child td { border-top: 0 !important; }
+table.n8img-ekun tr:last-child td { border-bottom: 0 !important; }
+table.n8img-ekun tr td:first-child { border-left: 0 !important; }
+table.n8img-ekun tr td:last-child { border-right: 0 !important; }
+.heading{
+    text-align: center;
+    /* padding-top: 8px; */
+    font-size: 18px;
+    /* line-height:0.5; */
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right !important;
+}
+.sadarNode{
+    float: right !important;
+    font-weight: bold;
+    font-size: 12px;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+}
+.buttonPdf{
+    float: right;
+    /* font-size: 15px;
+    font-weight: bold; */
+    padding: 3px 25px;
+    /* background-color: #0bca11; */
+}
+
+
+.san{
+	text-align: center;
+    font-size: 15px;
+	line-height: 0.4;
+}
+
+.padding20{
+	/* padding:20px; */
+}
+.font15, .san, .right{
+	font-weight: bold;
+}
+
+
+/* this is important code for the print */
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   /* removes gaps between borders */
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  border: 1px solid #000;
+  padding: 2px 4px;            /* control inner cell spacing */
+  font-size: 8px;              /* small font for dense tables */
+  text-align: center;
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;         /* optional header shading */
+}
+
+/*  for pdf */
+/* Compact table style for PDF exports */
+.pdf-export-style table {
+  width: 100%;
+  border-collapse: collapse;   /* removes space between borders */
+}
+
+.pdf-export-style th,
+.pdf-export-style td {
+  border: 1px solid #000;      /* table borders */
+  padding: 2px 4px;            /* small cell padding */
+  font-size: 8px;              /* compact font size */
+  text-align: center;          /* center align content */
+}
+
+.pdf-export-style th {
+  background: #f2f2f2;         /* light grey header */
+}
+
+
+/* Print styles for landscape A4 with page breaks */
+@media print {
+	/* Hide buttons and alerts */
+	
+	.hidden-print,
+	.alert,
+	button {
+		display: none !important;
+	}
+
+	/* Set page orientation to landscape with balanced margins */
+	@page {
+		size: A4 landscape;
+		margin: 18mm 8mm 8mm 12mm !important; /* top 24, right 8, bottom 8, left 12 — content shifted left, right safe */
+	}
+
+	/* Ensure content fits on page */
+	* {
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+		font-family:  sans-serif !important;
+	}
+
+	/* Remove all default paragraph margins */
+	p {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	div {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	span {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Remove all Bootstrap container padding */
+	.container-fluid {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	#contentToExport {
+		width: 1450px !important;
+		margin: 0 auto !important;
+		padding: 0 !important;
+		zoom: 0.7;
+	}
+
+	/* Page break before each table */
+	.page-break {
+		page-break-before: always !important;
+		page-break-after: avoid !important;
+		page-break-inside: avoid !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		display: block !important;
+		height: auto !important;
+	}
+
+	/* First page should not have page break before */
+	.page-break:first-child {
+		page-break-before: avoid !important;
+	}
+
+	/* Heading sizes - balanced for readability and fitting on one page */
+	.heading {
+		font-size: 30px !important;
+		margin-bottom: 4px !important;
+		line-height: 1.4 !important;
+		padding-top: 0 !important;
+		font-weight: bold !important;
+	}
+
+	.san {
+		font-size: 23px !important;
+		margin-bottom: 3px !important;
+		line-height: 1.3 !important;
+	}
+
+	/* Header text - district, taluka, grampanchayat */
+	.font15 {
+		font-size: 19px !important;
+		line-height: 1.2 !important;
+		white-space: nowrap !important;
+	}
+
+	.col-md-12 {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	.col-md-4 {
+		display: table-cell !important;
+		width: 33.33% !important;
+		vertical-align: middle !important;
+		padding: 0 !important;
+	}
+
+	.col-md-4:nth-child(1) {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) {
+		text-align: center !important;
+	}
+
+	/* Ensure center column content is perfectly centered like san heading */
+	.col-md-4.center,
+	.col-md-4.center.tahsil {
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+		text-align: center !important;
+	}
+
+	.col-md-4:nth-child(3) {
+		text-align: right !important;
+	}
+
+	/* Make spans inside columns fill width */
+	.col-md-4 span {
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.col-md-4:nth-child(1) span,
+	.col-md-4:nth-child(1) .font15 {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) span,
+	.col-md-4:nth-child(2) .font15,
+	.center.tahsil span,
+	.center.tahsil .font15 {
+		text-align: center !important;
+		display: block !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		padding-left: 100px !important;
+	}
+
+	.col-md-4:nth-child(3) span,
+	.col-md-4:nth-child(3) .font15 {
+		text-align: right !important;
+	}
+
+	.col-md-8 {
+		display: table-cell !important;
+		width: 66.66% !important;
+		padding: 0 !important;
+	}
+
+	/* Ensure pan number row aligns properly */
+	.col-md-4 .font15.right,
+	.col-md-4 > span.right {
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.row {
+		margin-bottom: 0px !important;
+		display: table !important;
+		width: 100% !important;
+		table-layout: fixed !important;
+	}
+
+	.left {
+		float: none !important;
+		text-align: left !important;
+		display: block !important;
+	}
+
+	.center,
+	.center.tahsil {
+		text-align: center !important;
+		margin-left: 0 !important;
+		display: block !important;
+	}
+
+	.right {
+		float: none !important;
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Override for font15 class to ensure proper alignment */
+	.font15.left {
+		text-align: left !important;
+	}
+
+	.font15.right {
+		text-align: right !important;
+		display: block !important;
+		width: 100% !important;
+	}
+
+	/* Spacing between header and table */
+	.table-responsive {
+		margin-top: 0px !important;
+		overflow-x: visible !important;
+		padding: 0 !important;
+	}
+
+	/* Optimize table for printing - balanced readability */
+	table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin: 0 !important;
+		margin-top: 0px !important;
+		table-layout: fixed !important;
+		/* font-size: 12px !important; */
+		font-weight: 500;
+		font-family: sans-serif !important;
+	}
+
+	thead {
+		display: table-header-group !important;
+	}
+
+	tbody {
+		display: table-row-group !important;
+	}
+
+	th, td {
+		border: 1px solid #000 !important;
+		padding: 2px 2px !important;
+		word-wrap: break-word;
+		font-size: 18px !important;
+		text-align: center !important;
+		line-height: 1.2 !important;
+		vertical-align: middle !important;
+		font-weight: 500;
+		font-family: sans-serif !important;
+	}
+
+	th {
+		font-weight: bold !important;
+		background-color: #f0f0f0 !important;
+		padding: 2px 2px !important;
+		font-size: 18px !important;
+		font-weight: 500;
+		font-family: sans-serif !important;
+	}
+
+	/* Property photo: absolutely fill the whole photo cell (no top/bottom gap) */
+	.photo-cell {
+		position: relative !important;
+	}
+	.n8-photo {
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		object-fit: fill !important;
+		display: block !important;
+	}
+
+	/* Ensure मिलकत प्रकार cells display as separate columns in print */
+	tbody tr:first-child td {
+		display: table-cell !important;
+		border: 1px solid #000 !important;
+	}
+
+	/* Empty cells stay blank (no dash placeholder) */
+	td:empty::before {
+		content: "" !important;
+	}
+
+	/* Fix for rowspan cells - ensure proper height and spacing */
+	td[rowspan="2"] {
+		padding: 1px 1px !important;
+		line-height: 1.2 !important;
+		vertical-align: middle !important;
+		/* height: 45px !important;
+		min-height: 45px !important; */
+		white-space: normal !important;
+		word-wrap: break-word !important;
+	}
+
+	/* Image cell with rowspan */
+	td[rowspan="8"] {
+		/* padding: 1px !important; */
+		vertical-align: middle !important;
+		height: auto !important;
+	}
+
+	/* Reduce image height in print to allow proper row spacing */
+	td[rowspan="8"] img,
+	td[colspan="9"][rowspan="8"] img,
+	td img[style*="height: 270px"],
+	img[style*="height: 270px"] {
+		width: 100% !important;
+		height: 190px !important;
+		max-height: 190px !important;
+		min-height: 190px !important;
+		object-fit: fill !important;
+		display: block !important;
+		border: 1px solid #ccc !important;
+		background-color: #f9f9f9 !important;
+	}
+	.kk{
+		height: 5px !important;
+	}
+	/* Taxation header row: single-line headers — readable font that still fits
+	   one line inside narrow columns (no wrap; clip protects against overlap) */
+	/* Print: allow these headers to wrap (no cut) at the SAME font — fixed
+	   columns can't grow like the UI, so the only no-shrink option is wrapping */
+	tr.tx-hdr-row td {
+		white-space: normal !important;
+		word-break: keep-all !important;
+		line-height: 1.1 !important;
+		letter-spacing: -0.2px !important;
+		vertical-align: middle !important;
+		padding: 4px 1px !important;
+		overflow: visible !important;
+	}
+	/* एकूण जागेचे क्षेत्रफळ block: length/area headers on ONE line → block stays 2 rows
+	   (normal font kept; clip protects against any overlap) */
+	tr.area-row td:not([rowspan]) {
+		white-space: normal !important;
+		word-wrap: break-word !important;
+		overflow: visible !important;
+	}
+	td.nm-lbl {
+		white-space: nowrap !important;
+	}
+	/* टीप cell font size in print */
+	td.tip-cell {
+		font-size: 14px !important;
+	}
+	/* Style for no image placeholder */
+	td[rowspan="8"] img[src*="no_image.jpg"],
+	td[colspan="9"][rowspan="8"] img[src*="no_image.jpg"],
+	td img[src*="no_image.jpg"] {
+		object-fit: contain !important;
+		padding: 10px !important;
+		background-color: #f5f5f5 !important;
+		opacity: 0.7 !important;
+	}
+
+	/* Specific fix for rows containing rowspan cells*/
+	tr {
+		height: auto !important;
+		/* min-height: 25px !important; */
+	}
+
+	/* Force proper height distribution for rows */
+	tbody tr {
+		page-break-inside: avoid !important;
+	}
+
+	/* Make bold rows more prominent */
+	tr[style*="font-weight:bold"] td,
+	td b,
+	td strong {
+		font-weight: bold !important;
+	}
+
+	tr {
+		border: 1px solid #000 !important;
+		page-break-inside: avoid !important;
+	}
+
+	/* Prevent page breaks inside important elements */
+	.heading,
+	.row {
+		page-break-inside: avoid !important;
+	}
+
+	/* Ensure entire table with pan number stays on one page */
+	.page-break {
+		page-break-inside: avoid !important;
+		break-inside: avoid !important;
+	}
+
+	table {
+		page-break-inside: avoid !important;
+		break-inside: avoid !important;
+	}
+
+	.table-responsive {
+		page-break-inside: avoid !important;
+		break-inside: avoid !important;
+	}
+
+	/* Ensure all content within page-break stays together */
+	.page-break * {
+		page-break-inside: avoid !important;
+	}
+
+	/* Ensure no extra margins/padding */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+}
+
+
+/* ---- Mobile (screen only — print/PDF unaffected) ----
+   Wide government-form layout overlaps on phones; keep it intact at a fixed
+   min-width and let the user pan horizontally instead of overlapping. */
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #contentToExport {
+    min-width: 760px;
+    margin: 0 auto;
+  }
+  .table-responsive {
+    overflow-x: visible !important;
+  }
+}
+
+
+/* ---- Mobile: center the title block across full report width ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-12,
+  #contentToExport .row { width: 100% !important; }
+  #contentToExport .heading,
+  #contentToExport .san,
+  #contentToExport .namna {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
+}
+
+
+/* ---- Mobile: keep जिल्हा/तालुका/ग्रामपंचायत row on ONE line (3 cols) ---- */
+@media screen and (max-width: 768px) {
+  #contentToExport .col-md-4 {
+    width: 33.33% !important;
+    float: left !important;
+    display: block !important;
+  }
+  #contentToExport .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  #contentToExport .left  { float: left  !important; text-align: left  !important; }
+  #contentToExport .center { text-align: center !important; }
+  #contentToExport .right { float: right !important; text-align: right !important; }
+}

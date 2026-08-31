@@ -22,7 +22,9 @@ export const routes: Routes = [
     { path: 'toilet-yadi', loadComponent: () => import('./pages/ahval/toilet-yadi/toilet-yadi.component').then(m => m.ToiletYadiComponent) },
     { path: 'malmatta-grahak-yadi', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi.component').then(m => m.MalmattaGrahakYadiComponent) },
     { path: 'namuna-8-form', loadComponent: () => import('./pages/ahval/namuna8form/namuna8form.component').then(m => m.Namuna8formComponent) },
+    { path: 'namuna-8-form-new', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-form-new.component').then(m => m.Namuna8FormNewComponent) },
     { path: 'namuna-9-form', loadComponent: () => import('./pages/ahval/namuna9form/namuna9form.component').then(m => m.Namuna9formComponent) },
+    { path: 'namuna-9-form-new', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9form-new.component').then(m => m.Namuna9formNewComponent) },
     { path: 'magniche-bill', loadComponent: () => import('./pages/ahval/magniche-bill/magniche-bill.component').then(m => m.MagnicheBillComponent) },
     { path: 'magniche-bill-ward', loadComponent: () => import('./pages/ahval/magniche-bill-ward/magniche-bill-ward.component').then(m => m.MagnicheBillWardComponent) },
     { path: 'imla-kar-form', loadComponent: () => import('./pages/ahval/imla-kar-form/imla-kar-form.component').then(m => m.ImlaKarFormComponent) },
@@ -42,4 +44,67 @@ export const routes: Routes = [
     { path: 'below-poverty-certificate', loadComponent: () => import('./pages/certificates/below-poverty-certificate/below-poverty-certificate.component').then(m => m.BelowPovertyCertificateComponent) },
 
     { path: 'table-with-pdf', loadComponent: () => import('./pages/table-with-pdf/table-with-pdf.component').then(m => m.TableWithPdfComponent) },
+    {path: 'namuna-8-1', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component)},
+    {path: 'namuna-9-1', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component)},
+    {path: 'namuna-8-sarkari', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent)},
+    {path: 'namuna-8-new-version-customer-page', loadComponent: () => import('./pages/customer/namuna-8-new-version-customer-page/namuna-8-new-version-customer-page.component').then(m => m.Namuna8NewVersionCustomerPageComponent)},   
+    
+
+    {path: 'ward-wise-adhar-list', loadComponent: () => import('./pages/ahval/adhar-card-show/ward-wise-adhar-card-list/ward-wise-adhar-card-list.component').then(m => m.WardWiseAdharCardListComponent)},
+    {path: 'ward-wise-mobile-no-list', loadComponent: () => import('./pages/ahval/mobile-number/ward-wise-mobile-no-list/ward-wise-mobile-no-list.component').then(m => m.WardWiseMobileNoListComponent)},
+    {path: 'ward-wise-pinyache-pani-list', loadComponent: () => import('./pages/ahval/pani-vyavasta-yadi/ward-wise-pinyache-pani-list/ward-wise-pinyache-pani-list.component').then(m => m.WardWisePinyachePaniListComponent)},
+    {path: 'ward-wise-toilet-list', loadComponent: () => import('./pages/ahval/toilet-yadi/ward-wise-toilet-list/ward-wise-toilet-list.component').then(m => m.WardWiseToiletListComponent)},
+
+    {path: 'malmatta-darkahchi-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent)},
+    {path: 'namuna-10-kar-vasuli', loadComponent: () => import('./pages/customer-vasuli/namuna-10-vasuli/namuna-10-vasuli.component').then(m => m.Namuna10VasuliComponent)},
+    {path: 'add-download-pdf-ferfar', loadComponent: () => import('./pages/ferfaryadi/addview-pdf/addview-pdf.component').then(m => m.AddviewPdfComponent)},
+
+    {path: 'malmatta-khula-bhukhand-yadi-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-khula-bhukhand/malmatta-grahak-yadi-khula-bhukhand.component').then(m => m.MalmattaGrahakYadiKhulaBhukhandComponent)},
+    {path: 'ghar-kar-lavaych-ahe-list', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-ghar-kar/malmatta-grahak-yadi-ghar-kar.component').then(m => m.MalmattaGrahakYadiGharKarComponent)},
+
+    {path: 'namuna-8-anukramika-list', loadComponent: () => import('./pages/ahval/namuna8formNew/anukramika/anukramika.component').then(m => m.AnukramikaComponent) },
+    {path: 'namuna-8-ward-new-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna8ward-new/namuna8ward-new.component').then(m => m.Namuna8wardNewComponent) },
+    {path:'get-namuna-8-1-single-vard-list', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna81-single-ward/namuna81-single-ward.component').then(m => m.Namuna81SingleWardComponent) },
+    {path:'get-namuna-8-images', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-images/namuna-8-images.component').then(m => m.Namuna8ImagesComponent) },
+    {path:'get-namuna-8-ghosvara', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-ghosvara/namuna-8-ghosvara.component').then(m => m.Namuna8GhosvaraComponent) },
+    {path:'get-namuna-8-sarkari-ward', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-sarkari-ward/namuna-8-sarkari-ward.component').then(m => m.Namuna8SarkariWardComponent) },
+
+    {path: 'imla-kar-list', loadComponent: () => import('./pages/ahval/imla-kar-form-new/imlakar-report/imlakar-report.component').then(m => m.ImlakarReportComponent) },
+    {path: 'imla-kar-anukramnika-list', loadComponent: () => import('./pages/ahval/imla-kar-form-new/imlakar-anukramanika/imlakar-anukramanika.component').then(m => m.ImlakarAnukramanikaComponent) },
+
+    {path: 'magniche-bill-ward-report-129-1', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-1/report-129-1.component').then(m => m.Report1291Component) },
+    {path: 'bill-pay/:token', loadComponent: () => import('./pages/bill-pay/bill-pay.component').then(m => m.BillPayComponent) },
+    {path: 'bill-payments', loadComponent: () => import('./pages/bill-payments/bill-payments.component').then(m => m.BillPaymentsComponent) },
+    {path: 'public-report/namuna-8-1/:token', loadComponent: () => import('./pages/customer/namuna-8-1/namuna-8-1.component').then(m => m.Namuna81Component) },
+    {path: 'public-report/namuna-9-1/:token', loadComponent: () => import('./pages/customer/namuna-9-1/namuna-9-1.component').then(m => m.Namuna91Component) },
+    {path: 'public-report/namuna-8-sarkari/:token', loadComponent: () => import('./pages/customer/namuna-8-sarkari/namuna-8-sarkari.component').then(m => m.Namuna8SarkariComponent) },
+    {path: 'public-report/namuna-8-1-single-vard/:token', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna81-single-ward/namuna81-single-ward.component').then(m => m.Namuna81SingleWardComponent) },
+    {path: 'public-report/namuna-8-images/:token', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-images/namuna-8-images.component').then(m => m.Namuna8ImagesComponent) },
+    {path: 'public-report/namuna-8-vard-new/:token', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna8ward-new/namuna8ward-new.component').then(m => m.Namuna8wardNewComponent) },
+    {path: 'public-report/namuna-8-sarkari-ward/:token', loadComponent: () => import('./pages/ahval/namuna8formNew/namuna-8-sarkari-ward/namuna-8-sarkari-ward.component').then(m => m.Namuna8SarkariWardComponent) },
+    {path: 'public-report/malmatta-darkachi-yadi/:token', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-dharkachi-yadi/malmatta-dharkachi-yadi.component').then(m => m.MalmattaDharkachiYadiComponent) },
+    {path: 'public-report/malmatta-khula-bhukhand/:token', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-khula-bhukhand/malmatta-grahak-yadi-khula-bhukhand.component').then(m => m.MalmattaGrahakYadiKhulaBhukhandComponent) },
+    {path: 'public-report/malmatta-ghar-kar/:token', loadComponent: () => import('./pages/ahval/malmatta-grahak-yadi/malmatta-grahak-yadi-ghar-kar/malmatta-grahak-yadi-ghar-kar.component').then(m => m.MalmattaGrahakYadiGharKarComponent) },
+    {path: 'public-report/namuna-9-vard-new/:token', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9/namuna9.component').then(m => m.Namuna9Component) },
+    {path: 'public-report/magniche-bill-ward-report-129-1/:token', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-1/report-129-1.component').then(m => m.Report1291Component) },
+    {path: 'public-report/magniche-bill-ward-report-129-2/:token', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
+    {path: 'public-report/imla-kar/:token', loadComponent: () => import('./pages/ahval/imla-kar-form-new/imlakar-report/imlakar-report.component').then(m => m.ImlakarReportComponent) },
+    {path: 'magniche-bill-ward-report-129-2', loadComponent: () => import('./pages/ahval/magniche-bill-ward/report-129-2/report-129-2.component').then(m => m.Report1292Component) },
+
+    {path: 'namuna-9-anukramika-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-anukramnika/namuna9-anukramnika.component').then(m => m.Namuna9AnukramnikaComponent) },
+    {path: 'namuna-9-ward-new-list', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9/namuna9.component').then(m => m.Namuna9Component) },
+    {path: 'get-namuna-9-new', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-new/namuna9-new.component').then(m => m.Namuna9NewComponent) },
+    {path: 'get-namuna-9-ghosvara', loadComponent: () => import('./pages/ahval/namuna9form-new/namuna9-ghosvara/namuna9-ghosvara.component').then(m => m.Namuna9GhosvaraComponent) },
+
+    // chalu-khatedar
+    {path: 'chalu-khatedar', loadComponent: () => import('./pages/dashboard/chalu-khatedar/chalu-khatedar.component').then(m => m.ChaluKhatedarComponent) },
+    {path: 'adhikrut', loadComponent: () => import('./pages/dashboard/adhikrut/adhikrut.component').then(m => m.AdhikrutComponent) },
+    {path: 'indira-awas', loadComponent: () => import('./pages/dashboard/indira-awas/indira-awas.component').then(m => m.IndiraAwasComponent) },
+    {path: 'imla-kar', loadComponent: () => import('./pages/dashboard/imla-kar/imla-kar.component').then(m => m.ImlaKarComponent) },
+    {path: 'ghar-kar', loadComponent: () => import('./pages/dashboard/ghar-kar/ghar-kar.component').then(m => m.GharKarComponent) },
+    {path: 'odogyik', loadComponent: () => import('./pages/dashboard/audogyik/audogyik.component').then(m => m.audogyikComponent) },
+    {path: 'manora', loadComponent: () => import('./pages/dashboard/manora/manora.component').then(m => m.manorakComponent) },
+
+
+
 ];

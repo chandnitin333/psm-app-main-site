@@ -7,14 +7,17 @@ import { catchError } from 'rxjs/operators';
 export class HttpHeaderInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Set common headers
+    // Set common headers — skip Content-Type for FormData so the browser
+    // can set the multipart boundary itself.
     let token = localStorage.getItem('token');
-    const modifiedReq = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const isFormData = req.body instanceof FormData;
+    const headers: { [key: string]: string } = {
+      'Authorization': `Bearer ${token}`
+    };
+    if (!isFormData) {
+      headers['Content-Type'] = 'application/json';
+    }
+    const modifiedReq = req.clone({ setHeaders: headers });
     // console.log('modifiedReq', modifiedReq);
     // Handle errors
     return next.handle(modifiedReq).pipe(

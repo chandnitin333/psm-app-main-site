@@ -1,0 +1,494 @@
+.billpay-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+    font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+    background: #f4f6fb;
+    min-height: 100vh;
+}
+
+.billpay-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.billpay-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: #214162;
+    text-align: center;
+}
+
+.loading-text {
+    text-align: center;
+    color: #666;
+}
+
+.bill-summary .bill-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e3e7ef;
+}
+
+.bill-summary .bill-row.total {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 17px;
+    color: #214162;
+}
+
+.bill-label { color: #5a6478; }
+.bill-value { font-weight: 600; color: #2c3e50; }
+
+.scanner-heading {
+    margin: 0 0 14px;
+    font-size: 17px;
+    color: #214162;
+    text-align: center;
+}
+
+.scanner-grid {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.scanner-box {
+    flex: 1 1 260px;
+    max-width: 300px;
+    text-align: center;
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    padding: 12px;
+    background: #f8fafc;
+}
+
+.scanner-box h4 {
+    margin: 0 0 10px;
+    color: #214162;
+}
+
+.scanner-amount {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.scanner-amount b {
+    color: #166534;
+    font-size: 16px;
+}
+
+.scanner-box img {
+    width: 100%;
+    max-width: 260px;
+    border-radius: 6px;
+}
+
+.scanner-note {
+    text-align: center;
+    color: #888;
+}
+
+.scanner-clickable {
+    cursor: zoom-in;
+}
+
+.bank-details {
+    text-align: left;
+    background: #fff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.bank-note {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #b45309;
+    font-weight: 600;
+    text-align: center;
+}
+
+.bank-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 4px 0;
+    border-bottom: 1px dotted #e5e9f0;
+    font-size: 13px;
+}
+
+.bank-row span { color: #64748b; }
+.bank-row b { color: #1e293b; word-break: break-all; text-align: right; }
+
+.pay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.upi-btn {
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5f259f, #7b3fbf);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.upi-btn:active { transform: scale(0.98); }
+
+.download-btn {
+    width: 100%;
+    padding: 11px 10px;
+    border: 1px solid #214162;
+    border-radius: 8px;
+    background: #fff;
+    color: #214162;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.download-btn:active { transform: scale(0.98); }
+
+.lightbox-download {
+    width: auto;
+    max-width: 320px;
+    background: #fff;
+}
+
+.scanner-tap-hint {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Fullscreen scanner lightbox */
+.scanner-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px;
+    animation: lightboxFade 0.18s ease;
+}
+
+@keyframes lightboxFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-title {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.lightbox-img {
+    max-width: min(92vw, 480px);
+    max-height: 72vh;
+    border-radius: 10px;
+    background: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.lightbox-hint {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 13px;
+    text-align: center;
+}
+
+.claim-form .form-field {
+    margin-bottom: 12px;
+}
+
+.claim-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #214162;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.claim-success {
+    text-align: center;
+    color: #2e7d32;
+    font-weight: 600;
+    padding: 12px;
+}
+
+.payments-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payments-table th,
+.payments-table td {
+    border: 1px solid #e3e7ef;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.payments-table th {
+    background: #f1f5f9;
+    color: #214162;
+}
+
+.status-pill {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-claimed { background: #fef9c3; color: #854d0e; }
+.status-verified { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+
+.mode-options {
+    display: flex;
+    gap: 18px;
+    padding: 4px 0;
+}
+
+.mode-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+.txn-preview {
+    margin-top: 8px;
+}
+
+.txn-preview img {
+    max-width: 220px;
+    max-height: 280px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.remark-cell {
+    max-width: 140px;
+    word-break: break-word;
+    font-size: 13px;
+    color: #5a6478;
+}
+
+textarea.input {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.readonly-field {
+    background: #f1f5f9;
+    color: #475569;
+    cursor: not-allowed;
+}
+
+.kar-status-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.kar-status-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px;
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.kar-status-name {
+    font-weight: 700;
+    color: #214162;
+}
+
+.status-pending { background: #e2e8f0; color: #475569; }
+
+/* Horizontal scroll wrapper for the claims table on narrow screens */
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll .payments-table {
+    min-width: 560px;
+}
+
+/* ---------- Mobile responsiveness ---------- */
+@media (max-width: 600px) {
+    .billpay-wrapper {
+        padding: 8px;
+    }
+
+    .billpay-card {
+        padding: 14px 12px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+
+    .billpay-title {
+        font-size: 17px;
+    }
+
+    .scanner-heading {
+        font-size: 15px;
+    }
+
+    .bill-summary .bill-row {
+        padding: 7px 0;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+    .bill-summary .bill-row.total {
+        font-size: 15px;
+    }
+
+    .bill-value {
+        text-align: right;
+    }
+
+    /* Scanners stack one below the other, full width */
+    .scanner-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .scanner-box {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .scanner-box img {
+        max-width: 100%;
+    }
+
+    /* 16px input font prevents iOS auto-zoom on focus */
+    .input {
+        font-size: 16px;
+        padding: 11px 12px;
+    }
+
+    .submit-btn {
+        padding: 14px;
+    }
+
+    .mode-options {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .kar-status-row {
+        gap: 8px;
+    }
+
+    .kar-status-box {
+        padding: 8px 4px;
+    }
+
+    .kar-status-name {
+        font-size: 13px;
+    }
+
+    .payments-table th,
+    .payments-table td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+
+    .txn-preview img {
+        max-width: 100%;
+    }
+
+    .remark-cell {
+        max-width: 100px;
+    }
+}
+
+@media (max-width: 360px) {
+    .billpay-title {
+        font-size: 15px;
+    }
+
+    .kar-status-row {
+        flex-direction: column;
+    }
+}

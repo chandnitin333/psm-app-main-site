@@ -8,7 +8,10 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ApiService {
 
-  private baseUrl: string = 'http://localhost:4444/api';
+  private baseUrl: string = 'https://oldapi.gramvikas.co.in/api';
+  public file_baseUrl: string = 'https://oldapi.gramvikas.co.in/uploads/';
+  // public file_baseUrl: string = 'http://localhost:4444/uploads/';
+  // public  baseUrl: string = 'http://localhost:4444/api';
   constructor(private http: HttpClient, private router: Router) {
     console.log('ApiService');
   }
@@ -27,6 +30,28 @@ export class ApiService {
       })
     );
   }
+  async postFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`${this.baseUrl}/${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // ⚠️ Do NOT set 'Content-Type'; browser handles multipart boundary
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error ${response.status}: ${errorText}`);
+        }
+
+        const data: T = await response.json();
+        return data;
+    }
+
+
 
 
   put<T>(endpoint: string, data: any): Observable<T> {
@@ -79,11 +104,30 @@ export class ApiService {
     return null;
   }
   isLoggedIn() {
-    return this.getToken() !== null;
+    const token = this.getToken();
+    if (!token) return false;
+
+    // Check if token is expired
+    return !this.isTokenExpired();
+  }
+
+  isTokenExpired(): boolean {
+    const decodedToken = this.getDecodedToken();
+    if (!decodedToken || !decodedToken.exp) {
+      return true;
+    }
+
+    // Get current time in seconds
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    // Check if token has expired
+    return decodedToken.exp < currentTime;
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('randomNumber');
+    localStorage.removeItem('rno');
     this.router.navigate(['login']);
   }
 

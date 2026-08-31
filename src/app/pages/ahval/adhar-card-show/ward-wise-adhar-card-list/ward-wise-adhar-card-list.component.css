@@ -1,0 +1,304 @@
+table{
+    font-size: 12px;
+}
+.buttonPdf{
+	margin-left: -100px;
+}
+@media only screen and (max-width: 600px) {
+	.buttonPdf{
+		margin-left: 0px;
+	}
+}
+
+/* A4 Portrait*/
+ @page {
+        size: A4 portrait;
+		margin: 10mm;
+		}
+						
+.heading:first-child {
+	/* page-break-after: avoid; */
+}
+
+.heading {
+	/* page-break-before: avoid; */
+	/* page-break-after: always; */
+}
+table, figure {
+  /* page-break-inside: avoid; */
+}
+
+.table-bordered > tbody > tr > td{
+	width: 5%;
+}
+
+
+
+/* style sheet for "A4" printing */
+@media print {
+	/* Hide buttons and alerts */
+	.hidden-print,
+	.alert,
+	button {
+		display: none !important;
+	}
+
+	/* Set page orientation to portrait */
+	@page {
+		size: A4 portrait;
+		margin: 8mm;
+	}
+
+	/* Ensure content fits on page */
+	* {
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Remove all default paragraph margins */
+	p {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	div {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	span {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Remove all Bootstrap container padding */
+	.container-fluid {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	#contentToExport {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+    .footer, #non-printable {
+        display: none !important;
+    }
+
+	/* Reduce heading size for better space utilization */
+	.heading {
+		font-size: 18px !important;
+		margin-bottom: 2px !important;
+		line-height: 1.1 !important;
+	}
+
+	/* Reduce spacing for ward number */
+	.padding20 {
+		margin-bottom: 2px !important;
+		font-size: 13px !important;
+		line-height: 1.1 !important;
+	}
+
+	/* Minimal spacing between header and table */
+	.table-responsive {
+		margin-top: 3px !important;
+		overflow-x: visible !important;
+	}
+
+	.row {
+		margin-bottom: 2px !important;
+		display: table !important;
+		width: 100% !important;
+		table-layout: fixed !important;
+	}
+
+	/* Make header text smaller */
+	.font15 {
+		font-size: 13px !important;
+		line-height: 1.1 !important;
+	}
+
+	.col-md-12 {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	.col-md-4 {
+		display: table-cell !important;
+		width: 33.33% !important;
+		vertical-align: middle !important;
+	}
+
+	.col-md-4:nth-child(1) {
+		text-align: left !important;
+	}
+
+	.col-md-4:nth-child(2) {
+		text-align: center !important;
+	}
+
+	.col-md-4:nth-child(3) {
+		text-align: right !important;
+	}
+
+	.col-md-4 span {
+		display: inline-block !important;
+	}
+
+	.left {
+		float: none !important;
+		text-align: left !important;
+	}
+
+	.center.tahsil {
+		text-align: center !important;
+		margin-left: 0 !important;
+	}
+
+	.right {
+		float: none !important;
+		text-align: right !important;
+	}
+
+	/* Optimize table for printing */
+	table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin-top: 3px !important;
+	}
+
+	thead {
+		display: table-header-group !important;
+	}
+
+	tbody {
+		display: table-row-group !important;
+	}
+
+	th, td {
+		border: 1px solid #000 !important;
+		padding: 4px 3px !important;
+		word-wrap: break-word;
+		font-size: 14px !important;
+		text-align: center !important;
+	}
+
+	th {
+		font-weight: bold !important;
+		background-color: #f0f0f0 !important;
+		padding: 4px 3px !important;
+		font-size: 14px !important;
+	}
+
+	tr {
+		border: 1px solid #000 !important;
+	}
+
+	/* Prevent page breaks inside important elements */
+	.heading,
+	.row,
+	tr {
+		page-break-inside: avoid;
+	}
+
+	/* Ensure no extra margins/padding */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	vertical-align: middle !important;
+	
+}
+/* .table-bordered,
+.table-bordered>thead>tr>th, 
+.table-bordered>tbody>tr>td,
+.table-bordered > tbody > tr > th{
+    border: 2px solid #000  !important;
+	text-align: center !important;
+    padding: 5px 3px !important;
+}
+td{
+	border: solid 1px #fff !important;
+} */
+table, th, td {
+  border: 1px solid black;
+  text-align: center !important;
+}
+.heading{
+    text-align: center;
+    /* padding-top: -1px; */
+    font-size: 16px;
+}
+.font15{
+	font-size:12px;
+}
+.left{
+	float:left;
+}
+.center{
+	text-align:center;
+}
+.right{
+	float:right;
+}
+.borderDouble{
+    border-bottom: 3px double #000;
+}
+.table-responsive {
+    overflow-x: initial !important;
+    margin-top: 15px !important;
+}
+.buttonPdf{
+    float: right;
+    /* font-size: 15px;
+    font-weight: bold; */
+    padding: 3px 25px;
+    /* background-color: #0bca11; */
+}
+
+@media only screen and (max-width: 600px) {
+    .padding20{
+		/* padding:15px; */
+	}
+	.left{
+		float:initial;
+	}
+	.center{
+		text-align:initial;
+	}
+	.right{
+		float:initial;
+	}
+}
+.san{
+	text-align: center;
+    font-size: 14px;
+	line-height: 0.4;
+}
+
+.padding20{
+	/* padding:20px; */
+	margin-bottom: 10px;
+}
+.font15, .san, .right{
+	font-weight: bold;
+}
+
+
+/* Removed duplicate @media print block - all print styles are in the main @media print section above */
+
+ .page-break {
+  page-break-before: always;
+}

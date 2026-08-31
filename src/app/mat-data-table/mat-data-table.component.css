@@ -6,7 +6,7 @@
 }
 
 .mat-mdc-header-cell {
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -15,15 +15,44 @@
 }
 
 /* Hover effect on header cells */
-.mat-mdc-header-cell:hover {
+/* .mat-mdc-header-cell:hover {
   background-color: #eeeeee;
-}
+} */
 
 /* Sort icon styling */
 .mat-sort-header-arrow {
-  color: #757575;
+  color: #fff;
 }
 
 .text-bold{
   font-weight: bold !important;
+}
+
+::ng-deep .mat-header-row {
+  background-color: #e3f2fd; /* Light blue */
+  color:#fff !important;
+}
+
+::ng-deep .mat-header-cell {
+  color: #0d47a1; /* Dark blue */
+  font-weight: 600;
+}
+
+.custom-header {
+  background-color: #214162; /* Light red background */
+  color:#fff !important;
+}
+
+::ng-deep .custom-header .mat-header-cell {
+  color: #b71c1c;       /* Deep red text */
+  font-weight: bold;
+}
+
+.indicator-check {
+  color: #2e7d32;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+  margin-left: 6px;
 }
